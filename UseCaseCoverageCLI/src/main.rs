@@ -144,10 +144,8 @@ fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String
                 i += 1;
                 output = args.get(i).cloned();
             }
-            "-h" | "--help" => {
-                if command.is_none() {
-                    command = Some(args[i].clone());
-                }
+            "-h" | "--help" if command.is_none() => {
+                command = Some(args[i].clone());
             }
             s if !s.starts_with('-') && command.is_none() => {
                 command = Some(s.to_string());
@@ -162,7 +160,7 @@ fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String
 
 fn dispatch(root: &Path, output: Option<&Path>, command: Option<&str>) -> Result<String, String> {
     match command {
-        None | Some("-h") | Some("--help") => Ok(help_message()),
+        None | Some("-h" | "--help") => Ok(help_message()),
         Some("lint") => run_lint(root, output),
         Some("report") => run_report(root, output),
         Some(unknown) => Err(format!("Unknown command or option: {unknown}\n\n{}", help_message())),

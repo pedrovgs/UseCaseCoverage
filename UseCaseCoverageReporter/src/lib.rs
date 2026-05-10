@@ -32,8 +32,8 @@ pub fn generate_html_report(
     let report_json = serde_json::to_string_pretty(&report_data)
         .map_err(|error| std::io::Error::other(format!("JSON serialization failed: {error}")))?;
 
-    let report_date = chrono::Local::now().format("%b %d, %Y").to_string();
-    fs::write(output_dir.join("index.html"), html_template(repo_name, &report_date, &report_json))?;
+    let date_str = chrono::Local::now().format("%b %d, %Y").to_string();
+    fs::write(output_dir.join("index.html"), html_template(repo_name, &date_str, &report_json))?;
     fs::write(output_dir.join("styles.css"), css_template())?;
     fs::write(output_dir.join("app.ts"), ts_template())?;
     fs::write(output_dir.join("app.js"), js_template())?;
@@ -151,11 +151,12 @@ fn build_report_data(
     })
 }
 
+#[allow(clippy::too_many_lines)]
 fn build_growth_data(
     features: &[FeatureDocument],
     coverage_index: &ArtifactCoverageIndex,
 ) -> Value {
-    fn is_leap(y: i32) -> bool {
+    const fn is_leap(y: i32) -> bool {
         y % 4 == 0 && (y % 100 != 0 || y % 400 == 0)
     }
 
@@ -181,7 +182,7 @@ fn build_growth_data(
         };
 
         let mut m = 1u32;
-        for &md in month_days.iter() {
+        for &md in &month_days {
             if days < md {
                 break;
             }
@@ -203,7 +204,7 @@ fn build_growth_data(
         }
     }
 
-    fn month_short_name(month: u32) -> &'static str {
+    const fn month_short_name(month: u32) -> &'static str {
         match month {
             1 => "Jan",
             2 => "Feb",
@@ -300,6 +301,7 @@ fn is_bug(artifact_type: Option<&str>) -> bool {
     })
 }
 
+#[allow(clippy::too_many_lines)]
 fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String {
     format!(
         r##"<!DOCTYPE html>
@@ -478,8 +480,9 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
     )
 }
 
+#[allow(clippy::too_many_lines)]
 const fn css_template() -> &'static str {
-    r##":root {
+    r":root {
   --bg-main: #0b1118;
   --bg-sidebar: #080c12;
   --bg-card: #151b23;
@@ -736,12 +739,12 @@ tbody tr:hover { background: rgba(255,255,255,0.02); }
 .steps-list li { margin-bottom: 0.25rem; }
 .expected-section { margin-top: 0.75rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
 .expected-title { font-weight: 600; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.25rem; text-transform: uppercase; }
-"##
+"
 }
 
 #[allow(clippy::too_many_lines)]
 const fn ts_template() -> &'static str {
-    r##"// @ts-nocheck
+    r#"// @ts-nocheck
 
 function loadData() {
   const el = document.getElementById('report-data');
@@ -1447,11 +1450,12 @@ function bootstrap() {
 }
 
 void bootstrap();
-"##
+"#
 }
 
+#[allow(clippy::too_many_lines)]
 const fn js_template() -> &'static str {
-    r##"
+    r#"
 function loadData() {
   const el = document.getElementById('report-data');
   return JSON.parse(el.textContent);
@@ -2154,7 +2158,7 @@ function bootstrap() {
 }
 
 void bootstrap();
-"##
+"#
 }
 
 #[cfg(test)]

@@ -1,0 +1,31 @@
+---
+source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 32
+expression: features
+---
+- sourcePath: simple_feature.ucc
+  schemaVersion: "1.0"
+  feature:
+    id: feature-simple
+    title: A simple feature
+    createdAt: 2026-05-10
+    updatedAt: 2026-05-10
+    lastModifiedAt: "2026-05-10 17:42"
+    description: "This is the most simple scenario for an e2e test. It contains a single feature with a single use case.\n"
+  tags: []
+  platforms: []
+  relatedFeatures: []
+  artifacts:
+    - id: ucc-001
+      artifactType: ~
+      createdAt: 2026-05-10
+      updatedAt: ~
+      lastModifiedAt: "2026-05-10 17:42"
+      title: Simple single use case
+      priority: medium
+      related: []
+      platforms: []
+      steps:
+        - Step 1
+      expected:
+        - Expected 1

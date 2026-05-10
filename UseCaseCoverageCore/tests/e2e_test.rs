@@ -7,7 +7,7 @@ fn parse_scenario(scenario: &str) -> Vec<FeatureDocument> {
         std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR should be set");
     let root = Path::new(&manifest_dir).parent().unwrap().join("e2e").join(scenario);
     let mut features = collect_features_from(&root)
-        .unwrap_or_else(|_| panic!("Should successfully parse the '{}' scenario", scenario));
+        .unwrap_or_else(|_| panic!("Should successfully parse the '{scenario}' scenario"));
 
     // Sort features explicitly to ensure deterministic snapshot order
     features.sort_by(|a, b| a.feature.id.cmp(&b.feature.id));

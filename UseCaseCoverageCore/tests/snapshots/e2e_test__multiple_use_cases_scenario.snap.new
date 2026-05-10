@@ -1,0 +1,44 @@
+---
+source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 38
+expression: features
+---
+- sourcePath: feature.ucc
+  schemaVersion: "1.0"
+  feature:
+    id: feature-multiple-use-cases
+    title: Feature with multiple use cases
+    createdAt: 2026-05-10
+    updatedAt: ~
+    lastModifiedAt: "2026-05-10 17:49"
+    description: "This scenario contains 1 feature and multiple use cases.\n"
+  tags: []
+  platforms: []
+  relatedFeatures: []
+  artifacts:
+    - id: ucc-001
+      artifactType: ~
+      createdAt: 2026-05-10
+      updatedAt: ~
+      lastModifiedAt: "2026-05-10 17:49"
+      title: First use case
+      priority: high
+      related: []
+      platforms: []
+      steps:
+        - Step 1
+      expected:
+        - Expected 1
+    - id: ucc-002
+      artifactType: ~
+      createdAt: 2026-05-10
+      updatedAt: ~
+      lastModifiedAt: "2026-05-10 17:49"
+      title: Second use case
+      priority: medium
+      related: []
+      platforms: []
+      steps:
+        - Step 1
+      expected:
+        - Expected 1
