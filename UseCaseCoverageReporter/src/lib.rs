@@ -14,29 +14,28 @@ pub fn build_report(covered: u32, total: u32) -> String {
     format!("Use case coverage: {covered}/{total} ({percentage:.2}%)")
 }
 
-/// Generates a responsive report bundle (`HTML + CSS + TS + JS`) in `<root>/.ucc/`.
+/// Generates a responsive report bundle (`HTML + CSS + TS + JS`) in `output_dir`.
 ///
 /// # Errors
 ///
 /// Returns an error if report directory or files cannot be written.
 pub fn generate_html_report(
-    root: &Path,
+    output_dir: &Path,
     features: &[FeatureDocument],
     lint_results: &[UccLintResult],
     coverage_index: &ArtifactCoverageIndex,
 ) -> Result<(), std::io::Error> {
-    let report_dir = root.join(".ucc");
-    fs::create_dir_all(&report_dir)?;
+    fs::create_dir_all(output_dir)?;
 
     let report_data = build_report_data(features, lint_results, coverage_index);
     let report_json = serde_json::to_string_pretty(&report_data)
         .map_err(|error| std::io::Error::other(format!("JSON serialization failed: {error}")))?;
 
-    fs::write(report_dir.join("index.html"), html_template())?;
-    fs::write(report_dir.join("styles.css"), css_template())?;
-    fs::write(report_dir.join("app.ts"), ts_template())?;
-    fs::write(report_dir.join("app.js"), js_template())?;
-    fs::write(report_dir.join("data.json"), report_json)?;
+    fs::write(output_dir.join("index.html"), html_template())?;
+    fs::write(output_dir.join("styles.css"), css_template())?;
+    fs::write(output_dir.join("app.ts"), ts_template())?;
+    fs::write(output_dir.join("app.js"), js_template())?;
+    fs::write(output_dir.join("data.json"), report_json)?;
 
     Ok(())
 }
@@ -616,20 +615,20 @@ mod tests {
 
         let coverage_index = ArtifactCoverageIndex::default();
 
-        generate_html_report(root, &features, &lint_results, &coverage_index)
+        let output_dir = root.join(".ucc");
+        generate_html_report(&output_dir, &features, &lint_results, &coverage_index)
             .expect("report should be generated");
 
-        let output = root.join(".ucc");
-        assert!(output.join("index.html").exists());
-        assert!(output.join("styles.css").exists());
-        assert!(output.join("app.ts").exists());
-        assert!(output.join("app.js").exists());
-        assert!(output.join("data.json").exists());
+        assert!(output_dir.join("index.html").exists());
+        assert!(output_dir.join("styles.css").exists());
+        assert!(output_dir.join("app.ts").exists());
+        assert!(output_dir.join("app.js").exists());
+        assert!(output_dir.join("data.json").exists());
 
-        let html = fs::read_to_string(output.join("index.html")).expect("html should be readable");
+        let html = fs::read_to_string(output_dir.join("index.html")).expect("html should be readable");
         assert!(html.contains("UseCaseCoverage Report"));
 
-        let json = fs::read_to_string(output.join("data.json")).expect("json should be readable");
+        let json = fs::read_to_string(output_dir.join("data.json")).expect("json should be readable");
         assert!(json.contains("\"totalFeatures\": 1"));
     }
 
@@ -649,11 +648,12 @@ mod tests {
             }),
         }];
 
-        generate_html_report(root, &[], &lint_results, &ArtifactCoverageIndex::default())
+        let output_dir = root.join(".ucc");
+        generate_html_report(&output_dir, &[], &lint_results, &ArtifactCoverageIndex::default())
             .expect("report should be generated");
 
         let json =
-            fs::read_to_string(root.join(".ucc/data.json")).expect("json should be readable");
+            fs::read_to_string(output_dir.join("data.json")).expect("json should be readable");
         assert!(json.contains("broken.ucc"));
         assert!(json.contains("Fix schema type"));
     }

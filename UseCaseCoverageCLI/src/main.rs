@@ -1,7 +1,7 @@
 #![forbid(unsafe_code)]
 
 use std::fmt::Write;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 use use_case_coverage_core::domain::UccLintResult;
@@ -21,7 +21,9 @@ fn help_message() -> String {
             "\x1b[1;38;5;208mUsage:\x1b[0m\n",
             "  \x1b[38;5;159mucc [OPTIONS] [COMMAND]\x1b[0m\n\n",
             "\x1b[1;38;5;208mOptions:\x1b[0m\n",
-            "  \x1b[38;5;120m-h, --help\x1b[0m    Show this help message\n\n",
+            "  \x1b[38;5;120m-h, --help\x1b[0m           Show this help message\n",
+            "  \x1b[38;5;120m-i, --input <path>\x1b[0m    Root directory to scan for .ucc files (default: current directory)\n",
+            "  \x1b[38;5;120m-o, --output <path>\x1b[0m   Output file (lint) or directory (report) (default: stdout for lint, <current-dir>/.ucc/ for report)\n\n",
             "\x1b[1;38;5;208mCommands:\x1b[0m\n",
             "  \x1b[38;5;117mreport\x1b[0m        Generate an HTML report with features, use cases, and bugs analysis\n",
             "  \x1b[38;5;117mlint\x1b[0m          Explore and validate .ucc files, ensuring the format is correct and nothing is missing\n\n",
@@ -31,9 +33,19 @@ fn help_message() -> String {
     )
 }
 
-fn run_lint(root: &Path) -> Result<String, String> {
+fn run_lint(root: &Path, output: Option<&Path>) -> Result<String, String> {
     let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
-    format_lint_results(lint_results)
+    let result = format_lint_results(lint_results);
+
+    if let Some(output_path) = output {
+        let text = match &result {
+            Ok(t) | Err(t) => t,
+        };
+        std::fs::write(output_path, text).map_err(|e| e.to_string())?;
+        result.map(|_| format!("Lint results written to {}", output_path.display()))
+    } else {
+        result
+    }
 }
 
 fn format_lint_results(lint_results: Vec<UccLintResult>) -> Result<String, String> {
@@ -91,44 +103,83 @@ fn format_lint_results(lint_results: Vec<UccLintResult>) -> Result<String, Strin
     Ok(output)
 }
 
-fn run_report(root: &Path) -> Result<String, String> {
+fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
     let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
 
     let invalid_count = lint_results.iter().filter(|result| !result.is_valid).count();
     if invalid_count > 0 {
         let lint_output = format_lint_results(lint_results).unwrap_or_else(|error| error);
-        return Err(format!(
-            "Cannot generate report because {invalid_count} .ucc file(s) are invalid.\n\n{lint_output}"
-        ));
+        return Err(format!("Cannot generate report because {invalid_count} .ucc file(s) are invalid.\n\n{lint_output}"));
     }
 
     let features = collect_features_from(root).map_err(|error| error.to_string())?;
     let coverage_index =
         find_artifact_coverage(root, &features).map_err(|error| error.to_string())?;
 
-    generate_html_report(root, &features, &lint_results, &coverage_index)
+    let cwd = std::env::current_dir().map_err(|error| error.to_string())?;
+    let default_output = cwd.join(".ucc");
+    let output_dir = output.unwrap_or(&default_output);
+    generate_html_report(output_dir, &features, &lint_results, &coverage_index)
         .map_err(|error| error.to_string())?;
 
-    let report_path = root.join(".ucc/index.html");
+    let report_path = output_dir.join("index.html");
     Ok(format!("Report generated successfully at:\n{}", report_path.display()))
 }
 
-fn run_with_root(args: &[String], root: &Path) -> Result<String, String> {
-    if args.len() == 1 {
-        return Ok(help_message());
+fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String>) {
+    let mut input = None;
+    let mut output = None;
+    let mut command = None;
+    let mut i = 1;
+
+    while i < args.len() {
+        match args[i].as_str() {
+            "-i" | "--input" => {
+                i += 1;
+                input = args.get(i).cloned();
+            }
+            "-o" | "--output" => {
+                i += 1;
+                output = args.get(i).cloned();
+            }
+            "-h" | "--help" => {
+                if command.is_none() {
+                    command = Some(args[i].clone());
+                }
+            }
+            s if !s.starts_with('-') && command.is_none() => {
+                command = Some(s.to_string());
+            }
+            _ => {}
+        }
+        i += 1;
     }
 
-    match args[1].as_str() {
-        "-h" | "--help" => Ok(help_message()),
-        "lint" => run_lint(root),
-        "report" => run_report(root),
-        unknown => Err(format!("Unknown command or option: {unknown}\n\n{}", help_message())),
+    (input, output, command)
+}
+
+fn dispatch(root: &Path, output: Option<&Path>, command: Option<&str>) -> Result<String, String> {
+    match command {
+        None | Some("-h") | Some("--help") => Ok(help_message()),
+        Some("lint") => run_lint(root, output),
+        Some("report") => run_report(root, output),
+        Some(unknown) => Err(format!("Unknown command or option: {unknown}\n\n{}", help_message())),
     }
 }
 
+#[allow(dead_code)]
+fn run_with_root(args: &[String], root: &Path) -> Result<String, String> {
+    let (_, output, command) = parse_args(args);
+    dispatch(root, output.as_deref().map(Path::new), command.as_deref())
+}
+
 fn run(args: &[String]) -> Result<String, String> {
-    let root = std::env::current_dir().map_err(|error| error.to_string())?;
-    run_with_root(args, &root)
+    let (input, output, command) = parse_args(args);
+    let root = match input {
+        Some(path) => PathBuf::from(path),
+        None => std::env::current_dir().map_err(|error| error.to_string())?,
+    };
+    dispatch(&root, output.as_deref().map(Path::new), command.as_deref())
 }
 
 fn print_result(result: Result<String, String>) -> ExitCode {
@@ -206,11 +257,17 @@ mod tests {
         fs::write(root.join("feature.spec.ts"), "test('covers ucc-001', () => {});\n")
             .expect("test file should be written");
 
-        let args = vec!["ucc".to_string(), "report".to_string()];
+        let output_dir = root.join(".ucc");
+        let args = vec![
+            "ucc".to_string(),
+            "report".to_string(),
+            "-o".to_string(),
+            output_dir.to_string_lossy().to_string(),
+        ];
         let output = run_with_root(&args, root).expect("report should succeed");
 
-        assert!(output.contains(".ucc/index.html"));
-        assert!(root.join(".ucc/index.html").exists());
+        assert!(output.contains("index.html"));
+        assert!(output_dir.join("index.html").exists());
     }
 
     #[test]
