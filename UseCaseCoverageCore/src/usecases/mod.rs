@@ -1,7 +1,8 @@
+use std::collections::{HashMap, HashSet};
 use std::path::Path;
 
-use crate::domain::FeatureDocument;
-use crate::ports::{CoreError, UccFileRepository, UccParser};
+use crate::domain::{ArtifactCoverageIndex, ArtifactTestLocation, FeatureDocument};
+use crate::ports::{CoreError, TestFileRepository, UccFileRepository, UccParser};
 
 /// Use case that discovers and parses all `.ucc` files from a root folder recursively.
 pub struct CollectFeaturesUseCase<R, P> {
@@ -38,6 +39,83 @@ where
     }
 }
 
+/// Use case that searches automated tests referencing artifact ids.
+pub struct FindArtifactCoverageUseCase<R> {
+    repository: R,
+}
+
+impl<R> FindArtifactCoverageUseCase<R>
+where
+    R: TestFileRepository,
+{
+    #[must_use]
+    pub const fn new(repository: R) -> Self {
+        Self { repository }
+    }
+
+    /// Executes artifact coverage lookup from source files under `root`.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when source discovery or file reads fail.
+    pub fn execute(
+        &self,
+        root: &Path,
+        features: &[FeatureDocument],
+    ) -> Result<ArtifactCoverageIndex, CoreError> {
+        let artifact_ids: HashSet<&str> = features
+            .iter()
+            .flat_map(|feature| feature.artifacts.iter().map(|artifact| artifact.id.as_str()))
+            .collect();
+
+        let mut test_files = self.repository.find_test_files(root)?;
+        test_files.sort();
+
+        let mut by_artifact_id: HashMap<String, Vec<ArtifactTestLocation>> = HashMap::new();
+
+        for file_path in test_files {
+            let lines = self.repository.read_lines(&file_path)?;
+            let mut previous_was_test_attribute = false;
+
+            for (line_idx, line) in lines.iter().enumerate() {
+                let has_test_context =
+                    looks_like_test_declaration(line) || previous_was_test_attribute;
+                previous_was_test_attribute = line.to_ascii_lowercase().contains("#[test]")
+                    || line.to_ascii_lowercase().contains("@test");
+
+                if !has_test_context {
+                    continue;
+                }
+
+                for artifact_id in &artifact_ids {
+                    if line.contains(artifact_id) {
+                        by_artifact_id.entry((*artifact_id).to_string()).or_default().push(
+                            ArtifactTestLocation {
+                                file_path: file_path.clone(),
+                                line: line_idx + 1,
+                            },
+                        );
+                    }
+                }
+            }
+        }
+
+        Ok(ArtifactCoverageIndex { by_artifact_id })
+    }
+}
+
+fn looks_like_test_declaration(line: &str) -> bool {
+    let lower = line.to_ascii_lowercase();
+
+    lower.contains("test(")
+        || lower.contains("it(")
+        || lower.contains("#[test]")
+        || lower.contains("@test")
+        || lower.contains("func test")
+        || lower.contains("fun test")
+        || lower.contains("fun `")
+}
+
 #[cfg(test)]
 mod tests {
     use std::collections::{BTreeMap, HashMap};
@@ -46,10 +124,10 @@ mod tests {
 
     use proptest::prelude::*;
 
-    use super::CollectFeaturesUseCase;
+    use super::{CollectFeaturesUseCase, FindArtifactCoverageUseCase};
     use crate::domain::{FeatureDocument, Priority};
     use crate::infrastructure::YamlUccParser;
-    use crate::ports::{CoreError, UccFileRepository};
+    use crate::ports::{CoreError, TestFileRepository, UccFileRepository};
 
     #[derive(Default)]
     struct InMemoryUccRepository {
@@ -65,8 +143,15 @@ mod tests {
 
     impl UccFileRepository for InMemoryUccRepository {
         fn find_ucc_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
-            let mut paths: Vec<PathBuf> =
-                self.files.keys().filter(|path| path.starts_with(root)).cloned().collect();
+            let mut paths: Vec<PathBuf> = self
+                .files
+                .keys()
+                .filter(|path| {
+                    path.starts_with(root)
+                        && path.extension().and_then(std::ffi::OsStr::to_str) == Some("ucc")
+                })
+                .cloned()
+                .collect();
             paths.sort();
             Ok(paths)
         }
@@ -76,6 +161,35 @@ mod tests {
                 path: path.to_path_buf(),
                 source: io::Error::new(io::ErrorKind::NotFound, "file not found in repository"),
             })
+        }
+    }
+
+    impl TestFileRepository for InMemoryUccRepository {
+        fn find_test_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
+            let mut paths: Vec<PathBuf> = self
+                .files
+                .keys()
+                .filter(|path| {
+                    path.starts_with(root)
+                        && matches!(
+                            path.extension().and_then(std::ffi::OsStr::to_str),
+                            Some("swift" | "ts" | "tsx" | "kt" | "kts" | "rs")
+                        )
+                })
+                .cloned()
+                .collect();
+            paths.sort();
+            Ok(paths)
+        }
+
+        fn read_lines(&self, path: &Path) -> Result<Vec<String>, CoreError> {
+            self.files
+                .get(path)
+                .map(|content| content.lines().map(ToOwned::to_owned).collect())
+                .ok_or_else(|| CoreError::Io {
+                    path: path.to_path_buf(),
+                    source: io::Error::new(io::ErrorKind::NotFound, "file not found in repository"),
+                })
         }
     }
 
@@ -92,6 +206,106 @@ mod tests {
         assert!(result.is_err());
         let message = result.expect_err("must fail").to_string();
         assert!(message.contains("feature_broken.ucc"));
+    }
+
+    #[test]
+    fn find_artifact_coverage_supports_multiple_languages_and_line_numbers() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("ios/FeatureTests.swift"),
+                "func test_ucc_feat_1_ucc_feat_1() {}\nfunc test_ucc-feat-1() {}\n".to_string(),
+            )
+            .with_file(
+                root.join("web/feature.spec.ts"),
+                "test('checks ucc-feat-1 flow', () => {});\n".to_string(),
+            )
+            .with_file(
+                root.join("android/FeatureTest.kt"),
+                "@Test\nfun `covers ucc-feat-1 scenario`() {}\n".to_string(),
+            )
+            .with_file(
+                root.join("core/tests.rs"),
+                "#[test]\nfn checks_ucc_feat_1() {}\n".to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(root).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index = finder.execute(root, &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        assert_eq!(matches.len(), 3);
+        let mut lines: Vec<usize> = matches.iter().map(|location| location.line).collect();
+        lines.sort_unstable();
+        assert_eq!(lines, vec![1, 2, 2]);
+    }
+
+    proptest! {
+        #[test]
+        fn find_artifact_coverage_with_random_in_memory_test_files(
+            suffix in 0_u16..5000,
+            include_ts in any::<bool>(),
+            include_swift in any::<bool>(),
+            include_kotlin in any::<bool>(),
+            include_rust in any::<bool>(),
+        ) {
+            let root = Path::new("/repo");
+            let artifact_id = format!("ucc-{suffix}");
+            let repository = InMemoryUccRepository::default()
+                .with_file(root.join("feature.ucc"), sample_document("feat-random", Priority::Medium));
+
+            let repository = if include_ts {
+                repository.with_file(
+                    root.join("web/feature.spec.ts"),
+                    format!("test('covers {artifact_id}', () => {{}});\n"),
+                )
+            } else {
+                repository
+            };
+
+            let repository = if include_swift {
+                repository.with_file(
+                    root.join("ios/FeatureTests.swift"),
+                    format!("func test_{artifact_id}() {{}}\n"),
+                )
+            } else {
+                repository
+            };
+
+            let repository = if include_kotlin {
+                repository.with_file(
+                    root.join("android/FeatureTest.kt"),
+                    format!("@Test\nfun `covers {artifact_id}`() {{}}\n"),
+                )
+            } else {
+                repository
+            };
+
+            let repository = if include_rust {
+                repository.with_file(
+                    root.join("core/tests.rs"),
+                    format!("#[test]\nfn validates_{artifact_id}() {{}}\n"),
+                )
+            } else {
+                repository
+            };
+
+            let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+            let mut features = collect.execute(root).expect("features should parse");
+            features[0].artifacts[0].id = artifact_id.clone();
+
+            let finder = FindArtifactCoverageUseCase::new(collect.repository);
+            let index = finder.execute(root, &features).expect("coverage should be searchable");
+
+            let expected = [include_ts, include_swift, include_kotlin, include_rust]
+                .into_iter()
+                .filter(|included| *included)
+                .count();
+            prop_assert_eq!(index.for_artifact(&artifact_id).len(), expected);
+        }
     }
 
     proptest! {

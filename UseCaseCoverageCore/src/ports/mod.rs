@@ -53,3 +53,19 @@ pub trait UccParser {
     /// Returns an error when the input content is not a valid expected schema.
     fn parse(&self, source_path: &Path, content: &str) -> Result<FeatureDocument, CoreError>;
 }
+
+pub trait TestFileRepository {
+    /// Finds source files that may contain automated tests.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the file system cannot be read.
+    fn find_test_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError>;
+
+    /// Reads a source file and returns contents by line.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the file cannot be read.
+    fn read_lines(&self, path: &Path) -> Result<Vec<String>, CoreError>;
+}

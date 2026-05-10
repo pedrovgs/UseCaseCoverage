@@ -4,9 +4,10 @@ use std::path::{Path, PathBuf};
 use serde::Deserialize;
 
 use crate::domain::{Artifact, FeatureDocument, FeatureMetadata, Priority};
-use crate::ports::{CoreError, UccFileRepository, UccParser};
+use crate::ports::{CoreError, TestFileRepository, UccFileRepository, UccParser};
 
 pub struct LocalFileSystemRepository;
+pub struct LocalTestFileRepository;
 
 impl LocalFileSystemRepository {
     fn collect_ucc_files_from_dir(
@@ -41,6 +42,43 @@ impl UccFileRepository for LocalFileSystemRepository {
     fn read_file(&self, path: &Path) -> Result<String, CoreError> {
         fs::read_to_string(path)
             .map_err(|source| CoreError::Io { path: path.to_path_buf(), source })
+    }
+}
+
+impl LocalTestFileRepository {
+    fn collect_test_files_from_dir(
+        dir: &Path,
+        collector: &mut Vec<PathBuf>,
+    ) -> Result<(), CoreError> {
+        for entry in
+            fs::read_dir(dir).map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?
+        {
+            let entry =
+                entry.map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?;
+            let path = entry.path();
+
+            if path.is_dir() {
+                Self::collect_test_files_from_dir(&path, collector)?;
+            } else if is_supported_test_extension(&path) {
+                collector.push(path);
+            }
+        }
+
+        Ok(())
+    }
+}
+
+impl TestFileRepository for LocalTestFileRepository {
+    fn find_test_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
+        let mut files = Vec::new();
+        Self::collect_test_files_from_dir(root, &mut files)?;
+        Ok(files)
+    }
+
+    fn read_lines(&self, path: &Path) -> Result<Vec<String>, CoreError> {
+        let content = fs::read_to_string(path)
+            .map_err(|source| CoreError::Io { path: path.to_path_buf(), source })?;
+        Ok(content.lines().map(ToOwned::to_owned).collect())
     }
 }
 
@@ -128,4 +166,11 @@ struct RawArtifact {
     steps: Vec<String>,
     #[serde(default)]
     expected: Vec<String>,
+}
+
+fn is_supported_test_extension(path: &Path) -> bool {
+    matches!(
+        path.extension().and_then(std::ffi::OsStr::to_str),
+        Some("swift" | "ts" | "tsx" | "kt" | "kts" | "rs")
+    )
 }

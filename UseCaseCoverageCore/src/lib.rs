@@ -7,10 +7,10 @@ pub mod usecases;
 
 use std::path::Path;
 
-use domain::FeatureDocument;
-use infrastructure::{LocalFileSystemRepository, YamlUccParser};
+use domain::{ArtifactCoverageIndex, FeatureDocument};
+use infrastructure::{LocalFileSystemRepository, LocalTestFileRepository, YamlUccParser};
 use ports::CoreError;
-use usecases::CollectFeaturesUseCase;
+use usecases::{CollectFeaturesUseCase, FindArtifactCoverageUseCase};
 
 /// Calculates simple use case coverage as a percentage in the `0.0..=100.0` range.
 #[must_use]
@@ -30,6 +30,19 @@ pub fn coverage_percentage(covered: u32, total: u32) -> f64 {
 pub fn collect_features_from(root: &Path) -> Result<Vec<FeatureDocument>, CoreError> {
     let use_case = CollectFeaturesUseCase::new(LocalFileSystemRepository, YamlUccParser);
     use_case.execute(root)
+}
+
+/// Facade for finding test coverage mapped by artifact id.
+///
+/// # Errors
+///
+/// Returns an error when source discovery or file reading fails.
+pub fn find_artifact_coverage(
+    root: &Path,
+    features: &[FeatureDocument],
+) -> Result<ArtifactCoverageIndex, CoreError> {
+    let use_case = FindArtifactCoverageUseCase::new(LocalTestFileRepository);
+    use_case.execute(root, features)
 }
 
 #[cfg(test)]

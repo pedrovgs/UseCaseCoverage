@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::path::PathBuf;
 use std::str::FromStr;
 
@@ -33,6 +34,24 @@ pub struct Artifact {
     pub related: Vec<String>,
     pub steps: Vec<String>,
     pub expected: Vec<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ArtifactTestLocation {
+    pub file_path: PathBuf,
+    pub line: usize,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Default)]
+pub struct ArtifactCoverageIndex {
+    pub by_artifact_id: HashMap<String, Vec<ArtifactTestLocation>>,
+}
+
+impl ArtifactCoverageIndex {
+    #[must_use]
+    pub fn for_artifact(&self, artifact_id: &str) -> &[ArtifactTestLocation] {
+        self.by_artifact_id.get(artifact_id).map_or(&[], Vec::as_slice)
+    }
 }
 
 #[derive(
