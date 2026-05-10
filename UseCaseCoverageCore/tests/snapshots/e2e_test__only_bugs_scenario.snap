@@ -17,6 +17,7 @@ expression: features
     - id: bug-only-001
       artifact_type: bug
       created_at: 2026-05-10
+      updated_at: ~
       title: First critical bug
       priority: none
       related: []
@@ -25,6 +26,7 @@ expression: features
     - id: bug-only-002
       artifact_type: regression
       created_at: 2026-05-10
+      updated_at: ~
       title: Second minor bug
       priority: none
       related: []

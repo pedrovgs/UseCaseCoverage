@@ -29,6 +29,7 @@ pub struct Artifact {
     pub id: String,
     pub artifact_type: Option<String>,
     pub created_at: String,
+    pub updated_at: Option<String>,
     pub title: String,
     pub priority: Priority,
     pub related: Vec<String>,

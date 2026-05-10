@@ -80,6 +80,7 @@ impl RawUccDocument {
                     id: artifact.id,
                     artifact_type: artifact.artifact_type,
                     created_at: artifact.created_at,
+                    updated_at: artifact.updated_at,
                     title: artifact.title,
                     priority: artifact.priority,
                     related: artifact.related,
@@ -107,6 +108,8 @@ struct RawArtifact {
     #[serde(rename = "type", default)]
     artifact_type: Option<String>,
     created_at: String,
+    #[serde(default)]
+    updated_at: Option<String>,
     title: String,
     #[serde(default)]
     priority: Priority,

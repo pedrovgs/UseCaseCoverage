@@ -17,6 +17,7 @@ expression: features
     - id: ucc-001
       artifact_type: ~
       created_at: 2026-05-10
+      updated_at: ~
       title: Simple single use case
       priority: medium
       related: []

@@ -83,12 +83,32 @@ fn build_report_data(
             json!({
                 "id": feature.feature.id,
                 "title": feature.feature.title,
+                "description": feature.feature.description,
                 "createdAt": feature.feature.created_at,
                 "updatedAt": feature.feature.updated_at.clone().unwrap_or_default(),
                 "useCases": feature_use_cases,
                 "useCasesCovered": feature_use_cases_covered,
                 "bugs": feature_bugs,
                 "bugsCovered": feature_bugs_covered,
+                "artifacts": feature.artifacts.iter().map(|a| {
+                    json!({
+                        "id": a.id,
+                        "title": a.title,
+                        "createdAt": a.created_at,
+                        "updatedAt": a.updated_at,
+                        "type": a.artifact_type.clone().unwrap_or_else(|| "usecase".to_string()),
+                        "priority": format!("{:?}", a.priority),
+                        "isCovered": coverage_index.is_covered(&a.id),
+                        "coverageLocations": coverage_index.for_artifact(&a.id).iter().map(|loc| {
+                            json!({
+                                "path": loc.file_path.to_string_lossy(),
+                                "line": loc.line,
+                            })
+                        }).collect::<Vec<_>>(),
+                        "steps": a.steps,
+                        "expected": a.expected,
+                    })
+                }).collect::<Vec<_>>(),
             })
         })
         .collect();
@@ -333,7 +353,7 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
 
         </header>
 
-        <div class="container">
+        <div id="dashboardView" class="container">
           <section class="metrics" id="metrics"></section>
 
           <section class="charts-row">
@@ -397,6 +417,8 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
             </div>
           </section>
         </div>
+
+        <div id="featureDetailView" class="container" style="display:none"></div>
       </main>
     </div>
     <script src="./app.js"></script>
@@ -629,6 +651,36 @@ th.sort-asc .sort-icon::after { content: '↑'; }
 th.sort-desc .sort-icon { opacity: 1; }
 th.sort-desc .sort-icon::after { content: '↓'; }
 .lint-msg { font-size: 0.85rem; color: var(--text-muted); }
+
+tbody tr { cursor: pointer; transition: background 0.1s; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+.detail-header { margin-bottom: 2rem; position: relative; }
+.back-btn { background: transparent; border: 1px solid var(--border); color: var(--text-blue); padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.back-btn:hover { background: var(--border); color: #fff; }
+.detail-title { font-size: 2rem; margin: 0 0 0.5rem 0; }
+.detail-meta { color: var(--text-muted); font-size: 0.9rem; display: flex; gap: 1.5rem; }
+.detail-desc { margin: 1.5rem 0; line-height: 1.6; color: var(--text-blue); max-width: 800px; }
+
+.artifact-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.artifact-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; position: relative; min-height: 100px; }
+.artifact-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+.artifact-title { font-weight: 600; font-size: 1.1rem; color: #fff; }
+.badge { padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+.badge-bug { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+.badge-usecase { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+.badge-covered { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+.badge-missing { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+.badge-critical { background: rgba(239, 68, 68, 0.2); color: #ff4d4d; border: 1px solid #ff4d4d; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+.artifact-card.critical-missing { border: 1px solid rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.05); }
+
+.artifact-body { font-size: 0.9rem; color: var(--text-blue); }
+.steps-list { margin: 0.5rem 0 0 1.25rem; padding: 0; }
+.steps-list li { margin-bottom: 0.25rem; }
+.expected-section { margin-top: 0.75rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
+.expected-title { font-weight: 600; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.25rem; text-transform: uppercase; }
 "##
 }
 
@@ -685,6 +737,12 @@ function renderMetrics(data) {
 
 let _sortKey = 'title';
 let _sortAsc = true;
+let _detailFilter = 'all';
+let _detailSort = 'priority';
+let _detailUCChart = null;
+let _detailBugChart = null;
+
+const PRIORITY_MAP = { 'Highest': 5, 'High': 4, 'Medium': 3, 'Low': 2, 'None': 1 };
 
 function getSortValue(feature, key) {
   switch (key) {
@@ -698,6 +756,30 @@ function getSortValue(feature, key) {
     case 'updatedAt': return feature.updatedAt || feature.createdAt;
     default: return '';
   }
+}
+
+function renderPriorityIcon(priority) {
+  const p = priority.toLowerCase();
+  let color = '#8b9eb0';
+  let svg = '';
+
+  if (p === 'highest') {
+    color = '#ff4d4d';
+    svg = '<path d="M12 19V5M12 5L5 12M12 5L19 12M12 11L5 18M12 11L19 18" stroke-width="2.5" />';
+  } else if (p === 'high') {
+    color = '#ff8533';
+    svg = '<path d="M12 19V5M12 5L5 12M12 5L19 12" stroke-width="2" />';
+  } else if (p === 'medium') {
+    color = '#fcb714';
+    svg = '<path d="M5 12H19" stroke-width="3" />';
+  } else if (p === 'low') {
+    color = '#3b82f6';
+    svg = '<path d="M12 5V19M12 19L5 12M12 19L19 12" stroke-width="2" />';
+  } else {
+    svg = '<circle cx="12" cy="12" r="4" fill="currentColor" />';
+  }
+
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${color}" style="vertical-align: middle; margin-right: 4px;">${svg}</svg>`;
 }
 
 function renderFeatureTable(data) {
@@ -714,7 +796,7 @@ function renderFeatureTable(data) {
 
   tbody.innerHTML = sorted
     .map(
-      (feature) => `<tr>
+      (feature) => `<tr onclick="location.hash='#feature/${feature.id}'">
         <td style="color:#a5c8ff; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${feature.title}">${feature.title}</td>
         <td>${feature.useCases}</td>
         <td>${feature.useCasesCovered}</td>
@@ -734,6 +816,228 @@ function renderFeatureTable(data) {
       th.classList.add(_sortAsc ? 'sort-asc' : 'sort-desc');
     }
   });
+}
+
+function renderFeatureDetail(data, featureId) {
+  const container = document.getElementById('featureDetailView');
+  const feature = data.features.find(f => f.id === featureId);
+  if (!feature) {
+    container.innerHTML = '<h1>Feature not found</h1>';
+    return;
+  }
+
+  let artifacts = [...feature.artifacts];
+
+  // Filtering
+  if (_detailFilter === 'covered') artifacts = artifacts.filter(a => a.isCovered);
+  if (_detailFilter === 'missing') artifacts = artifacts.filter(a => !a.isCovered);
+  if (_detailFilter === 'critical') artifacts = artifacts.filter(a => !a.isCovered && (a.priority === 'High' || a.priority === 'Highest'));
+
+  // Sorting
+  artifacts.sort((a, b) => {
+    let va, vb;
+    switch (_detailSort) {
+      case 'priority':
+        va = PRIORITY_MAP[a.priority] || 0;
+        vb = PRIORITY_MAP[b.priority] || 0;
+        return vb - va; // Default High to Low
+      case 'createdAt':
+        va = a.createdAt || '';
+        vb = b.createdAt || '';
+        break;
+      case 'updatedAt':
+        va = a.updatedAt || a.createdAt || '';
+        vb = b.updatedAt || b.createdAt || '';
+        break;
+      case 'status':
+        va = a.isCovered ? 1 : 0;
+        vb = b.isCovered ? 1 : 0;
+        break;
+      default: return 0;
+    }
+    if (va < vb) return 1;
+    if (va > vb) return -1;
+    return 0;
+  });
+
+  container.innerHTML = `
+    <div class="detail-header">
+      <button class="back-btn" onclick="location.hash=''">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Dashboard
+      </button>
+      <h1 class="detail-title">${feature.title}</h1>
+      <div class="detail-meta">
+        <span>ID: <strong>${feature.id}</strong></span>
+        <span>Created: <strong>${feature.createdAt}</strong></span>
+        ${feature.updatedAt ? `<span>Updated: <strong>${feature.updatedAt}</strong></span>` : ''}
+      </div>
+      <div class="detail-desc">${feature.description || 'No description provided.'}</div>
+    </div>
+
+    <section class="charts-row" style="margin-bottom: 2rem; grid-template-columns: 1fr 1fr;">
+      <article class="card">
+        <div class="card-header">
+           <div>
+             <h2>Use Cases Coverage</h2>
+             <span class="subtitle">${feature.useCasesCovered} / ${feature.useCases} (${feature.useCases > 0 ? ((feature.useCasesCovered/feature.useCases)*100).toFixed(0) : 0}%) Covered</span>
+           </div>
+        </div>
+        <div class="chart-container" style="height: 200px;"><canvas id="detailUCChart"></canvas></div>
+      </article>
+      <article class="card">
+        <div class="card-header">
+           <div>
+             <h2>Bugs Coverage</h2>
+             <span class="subtitle">${feature.bugsCovered} / ${feature.bugs} (${feature.bugs > 0 ? ((feature.bugsCovered/feature.bugs)*100).toFixed(0) : 0}%) Covered</span>
+           </div>
+        </div>
+        <div class="chart-container" style="height: 200px;"><canvas id="detailBugChart"></canvas></div>
+      </article>
+    </section>
+
+    <div class="detail-controls card" style="display:flex; gap:2rem; padding:1rem; margin-bottom: 2rem; align-items:center;">
+       <div style="display:flex; gap:0.75rem; align-items:center;">
+         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Filter:</span>
+         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+           <option value="all" ${_detailFilter==='all'?'selected':''}>All Artifacts</option>
+           <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered only</option>
+           <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing only</option>
+           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing (High/Highest)</option>
+         </select>
+       </div>
+       <div style="display:flex; gap:0.75rem; align-items:center;">
+         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Sort by:</span>
+         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority (Highest first)</option>
+           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Creation Date</option>
+           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Update Date</option>
+           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage Status</option>
+         </select>
+       </div>
+       <div style="margin-left:auto; font-size:0.85rem; color:var(--text-muted);">Showing <strong>${artifacts.length}</strong> of <strong>${feature.artifacts.length}</strong> artifacts</div>
+    </div>
+
+    <div class="artifact-section">
+      <div class="artifact-grid">
+        ${artifacts.map(a => {
+          const isHigh = a.priority === 'High' || a.priority === 'Highest';
+          const isCritical = isHigh && !a.isCovered;
+          return `
+          <div class="artifact-card ${isCritical ? 'critical-missing' : ''}">
+            <div class="artifact-head">
+              <div style="display:flex; align-items:center; gap:0.75rem">
+                <span class="badge ${a.type.toLowerCase().includes('bug') ? 'badge-bug' : 'badge-usecase'}">${a.type}</span>
+                <span class="artifact-title">${a.title}</span>
+              </div>
+              <div style="display:flex; gap:0.5rem">
+                ${isCritical ? '<span class="badge badge-critical">CRITICAL</span>' : ''}
+                <span class="badge ${a.isCovered ? 'badge-covered' : 'badge-missing'}">${a.isCovered ? 'Covered' : 'Missing'}</span>
+              </div>
+            </div>
+            <div class="artifact-body">
+              <div style="display:flex; gap:1.5rem; margin-bottom: 0.5rem; font-size:0.8rem; color:var(--text-muted); align-items:center;">
+                <div style="display:flex; align-items:center;">Priority: ${renderPriorityIcon(a.priority)} <strong style="color:#fff">${a.priority}</strong></div>
+                <div>Created: <strong>${a.createdAt}</strong></div>
+                ${a.updatedAt ? `<div>Updated: <strong>${a.updatedAt}</strong></div>` : ''}
+              </div>
+              ${a.isCovered && a.coverageLocations && a.coverageLocations.length > 0 ? `
+                <div style="position: absolute; bottom: 1.25rem; right: 1.25rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content: flex-end;">
+                  ${a.coverageLocations.map(loc => `
+                    <a href="vscode://file${loc.path}:${loc.line}" class="back-btn" style="margin:0; padding:4px 8px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; background:rgba(0,122,204,0.1); border-color:rgba(0,122,204,0.3); color:#4fc1ff;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.58L19.8 1.45c-.32-.11-.66.1-.66.44v5.45c0 .12-.05.23-.14.31L13 13.7l-3.3-3.04c-.16-.14-.4-.14-.56 0L1 17.72c-.12.11-.12.3 0 .41l3.3 3.04c.16.14.4.14.56 0l1.24-1.14 7.22-6.66c.09-.08.14-.19.14-.31V6.26l6.68-6.16c.16-.14.4-.14.56 0l2.45 2.26c.12.11.12.3 0 .41L18.46 9c-.16.15-.16.4 0 .55l4.69 4.31c.12.11.12.3 0 .41l-2.45 2.26c-.16.14-.4.14-.56 0L13 12.23V17.74c0 .34.34.55.66.44l3.35-1.13c.12-.04.23-.04.35 0l2.45.83c.32.11.66-.1.66-.44V3.02c0-.12-.05-.23-.14-.31l-.18-.13z"/></svg>
+                      Open in VS Code (L${loc.line})
+                    </a>
+                  `).join('')}
+                </div>
+              ` : ''}
+              ${a.steps && a.steps.length ? `
+                <div style="font-weight:600; color:var(--text-muted); font-size:0.8rem; margin-top:0.75rem; text-transform:uppercase;">Steps</div>
+                <ol class="steps-list">
+                  ${a.steps.map(s => `<li>${s}</li>`).join('')}
+                </ol>
+              ` : ''}
+              ${a.expected && a.expected.length ? `
+                <div class="expected-section">
+                  <div class="expected-title">Expected Result</div>
+                  <ul class="steps-list" style="list-style-type: disc">
+                    ${a.expected.map(e => `<li>${e}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('')}
+        ${artifacts.length === 0 ? '<div class="card" style="padding:2rem; text-align:center; color:var(--text-muted)">No artifacts match the selected criteria.</div>' : ''}
+      </div>
+    </div>
+  `;
+
+  renderDetailCharts(feature);
+}
+
+function renderDetailCharts(feature) {
+  if (_detailUCChart) _detailUCChart.destroy();
+  if (_detailBugChart) _detailBugChart.destroy();
+
+  const ctxUC = document.getElementById('detailUCChart');
+  if (ctxUC) {
+    _detailUCChart = new Chart(ctxUC, {
+      type: 'doughnut',
+      data: {
+        labels: ['Covered', 'Missing'],
+        datasets: [{
+          data: [feature.useCasesCovered, feature.useCases - feature.useCasesCovered],
+          backgroundColor: ['#10b981', '#242d38'],
+          borderWidth: 0,
+          cutout: '70%'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        maintainAspectRatio: false
+      }
+    });
+  }
+
+  const ctxBug = document.getElementById('detailBugChart');
+  if (ctxBug) {
+    _detailBugChart = new Chart(ctxBug, {
+      type: 'doughnut',
+      data: {
+        labels: ['Covered', 'Missing'],
+        datasets: [{
+          data: [feature.bugsCovered, feature.bugs - feature.bugsCovered],
+          backgroundColor: ['#ef4444', '#242d38'],
+          borderWidth: 0,
+          cutout: '70%'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        maintainAspectRatio: false
+      }
+    });
+  }
+}
+
+function handleRouting(data) {
+  const hash = window.location.hash;
+  const dashboard = document.getElementById('dashboardView');
+  const detail = document.getElementById('featureDetailView');
+  
+  if (hash.startsWith('#feature/')) {
+    const featureId = hash.replace('#feature/', '');
+    dashboard.style.display = 'none';
+    detail.style.display = 'block';
+    renderFeatureDetail(data, featureId);
+    window.scrollTo(0,0);
+  } else {
+    dashboard.style.display = 'block';
+    detail.style.display = 'none';
+    renderCharts(data);
+  }
 }
 
 function renderLint(data) {
@@ -841,6 +1145,7 @@ function renderCharts(data) {
 
 function bootstrap() {
   const data = loadData();
+  window._lastData = data;
   renderMetrics(data);
   renderFeatureTable(data);
   renderLint(data);
@@ -858,7 +1163,12 @@ function bootstrap() {
       renderFeatureTable(data);
     });
   });
+
+  window.addEventListener('hashchange', () => handleRouting(data));
+  handleRouting(data);
 }
+
+void bootstrap();
 "##
 }
 
@@ -913,6 +1223,12 @@ function renderMetrics(data) {
 
 let _sortKey = 'title';
 let _sortAsc = true;
+let _detailFilter = 'all';
+let _detailSort = 'priority';
+let _detailUCChart = null;
+let _detailBugChart = null;
+
+const PRIORITY_MAP = { 'Highest': 5, 'High': 4, 'Medium': 3, 'Low': 2, 'None': 1 };
 
 function getSortValue(feature, key) {
   switch (key) {
@@ -926,6 +1242,30 @@ function getSortValue(feature, key) {
     case 'updatedAt': return feature.updatedAt || feature.createdAt;
     default: return '';
   }
+}
+
+function renderPriorityIcon(priority) {
+  const p = priority.toLowerCase();
+  let color = '#8b9eb0';
+  let svg = '';
+
+  if (p === 'highest') {
+    color = '#ff4d4d';
+    svg = '<path d="M12 19V5M12 5L5 12M12 5L19 12M12 11L5 18M12 11L19 18" stroke-width="2.5" />';
+  } else if (p === 'high') {
+    color = '#ff8533';
+    svg = '<path d="M12 19V5M12 5L5 12M12 5L19 12" stroke-width="2" />';
+  } else if (p === 'medium') {
+    color = '#fcb714';
+    svg = '<path d="M5 12H19" stroke-width="3" />';
+  } else if (p === 'low') {
+    color = '#3b82f6';
+    svg = '<path d="M12 5V19M12 19L5 12M12 19L19 12" stroke-width="2" />';
+  } else {
+    svg = '<circle cx="12" cy="12" r="4" fill="currentColor" />';
+  }
+
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${color}" style="vertical-align: middle; margin-right: 4px;">${svg}</svg>`;
 }
 
 function renderFeatureTable(data) {
@@ -942,7 +1282,7 @@ function renderFeatureTable(data) {
 
   tbody.innerHTML = sorted
     .map(
-      (feature) => `<tr>
+      (feature) => `<tr onclick="location.hash='#feature/${feature.id}'">
         <td style="color:#a5c8ff; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${feature.title}">${feature.title}</td>
         <td>${feature.useCases}</td>
         <td>${feature.useCasesCovered}</td>
@@ -962,6 +1302,229 @@ function renderFeatureTable(data) {
       th.classList.add(_sortAsc ? 'sort-asc' : 'sort-desc');
     }
   });
+}
+
+function renderFeatureDetail(data, featureId) {
+  const container = document.getElementById('featureDetailView');
+  const feature = data.features.find(f => f.id === featureId);
+  if (!feature) {
+    container.innerHTML = '<h1>Feature not found</h1>';
+    return;
+  }
+
+  let artifacts = [...feature.artifacts];
+
+  // Filtering
+  if (_detailFilter === 'covered') artifacts = artifacts.filter(a => a.isCovered);
+  if (_detailFilter === 'missing') artifacts = artifacts.filter(a => !a.isCovered);
+  if (_detailFilter === 'critical') artifacts = artifacts.filter(a => !a.isCovered && (a.priority === 'High' || a.priority === 'Highest'));
+
+  // Sorting
+  artifacts.sort((a, b) => {
+    let va, vb;
+    switch (_detailSort) {
+      case 'priority':
+        va = PRIORITY_MAP[a.priority] || 0;
+        vb = PRIORITY_MAP[b.priority] || 0;
+        return vb - va; // Default High to Low
+      case 'createdAt':
+        va = a.createdAt || '';
+        vb = b.createdAt || '';
+        break;
+      case 'updatedAt':
+        va = a.updatedAt || a.createdAt || '';
+        vb = b.updatedAt || b.createdAt || '';
+        break;
+      case 'status':
+        va = a.isCovered ? 1 : 0;
+        vb = b.isCovered ? 1 : 0;
+        break;
+      default: return 0;
+    }
+    if (va < vb) return 1;
+    if (va > vb) return -1;
+    return 0;
+  });
+
+  container.innerHTML = `
+    <div class="detail-header">
+      <button class="back-btn" onclick="location.hash=''">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Dashboard
+      </button>
+      <h1 class="detail-title">${feature.title}</h1>
+      <div class="detail-meta">
+        <span>ID: <strong>${feature.id}</strong></span>
+        <span>Created: <strong>${feature.createdAt}</strong></span>
+        ${feature.updatedAt ? `<span>Updated: <strong>${feature.updatedAt}</strong></span>` : ''}
+      </div>
+      <div class="detail-desc">${feature.description || 'No description provided.'}</div>
+    </div>
+
+    <section class="charts-row" style="margin-bottom: 2rem; grid-template-columns: 1fr 1fr;">
+      <article class="card">
+        <div class="card-header">
+           <div>
+             <h2>Use Cases Coverage</h2>
+             <span class="subtitle">${feature.useCasesCovered} / ${feature.useCases} (${feature.useCases > 0 ? ((feature.useCasesCovered/feature.useCases)*100).toFixed(0) : 0}%) Covered</span>
+           </div>
+        </div>
+        <div class="chart-container" style="height: 200px;"><canvas id="detailUCChart"></canvas></div>
+      </article>
+      <article class="card">
+        <div class="card-header">
+           <div>
+             <h2>Bugs Coverage</h2>
+             <span class="subtitle">${feature.bugsCovered} / ${feature.bugs} (${feature.bugs > 0 ? ((feature.bugsCovered/feature.bugs)*100).toFixed(0) : 0}%) Covered</span>
+           </div>
+        </div>
+        <div class="chart-container" style="height: 200px;"><canvas id="detailBugChart"></canvas></div>
+      </article>
+    </section>
+
+    <div class="detail-controls card" style="display:flex; gap:2rem; padding:1rem; margin-bottom: 2rem; align-items:center;">
+       <div style="display:flex; gap:0.75rem; align-items:center;">
+         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Filter:</span>
+         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+           <option value="all" ${_detailFilter==='all'?'selected':''}>All Artifacts</option>
+           <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered only</option>
+           <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing only</option>
+           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing (High/Highest)</option>
+         </select>
+       </div>
+       <div style="display:flex; gap:0.75rem; align-items:center;">
+         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Sort by:</span>
+         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority (Highest first)</option>
+           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Creation Date</option>
+           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Update Date</option>
+           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage Status</option>
+         </select>
+       </div>
+       <div style="margin-left:auto; font-size:0.85rem; color:var(--text-muted);">Showing <strong>${artifacts.length}</strong> of <strong>${feature.artifacts.length}</strong> artifacts</div>
+    </div>
+
+    <div class="artifact-section">
+      <div class="artifact-grid">
+        ${artifacts.map(a => {
+          const isHigh = a.priority === 'High' || a.priority === 'Highest';
+          const isCritical = isHigh && !a.isCovered;
+          return `
+          <div class="artifact-card ${isCritical ? 'critical-missing' : ''}">
+            <div class="artifact-head">
+              <div style="display:flex; align-items:center; gap:0.75rem">
+                <span class="badge ${a.type.toLowerCase().includes('bug') ? 'badge-bug' : 'badge-usecase'}">${a.type}</span>
+                <span class="artifact-title">${a.title}</span>
+              </div>
+              <div style="display:flex; gap:0.5rem">
+                ${isCritical ? '<span class="badge badge-critical">CRITICAL</span>' : ''}
+                <span class="badge ${a.isCovered ? 'badge-covered' : 'badge-missing'}">${a.isCovered ? 'Covered' : 'Missing'}</span>
+              </div>
+            </div>
+            <div class="artifact-body">
+              <div style="display:flex; gap:1.5rem; margin-bottom: 0.5rem; font-size:0.8rem; color:var(--text-muted); align-items:center;">
+                <div style="display:flex; align-items:center;">Priority: ${renderPriorityIcon(a.priority)} <strong style="color:#fff">${a.priority}</strong></div>
+                <div>Created: <strong>${a.createdAt}</strong></div>
+                ${a.updatedAt ? `<div>Updated: <strong>${a.updatedAt}</strong></div>` : ''}
+              </div>
+              ${a.isCovered && a.coverageLocations && a.coverageLocations.length > 0 ? `
+                <div style="position: absolute; bottom: 1.25rem; right: 1.25rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content: flex-end;">
+                  ${a.coverageLocations.map(loc => `
+                    <a href="vscode://file${loc.path}:${loc.line}" class="back-btn" style="margin:0; padding:4px 8px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; background:rgba(0,122,204,0.1); border-color:rgba(0,122,204,0.3); color:#4fc1ff;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.58L19.8 1.45c-.32-.11-.66.1-.66.44v5.45c0 .12-.05.23-.14.31L13 13.7l-3.3-3.04c-.16-.14-.4-.14-.56 0L1 17.72c-.12.11-.12.3 0 .41l3.3 3.04c.16.14.4.14.56 0l1.24-1.14 7.22-6.66c.09-.08.14-.19.14-.31V6.26l6.68-6.16c.16-.14.4-.14.56 0l2.45 2.26c.12.11.12.3 0 .41L18.46 9c-.16.15-.16.4 0 .55l4.69 4.31c.12.11.12.3 0 .41l-2.45 2.26c-.16.14-.4.14-.56 0L13 12.23V17.74c0 .34.34.55.66.44l3.35-1.13c.12-.04.23-.04.35 0l2.45.83c.32.11.66-.1.66-.44V3.02c0-.12-.05-.23-.14-.31l-.18-.13z"/></svg>
+                      Open in VS Code (L${loc.line})
+                    </a>
+                  `).join('')}
+                </div>
+              ` : ''}
+              ${a.steps && a.steps.length ? `
+                <div style="font-weight:600; color:var(--text-muted); font-size:0.8rem; margin-top:0.75rem; text-transform:uppercase;">Steps</div>
+                <ol class="steps-list">
+                  ${a.steps.map(s => `<li>${s}</li>`).join('')}
+                </ol>
+              ` : ''}
+              ${a.expected && a.expected.length ? `
+                <div class="expected-section">
+                  <div class="expected-title">Expected Result</div>
+                  <ul class="steps-list" style="list-style-type: disc">
+                    ${a.expected.map(e => `<li>${e}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('')}
+        ${artifacts.length === 0 ? '<div class="card" style="padding:2rem; text-align:center; color:var(--text-muted)">No artifacts match the selected criteria.</div>' : ''}
+      </div>
+    </div>
+  `;
+
+  renderDetailCharts(feature);
+}
+
+function renderDetailCharts(feature) {
+  if (_detailUCChart) _detailUCChart.destroy();
+  if (_detailBugChart) _detailBugChart.destroy();
+
+  const ctxUC = document.getElementById('detailUCChart');
+  if (ctxUC) {
+    _detailUCChart = new Chart(ctxUC, {
+      type: 'doughnut',
+      data: {
+        labels: ['Covered', 'Missing'],
+        datasets: [{
+          data: [feature.useCasesCovered, feature.useCases - feature.useCasesCovered],
+          backgroundColor: ['#10b981', '#242d38'],
+          borderWidth: 0,
+          cutout: '70%'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        maintainAspectRatio: false
+      }
+    });
+  }
+
+  const ctxBug = document.getElementById('detailBugChart');
+  if (ctxBug) {
+    _detailBugChart = new Chart(ctxBug, {
+      type: 'doughnut',
+      data: {
+        labels: ['Covered', 'Missing'],
+        datasets: [{
+          data: [feature.bugsCovered, feature.bugs - feature.bugsCovered],
+          backgroundColor: ['#ef4444', '#242d38'],
+          borderWidth: 0,
+          cutout: '70%'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        maintainAspectRatio: false
+      }
+    });
+  }
+}
+
+
+function handleRouting(data) {
+  const hash = window.location.hash;
+  const dashboard = document.getElementById('dashboardView');
+  const detail = document.getElementById('featureDetailView');
+  
+  if (hash.startsWith('#feature/')) {
+    const featureId = hash.replace('#feature/', '');
+    dashboard.style.display = 'none';
+    detail.style.display = 'block';
+    renderFeatureDetail(data, featureId);
+    window.scrollTo(0,0);
+  } else {
+    dashboard.style.display = 'block';
+    detail.style.display = 'none';
+    renderCharts(data);
+  }
 }
 
 function renderLint(data) {
@@ -1069,6 +1632,7 @@ function renderCharts(data) {
 
 function bootstrap() {
   const data = loadData();
+  window._lastData = data;
   renderMetrics(data);
   renderFeatureTable(data);
   renderLint(data);
@@ -1086,6 +1650,9 @@ function bootstrap() {
       renderFeatureTable(data);
     });
   });
+
+  window.addEventListener('hashchange', () => handleRouting(data));
+  handleRouting(data);
 }
 
 void bootstrap();
@@ -1126,6 +1693,7 @@ mod tests {
                 id: "ucc-feat-1".to_string(),
                 artifact_type: None,
                 created_at: "2026-05-10".to_string(),
+                updated_at: None,
                 title: "Use case".to_string(),
                 priority: Priority::High,
                 related: vec![],
