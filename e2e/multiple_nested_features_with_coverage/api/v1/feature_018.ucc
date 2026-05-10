@@ -27,6 +27,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-003
+    platforms: [apple, web, windows, android]
     created_at: "2024-08-06"
     title: "Use Case 3 for feature 18"
     priority: medium
@@ -52,6 +53,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-006
+    platforms: [windows, web, android, apple]
     created_at: "2024-07-06"
     title: "Use Case 6 for feature 18"
     priority: highest
@@ -60,6 +62,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-007
+    platforms: [windows, apple]
     type: regression
     created_at: "2024-10-22"
     title: "Bug 7 for feature 18"
@@ -69,6 +72,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-008
+    platforms: [apple, android]
     created_at: "2024-05-22"
     title: "Use Case 8 for feature 18"
     priority: highest
@@ -77,6 +81,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-009
+    platforms: [web, android]
     created_at: "2024-08-29"
     title: "Use Case 9 for feature 18"
     priority: medium
@@ -85,6 +90,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-010
+    platforms: [web, windows, android]
     created_at: "2024-10-09"
     title: "Use Case 10 for feature 18"
     priority: none
@@ -93,6 +99,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-011
+    platforms: [android, apple]
     created_at: "2024-12-03"
     title: "Use Case 11 for feature 18"
     priority: low
@@ -101,6 +108,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-012
+    platforms: [apple]
     type: bug
     created_at: "2024-10-28"
     title: "Bug 12 for feature 18"
@@ -110,6 +118,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-013
+    platforms: [web, android, apple]
     created_at: "2025-01-23"
     title: "Use Case 13 for feature 18"
     priority: none
@@ -135,6 +144,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-016
+    platforms: [windows, web]
     type: regression
     created_at: "2024-09-15"
     title: "Bug 16 for feature 18"
@@ -162,6 +172,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-019
+    platforms: [android, windows]
     type: regression
     created_at: "2024-08-29"
     title: "Bug 19 for feature 18"
@@ -171,6 +182,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-020
+    platforms: [windows, apple]
     type: bug
     created_at: "2024-11-04"
     title: "Bug 20 for feature 18"
@@ -180,6 +192,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-021
+    platforms: [web, apple]
     created_at: "2024-07-15"
     title: "Use Case 21 for feature 18"
     priority: highest
@@ -188,6 +201,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-022
+    platforms: [web, windows, android]
     created_at: "2024-06-01"
     title: "Use Case 22 for feature 18"
     priority: high
@@ -196,6 +210,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-023
+    platforms: [android, apple, web, windows]
     type: regression
     created_at: "2024-10-23"
     title: "Bug 23 for feature 18"
@@ -205,6 +220,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-024
+    platforms: [web]
     type: regression
     created_at: "2024-09-05"
     title: "Bug 24 for feature 18"
@@ -214,6 +230,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-025
+    platforms: [apple]
     type: regression
     created_at: "2024-08-24"
     title: "Bug 25 for feature 18"
@@ -223,6 +240,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-026
+    platforms: [apple, windows, web, android]
     created_at: "2025-02-01"
     title: "Use Case 26 for feature 18"
     priority: highest
@@ -240,6 +258,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-028
+    platforms: [apple, windows, web, android]
     created_at: "2025-01-08"
     title: "Use Case 28 for feature 18"
     priority: high
@@ -248,6 +267,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-029
+    platforms: [windows, web, android, apple]
     created_at: "2024-08-01"
     title: "Use Case 29 for feature 18"
     priority: low
@@ -256,6 +276,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-030
+    platforms: [windows, android]
     created_at: "2024-11-03"
     title: "Use Case 30 for feature 18"
     priority: high
@@ -264,6 +285,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-031
+    platforms: [android]
     created_at: "2024-08-08"
     title: "Use Case 31 for feature 18"
     priority: none
@@ -272,6 +294,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-032
+    platforms: [apple, android]
     type: bug
     created_at: "2025-01-30"
     title: "Bug 32 for feature 18"
@@ -281,6 +304,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-033
+    platforms: [web, android, windows, apple]
     type: regression
     created_at: "2024-10-14"
     title: "Bug 33 for feature 18"
@@ -290,6 +314,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-034
+    platforms: [windows, android, apple, web]
     type: bug
     created_at: "2024-05-20"
     title: "Bug 34 for feature 18"
@@ -299,6 +324,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-035
+    platforms: [android, windows, web]
     type: bug
     created_at: "2024-05-18"
     title: "Bug 35 for feature 18"
@@ -308,6 +334,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-036
+    platforms: [android]
     created_at: "2024-11-02"
     title: "Use Case 36 for feature 18"
     priority: medium
@@ -324,6 +351,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-038
+    platforms: [windows, apple, android]
     created_at: "2024-07-14"
     title: "Use Case 38 for feature 18"
     priority: high
@@ -332,6 +360,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-039
+    platforms: [windows, android, web]
     created_at: "2024-12-19"
     title: "Use Case 39 for feature 18"
     priority: low
@@ -340,6 +369,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-040
+    platforms: [windows, apple, web, android]
     created_at: "2024-06-02"
     title: "Use Case 40 for feature 18"
     priority: none
@@ -348,6 +378,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-041
+    platforms: [windows]
     type: bug
     created_at: "2024-06-13"
     title: "Bug 41 for feature 18"
@@ -357,6 +388,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-042
+    platforms: [web, apple]
     created_at: "2024-10-20"
     title: "Use Case 42 for feature 18"
     priority: medium
@@ -365,6 +397,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-043
+    platforms: [android, web, windows]
     created_at: "2024-10-06"
     title: "Use Case 43 for feature 18"
     priority: high
@@ -373,6 +406,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-044
+    platforms: [windows, web, apple]
     type: regression
     created_at: "2024-11-11"
     title: "Bug 44 for feature 18"
@@ -382,6 +416,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-045
+    platforms: [windows]
     type: bug
     created_at: "2024-08-06"
     title: "Bug 45 for feature 18"
@@ -391,6 +426,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-046
+    platforms: [windows, web, android, apple]
     type: regression
     created_at: "2024-10-25"
     title: "Bug 46 for feature 18"
@@ -400,6 +436,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-047
+    platforms: [windows, apple]
     created_at: "2024-06-30"
     title: "Use Case 47 for feature 18"
     priority: low
@@ -408,6 +445,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-048
+    platforms: [web]
     type: regression
     created_at: "2024-10-08"
     title: "Bug 48 for feature 18"
@@ -417,6 +455,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-049
+    platforms: [windows, apple, android, web]
     created_at: "2024-05-26"
     title: "Use Case 49 for feature 18"
     priority: low
@@ -425,6 +464,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-050
+    platforms: [web, windows]
     created_at: "2024-11-01"
     title: "Use Case 50 for feature 18"
     priority: highest
@@ -433,6 +473,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-051
+    platforms: [android]
     created_at: "2024-12-12"
     title: "Use Case 51 for feature 18"
     priority: medium
@@ -441,6 +482,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-052
+    platforms: [apple, windows, android]
     created_at: "2024-08-19"
     title: "Use Case 52 for feature 18"
     priority: highest
@@ -458,6 +500,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-054
+    platforms: [windows, android]
     created_at: "2024-05-30"
     title: "Use Case 54 for feature 18"
     priority: medium
@@ -474,6 +517,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-056
+    platforms: [web, android]
     type: regression
     created_at: "2024-06-26"
     title: "Bug 56 for feature 18"
@@ -501,6 +545,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-059
+    platforms: [web, apple]
     created_at: "2024-12-15"
     title: "Use Case 59 for feature 18"
     priority: medium
@@ -517,6 +562,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-061
+    platforms: [android, web, windows, apple]
     created_at: "2024-11-16"
     title: "Use Case 61 for feature 18"
     priority: highest
@@ -525,6 +571,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-062
+    platforms: [apple, windows]
     type: regression
     created_at: "2024-11-19"
     title: "Bug 62 for feature 18"
@@ -543,6 +590,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-064
+    platforms: [android]
     created_at: "2024-07-02"
     title: "Use Case 64 for feature 18"
     priority: high
@@ -551,6 +599,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-065
+    platforms: [windows, android, apple, web]
     created_at: "2024-08-22"
     title: "Use Case 65 for feature 18"
     priority: highest
@@ -575,6 +624,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-068
+    platforms: [windows, android, apple, web]
     created_at: "2024-06-11"
     title: "Use Case 68 for feature 18"
     priority: none
@@ -583,6 +633,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-069
+    platforms: [web, apple, windows]
     type: bug
     created_at: "2024-09-21"
     title: "Bug 69 for feature 18"
@@ -592,6 +643,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-070
+    platforms: [apple]
     type: bug
     created_at: "2024-06-29"
     title: "Bug 70 for feature 18"
@@ -601,6 +653,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-071
+    platforms: [windows, apple]
     type: regression
     created_at: "2024-05-12"
     title: "Bug 71 for feature 18"
@@ -610,6 +663,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-072
+    platforms: [windows, android, web, apple]
     created_at: "2024-11-14"
     title: "Use Case 72 for feature 18"
     priority: medium
@@ -618,6 +672,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-073
+    platforms: [web]
     type: bug
     created_at: "2024-11-25"
     title: "Bug 73 for feature 18"
@@ -627,6 +682,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-074
+    platforms: [android, web, windows, apple]
     type: regression
     created_at: "2024-10-17"
     title: "Bug 74 for feature 18"
@@ -636,6 +692,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-075
+    platforms: [android, windows, apple, web]
     type: bug
     created_at: "2024-09-08"
     title: "Bug 75 for feature 18"
@@ -645,6 +702,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-076
+    platforms: [android, windows, web, apple]
     type: regression
     created_at: "2024-07-12"
     title: "Bug 76 for feature 18"
@@ -654,6 +712,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-077
+    platforms: [android]
     created_at: "2024-10-05"
     title: "Use Case 77 for feature 18"
     priority: highest
@@ -662,6 +721,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-078
+    platforms: [apple]
     type: bug
     created_at: "2024-09-28"
     title: "Bug 78 for feature 18"
@@ -671,6 +731,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-079
+    platforms: [windows, web, android]
     created_at: "2024-12-04"
     title: "Use Case 79 for feature 18"
     priority: high
@@ -679,6 +740,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-018-080
+    platforms: [web, apple, android]
     type: regression
     created_at: "2024-07-15"
     title: "Bug 80 for feature 18"
@@ -721,4 +783,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

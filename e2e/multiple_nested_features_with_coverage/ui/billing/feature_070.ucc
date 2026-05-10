@@ -19,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-002
+    platforms: [windows, apple]
     created_at: "2025-04-27"
     title: "Use Case 2 for feature 70"
     priority: high
@@ -27,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-003
+    platforms: [web]
     type: bug
     created_at: "2025-05-23"
     title: "Bug 3 for feature 70"
@@ -36,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-004
+    platforms: [android, windows]
     created_at: "2025-09-21"
     title: "Use Case 4 for feature 70"
     priority: high
@@ -44,6 +47,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-005
+    platforms: [windows, web, apple]
     created_at: "2024-12-24"
     title: "Use Case 5 for feature 70"
     priority: highest
@@ -52,6 +56,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-006
+    platforms: [apple, web]
     created_at: "2025-03-26"
     title: "Use Case 6 for feature 70"
     priority: highest
@@ -85,6 +90,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-010
+    platforms: [windows, android, web]
     created_at: "2025-02-05"
     title: "Use Case 10 for feature 70"
     priority: medium
@@ -93,6 +99,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-011
+    platforms: [windows, web]
     created_at: "2024-08-02"
     title: "Use Case 11 for feature 70"
     priority: medium
@@ -109,6 +116,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-013
+    platforms: [web, windows, android, apple]
     created_at: "2025-08-29"
     title: "Use Case 13 for feature 70"
     priority: high
@@ -117,6 +125,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-014
+    platforms: [android, web, windows, apple]
     type: regression
     created_at: "2024-12-22"
     title: "Bug 14 for feature 70"
@@ -126,6 +135,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-015
+    platforms: [apple, android]
     created_at: "2025-07-22"
     title: "Use Case 15 for feature 70"
     priority: highest
@@ -151,6 +161,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-018
+    platforms: [web, apple, android]
     type: bug
     created_at: "2025-05-09"
     title: "Bug 18 for feature 70"
@@ -160,6 +171,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-019
+    platforms: [windows, web]
     created_at: "2025-12-07"
     title: "Use Case 19 for feature 70"
     priority: low
@@ -168,6 +180,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-020
+    platforms: [windows, apple]
     created_at: "2025-08-06"
     title: "Use Case 20 for feature 70"
     priority: medium
@@ -176,6 +189,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-021
+    platforms: [android]
     created_at: "2024-12-19"
     title: "Use Case 21 for feature 70"
     priority: high
@@ -184,6 +198,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-022
+    platforms: [windows, web, apple]
     type: regression
     created_at: "2025-07-18"
     title: "Bug 22 for feature 70"
@@ -193,6 +208,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-023
+    platforms: [android, web, apple, windows]
     created_at: "2025-01-21"
     title: "Use Case 23 for feature 70"
     priority: low
@@ -226,6 +242,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-027
+    platforms: [android, apple, web]
     type: bug
     created_at: "2024-06-14"
     title: "Bug 27 for feature 70"
@@ -235,6 +252,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-028
+    platforms: [web]
     created_at: "2024-11-26"
     title: "Use Case 28 for feature 70"
     priority: none
@@ -243,6 +261,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-029
+    platforms: [apple]
     created_at: "2024-11-23"
     title: "Use Case 29 for feature 70"
     priority: none
@@ -251,6 +270,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-070-030
+    platforms: [android, windows]
     created_at: "2025-09-02"
     title: "Use Case 30 for feature 70"
     priority: low
@@ -258,4 +278,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

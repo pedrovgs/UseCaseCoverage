@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-029-001
+    platforms: [apple, web]
     type: regression
     created_at: "2024-11-30"
     title: "Bug 1 for feature 29"
@@ -19,6 +20,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-002
+    platforms: [android]
     created_at: "2024-11-09"
     title: "Use Case 2 for feature 29"
     priority: low
@@ -27,6 +29,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-003
+    platforms: [web]
     type: regression
     created_at: "2024-12-31"
     title: "Bug 3 for feature 29"
@@ -36,6 +39,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-004
+    platforms: [web]
     created_at: "2025-01-19"
     title: "Use Case 4 for feature 29"
     priority: high
@@ -44,6 +48,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-005
+    platforms: [apple, web]
     created_at: "2024-09-23"
     title: "Use Case 5 for feature 29"
     priority: none
@@ -52,6 +57,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-006
+    platforms: [apple, android]
     type: regression
     created_at: "2024-08-06"
     title: "Bug 6 for feature 29"
@@ -61,6 +67,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-007
+    platforms: [web, windows, apple, android]
     created_at: "2025-01-22"
     title: "Use Case 7 for feature 29"
     priority: highest
@@ -69,6 +76,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-008
+    platforms: [apple, windows]
     created_at: "2025-06-06"
     title: "Use Case 8 for feature 29"
     priority: none
@@ -77,6 +85,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-009
+    platforms: [android, apple, windows, web]
     created_at: "2025-11-04"
     title: "Use Case 9 for feature 29"
     priority: medium
@@ -94,6 +103,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-011
+    platforms: [web, apple, windows, android]
     created_at: "2024-08-09"
     title: "Use Case 11 for feature 29"
     priority: none
@@ -101,4 +111,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

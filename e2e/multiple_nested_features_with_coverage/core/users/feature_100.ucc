@@ -19,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-100-002
+    platforms: [windows]
     type: regression
     created_at: "2024-08-06"
     title: "Bug 2 for feature 100"
@@ -28,6 +29,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-100-003
+    platforms: [windows, android]
     created_at: "2025-05-17"
     title: "Use Case 3 for feature 100"
     priority: low
@@ -45,6 +47,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-100-005
+    platforms: [android, windows, apple, web]
     created_at: "2024-06-28"
     title: "Use Case 5 for feature 100"
     priority: none
@@ -53,6 +56,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-100-006
+    platforms: [android, apple, web, windows]
     type: regression
     created_at: "2024-09-21"
     title: "Bug 6 for feature 100"
@@ -62,6 +66,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-100-007
+    platforms: [web, apple]
     type: bug
     created_at: "2024-12-26"
     title: "Bug 7 for feature 100"
@@ -71,6 +76,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-100-008
+    platforms: [android, windows, apple]
     type: bug
     created_at: "2025-02-28"
     title: "Bug 8 for feature 100"
@@ -79,4 +85,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

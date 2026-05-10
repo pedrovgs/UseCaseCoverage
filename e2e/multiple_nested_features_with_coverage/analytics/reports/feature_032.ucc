@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-032-001
+    platforms: [android, apple, web, windows]
     type: regression
     created_at: "2024-12-23"
     title: "Bug 1 for feature 32"
@@ -19,6 +20,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-002
+    platforms: [apple, android]
     created_at: "2024-11-17"
     title: "Use Case 2 for feature 32"
     priority: high
@@ -27,6 +29,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-003
+    platforms: [web]
     created_at: "2024-09-16"
     title: "Use Case 3 for feature 32"
     priority: medium
@@ -35,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-004
+    platforms: [windows, apple]
     created_at: "2024-10-17"
     title: "Use Case 4 for feature 32"
     priority: high
@@ -43,6 +47,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-005
+    platforms: [web, android, windows, apple]
     type: bug
     created_at: "2025-03-07"
     title: "Bug 5 for feature 32"
@@ -70,6 +75,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-008
+    platforms: [windows, web, android, apple]
     created_at: "2024-11-29"
     title: "Use Case 8 for feature 32"
     priority: none
@@ -95,6 +101,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-011
+    platforms: [windows]
     created_at: "2024-07-30"
     title: "Use Case 11 for feature 32"
     priority: medium
@@ -103,6 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-012
+    platforms: [windows, web, android, apple]
     type: bug
     created_at: "2024-07-16"
     title: "Bug 12 for feature 32"
@@ -121,6 +129,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-014
+    platforms: [android]
     created_at: "2024-10-03"
     title: "Use Case 14 for feature 32"
     priority: none
@@ -129,6 +138,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-015
+    platforms: [windows, android, web, apple]
     type: bug
     created_at: "2025-02-18"
     title: "Bug 15 for feature 32"
@@ -138,6 +148,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-016
+    platforms: [web, apple, android, windows]
     created_at: "2024-10-08"
     title: "Use Case 16 for feature 32"
     priority: low
@@ -146,6 +157,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-017
+    platforms: [windows, android, web]
     created_at: "2024-10-05"
     title: "Use Case 17 for feature 32"
     priority: low
@@ -154,6 +166,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-018
+    platforms: [windows, web, apple]
     created_at: "2024-07-12"
     title: "Use Case 18 for feature 32"
     priority: high
@@ -171,6 +184,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-020
+    platforms: [windows, apple]
     created_at: "2024-12-14"
     title: "Use Case 20 for feature 32"
     priority: medium
@@ -179,6 +193,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-021
+    platforms: [windows, web, apple, android]
     created_at: "2024-06-16"
     title: "Use Case 21 for feature 32"
     priority: highest
@@ -195,6 +210,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-023
+    platforms: [android, apple, windows, web]
     created_at: "2024-11-07"
     title: "Use Case 23 for feature 32"
     priority: high
@@ -203,6 +219,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-024
+    platforms: [web, apple, windows, android]
     created_at: "2024-08-01"
     title: "Use Case 24 for feature 32"
     priority: none
@@ -219,6 +236,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-026
+    platforms: [web, apple]
     created_at: "2024-10-19"
     title: "Use Case 26 for feature 32"
     priority: none
@@ -227,6 +245,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-027
+    platforms: [android]
     type: bug
     created_at: "2024-10-28"
     title: "Bug 27 for feature 32"
@@ -236,6 +255,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-028
+    platforms: [android, apple, windows, web]
     type: regression
     created_at: "2024-10-24"
     title: "Bug 28 for feature 32"
@@ -245,6 +265,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-029
+    platforms: [windows, apple]
     created_at: "2024-05-27"
     title: "Use Case 29 for feature 32"
     priority: low
@@ -253,6 +274,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-030
+    platforms: [android, web, apple, windows]
     created_at: "2024-11-18"
     title: "Use Case 30 for feature 32"
     priority: low
@@ -261,6 +283,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-031
+    platforms: [android, apple, windows, web]
     created_at: "2024-09-25"
     title: "Use Case 31 for feature 32"
     priority: highest
@@ -278,6 +301,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-033
+    platforms: [apple, windows]
     type: bug
     created_at: "2024-09-03"
     title: "Bug 33 for feature 32"
@@ -287,6 +311,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-032-034
+    platforms: [apple]
     type: regression
     created_at: "2025-02-14"
     title: "Bug 34 for feature 32"
@@ -295,4 +320,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

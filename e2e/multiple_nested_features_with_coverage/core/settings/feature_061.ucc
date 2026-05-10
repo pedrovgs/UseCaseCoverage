@@ -34,6 +34,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-004
+    platforms: [apple]
     created_at: "2024-09-28"
     title: "Use Case 4 for feature 61"
     priority: medium
@@ -42,6 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-005
+    platforms: [windows]
     created_at: "2024-06-28"
     title: "Use Case 5 for feature 61"
     priority: high
@@ -50,6 +52,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-006
+    platforms: [apple, android, web]
     created_at: "2024-10-25"
     title: "Use Case 6 for feature 61"
     priority: highest
@@ -67,6 +70,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-008
+    platforms: [web, windows]
     created_at: "2024-05-11"
     title: "Use Case 8 for feature 61"
     priority: none
@@ -75,6 +79,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-009
+    platforms: [web, apple, windows, android]
     created_at: "2024-06-16"
     title: "Use Case 9 for feature 61"
     priority: high
@@ -83,6 +88,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-010
+    platforms: [windows, apple, android, web]
     type: bug
     created_at: "2024-09-28"
     title: "Bug 10 for feature 61"
@@ -100,6 +106,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-012
+    platforms: [web, apple]
     created_at: "2024-12-16"
     title: "Use Case 12 for feature 61"
     priority: low
@@ -108,6 +115,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-013
+    platforms: [android, apple, windows, web]
     created_at: "2024-09-16"
     title: "Use Case 13 for feature 61"
     priority: none
@@ -116,6 +124,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-014
+    platforms: [apple, web, android, windows]
     type: regression
     created_at: "2024-07-04"
     title: "Bug 14 for feature 61"
@@ -125,6 +134,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-015
+    platforms: [android, windows, apple, web]
     created_at: "2024-11-08"
     title: "Use Case 15 for feature 61"
     priority: high
@@ -133,6 +143,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-016
+    platforms: [windows]
     created_at: "2024-08-06"
     title: "Use Case 16 for feature 61"
     priority: high
@@ -141,6 +152,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-017
+    platforms: [android, apple, windows, web]
     type: bug
     created_at: "2024-06-17"
     title: "Bug 17 for feature 61"
@@ -150,6 +162,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-018
+    platforms: [apple]
     created_at: "2024-07-24"
     title: "Use Case 18 for feature 61"
     priority: high
@@ -158,6 +171,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-019
+    platforms: [apple, web, android, windows]
     created_at: "2024-06-26"
     title: "Use Case 19 for feature 61"
     priority: high
@@ -166,6 +180,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-020
+    platforms: [android, web, apple]
     created_at: "2024-12-07"
     title: "Use Case 20 for feature 61"
     priority: none
@@ -174,6 +189,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-021
+    platforms: [apple, web, windows]
     created_at: "2024-11-20"
     title: "Use Case 21 for feature 61"
     priority: high
@@ -182,6 +198,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-022
+    platforms: [apple, android, windows]
     type: regression
     created_at: "2024-11-21"
     title: "Bug 22 for feature 61"
@@ -216,6 +233,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-026
+    platforms: [apple, android, windows, web]
     type: bug
     created_at: "2024-07-16"
     title: "Bug 26 for feature 61"
@@ -225,6 +243,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-027
+    platforms: [windows, web, android]
     type: bug
     created_at: "2024-06-08"
     title: "Bug 27 for feature 61"
@@ -234,6 +253,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-028
+    platforms: [windows, apple]
     type: bug
     created_at: "2024-05-26"
     title: "Bug 28 for feature 61"
@@ -243,6 +263,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-029
+    platforms: [android, windows, web, apple]
     created_at: "2024-06-28"
     title: "Use Case 29 for feature 61"
     priority: high
@@ -259,6 +280,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-031
+    platforms: [apple, windows]
     type: regression
     created_at: "2024-08-11"
     title: "Bug 31 for feature 61"
@@ -286,6 +308,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-034
+    platforms: [android, apple]
     created_at: "2024-08-21"
     title: "Use Case 34 for feature 61"
     priority: high
@@ -294,6 +317,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-035
+    platforms: [web]
     created_at: "2024-10-17"
     title: "Use Case 35 for feature 61"
     priority: none
@@ -310,6 +334,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-037
+    platforms: [web, windows, android, apple]
     type: bug
     created_at: "2024-07-31"
     title: "Bug 37 for feature 61"
@@ -319,6 +344,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-038
+    platforms: [web, apple, windows]
     created_at: "2024-07-22"
     title: "Use Case 38 for feature 61"
     priority: high
@@ -327,6 +353,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-039
+    platforms: [web, windows, android, apple]
     created_at: "2024-08-16"
     title: "Use Case 39 for feature 61"
     priority: high
@@ -335,6 +362,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-040
+    platforms: [windows, web]
     type: regression
     created_at: "2024-07-18"
     title: "Bug 40 for feature 61"
@@ -352,6 +380,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-042
+    platforms: [web]
     created_at: "2024-06-01"
     title: "Use Case 42 for feature 61"
     priority: medium
@@ -360,6 +389,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-043
+    platforms: [android, apple, web]
     created_at: "2024-10-03"
     title: "Use Case 43 for feature 61"
     priority: highest
@@ -368,6 +398,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-044
+    platforms: [windows, apple, web, android]
     created_at: "2024-08-21"
     title: "Use Case 44 for feature 61"
     priority: medium
@@ -385,6 +416,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-046
+    platforms: [apple, android]
     type: bug
     created_at: "2024-06-03"
     title: "Bug 46 for feature 61"
@@ -394,6 +426,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-047
+    platforms: [web]
     created_at: "2024-08-03"
     title: "Use Case 47 for feature 61"
     priority: highest
@@ -402,6 +435,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-048
+    platforms: [web, android]
     type: bug
     created_at: "2024-10-14"
     title: "Bug 48 for feature 61"
@@ -411,6 +445,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-049
+    platforms: [windows, web]
     created_at: "2024-05-10"
     title: "Use Case 49 for feature 61"
     priority: highest
@@ -419,6 +454,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-050
+    platforms: [windows, apple, android, web]
     type: regression
     created_at: "2024-09-14"
     title: "Bug 50 for feature 61"
@@ -428,6 +464,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-051
+    platforms: [web, windows, apple]
     created_at: "2024-12-12"
     title: "Use Case 51 for feature 61"
     priority: highest
@@ -436,6 +473,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-052
+    platforms: [android, apple, web]
     created_at: "2024-09-29"
     title: "Use Case 52 for feature 61"
     priority: medium
@@ -452,6 +490,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-054
+    platforms: [windows, apple]
     created_at: "2024-12-08"
     title: "Use Case 54 for feature 61"
     priority: highest
@@ -460,6 +499,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-055
+    platforms: [android, windows, web]
     created_at: "2024-08-08"
     title: "Use Case 55 for feature 61"
     priority: low
@@ -468,6 +508,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-056
+    platforms: [windows, web]
     created_at: "2024-06-14"
     title: "Use Case 56 for feature 61"
     priority: medium
@@ -476,6 +517,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-057
+    platforms: [android]
     created_at: "2024-06-26"
     title: "Use Case 57 for feature 61"
     priority: low
@@ -493,6 +535,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-059
+    platforms: [android, apple, windows, web]
     created_at: "2024-08-28"
     title: "Use Case 59 for feature 61"
     priority: low
@@ -501,6 +544,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-061-060
+    platforms: [apple, web]
     created_at: "2024-09-06"
     title: "Use Case 60 for feature 61"
     priority: highest
@@ -526,4 +570,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-098-001
+    platforms: [android, apple, windows, web]
     type: regression
     created_at: "2024-08-01"
     title: "Bug 1 for feature 98"
@@ -19,6 +20,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-002
+    platforms: [windows, android, web, apple]
     created_at: "2024-12-03"
     title: "Use Case 2 for feature 98"
     priority: high
@@ -27,6 +29,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-003
+    platforms: [web]
     created_at: "2024-09-01"
     title: "Use Case 3 for feature 98"
     priority: low
@@ -35,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-004
+    platforms: [web, windows, apple]
     created_at: "2025-04-27"
     title: "Use Case 4 for feature 98"
     priority: high
@@ -43,6 +47,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-005
+    platforms: [web, apple, windows, android]
     created_at: "2025-06-12"
     title: "Use Case 5 for feature 98"
     priority: high
@@ -51,6 +56,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-006
+    platforms: [windows, apple, web, android]
     type: regression
     created_at: "2025-04-03"
     title: "Bug 6 for feature 98"
@@ -60,6 +66,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-007
+    platforms: [apple, web]
     created_at: "2024-12-22"
     title: "Use Case 7 for feature 98"
     priority: low
@@ -68,6 +75,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-008
+    platforms: [windows, apple, android]
     created_at: "2025-01-16"
     title: "Use Case 8 for feature 98"
     priority: none
@@ -76,6 +84,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-009
+    platforms: [apple, android, web, windows]
     type: regression
     created_at: "2024-07-04"
     title: "Bug 9 for feature 98"
@@ -85,6 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-010
+    platforms: [windows, apple]
     created_at: "2024-09-22"
     title: "Use Case 10 for feature 98"
     priority: medium
@@ -93,6 +103,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-011
+    platforms: [apple]
     type: bug
     created_at: "2025-01-22"
     title: "Bug 11 for feature 98"
@@ -102,6 +113,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-012
+    platforms: [apple, android]
     created_at: "2025-06-20"
     title: "Use Case 12 for feature 98"
     priority: highest
@@ -119,6 +131,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-014
+    platforms: [apple, android, web]
     created_at: "2024-05-17"
     title: "Use Case 14 for feature 98"
     priority: medium
@@ -135,6 +148,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-016
+    platforms: [windows, web]
     created_at: "2025-03-27"
     title: "Use Case 16 for feature 98"
     priority: none
@@ -151,6 +165,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-018
+    platforms: [android, windows]
     type: bug
     created_at: "2025-05-31"
     title: "Bug 18 for feature 98"
@@ -160,6 +175,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-019
+    platforms: [windows, android]
     created_at: "2025-02-09"
     title: "Use Case 19 for feature 98"
     priority: medium
@@ -168,6 +184,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-020
+    platforms: [android, windows, web, apple]
     created_at: "2025-10-01"
     title: "Use Case 20 for feature 98"
     priority: highest
@@ -193,6 +210,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-023
+    platforms: [windows]
     created_at: "2024-06-02"
     title: "Use Case 23 for feature 98"
     priority: highest
@@ -201,6 +219,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-024
+    platforms: [windows, web, apple]
     created_at: "2024-07-12"
     title: "Use Case 24 for feature 98"
     priority: none
@@ -218,6 +237,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-026
+    platforms: [apple]
     created_at: "2024-06-12"
     title: "Use Case 26 for feature 98"
     priority: none
@@ -233,4 +253,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

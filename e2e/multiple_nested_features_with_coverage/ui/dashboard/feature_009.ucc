@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-009-001
+    platforms: [windows]
     type: bug
     created_at: "2025-08-13"
     title: "Bug 1 for feature 9"
@@ -27,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-003
+    platforms: [android, web]
     type: regression
     created_at: "2024-11-08"
     title: "Bug 3 for feature 9"
@@ -36,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-004
+    platforms: [android, windows, web, apple]
     created_at: "2024-11-26"
     title: "Use Case 4 for feature 9"
     priority: low
@@ -44,6 +47,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-005
+    platforms: [windows, apple]
     created_at: "2025-01-20"
     title: "Use Case 5 for feature 9"
     priority: none
@@ -52,6 +56,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-006
+    platforms: [web, apple]
     created_at: "2025-05-16"
     title: "Use Case 6 for feature 9"
     priority: highest
@@ -60,6 +65,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-007
+    platforms: [windows, android, web]
     created_at: "2024-06-20"
     title: "Use Case 7 for feature 9"
     priority: highest
@@ -68,6 +74,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-008
+    platforms: [apple, android]
     created_at: "2024-08-16"
     title: "Use Case 8 for feature 9"
     priority: high
@@ -84,6 +91,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-010
+    platforms: [apple]
     type: regression
     created_at: "2024-11-09"
     title: "Bug 10 for feature 9"
@@ -102,6 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-012
+    platforms: [web]
     created_at: "2025-02-12"
     title: "Use Case 12 for feature 9"
     priority: none
@@ -110,6 +119,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-013
+    platforms: [apple]
     created_at: "2024-05-13"
     title: "Use Case 13 for feature 9"
     priority: high
@@ -118,6 +128,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-014
+    platforms: [web, android]
     type: bug
     created_at: "2024-05-17"
     title: "Bug 14 for feature 9"
@@ -127,6 +138,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-015
+    platforms: [android, web]
     created_at: "2025-03-18"
     title: "Use Case 15 for feature 9"
     priority: high
@@ -144,6 +156,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-017
+    platforms: [android, windows, apple, web]
     type: bug
     created_at: "2025-06-23"
     title: "Bug 17 for feature 9"
@@ -153,6 +166,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-018
+    platforms: [android, web, windows, apple]
     type: regression
     created_at: "2024-07-01"
     title: "Bug 18 for feature 9"
@@ -162,6 +176,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-019
+    platforms: [windows, android, web]
     created_at: "2025-08-25"
     title: "Use Case 19 for feature 9"
     priority: medium
@@ -170,6 +185,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-020
+    platforms: [apple, web, windows, android]
     type: regression
     created_at: "2024-10-10"
     title: "Bug 20 for feature 9"
@@ -179,6 +195,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-009-021
+    platforms: [windows, apple, web]
     created_at: "2024-12-03"
     title: "Use Case 21 for feature 9"
     priority: medium
@@ -186,4 +203,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

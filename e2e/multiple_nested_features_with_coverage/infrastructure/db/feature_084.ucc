@@ -18,6 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-002
+    platforms: [android, apple, web, windows]
     type: bug
     created_at: "2024-07-11"
     title: "Bug 2 for feature 84"
@@ -27,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-003
+    platforms: [windows, apple, android]
     type: bug
     created_at: "2024-07-02"
     title: "Bug 3 for feature 84"
@@ -36,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-004
+    platforms: [apple, windows, web]
     created_at: "2025-12-05"
     title: "Use Case 4 for feature 84"
     priority: high
@@ -60,6 +63,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-007
+    platforms: [apple]
     created_at: "2025-12-17"
     title: "Use Case 7 for feature 84"
     priority: highest
@@ -76,6 +80,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-009
+    platforms: [windows, android]
     created_at: "2025-09-01"
     title: "Use Case 9 for feature 84"
     priority: medium
@@ -84,6 +89,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-010
+    platforms: [web, windows]
     type: bug
     created_at: "2025-12-26"
     title: "Bug 10 for feature 84"
@@ -93,6 +99,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-011
+    platforms: [web, windows, android]
     created_at: "2025-11-18"
     title: "Use Case 11 for feature 84"
     priority: low
@@ -101,6 +108,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-012
+    platforms: [web]
     created_at: "2024-09-24"
     title: "Use Case 12 for feature 84"
     priority: low
@@ -109,6 +117,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-013
+    platforms: [android]
     type: regression
     created_at: "2024-12-04"
     title: "Bug 13 for feature 84"
@@ -118,6 +127,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-014
+    platforms: [web, apple, android, windows]
     type: bug
     created_at: "2024-05-19"
     title: "Bug 14 for feature 84"
@@ -127,6 +137,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-015
+    platforms: [windows, apple, web, android]
     created_at: "2025-11-17"
     title: "Use Case 15 for feature 84"
     priority: none
@@ -144,6 +155,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-017
+    platforms: [android]
     type: bug
     created_at: "2024-12-24"
     title: "Bug 17 for feature 84"
@@ -153,6 +165,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-018
+    platforms: [windows, apple, android, web]
     type: regression
     created_at: "2025-07-12"
     title: "Bug 18 for feature 84"
@@ -162,6 +175,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-019
+    platforms: [web, apple, android]
     type: bug
     created_at: "2025-11-05"
     title: "Bug 19 for feature 84"
@@ -171,6 +185,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-020
+    platforms: [windows, android, apple, web]
     type: bug
     created_at: "2024-08-15"
     title: "Bug 20 for feature 84"
@@ -188,6 +203,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-022
+    platforms: [windows, android, apple]
     type: bug
     created_at: "2025-12-17"
     title: "Bug 22 for feature 84"
@@ -197,6 +213,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-023
+    platforms: [web, android, windows, apple]
     created_at: "2025-04-11"
     title: "Use Case 23 for feature 84"
     priority: low
@@ -205,6 +222,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-024
+    platforms: [android, windows, web]
     type: bug
     created_at: "2025-05-11"
     title: "Bug 24 for feature 84"
@@ -222,6 +240,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-026
+    platforms: [windows]
     created_at: "2025-09-09"
     title: "Use Case 26 for feature 84"
     priority: medium
@@ -230,6 +249,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-027
+    platforms: [windows, apple, android, web]
     created_at: "2024-09-06"
     title: "Use Case 27 for feature 84"
     priority: highest
@@ -246,6 +266,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-029
+    platforms: [apple, windows, android]
     created_at: "2024-05-20"
     title: "Use Case 29 for feature 84"
     priority: medium
@@ -254,6 +275,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-030
+    platforms: [apple]
     created_at: "2024-10-05"
     title: "Use Case 30 for feature 84"
     priority: high
@@ -262,6 +284,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-031
+    platforms: [windows, android, web, apple]
     created_at: "2024-08-10"
     title: "Use Case 31 for feature 84"
     priority: highest
@@ -279,6 +302,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-033
+    platforms: [windows]
     created_at: "2024-07-25"
     title: "Use Case 33 for feature 84"
     priority: medium
@@ -312,6 +336,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-084-037
+    platforms: [windows, apple, android, web]
     type: bug
     created_at: "2025-11-06"
     title: "Bug 37 for feature 84"
@@ -329,4 +354,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

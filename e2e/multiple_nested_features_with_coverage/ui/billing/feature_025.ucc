@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-025-001
+    platforms: [android]
     type: bug
     created_at: "2024-09-20"
     title: "Bug 1 for feature 25"
@@ -19,6 +20,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-002
+    platforms: [windows, web, apple]
     created_at: "2024-08-24"
     title: "Use Case 2 for feature 25"
     priority: high
@@ -35,6 +37,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-004
+    platforms: [web, android, apple]
     created_at: "2024-10-09"
     title: "Use Case 4 for feature 25"
     priority: low
@@ -43,6 +46,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-005
+    platforms: [android, apple, windows, web]
     created_at: "2025-05-16"
     title: "Use Case 5 for feature 25"
     priority: medium
@@ -59,6 +63,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-007
+    platforms: [android, web]
     created_at: "2024-09-05"
     title: "Use Case 7 for feature 25"
     priority: none
@@ -67,6 +72,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-008
+    platforms: [android, windows]
     type: bug
     created_at: "2025-05-05"
     title: "Bug 8 for feature 25"
@@ -76,6 +82,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-009
+    platforms: [android]
     type: regression
     created_at: "2025-02-07"
     title: "Bug 9 for feature 25"
@@ -85,6 +92,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-010
+    platforms: [android]
     created_at: "2024-12-05"
     title: "Use Case 10 for feature 25"
     priority: highest
@@ -93,6 +101,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-011
+    platforms: [android]
     created_at: "2025-05-12"
     title: "Use Case 11 for feature 25"
     priority: high
@@ -101,6 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-012
+    platforms: [windows]
     created_at: "2024-05-25"
     title: "Use Case 12 for feature 25"
     priority: none
@@ -109,6 +119,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-013
+    platforms: [android, web, windows]
     created_at: "2024-08-29"
     title: "Use Case 13 for feature 25"
     priority: highest
@@ -117,6 +128,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-014
+    platforms: [android, windows, web, apple]
     created_at: "2024-12-06"
     title: "Use Case 14 for feature 25"
     priority: medium
@@ -125,6 +137,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-015
+    platforms: [android, web, windows, apple]
     created_at: "2024-05-28"
     title: "Use Case 15 for feature 25"
     priority: none
@@ -141,6 +154,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-025-017
+    platforms: [web, android, windows]
     created_at: "2024-07-11"
     title: "Use Case 17 for feature 25"
     priority: highest
@@ -148,4 +162,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-015-001
+    platforms: [apple]
     created_at: "2024-09-24"
     title: "Use Case 1 for feature 15"
     priority: medium
@@ -18,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-002
+    platforms: [web, apple]
     created_at: "2024-08-30"
     title: "Use Case 2 for feature 15"
     priority: low
@@ -26,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-003
+    platforms: [windows, android]
     type: regression
     created_at: "2024-11-03"
     title: "Bug 3 for feature 15"
@@ -35,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-004
+    platforms: [windows, web]
     created_at: "2025-01-19"
     title: "Use Case 4 for feature 15"
     priority: high
@@ -51,6 +55,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-006
+    platforms: [apple]
     created_at: "2025-02-05"
     title: "Use Case 6 for feature 15"
     priority: highest
@@ -59,6 +64,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-007
+    platforms: [android, windows, apple, web]
     created_at: "2024-08-18"
     title: "Use Case 7 for feature 15"
     priority: low
@@ -67,6 +73,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-008
+    platforms: [android, web]
     type: bug
     created_at: "2024-08-21"
     title: "Bug 8 for feature 15"
@@ -76,6 +83,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-009
+    platforms: [android, web, windows, apple]
     created_at: "2024-10-19"
     title: "Use Case 9 for feature 15"
     priority: highest
@@ -84,6 +92,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-010
+    platforms: [windows, android]
     type: bug
     created_at: "2024-07-14"
     title: "Bug 10 for feature 15"
@@ -93,6 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-011
+    platforms: [windows]
     type: regression
     created_at: "2024-06-18"
     title: "Bug 11 for feature 15"
@@ -102,6 +112,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-012
+    platforms: [windows]
     created_at: "2024-12-15"
     title: "Use Case 12 for feature 15"
     priority: medium
@@ -118,6 +129,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-014
+    platforms: [apple, android, web]
     created_at: "2025-02-13"
     title: "Use Case 14 for feature 15"
     priority: high
@@ -126,6 +138,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-015
+    platforms: [android, web]
     created_at: "2024-09-02"
     title: "Use Case 15 for feature 15"
     priority: highest
@@ -134,6 +147,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-016
+    platforms: [android, apple, windows]
     created_at: "2024-10-08"
     title: "Use Case 16 for feature 15"
     priority: highest
@@ -142,6 +156,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-017
+    platforms: [web, apple, windows, android]
     type: bug
     created_at: "2024-05-15"
     title: "Bug 17 for feature 15"
@@ -151,6 +166,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-018
+    platforms: [web, windows]
     created_at: "2024-08-02"
     title: "Use Case 18 for feature 15"
     priority: medium
@@ -159,6 +175,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-019
+    platforms: [web, windows]
     type: regression
     created_at: "2024-08-19"
     title: "Bug 19 for feature 15"
@@ -168,6 +185,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-020
+    platforms: [windows, web]
     created_at: "2024-09-13"
     title: "Use Case 20 for feature 15"
     priority: none
@@ -185,6 +203,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-022
+    platforms: [apple]
     created_at: "2024-08-05"
     title: "Use Case 22 for feature 15"
     priority: none
@@ -193,6 +212,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-023
+    platforms: [windows, web]
     created_at: "2024-10-26"
     title: "Use Case 23 for feature 15"
     priority: none
@@ -210,6 +230,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-015-025
+    platforms: [web, android]
     created_at: "2024-07-14"
     title: "Use Case 25 for feature 15"
     priority: low
@@ -234,4 +255,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

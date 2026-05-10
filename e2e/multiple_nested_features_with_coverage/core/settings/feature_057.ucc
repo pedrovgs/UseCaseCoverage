@@ -18,6 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-002
+    platforms: [apple, windows, web, android]
     created_at: "2025-08-12"
     title: "Use Case 2 for feature 57"
     priority: highest
@@ -34,6 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-004
+    platforms: [android, windows, apple, web]
     type: bug
     created_at: "2025-06-24"
     title: "Bug 4 for feature 57"
@@ -43,6 +45,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-005
+    platforms: [apple, android]
     created_at: "2024-11-06"
     title: "Use Case 5 for feature 57"
     priority: highest
@@ -51,6 +54,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-006
+    platforms: [apple, windows]
     created_at: "2025-06-14"
     title: "Use Case 6 for feature 57"
     priority: highest
@@ -59,6 +63,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-007
+    platforms: [web]
     created_at: "2024-08-16"
     title: "Use Case 7 for feature 57"
     priority: high
@@ -67,6 +72,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-008
+    platforms: [android, apple, windows]
     type: bug
     created_at: "2025-08-25"
     title: "Bug 8 for feature 57"
@@ -76,6 +82,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-009
+    platforms: [web, windows]
     created_at: "2026-01-08"
     title: "Use Case 9 for feature 57"
     priority: highest
@@ -110,6 +117,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-013
+    platforms: [windows, android, apple]
     created_at: "2024-06-07"
     title: "Use Case 13 for feature 57"
     priority: none
@@ -118,6 +126,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-014
+    platforms: [android, apple, web]
     created_at: "2025-12-06"
     title: "Use Case 14 for feature 57"
     priority: medium
@@ -126,6 +135,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-015
+    platforms: [apple]
     created_at: "2025-09-27"
     title: "Use Case 15 for feature 57"
     priority: none
@@ -142,6 +152,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-017
+    platforms: [android, apple, web, windows]
     type: bug
     created_at: "2025-11-17"
     title: "Bug 17 for feature 57"
@@ -151,6 +162,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-018
+    platforms: [windows, apple, web]
     created_at: "2026-04-11"
     title: "Use Case 18 for feature 57"
     priority: none
@@ -159,6 +171,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-019
+    platforms: [web, windows, android]
     type: regression
     created_at: "2026-01-21"
     title: "Bug 19 for feature 57"
@@ -168,6 +181,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-020
+    platforms: [android, apple, windows]
     type: bug
     created_at: "2024-12-18"
     title: "Bug 20 for feature 57"
@@ -194,6 +208,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-023
+    platforms: [web, apple, android, windows]
     created_at: "2024-07-08"
     title: "Use Case 23 for feature 57"
     priority: medium
@@ -202,6 +217,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-024
+    platforms: [android]
     type: regression
     created_at: "2025-03-29"
     title: "Bug 24 for feature 57"
@@ -211,6 +227,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-025
+    platforms: [web, android]
     created_at: "2025-09-25"
     title: "Use Case 25 for feature 57"
     priority: medium
@@ -219,6 +236,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-026
+    platforms: [windows]
     created_at: "2025-10-26"
     title: "Use Case 26 for feature 57"
     priority: none
@@ -227,6 +245,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-027
+    platforms: [windows, web]
     created_at: "2025-01-02"
     title: "Use Case 27 for feature 57"
     priority: high
@@ -235,6 +254,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-028
+    platforms: [web, apple, windows, android]
     type: bug
     created_at: "2026-01-07"
     title: "Bug 28 for feature 57"
@@ -253,6 +273,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-030
+    platforms: [web, apple, android, windows]
     created_at: "2025-01-12"
     title: "Use Case 30 for feature 57"
     priority: low
@@ -261,6 +282,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-031
+    platforms: [apple]
     type: regression
     created_at: "2026-04-12"
     title: "Bug 31 for feature 57"
@@ -278,6 +300,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-033
+    platforms: [windows, android, web, apple]
     created_at: "2026-04-29"
     title: "Use Case 33 for feature 57"
     priority: highest
@@ -286,6 +309,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-034
+    platforms: [windows, apple]
     created_at: "2025-04-14"
     title: "Use Case 34 for feature 57"
     priority: highest
@@ -311,6 +335,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-037
+    platforms: [apple]
     created_at: "2024-09-09"
     title: "Use Case 37 for feature 57"
     priority: high
@@ -318,4 +343,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

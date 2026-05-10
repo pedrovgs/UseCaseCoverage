@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-067-001
+    platforms: [windows, apple, web]
     created_at: "2024-07-25"
     title: "Use Case 1 for feature 67"
     priority: low
@@ -18,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-002
+    platforms: [windows, web, android]
     type: bug
     created_at: "2024-12-16"
     title: "Bug 2 for feature 67"
@@ -27,6 +29,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-003
+    platforms: [web, android, apple]
     type: regression
     created_at: "2025-06-21"
     title: "Bug 3 for feature 67"
@@ -36,6 +39,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-004
+    platforms: [web]
     type: bug
     created_at: "2026-02-17"
     title: "Bug 4 for feature 67"
@@ -45,6 +49,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-005
+    platforms: [windows, android, web, apple]
     created_at: "2026-04-16"
     title: "Use Case 5 for feature 67"
     priority: high
@@ -61,6 +66,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-007
+    platforms: [apple, windows, android]
     type: bug
     created_at: "2025-12-06"
     title: "Bug 7 for feature 67"
@@ -78,6 +84,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-009
+    platforms: [apple, android, windows]
     type: regression
     created_at: "2025-12-26"
     title: "Bug 9 for feature 67"
@@ -87,6 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-010
+    platforms: [android]
     created_at: "2025-12-05"
     title: "Use Case 10 for feature 67"
     priority: high
@@ -95,6 +103,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-011
+    platforms: [android, apple, web]
     created_at: "2025-01-04"
     title: "Use Case 11 for feature 67"
     priority: high
@@ -103,6 +112,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-012
+    platforms: [apple, windows]
     created_at: "2025-04-27"
     title: "Use Case 12 for feature 67"
     priority: high
@@ -119,6 +129,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-014
+    platforms: [apple, web]
     created_at: "2024-10-07"
     title: "Use Case 14 for feature 67"
     priority: low
@@ -135,6 +146,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-016
+    platforms: [web]
     type: regression
     created_at: "2024-10-28"
     title: "Bug 16 for feature 67"
@@ -144,6 +156,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-017
+    platforms: [web]
     type: regression
     created_at: "2024-07-06"
     title: "Bug 17 for feature 67"
@@ -161,6 +174,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-019
+    platforms: [apple, web, android, windows]
     type: regression
     created_at: "2024-09-26"
     title: "Bug 19 for feature 67"
@@ -179,6 +193,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-021
+    platforms: [web, android]
     created_at: "2025-02-11"
     title: "Use Case 21 for feature 67"
     priority: medium
@@ -187,6 +202,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-022
+    platforms: [apple, android]
     created_at: "2025-02-25"
     title: "Use Case 22 for feature 67"
     priority: high
@@ -195,6 +211,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-023
+    platforms: [apple, windows, web, android]
     type: bug
     created_at: "2024-11-06"
     title: "Bug 23 for feature 67"
@@ -213,6 +230,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-025
+    platforms: [web, windows]
     created_at: "2025-08-20"
     title: "Use Case 25 for feature 67"
     priority: low
@@ -221,6 +239,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-026
+    platforms: [web]
     created_at: "2025-10-24"
     title: "Use Case 26 for feature 67"
     priority: highest
@@ -237,6 +256,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-028
+    platforms: [android, windows]
     created_at: "2025-06-01"
     title: "Use Case 28 for feature 67"
     priority: highest
@@ -245,6 +265,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-029
+    platforms: [web, apple]
     type: bug
     created_at: "2025-04-12"
     title: "Bug 29 for feature 67"
@@ -254,6 +275,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-030
+    platforms: [web, android, windows, apple]
     created_at: "2026-01-10"
     title: "Use Case 30 for feature 67"
     priority: highest
@@ -262,6 +284,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-031
+    platforms: [apple, android, web]
     created_at: "2024-12-13"
     title: "Use Case 31 for feature 67"
     priority: none
@@ -279,6 +302,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-033
+    platforms: [apple, windows]
     type: bug
     created_at: "2025-08-01"
     title: "Bug 33 for feature 67"
@@ -288,6 +312,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-034
+    platforms: [web, android, windows, apple]
     created_at: "2025-02-05"
     title: "Use Case 34 for feature 67"
     priority: high
@@ -296,6 +321,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-035
+    platforms: [apple, android, windows, web]
     type: regression
     created_at: "2024-08-13"
     title: "Bug 35 for feature 67"
@@ -329,6 +355,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-039
+    platforms: [android, apple, windows, web]
     type: regression
     created_at: "2024-08-10"
     title: "Bug 39 for feature 67"
@@ -338,6 +365,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-040
+    platforms: [apple, web, android]
     created_at: "2025-06-10"
     title: "Use Case 40 for feature 67"
     priority: medium
@@ -346,6 +374,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-041
+    platforms: [web]
     type: regression
     created_at: "2024-07-03"
     title: "Bug 41 for feature 67"
@@ -355,6 +384,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-042
+    platforms: [windows]
     type: bug
     created_at: "2025-03-30"
     title: "Bug 42 for feature 67"
@@ -381,6 +411,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-045
+    platforms: [windows]
     type: regression
     created_at: "2025-10-22"
     title: "Bug 45 for feature 67"
@@ -390,6 +421,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-046
+    platforms: [windows]
     type: bug
     created_at: "2025-05-27"
     title: "Bug 46 for feature 67"
@@ -399,6 +431,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-047
+    platforms: [apple]
     created_at: "2025-03-22"
     title: "Use Case 47 for feature 67"
     priority: low
@@ -440,6 +473,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-052
+    platforms: [windows, web, apple]
     type: bug
     created_at: "2024-08-23"
     title: "Bug 52 for feature 67"
@@ -458,6 +492,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-054
+    platforms: [windows, web, apple]
     type: bug
     created_at: "2024-08-16"
     title: "Bug 54 for feature 67"
@@ -467,6 +502,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-055
+    platforms: [apple, windows, android]
     created_at: "2024-11-02"
     title: "Use Case 55 for feature 67"
     priority: none
@@ -484,6 +520,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-057
+    platforms: [windows, web]
     type: bug
     created_at: "2025-02-04"
     title: "Bug 57 for feature 67"
@@ -493,6 +530,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-058
+    platforms: [android]
     created_at: "2026-02-04"
     title: "Use Case 58 for feature 67"
     priority: highest
@@ -510,6 +548,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-060
+    platforms: [web, apple, android]
     type: bug
     created_at: "2025-05-22"
     title: "Bug 60 for feature 67"
@@ -519,6 +558,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-061
+    platforms: [apple, web, android, windows]
     created_at: "2025-12-10"
     title: "Use Case 61 for feature 67"
     priority: low
@@ -527,6 +567,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-062
+    platforms: [apple, web, android]
     type: bug
     created_at: "2025-09-04"
     title: "Bug 62 for feature 67"
@@ -536,6 +577,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-063
+    platforms: [web, apple, windows]
     created_at: "2025-01-01"
     title: "Use Case 63 for feature 67"
     priority: low
@@ -544,6 +586,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-067-064
+    platforms: [windows]
     created_at: "2025-01-28"
     title: "Use Case 64 for feature 67"
     priority: highest
@@ -551,4 +594,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

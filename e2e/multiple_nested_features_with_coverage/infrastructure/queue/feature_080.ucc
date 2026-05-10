@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-080-001
+    platforms: [web, windows]
     created_at: "2025-02-25"
     title: "Use Case 1 for feature 80"
     priority: low
@@ -18,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-002
+    platforms: [apple]
     created_at: "2025-02-21"
     title: "Use Case 2 for feature 80"
     priority: highest
@@ -26,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-003
+    platforms: [web, windows, apple, android]
     type: regression
     created_at: "2024-10-04"
     title: "Bug 3 for feature 80"
@@ -35,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-004
+    platforms: [windows]
     created_at: "2024-05-30"
     title: "Use Case 4 for feature 80"
     priority: medium
@@ -43,6 +47,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-005
+    platforms: [apple, android]
     created_at: "2024-11-05"
     title: "Use Case 5 for feature 80"
     priority: medium
@@ -68,6 +73,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-008
+    platforms: [web, android, windows, apple]
     created_at: "2025-08-06"
     title: "Use Case 8 for feature 80"
     priority: low
@@ -76,6 +82,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-009
+    platforms: [android, web, windows]
     type: bug
     created_at: "2025-12-24"
     title: "Bug 9 for feature 80"
@@ -85,6 +92,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-010
+    platforms: [web]
     created_at: "2024-10-09"
     title: "Use Case 10 for feature 80"
     priority: highest
@@ -93,6 +101,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-011
+    platforms: [apple, web]
     created_at: "2025-08-16"
     title: "Use Case 11 for feature 80"
     priority: medium
@@ -101,6 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-012
+    platforms: [apple, web, windows]
     type: bug
     created_at: "2024-12-01"
     title: "Bug 12 for feature 80"
@@ -109,4 +119,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

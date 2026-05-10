@@ -18,6 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-002
+    platforms: [android, web, apple, windows]
     created_at: "2025-01-04"
     title: "Use Case 2 for feature 42"
     priority: highest
@@ -26,6 +27,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-003
+    platforms: [web, windows, apple, android]
     created_at: "2025-12-02"
     title: "Use Case 3 for feature 42"
     priority: medium
@@ -34,6 +36,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-004
+    platforms: [android, windows, apple]
     type: bug
     created_at: "2025-04-19"
     title: "Bug 4 for feature 42"
@@ -43,6 +46,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-005
+    platforms: [web, apple, windows, android]
     created_at: "2024-11-24"
     title: "Use Case 5 for feature 42"
     priority: highest
@@ -51,6 +55,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-006
+    platforms: [windows, android, apple]
     created_at: "2025-10-27"
     title: "Use Case 6 for feature 42"
     priority: none
@@ -67,6 +72,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-008
+    platforms: [android]
     type: bug
     created_at: "2025-03-28"
     title: "Bug 8 for feature 42"
@@ -76,6 +82,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-009
+    platforms: [apple]
     created_at: "2024-07-15"
     title: "Use Case 9 for feature 42"
     priority: low
@@ -84,6 +91,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-010
+    platforms: [android, web]
     created_at: "2024-10-25"
     title: "Use Case 10 for feature 42"
     priority: medium
@@ -92,6 +100,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-011
+    platforms: [web, android]
     created_at: "2025-11-21"
     title: "Use Case 11 for feature 42"
     priority: medium
@@ -100,6 +109,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-012
+    platforms: [web, windows, apple]
     type: bug
     created_at: "2026-02-09"
     title: "Bug 12 for feature 42"
@@ -117,6 +127,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-014
+    platforms: [apple, web, android, windows]
     type: bug
     created_at: "2025-12-10"
     title: "Bug 14 for feature 42"
@@ -126,6 +137,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-015
+    platforms: [windows, web, apple, android]
     type: regression
     created_at: "2025-09-24"
     title: "Bug 15 for feature 42"
@@ -135,6 +147,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-016
+    platforms: [apple]
     created_at: "2025-03-01"
     title: "Use Case 16 for feature 42"
     priority: medium
@@ -143,6 +156,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-017
+    platforms: [windows, apple, android, web]
     created_at: "2025-12-01"
     title: "Use Case 17 for feature 42"
     priority: low
@@ -151,6 +165,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-018
+    platforms: [apple, android]
     created_at: "2025-12-22"
     title: "Use Case 18 for feature 42"
     priority: highest
@@ -167,6 +182,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-020
+    platforms: [apple, windows]
     type: regression
     created_at: "2025-08-14"
     title: "Bug 20 for feature 42"
@@ -176,6 +192,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-021
+    platforms: [web, android, windows, apple]
     created_at: "2024-10-20"
     title: "Use Case 21 for feature 42"
     priority: none
@@ -184,6 +201,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-022
+    platforms: [web, android]
     created_at: "2025-05-20"
     title: "Use Case 22 for feature 42"
     priority: none
@@ -201,6 +219,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-024
+    platforms: [web, windows, apple, android]
     type: bug
     created_at: "2025-11-02"
     title: "Bug 24 for feature 42"
@@ -210,6 +229,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-025
+    platforms: [android, windows, apple, web]
     created_at: "2025-03-16"
     title: "Use Case 25 for feature 42"
     priority: low
@@ -226,6 +246,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-027
+    platforms: [apple, android, web, windows]
     type: bug
     created_at: "2025-06-27"
     title: "Bug 27 for feature 42"
@@ -235,6 +256,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-028
+    platforms: [web]
     created_at: "2024-05-12"
     title: "Use Case 28 for feature 42"
     priority: high
@@ -243,6 +265,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-029
+    platforms: [windows, apple, android]
     type: bug
     created_at: "2025-07-09"
     title: "Bug 29 for feature 42"
@@ -252,6 +275,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-030
+    platforms: [android, windows, web, apple]
     created_at: "2025-11-27"
     title: "Use Case 30 for feature 42"
     priority: low
@@ -268,6 +292,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-032
+    platforms: [windows]
     type: regression
     created_at: "2025-06-16"
     title: "Bug 32 for feature 42"
@@ -277,6 +302,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-033
+    platforms: [apple, android]
     created_at: "2025-08-25"
     title: "Use Case 33 for feature 42"
     priority: medium
@@ -309,6 +335,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-037
+    platforms: [android, windows, web]
     created_at: "2025-02-25"
     title: "Use Case 37 for feature 42"
     priority: medium
@@ -317,6 +344,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-038
+    platforms: [android, web, apple]
     type: bug
     created_at: "2024-10-18"
     title: "Bug 38 for feature 42"
@@ -326,6 +354,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-039
+    platforms: [web, android, apple]
     created_at: "2025-09-22"
     title: "Use Case 39 for feature 42"
     priority: medium
@@ -334,6 +363,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-040
+    platforms: [android, windows, apple]
     created_at: "2025-03-02"
     title: "Use Case 40 for feature 42"
     priority: high
@@ -349,4 +379,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

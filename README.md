@@ -59,6 +59,7 @@ artifacts:
 In the `artifacts` array, you declare the specific use cases you want to verify in your tests, or bugs associated with the feature.
 - **Use Cases** are standard artifacts without an explicit `type` (or `type` omitted).
 - **Bugs** declare an explicit `type` like `bug` or `regression`, and can optionally include `severity`, `status`, and `related` list (to link back to the use case they broke).
+- **Platforms** can be specified for individual artifacts using the `platforms` field (e.g., `platforms: [android, apple, web]`). This is useful for tracking coverage on specific platforms when use cases differ.
 
 ## Usage
 

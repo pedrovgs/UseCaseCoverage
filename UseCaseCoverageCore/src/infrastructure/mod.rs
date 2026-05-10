@@ -102,6 +102,7 @@ impl RawUccDocument {
                     related: artifact.related,
                     steps: artifact.steps,
                     expected: artifact.expected,
+                    platforms: artifact.platforms,
                 })
                 .collect(),
         }
@@ -131,6 +132,8 @@ struct RawArtifact {
     priority: Priority,
     #[serde(default)]
     related: Vec<String>,
+    #[serde(default)]
+    platforms: Vec<String>,
     #[serde(default)]
     steps: Vec<String>,
     #[serde(default)]

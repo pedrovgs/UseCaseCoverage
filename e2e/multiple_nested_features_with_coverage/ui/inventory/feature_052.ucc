@@ -19,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-002
+    platforms: [android, apple, windows]
     created_at: "2024-05-18"
     title: "Use Case 2 for feature 52"
     priority: high
@@ -27,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-003
+    platforms: [apple, android, windows]
     type: regression
     created_at: "2024-06-29"
     title: "Bug 3 for feature 52"
@@ -44,6 +46,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-005
+    platforms: [web]
     type: bug
     created_at: "2024-08-10"
     title: "Bug 5 for feature 52"
@@ -70,6 +73,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-008
+    platforms: [windows, android, web]
     type: bug
     created_at: "2024-11-14"
     title: "Bug 8 for feature 52"
@@ -87,6 +91,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-010
+    platforms: [windows, web, android]
     created_at: "2024-09-21"
     title: "Use Case 10 for feature 52"
     priority: high
@@ -104,6 +109,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-012
+    platforms: [android, apple, web, windows]
     type: regression
     created_at: "2024-11-27"
     title: "Bug 12 for feature 52"
@@ -113,6 +119,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-013
+    platforms: [apple]
     type: bug
     created_at: "2024-11-08"
     title: "Bug 13 for feature 52"
@@ -130,6 +137,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-015
+    platforms: [android]
     created_at: "2024-06-21"
     title: "Use Case 15 for feature 52"
     priority: medium
@@ -138,6 +146,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-016
+    platforms: [android]
     type: regression
     created_at: "2024-07-11"
     title: "Bug 16 for feature 52"
@@ -147,6 +156,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-017
+    platforms: [web, windows, android, apple]
     created_at: "2024-06-02"
     title: "Use Case 17 for feature 52"
     priority: high
@@ -155,6 +165,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-018
+    platforms: [apple, android, web, windows]
     type: regression
     created_at: "2024-07-20"
     title: "Bug 18 for feature 52"
@@ -164,6 +175,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-052-019
+    platforms: [android, web, windows, apple]
     created_at: "2024-10-28"
     title: "Use Case 19 for feature 52"
     priority: low
@@ -188,4 +200,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

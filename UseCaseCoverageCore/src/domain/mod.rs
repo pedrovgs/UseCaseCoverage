@@ -38,6 +38,7 @@ pub struct Artifact {
     pub title: String,
     pub priority: Priority,
     pub related: Vec<String>,
+    pub platforms: Vec<String>,
     pub steps: Vec<String>,
     pub expected: Vec<String>,
 }

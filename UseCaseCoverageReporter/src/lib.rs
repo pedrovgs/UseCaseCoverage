@@ -90,6 +90,7 @@ fn build_report_data(
                 "useCasesCovered": feature_use_cases_covered,
                 "bugs": feature_bugs,
                 "bugsCovered": feature_bugs_covered,
+                "platforms": feature.platforms,
                 "artifacts": feature.artifacts.iter().map(|a| {
                     json!({
                         "id": a.id,
@@ -107,6 +108,7 @@ fn build_report_data(
                         }).collect::<Vec<_>>(),
                         "steps": a.steps,
                         "expected": a.expected,
+                        "platforms": a.platforms,
                     })
                 }).collect::<Vec<_>>(),
             })
@@ -585,6 +587,10 @@ body {
   gap: 1.5rem;
 }
 
+#dashboardView > section {
+  margin-bottom: 0.5rem;
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -807,6 +813,15 @@ function getSortValue(feature, key) {
   }
 }
 
+
+function renderPlatformIcon(platform) {
+  const p = platform.toLowerCase();
+  if (p.includes('apple') || p.includes('ios') || p.includes('mac') || p.includes('iphone')) return '🍎';
+  if (p.includes('android')) return '🤖';
+  if (p.includes('windows')) return '🪟';
+  if (p.includes('web') || p.includes('browser')) return '🌐';
+  return '📱';
+}
 function renderPriorityIcon(priority) {
   const p = priority.toLowerCase();
   let color = '#8b9eb0';
@@ -883,8 +898,8 @@ function renderFeatureDetail(data, featureId) {
     artifacts = artifacts.filter(a => 
       a.title.toLowerCase().includes(s) || 
       (a.steps || []).some(step => step.toLowerCase().includes(s)) ||
-      (a.expected || []).some(exp => exp.toLowerCase().includes(s))
-    );
+      (a.expected || []).some(exp => exp.toLowerCase().includes(s)) ||
+      (a.platforms || []).some(p => p.toLowerCase().includes(s))    );
   }
 
   // Filtering
@@ -955,35 +970,39 @@ function renderFeatureDetail(data, featureId) {
       </article>
     </section>
 
-    <div class="detail-controls card" style="display:flex; padding:0; overflow:hidden; margin-bottom: 2rem; align-items:stretch; border-radius:12px; background:var(--bg-card); border:1px solid var(--border);">
-       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
-         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Filter</span>
-         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
-           <option value="all" ${_detailFilter==='all'?'selected':''}>All Artifacts</option>
-           <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered only</option>
-           <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing only</option>
-           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing</option>
-         </select>
-       </div>
-       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
-         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
-         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Sort</span>
-         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
-           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority</option>
-           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Date Created</option>
-           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Date Updated</option>
-           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage</option>
-         </select>
-       </div>
-       <div style="flex:1; display:flex; align-items:center; padding:0 1.25rem; background:rgba(255,255,255,0.01);">
+    <div class="detail-controls card" style="display:grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; padding:1.25rem; gap:1rem; margin-bottom: 2rem; border-radius:12px; background:var(--bg-card); border:1px solid var(--border);">
+       <!-- Column 1: Search & Results -->
+       <div style="grid-column: 1; display:flex; align-items:center; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:8px; padding:0 1rem;">
          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.75rem;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
          <input type="text" id="detailSearch" value="${_detailSearchText}" placeholder="Search artifacts by title, steps, or content..." 
                 oninput="_detailSearchText=this.value; renderFeatureDetail(window._lastData, '${featureId}')"
                 style="background:transparent; border:none; color:#fff; padding:1rem 0; width:100%; outline:none; font-size:0.9rem;">
        </div>
-       <div style="display:flex; align-items:center; padding:0 1.5rem; border-left:1px solid var(--border); font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">
+       <!-- TOP RIGHT: Results -->
+       <div style="grid-column: 2; display:flex; align-items:center; padding:0 1rem; color:var(--text-muted); font-size:0.8rem; white-space:nowrap; border-bottom:1px solid transparent;">
          <strong>${artifacts.length}</strong> &nbsp;results
+       </div>
+       <!-- BOTTOM LEFT: Filter -->
+       <div style="grid-column: 1; display:flex; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:0 1rem;">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-right:0.5rem;">Filter</span>
+         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:0.75rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer; flex: 1;">
+           <option value="all" ${_detailFilter==='all'?'selected':''}>All</option>
+           <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered</option>
+           <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing</option>
+           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical</option>
+         </select>
+       </div>
+       <!-- BOTTOM RIGHT: Sort -->
+       <div style="grid-column: 2; display:flex; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:0 1rem;">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-right:0.5rem;">Sort</span>
+         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:0.75rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer; flex: 1;">
+           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority</option>
+           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Created</option>
+           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Updated</option>
+           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage</option>
+         </select>
        </div>
     </div>
 
@@ -1007,6 +1026,12 @@ function renderFeatureDetail(data, featureId) {
             <div class="artifact-body">
               <div style="display:flex; gap:1.5rem; margin-bottom: 0.5rem; font-size:0.8rem; color:var(--text-muted); align-items:center;">
                 <div style="display:flex; align-items:center;">Priority: ${renderPriorityIcon(a.priority)} <strong style="color:#fff">${a.priority}</strong></div>
+                ${a.platforms && a.platforms.length > 0 ? `
+                  <div style="display:flex; align-items:center; gap:0.4rem;">
+                    <span style="color:var(--text-muted)">Platforms:</span>
+                    ${a.platforms.map(p => `<div style="display:inline-flex; align-items:center; margin-right:0.6rem; font-size:0.7rem;">${renderPlatformIcon(p)} <span style="color:#fff; text-transform:uppercase; letter-spacing:0.02em;">${p}</span></div>`).join('')}
+                  </div>
+                ` : ''}
                 <div>Created: <strong>${a.createdAt}</strong></div>
                 ${a.updatedAt ? `<div>Updated: <strong>${a.updatedAt}</strong></div>` : ''}
               </div>
@@ -1165,11 +1190,12 @@ function renderInventory(data) {
        const content = (f.artifacts || []).map(a => 
          `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')}`
        ).join(' ');
+       const platformContent = [...(f.platforms || []), ...(f.artifacts || []).flatMap(a => a.platforms || [])].join(' ');
        _searchIndex.add({
           id: f.id,
           title: f.title,
           description: f.description || "",
-          content: content
+          content: `${content} ${platformContent}`
        });
     });
   }
@@ -1508,6 +1534,15 @@ function getSortValue(feature, key) {
   }
 }
 
+
+function renderPlatformIcon(platform) {
+  const p = platform.toLowerCase();
+  if (p.includes('apple') || p.includes('ios') || p.includes('mac') || p.includes('iphone')) return '🍎';
+  if (p.includes('android')) return '🤖';
+  if (p.includes('windows')) return '🪟';
+  if (p.includes('web') || p.includes('browser')) return '🌐';
+  return '📱';
+}
 function renderPriorityIcon(priority) {
   const p = priority.toLowerCase();
   let color = '#8b9eb0';
@@ -1584,7 +1619,8 @@ function renderFeatureDetail(data, featureId) {
     artifacts = artifacts.filter(a => 
       a.title.toLowerCase().includes(s) || 
       (a.steps || []).some(step => step.toLowerCase().includes(s)) ||
-      (a.expected || []).some(exp => exp.toLowerCase().includes(s))
+      (a.expected || []).some(exp => exp.toLowerCase().includes(s)) ||
+      (a.platforms || []).some(p => p.toLowerCase().includes(s))
     );
   }
 
@@ -1656,37 +1692,42 @@ function renderFeatureDetail(data, featureId) {
       </article>
     </section>
 
-    <div class="detail-controls card" style="display:flex; padding:0; overflow:hidden; margin-bottom: 2rem; align-items:stretch; border-radius:12px; background:var(--bg-card); border:1px solid var(--border);">
-       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
-         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Filter</span>
-         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
-           <option value="all" ${_detailFilter==='all'?'selected':''}>All Artifacts</option>
-           <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered only</option>
-           <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing only</option>
-           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing</option>
-         </select>
-       </div>
-       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
-         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
-         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Sort</span>
-         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
-           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority</option>
-           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Date Created</option>
-           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Date Updated</option>
-           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage</option>
-         </select>
-       </div>
-       <div style="flex:1; display:flex; align-items:center; padding:0 1.25rem; background:rgba(255,255,255,0.01);">
+    <div class="detail-controls card" style="display:grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; padding:1.25rem; gap:1rem; margin-bottom: 2rem; border-radius:12px; background:var(--bg-card); border:1px solid var(--border);">
+       <!-- Column 1: Search & Results -->
+       <div style="grid-column: 1; display:flex; align-items:center; background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:8px; padding:0 1rem;">
          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.75rem;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
          <input type="text" id="detailSearch" value="${_detailSearchText}" placeholder="Search artifacts by title, steps, or content..." 
                 oninput="_detailSearchText=this.value; renderFeatureDetail(window._lastData, '${featureId}')"
                 style="background:transparent; border:none; color:#fff; padding:1rem 0; width:100%; outline:none; font-size:0.9rem;">
        </div>
-       <div style="display:flex; align-items:center; padding:0 1.5rem; border-left:1px solid var(--border); font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">
+       <!-- TOP RIGHT: Results -->
+       <div style="grid-column: 2; display:flex; align-items:center; padding:0 1rem; color:var(--text-muted); font-size:0.8rem; white-space:nowrap; border-bottom:1px solid transparent;">
          <strong>${artifacts.length}</strong> &nbsp;results
        </div>
+       <!-- BOTTOM LEFT: Filter -->
+       <div style="grid-column: 1; display:flex; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:0 1rem;">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-right:0.5rem;">Filter</span>
+         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:0.75rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer; flex: 1;">
+           <option value="all" ${_detailFilter==='all'?'selected':''}>All</option>
+           <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered</option>
+           <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing</option>
+           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical</option>
+         </select>
+       </div>
+       <!-- BOTTOM RIGHT: Sort -->
+       <div style="grid-column: 2; display:flex; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:0 1rem;">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-right:0.5rem;">Sort</span>
+         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:0.75rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer; flex: 1;">
+           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority</option>
+           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Created</option>
+           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Updated</option>
+           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage</option>
+         </select>
+       </div>
     </div>
+
 
     <div class="artifact-section">
       <div class="artifact-grid">
@@ -1708,6 +1749,12 @@ function renderFeatureDetail(data, featureId) {
             <div class="artifact-body">
               <div style="display:flex; gap:1.5rem; margin-bottom: 0.5rem; font-size:0.8rem; color:var(--text-muted); align-items:center;">
                 <div style="display:flex; align-items:center;">Priority: ${renderPriorityIcon(a.priority)} <strong style="color:#fff">${a.priority}</strong></div>
+                ${a.platforms && a.platforms.length > 0 ? `
+                  <div style="display:flex; align-items:center; gap:0.4rem;">
+                    <span style="color:var(--text-muted)">Platforms:</span>
+                    ${a.platforms.map(p => `<div style="display:inline-flex; align-items:center; margin-right:0.6rem; font-size:0.7rem;">${renderPlatformIcon(p)} <span style="color:#fff; text-transform:uppercase; letter-spacing:0.02em;">${p}</span></div>`).join('')}
+                  </div>
+                ` : ''}
                 <div>Created: <strong>${a.createdAt}</strong></div>
                 ${a.updatedAt ? `<div>Updated: <strong>${a.updatedAt}</strong></div>` : ''}
               </div>
@@ -1850,11 +1897,12 @@ function renderInventory(data) {
        const content = (f.artifacts || []).map(a => 
          `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')}`
        ).join(' ');
+       const platformContent = [...(f.platforms || []), ...(f.artifacts || []).flatMap(a => a.platforms || [])].join(' ');
        _searchIndex.add({
           id: f.id,
           title: f.title,
           description: f.description || "",
-          content: content
+          content: `${content} ${platformContent}`
        });
     });
   }
@@ -2149,6 +2197,7 @@ mod tests {
                 title: "Use case".to_string(),
                 priority: Priority::High,
                 related: vec![],
+                platforms: vec![],
                 steps: vec![],
                 expected: vec![],
             }],

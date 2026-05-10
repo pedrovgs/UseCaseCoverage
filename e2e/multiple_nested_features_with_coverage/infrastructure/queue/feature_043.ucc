@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-043-001
+    platforms: [android, windows]
     created_at: "2025-07-09"
     title: "Use Case 1 for feature 43"
     priority: low
@@ -26,6 +27,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-003
+    platforms: [windows]
     created_at: "2024-06-20"
     title: "Use Case 3 for feature 43"
     priority: low
@@ -43,6 +45,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-005
+    platforms: [android, web, windows]
     created_at: "2025-03-24"
     title: "Use Case 5 for feature 43"
     priority: highest
@@ -59,6 +62,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-007
+    platforms: [web, apple, windows, android]
     type: regression
     created_at: "2025-01-24"
     title: "Bug 7 for feature 43"
@@ -68,6 +72,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-008
+    platforms: [windows, apple]
     type: regression
     created_at: "2024-06-30"
     title: "Bug 8 for feature 43"
@@ -77,6 +82,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-009
+    platforms: [windows, web, apple]
     type: bug
     created_at: "2024-12-20"
     title: "Bug 9 for feature 43"
@@ -86,6 +92,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-010
+    platforms: [apple, web, android, windows]
     type: regression
     created_at: "2024-09-04"
     title: "Bug 10 for feature 43"
@@ -95,6 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-011
+    platforms: [android]
     type: bug
     created_at: "2026-03-09"
     title: "Bug 11 for feature 43"
@@ -104,6 +112,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-012
+    platforms: [apple]
     created_at: "2025-08-23"
     title: "Use Case 12 for feature 43"
     priority: low
@@ -112,6 +121,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-013
+    platforms: [windows, apple, android]
     type: bug
     created_at: "2025-02-14"
     title: "Bug 13 for feature 43"
@@ -121,6 +131,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-014
+    platforms: [android, apple, web]
     created_at: "2024-08-12"
     title: "Use Case 14 for feature 43"
     priority: highest
@@ -138,6 +149,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-016
+    platforms: [web, apple]
     type: bug
     created_at: "2024-11-01"
     title: "Bug 16 for feature 43"
@@ -147,6 +159,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-017
+    platforms: [web]
     created_at: "2024-06-17"
     title: "Use Case 17 for feature 43"
     priority: none
@@ -155,6 +168,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-018
+    platforms: [android]
     created_at: "2024-08-15"
     title: "Use Case 18 for feature 43"
     priority: medium
@@ -163,6 +177,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-019
+    platforms: [windows, android, web]
     created_at: "2024-11-14"
     title: "Use Case 19 for feature 43"
     priority: none
@@ -171,6 +186,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-020
+    platforms: [android, web]
     type: bug
     created_at: "2025-12-10"
     title: "Bug 20 for feature 43"
@@ -180,6 +196,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-021
+    platforms: [apple, windows, web, android]
     type: regression
     created_at: "2025-12-23"
     title: "Bug 21 for feature 43"
@@ -189,6 +206,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-022
+    platforms: [windows, web, android, apple]
     type: regression
     created_at: "2025-12-03"
     title: "Bug 22 for feature 43"
@@ -198,6 +216,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-043-023
+    platforms: [android, web]
     type: regression
     created_at: "2024-05-27"
     title: "Bug 23 for feature 43"
@@ -206,4 +225,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

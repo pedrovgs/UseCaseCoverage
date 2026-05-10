@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-020-001
+    platforms: [android]
     created_at: "2024-10-05"
     title: "Use Case 1 for feature 20"
     priority: none
@@ -18,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-002
+    platforms: [apple]
     created_at: "2025-07-05"
     title: "Use Case 2 for feature 20"
     priority: highest
@@ -26,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-003
+    platforms: [apple]
     type: bug
     created_at: "2025-01-17"
     title: "Bug 3 for feature 20"
@@ -35,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-004
+    platforms: [windows, web, android]
     type: regression
     created_at: "2025-12-22"
     title: "Bug 4 for feature 20"
@@ -44,6 +48,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-005
+    platforms: [apple, android, web]
     type: bug
     created_at: "2025-04-30"
     title: "Bug 5 for feature 20"
@@ -53,6 +58,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-006
+    platforms: [windows, web]
     type: bug
     created_at: "2025-04-02"
     title: "Bug 6 for feature 20"
@@ -62,6 +68,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-007
+    platforms: [android, web, windows]
     created_at: "2025-08-06"
     title: "Use Case 7 for feature 20"
     priority: highest
@@ -87,6 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-010
+    platforms: [apple]
     type: regression
     created_at: "2024-11-17"
     title: "Bug 10 for feature 20"
@@ -96,6 +104,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-011
+    platforms: [web, apple, windows, android]
     created_at: "2026-01-26"
     title: "Use Case 11 for feature 20"
     priority: low
@@ -104,6 +113,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-012
+    platforms: [apple, web]
     created_at: "2024-09-14"
     title: "Use Case 12 for feature 20"
     priority: low
@@ -112,6 +122,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-013
+    platforms: [apple]
     type: bug
     created_at: "2024-07-24"
     title: "Bug 13 for feature 20"
@@ -121,6 +132,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-014
+    platforms: [windows, android]
     type: regression
     created_at: "2025-07-04"
     title: "Bug 14 for feature 20"
@@ -138,6 +150,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-016
+    platforms: [windows]
     created_at: "2025-03-30"
     title: "Use Case 16 for feature 20"
     priority: medium
@@ -155,6 +168,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-018
+    platforms: [android]
     created_at: "2024-09-23"
     title: "Use Case 18 for feature 20"
     priority: highest
@@ -163,6 +177,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-019
+    platforms: [android]
     created_at: "2024-05-11"
     title: "Use Case 19 for feature 20"
     priority: medium
@@ -171,6 +186,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-020-020
+    platforms: [windows, web, android, apple]
     created_at: "2025-07-19"
     title: "Use Case 20 for feature 20"
     priority: high
@@ -178,4 +194,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

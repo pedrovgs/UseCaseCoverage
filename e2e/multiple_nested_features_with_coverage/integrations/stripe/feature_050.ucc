@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-050-001
+    platforms: [windows, android, web]
     created_at: "2024-11-17"
     title: "Use Case 1 for feature 50"
     priority: low
@@ -18,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-002
+    platforms: [web, android, windows, apple]
     type: regression
     created_at: "2025-02-21"
     title: "Bug 2 for feature 50"
@@ -27,6 +29,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-003
+    platforms: [apple, web, android]
     created_at: "2024-10-22"
     title: "Use Case 3 for feature 50"
     priority: low
@@ -35,6 +38,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-004
+    platforms: [web, windows, apple]
     type: bug
     created_at: "2025-07-02"
     title: "Bug 4 for feature 50"
@@ -44,6 +48,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-005
+    platforms: [android, web, apple, windows]
     type: regression
     created_at: "2025-06-24"
     title: "Bug 5 for feature 50"
@@ -61,6 +66,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-007
+    platforms: [apple]
     created_at: "2025-12-09"
     title: "Use Case 7 for feature 50"
     priority: high
@@ -69,6 +75,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-008
+    platforms: [apple, web]
     type: bug
     created_at: "2024-10-14"
     title: "Bug 8 for feature 50"
@@ -78,6 +85,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-009
+    platforms: [windows]
     created_at: "2025-11-21"
     title: "Use Case 9 for feature 50"
     priority: highest
@@ -95,6 +103,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-011
+    platforms: [android, web]
     created_at: "2024-09-06"
     title: "Use Case 11 for feature 50"
     priority: none
@@ -103,6 +112,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-012
+    platforms: [web, android, windows]
     created_at: "2024-11-29"
     title: "Use Case 12 for feature 50"
     priority: highest
@@ -119,6 +129,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-014
+    platforms: [android]
     type: bug
     created_at: "2025-10-22"
     title: "Bug 14 for feature 50"
@@ -137,6 +148,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-016
+    platforms: [apple]
     type: bug
     created_at: "2025-09-28"
     title: "Bug 16 for feature 50"
@@ -146,6 +158,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-017
+    platforms: [android, apple, windows, web]
     type: bug
     created_at: "2025-01-07"
     title: "Bug 17 for feature 50"
@@ -155,6 +168,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-018
+    platforms: [apple]
     type: bug
     created_at: "2025-03-02"
     title: "Bug 18 for feature 50"
@@ -164,6 +178,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-019
+    platforms: [android, windows]
     created_at: "2024-05-29"
     title: "Use Case 19 for feature 50"
     priority: low
@@ -172,6 +187,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-020
+    platforms: [web, windows, android]
     type: bug
     created_at: "2025-08-25"
     title: "Bug 20 for feature 50"
@@ -189,6 +205,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-022
+    platforms: [web, apple]
     created_at: "2025-08-03"
     title: "Use Case 22 for feature 50"
     priority: highest
@@ -197,6 +214,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-023
+    platforms: [web, windows, apple, android]
     created_at: "2024-07-01"
     title: "Use Case 23 for feature 50"
     priority: none
@@ -214,6 +232,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-025
+    platforms: [web, windows, android, apple]
     type: bug
     created_at: "2025-05-20"
     title: "Bug 25 for feature 50"
@@ -223,6 +242,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-026
+    platforms: [apple, web, android, windows]
     type: regression
     created_at: "2024-06-25"
     title: "Bug 26 for feature 50"
@@ -232,6 +252,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-027
+    platforms: [apple, windows, android]
     type: regression
     created_at: "2025-06-05"
     title: "Bug 27 for feature 50"
@@ -241,6 +262,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-028
+    platforms: [web]
     created_at: "2025-12-04"
     title: "Use Case 28 for feature 50"
     priority: medium
@@ -274,6 +296,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-032
+    platforms: [web]
     created_at: "2025-11-27"
     title: "Use Case 32 for feature 50"
     priority: low
@@ -299,6 +322,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-035
+    platforms: [android, web]
     type: regression
     created_at: "2025-10-14"
     title: "Bug 35 for feature 50"
@@ -308,6 +332,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-036
+    platforms: [windows, android, apple]
     created_at: "2025-03-02"
     title: "Use Case 36 for feature 50"
     priority: low
@@ -316,6 +341,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-037
+    platforms: [apple, windows]
     type: bug
     created_at: "2024-12-05"
     title: "Bug 37 for feature 50"
@@ -325,6 +351,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-038
+    platforms: [android]
     type: regression
     created_at: "2024-11-02"
     title: "Bug 38 for feature 50"
@@ -334,6 +361,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-039
+    platforms: [apple, web]
     created_at: "2024-09-09"
     title: "Use Case 39 for feature 50"
     priority: low
@@ -342,6 +370,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-050-040
+    platforms: [android]
     type: regression
     created_at: "2024-10-17"
     title: "Bug 40 for feature 50"
@@ -350,4 +379,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

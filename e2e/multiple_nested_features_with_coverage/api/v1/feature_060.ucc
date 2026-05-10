@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-060-001
+    platforms: [apple, windows, android, web]
     created_at: "2024-11-27"
     title: "Use Case 1 for feature 60"
     priority: highest
@@ -18,6 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-002
+    platforms: [android]
     created_at: "2024-11-16"
     title: "Use Case 2 for feature 60"
     priority: medium
@@ -26,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-003
+    platforms: [web, windows, android, apple]
     created_at: "2025-01-20"
     title: "Use Case 3 for feature 60"
     priority: medium
@@ -34,6 +37,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-004
+    platforms: [web]
     created_at: "2024-07-18"
     title: "Use Case 4 for feature 60"
     priority: none
@@ -42,6 +46,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-005
+    platforms: [web, android]
     created_at: "2024-10-02"
     title: "Use Case 5 for feature 60"
     priority: high
@@ -50,6 +55,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-006
+    platforms: [apple]
     created_at: "2024-11-04"
     title: "Use Case 6 for feature 60"
     priority: highest
@@ -76,6 +82,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-009
+    platforms: [windows, android, web]
     created_at: "2024-10-25"
     title: "Use Case 9 for feature 60"
     priority: none
@@ -92,6 +99,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-011
+    platforms: [windows, web, android]
     created_at: "2025-02-08"
     title: "Use Case 11 for feature 60"
     priority: high
@@ -100,6 +108,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-012
+    platforms: [web, windows, apple, android]
     created_at: "2024-08-20"
     title: "Use Case 12 for feature 60"
     priority: low
@@ -107,4 +116,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-

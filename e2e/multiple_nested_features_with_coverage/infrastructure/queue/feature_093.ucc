@@ -10,6 +10,7 @@ feature:
 
 artifacts:
   - id: art-093-001
+    platforms: [windows, apple, web, android]
     type: bug
     created_at: "2025-03-15"
     title: "Bug 1 for feature 93"
@@ -27,6 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-003
+    platforms: [android, web]
     created_at: "2025-02-04"
     title: "Use Case 3 for feature 93"
     priority: low
@@ -53,6 +55,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-006
+    platforms: [windows, web, apple]
     created_at: "2025-02-04"
     title: "Use Case 6 for feature 93"
     priority: none
@@ -61,6 +64,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-007
+    platforms: [android, apple, web]
     created_at: "2025-07-11"
     title: "Use Case 7 for feature 93"
     priority: high
@@ -69,6 +73,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-008
+    platforms: [apple, android, windows]
     type: bug
     created_at: "2025-10-08"
     title: "Bug 8 for feature 93"
@@ -87,6 +92,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-010
+    platforms: [web]
     type: bug
     created_at: "2024-10-20"
     title: "Bug 10 for feature 93"
@@ -96,6 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-011
+    platforms: [android, web]
     type: bug
     created_at: "2025-06-05"
     title: "Bug 11 for feature 93"
@@ -105,6 +112,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-012
+    platforms: [android]
     created_at: "2024-07-19"
     title: "Use Case 12 for feature 93"
     priority: medium
@@ -122,6 +130,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-014
+    platforms: [apple, web, android]
     created_at: "2024-09-22"
     title: "Use Case 14 for feature 93"
     priority: high
@@ -130,6 +139,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-015
+    platforms: [windows, web, android, apple]
     type: bug
     created_at: "2025-09-19"
     title: "Bug 15 for feature 93"
@@ -139,6 +149,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-016
+    platforms: [apple, android, web, windows]
     created_at: "2024-11-18"
     title: "Use Case 16 for feature 93"
     priority: low
@@ -156,6 +167,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-018
+    platforms: [web, apple]
     created_at: "2025-04-10"
     title: "Use Case 18 for feature 93"
     priority: high
@@ -164,6 +176,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-019
+    platforms: [apple, android, web]
     type: regression
     created_at: "2025-08-04"
     title: "Bug 19 for feature 93"
@@ -173,6 +186,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-020
+    platforms: [windows, apple]
     type: regression
     created_at: "2025-06-13"
     title: "Bug 20 for feature 93"
@@ -182,6 +196,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-021
+    platforms: [windows]
     created_at: "2025-09-07"
     title: "Use Case 21 for feature 93"
     priority: none
@@ -190,6 +205,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-022
+    platforms: [windows, android]
     created_at: "2024-12-15"
     title: "Use Case 22 for feature 93"
     priority: none
@@ -198,6 +214,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-023
+    platforms: [apple, web]
     created_at: "2024-06-22"
     title: "Use Case 23 for feature 93"
     priority: low
@@ -206,6 +223,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-024
+    platforms: [web, apple, android]
     created_at: "2025-08-30"
     title: "Use Case 24 for feature 93"
     priority: low
@@ -214,6 +232,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-025
+    platforms: [web, windows, android]
     type: bug
     created_at: "2024-09-18"
     title: "Bug 25 for feature 93"
@@ -223,6 +242,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-026
+    platforms: [android, apple]
     created_at: "2024-12-26"
     title: "Use Case 26 for feature 93"
     priority: low
@@ -239,6 +259,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-028
+    platforms: [windows, web]
     type: regression
     created_at: "2025-05-18"
     title: "Bug 28 for feature 93"
@@ -248,6 +269,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-029
+    platforms: [windows, web, android]
     created_at: "2025-11-10"
     title: "Use Case 29 for feature 93"
     priority: highest
@@ -256,6 +278,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-030
+    platforms: [android, web, windows]
     created_at: "2024-11-08"
     title: "Use Case 30 for feature 93"
     priority: none
@@ -264,6 +287,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-031
+    platforms: [web, windows, apple, android]
     created_at: "2025-01-19"
     title: "Use Case 31 for feature 93"
     priority: medium
@@ -272,6 +296,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-032
+    platforms: [web, apple, windows]
     type: regression
     created_at: "2025-07-31"
     title: "Bug 32 for feature 93"
@@ -281,6 +306,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-033
+    platforms: [apple, android, windows, web]
     created_at: "2025-09-05"
     title: "Use Case 33 for feature 93"
     priority: medium
@@ -306,6 +332,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-036
+    platforms: [windows, android, web]
     created_at: "2024-05-10"
     title: "Use Case 36 for feature 93"
     priority: high
@@ -314,6 +341,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-037
+    platforms: [apple, windows, web, android]
     created_at: "2024-07-07"
     title: "Use Case 37 for feature 93"
     priority: high
@@ -348,6 +376,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-041
+    platforms: [android, apple, web, windows]
     type: bug
     created_at: "2024-09-03"
     title: "Bug 41 for feature 93"
@@ -366,6 +395,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-043
+    platforms: [android]
     type: bug
     created_at: "2024-11-01"
     title: "Bug 43 for feature 93"
@@ -383,6 +413,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-045
+    platforms: [windows]
     created_at: "2025-10-08"
     title: "Use Case 45 for feature 93"
     priority: none
@@ -391,6 +422,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-046
+    platforms: [web, windows, apple, android]
     created_at: "2025-07-06"
     title: "Use Case 46 for feature 93"
     priority: low
@@ -399,6 +431,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-047
+    platforms: [android]
     created_at: "2024-05-24"
     title: "Use Case 47 for feature 93"
     priority: high
@@ -415,6 +448,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-049
+    platforms: [apple]
     created_at: "2024-08-28"
     title: "Use Case 49 for feature 93"
     priority: high
@@ -423,6 +457,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-050
+    platforms: [web, apple, windows, android]
     created_at: "2025-10-10"
     title: "Use Case 50 for feature 93"
     priority: high
@@ -431,6 +466,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-051
+    platforms: [windows, web]
     type: bug
     created_at: "2025-04-16"
     title: "Bug 51 for feature 93"
@@ -440,6 +476,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-052
+    platforms: [android, apple, windows]
     type: bug
     created_at: "2024-08-20"
     title: "Bug 52 for feature 93"
@@ -449,6 +486,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-053
+    platforms: [apple, android]
     type: bug
     created_at: "2025-11-04"
     title: "Bug 53 for feature 93"
@@ -458,6 +496,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-054
+    platforms: [web, android, windows, apple]
     type: regression
     created_at: "2024-08-03"
     title: "Bug 54 for feature 93"
@@ -467,6 +506,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-055
+    platforms: [apple, web]
     created_at: "2025-10-19"
     title: "Use Case 55 for feature 93"
     priority: high
@@ -475,6 +515,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-056
+    platforms: [android, apple]
     type: bug
     created_at: "2025-03-11"
     title: "Bug 56 for feature 93"
@@ -484,6 +525,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-057
+    platforms: [apple]
     type: bug
     created_at: "2025-07-11"
     title: "Bug 57 for feature 93"
@@ -493,6 +535,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-058
+    platforms: [windows, web]
     created_at: "2024-08-12"
     title: "Use Case 58 for feature 93"
     priority: none
@@ -510,6 +553,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-093-060
+    platforms: [apple, windows, android, web]
     created_at: "2025-10-06"
     title: "Use Case 60 for feature 93"
     priority: medium
@@ -517,4 +561,3 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
-
