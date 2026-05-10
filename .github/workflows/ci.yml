@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Lint
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+      - name: Run unit and property tests
+        run: cargo test --workspace --all-targets --all-features
+
+      - name: Install mutation testing tool
+        run: cargo install cargo-mutants --locked
+
+      - name: Run mutation tests (smoke)
+        run: cargo mutants --workspace --list --no-times
+
+      - name: Install coverage tool
+        run: cargo install cargo-llvm-cov --locked
+
+      - name: Generate coverage report
+        run: cargo llvm-cov --workspace --all-features --lcov --output-path coverage/lcov.info
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/lcov.info

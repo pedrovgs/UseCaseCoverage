@@ -1,0 +1,23 @@
+[workspace]
+members = [
+    "UseCaseCoverageCLI",
+    "UseCaseCoverageCore",
+    "UseCaseCoverageReporter",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+authors = ["pedrovgs"]
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = "warn"
+pedantic = "warn"
+nursery = "warn"
+
+[workspace.dependencies]
+proptest = "1.5"

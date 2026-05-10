@@ -1,0 +1,18 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+
+# Coverage & mutation artifacts
+coverage/
+mutants.out/
+
+# IDEs/editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Environment and local overrides
+.env
+.env.*

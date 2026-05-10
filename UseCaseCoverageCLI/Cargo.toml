@@ -1,0 +1,17 @@
+[package]
+name = "use_case_coverage_cli"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+use_case_coverage_core = { path = "../UseCaseCoverageCore" }
+use_case_coverage_reporter = { path = "../UseCaseCoverageReporter" }
+
+[[bin]]
+name = "UseCaseCoverageCLI"
+path = "src/main.rs"

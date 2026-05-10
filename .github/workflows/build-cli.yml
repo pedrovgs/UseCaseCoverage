@@ -1,0 +1,35 @@
+name: Build UseCaseCoverageCLI
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build release binary
+        run: cargo build --release -p use_case_coverage_cli
+
+      - name: Prepare artifact
+        run: |
+          mkdir -p dist
+          cp target/release/UseCaseCoverageCLI dist/UseCaseCoverageCLI
+          tar -czf dist/UseCaseCoverageCLI-linux-x86_64.tar.gz -C dist UseCaseCoverageCLI
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: UseCaseCoverageCLI-linux-x86_64
+          path: dist/UseCaseCoverageCLI-linux-x86_64.tar.gz
