@@ -31,11 +31,11 @@ pub fn generate_html_report(
     let report_json = serde_json::to_string_pretty(&report_data)
         .map_err(|error| std::io::Error::other(format!("JSON serialization failed: {error}")))?;
 
-    fs::write(output_dir.join("index.html"), html_template())?;
+    fs::write(output_dir.join("index.html"), html_template(&report_json))?;
     fs::write(output_dir.join("styles.css"), css_template())?;
     fs::write(output_dir.join("app.ts"), ts_template())?;
     fs::write(output_dir.join("app.js"), js_template())?;
-    fs::write(output_dir.join("data.json"), report_json)?;
+    fs::write(output_dir.join("data.json"), &report_json)?;
 
     Ok(())
 }
@@ -133,8 +133,9 @@ fn is_bug(artifact_type: Option<&str>) -> bool {
     })
 }
 
-const fn html_template() -> &'static str {
-    r#"<!DOCTYPE html>
+fn html_template(data_json: &str) -> String {
+    format!(
+        r#"<!DOCTYPE html>
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
@@ -144,6 +145,8 @@ const fn html_template() -> &'static str {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
+    <script id="report-data" type="application/json">{data_json}</script>
+
     <header class="topbar">
       <h1>UseCaseCoverage Report</h1>
       <p>Generated from .ucc specifications and test coverage discovery</p>
@@ -190,10 +193,10 @@ const fn html_template() -> &'static str {
       </section>
     </main>
 
-    <script type="module" src="./app.js"></script>
+    <script src="./app.js"></script>
   </body>
-</html>
-"#
+</html>"#
+    )
 }
 
 const fn css_template() -> &'static str {
@@ -347,9 +350,9 @@ const metricKeys: Array<[string, keyof ReportData['summary']]> = [
   ['Invalid .ucc', 'invalidUccFiles'],
 ];
 
-async function loadData(): Promise<ReportData> {
-  const response = await fetch('./data.json');
-  return response.json();
+function loadData(): ReportData {
+  const el = document.getElementById('report-data');
+  return JSON.parse(el!.textContent!);
 }
 
 function renderMetrics(data: ReportData): void {
@@ -443,8 +446,8 @@ function renderCharts(data: ReportData): void {
   });
 }
 
-async function bootstrap(): Promise<void> {
-  const data = await loadData();
+function bootstrap(): void {
+  const data = loadData();
   renderMetrics(data);
   renderFeatureTable(data);
   renderLint(data);
@@ -467,9 +470,9 @@ const fn js_template() -> &'static str {
   ['Invalid .ucc', 'invalidUccFiles'],
 ];
 
-async function loadData() {
-  const response = await fetch('./data.json');
-  return response.json();
+function loadData() {
+  const el = document.getElementById('report-data');
+  return JSON.parse(el.textContent);
 }
 
 function renderMetrics(data) {
@@ -553,8 +556,8 @@ function renderCharts(data) {
   });
 }
 
-async function bootstrap() {
-  const data = await loadData();
+function bootstrap() {
+  const data = loadData();
   renderMetrics(data);
   renderFeatureTable(data);
   renderLint(data);
