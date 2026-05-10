@@ -1,0 +1,68 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-027-c33c8e
+  title: "Random Feature 27"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 27.
+
+artifacts:
+  - id: art-027-001
+    created_at: "2026-05-10"
+    title: "Use Case 1 for feature 27"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-027-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 27"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-027-003
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 3 for feature 27"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-027-004
+    created_at: "2026-05-10"
+    title: "Use Case 4 for feature 27"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-027-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 27"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-027-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 27"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-027-007
+    created_at: "2026-05-10"
+    title: "Use Case 7 for feature 27"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

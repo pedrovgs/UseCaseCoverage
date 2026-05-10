@@ -1,0 +1,161 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-048-4a10c2
+  title: "Random Feature 48"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 48.
+
+artifacts:
+  - id: art-048-001
+    created_at: "2026-05-10"
+    title: "Use Case 1 for feature 48"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 48"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 48"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-004
+    created_at: "2026-05-10"
+    title: "Use Case 4 for feature 48"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-005
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 5 for feature 48"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-006
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 6 for feature 48"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-007
+    created_at: "2026-05-10"
+    title: "Use Case 7 for feature 48"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-008
+    created_at: "2026-05-10"
+    title: "Use Case 8 for feature 48"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-009
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 9 for feature 48"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-010
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 10 for feature 48"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-011
+    created_at: "2026-05-10"
+    title: "Use Case 11 for feature 48"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-012
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 12 for feature 48"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-013
+    created_at: "2026-05-10"
+    title: "Use Case 13 for feature 48"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-014
+    created_at: "2026-05-10"
+    title: "Use Case 14 for feature 48"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-015
+    created_at: "2026-05-10"
+    title: "Use Case 15 for feature 48"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-016
+    created_at: "2026-05-10"
+    title: "Use Case 16 for feature 48"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-017
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 17 for feature 48"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-048-018
+    created_at: "2026-05-10"
+    title: "Use Case 18 for feature 48"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

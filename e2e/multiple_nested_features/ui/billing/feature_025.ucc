@@ -1,0 +1,150 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-025-fd1c68
+  title: "Random Feature 25"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 25.
+
+artifacts:
+  - id: art-025-001
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 1 for feature 25"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 25"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 25"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-004
+    created_at: "2026-05-10"
+    title: "Use Case 4 for feature 25"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 25"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 25"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-007
+    created_at: "2026-05-10"
+    title: "Use Case 7 for feature 25"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-008
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 8 for feature 25"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-009
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 9 for feature 25"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-010
+    created_at: "2026-05-10"
+    title: "Use Case 10 for feature 25"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-011
+    created_at: "2026-05-10"
+    title: "Use Case 11 for feature 25"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-012
+    created_at: "2026-05-10"
+    title: "Use Case 12 for feature 25"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-013
+    created_at: "2026-05-10"
+    title: "Use Case 13 for feature 25"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-014
+    created_at: "2026-05-10"
+    title: "Use Case 14 for feature 25"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-015
+    created_at: "2026-05-10"
+    title: "Use Case 15 for feature 25"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-016
+    created_at: "2026-05-10"
+    title: "Use Case 16 for feature 25"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-025-017
+    created_at: "2026-05-10"
+    title: "Use Case 17 for feature 25"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

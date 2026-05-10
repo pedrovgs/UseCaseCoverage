@@ -1,0 +1,351 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-042-c248ae
+  title: "Random Feature 42"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 42.
+
+artifacts:
+  - id: art-042-001
+    created_at: "2026-05-10"
+    title: "Use Case 1 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 42"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-004
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 4 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 42"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 42"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-007
+    created_at: "2026-05-10"
+    title: "Use Case 7 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-008
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 8 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-009
+    created_at: "2026-05-10"
+    title: "Use Case 9 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-010
+    created_at: "2026-05-10"
+    title: "Use Case 10 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-011
+    created_at: "2026-05-10"
+    title: "Use Case 11 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-012
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 12 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-013
+    created_at: "2026-05-10"
+    title: "Use Case 13 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-014
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 14 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-015
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 15 for feature 42"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-016
+    created_at: "2026-05-10"
+    title: "Use Case 16 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-017
+    created_at: "2026-05-10"
+    title: "Use Case 17 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-018
+    created_at: "2026-05-10"
+    title: "Use Case 18 for feature 42"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-019
+    created_at: "2026-05-10"
+    title: "Use Case 19 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-020
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 20 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-021
+    created_at: "2026-05-10"
+    title: "Use Case 21 for feature 42"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-022
+    created_at: "2026-05-10"
+    title: "Use Case 22 for feature 42"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-023
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 23 for feature 42"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-024
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 24 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-025
+    created_at: "2026-05-10"
+    title: "Use Case 25 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-026
+    created_at: "2026-05-10"
+    title: "Use Case 26 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-027
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 27 for feature 42"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-028
+    created_at: "2026-05-10"
+    title: "Use Case 28 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-029
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 29 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-030
+    created_at: "2026-05-10"
+    title: "Use Case 30 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-031
+    created_at: "2026-05-10"
+    title: "Use Case 31 for feature 42"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-032
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 32 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-033
+    created_at: "2026-05-10"
+    title: "Use Case 33 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-034
+    created_at: "2026-05-10"
+    title: "Use Case 34 for feature 42"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-035
+    created_at: "2026-05-10"
+    title: "Use Case 35 for feature 42"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-036
+    created_at: "2026-05-10"
+    title: "Use Case 36 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-037
+    created_at: "2026-05-10"
+    title: "Use Case 37 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-038
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 38 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-039
+    created_at: "2026-05-10"
+    title: "Use Case 39 for feature 42"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-040
+    created_at: "2026-05-10"
+    title: "Use Case 40 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-042-041
+    created_at: "2026-05-10"
+    title: "Use Case 41 for feature 42"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

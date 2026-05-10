@@ -1,0 +1,519 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-093-4955fb
+  title: "Random Feature 93"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 93.
+
+artifacts:
+  - id: art-093-001
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 1 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-004
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 4 for feature 93"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-005
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 5 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-007
+    created_at: "2026-05-10"
+    title: "Use Case 7 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-008
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 8 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-009
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 9 for feature 93"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-010
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 10 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-011
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 11 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-012
+    created_at: "2026-05-10"
+    title: "Use Case 12 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-013
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 13 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-014
+    created_at: "2026-05-10"
+    title: "Use Case 14 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-015
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 15 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-016
+    created_at: "2026-05-10"
+    title: "Use Case 16 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-017
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 17 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-018
+    created_at: "2026-05-10"
+    title: "Use Case 18 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-019
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 19 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-020
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 20 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-021
+    created_at: "2026-05-10"
+    title: "Use Case 21 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-022
+    created_at: "2026-05-10"
+    title: "Use Case 22 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-023
+    created_at: "2026-05-10"
+    title: "Use Case 23 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-024
+    created_at: "2026-05-10"
+    title: "Use Case 24 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-025
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 25 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-026
+    created_at: "2026-05-10"
+    title: "Use Case 26 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-027
+    created_at: "2026-05-10"
+    title: "Use Case 27 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-028
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 28 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-029
+    created_at: "2026-05-10"
+    title: "Use Case 29 for feature 93"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-030
+    created_at: "2026-05-10"
+    title: "Use Case 30 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-031
+    created_at: "2026-05-10"
+    title: "Use Case 31 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-032
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 32 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-033
+    created_at: "2026-05-10"
+    title: "Use Case 33 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-034
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 34 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-035
+    created_at: "2026-05-10"
+    title: "Use Case 35 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-036
+    created_at: "2026-05-10"
+    title: "Use Case 36 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-037
+    created_at: "2026-05-10"
+    title: "Use Case 37 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-038
+    created_at: "2026-05-10"
+    title: "Use Case 38 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-039
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 39 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-040
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 40 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-041
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 41 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-042
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 42 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-043
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 43 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-044
+    created_at: "2026-05-10"
+    title: "Use Case 44 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-045
+    created_at: "2026-05-10"
+    title: "Use Case 45 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-046
+    created_at: "2026-05-10"
+    title: "Use Case 46 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-047
+    created_at: "2026-05-10"
+    title: "Use Case 47 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-048
+    created_at: "2026-05-10"
+    title: "Use Case 48 for feature 93"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-049
+    created_at: "2026-05-10"
+    title: "Use Case 49 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-050
+    created_at: "2026-05-10"
+    title: "Use Case 50 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-051
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 51 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-052
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 52 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-053
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 53 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-054
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 54 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-055
+    created_at: "2026-05-10"
+    title: "Use Case 55 for feature 93"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-056
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 56 for feature 93"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-057
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 57 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-058
+    created_at: "2026-05-10"
+    title: "Use Case 58 for feature 93"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-059
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 59 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-093-060
+    created_at: "2026-05-10"
+    title: "Use Case 60 for feature 93"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

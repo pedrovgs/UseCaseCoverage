@@ -1,0 +1,342 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-086-5c71c0
+  title: "Random Feature 86"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 86.
+
+artifacts:
+  - id: art-086-001
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 1 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-004
+    created_at: "2026-05-10"
+    title: "Use Case 4 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 86"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-007
+    created_at: "2026-05-10"
+    title: "Use Case 7 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-008
+    created_at: "2026-05-10"
+    title: "Use Case 8 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-009
+    created_at: "2026-05-10"
+    title: "Use Case 9 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-010
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 10 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-011
+    created_at: "2026-05-10"
+    title: "Use Case 11 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-012
+    created_at: "2026-05-10"
+    title: "Use Case 12 for feature 86"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-013
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 13 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-014
+    created_at: "2026-05-10"
+    title: "Use Case 14 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-015
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 15 for feature 86"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-016
+    created_at: "2026-05-10"
+    title: "Use Case 16 for feature 86"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-017
+    created_at: "2026-05-10"
+    title: "Use Case 17 for feature 86"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-018
+    created_at: "2026-05-10"
+    title: "Use Case 18 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-019
+    created_at: "2026-05-10"
+    title: "Use Case 19 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-020
+    created_at: "2026-05-10"
+    title: "Use Case 20 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-021
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 21 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-022
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 22 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-023
+    created_at: "2026-05-10"
+    title: "Use Case 23 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-024
+    created_at: "2026-05-10"
+    title: "Use Case 24 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-025
+    created_at: "2026-05-10"
+    title: "Use Case 25 for feature 86"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-026
+    created_at: "2026-05-10"
+    title: "Use Case 26 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-027
+    created_at: "2026-05-10"
+    title: "Use Case 27 for feature 86"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-028
+    created_at: "2026-05-10"
+    title: "Use Case 28 for feature 86"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-029
+    created_at: "2026-05-10"
+    title: "Use Case 29 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-030
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 30 for feature 86"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-031
+    created_at: "2026-05-10"
+    title: "Use Case 31 for feature 86"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-032
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 32 for feature 86"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-033
+    created_at: "2026-05-10"
+    title: "Use Case 33 for feature 86"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-034
+    created_at: "2026-05-10"
+    title: "Use Case 34 for feature 86"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-035
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 35 for feature 86"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-036
+    created_at: "2026-05-10"
+    title: "Use Case 36 for feature 86"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-037
+    created_at: "2026-05-10"
+    title: "Use Case 37 for feature 86"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-038
+    created_at: "2026-05-10"
+    title: "Use Case 38 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-039
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 39 for feature 86"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-086-040
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 40 for feature 86"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

@@ -1,0 +1,361 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-004-ce58b6
+  title: "Random Feature 4"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 4.
+
+artifacts:
+  - id: art-004-001
+    created_at: "2026-05-10"
+    title: "Use Case 1 for feature 4"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 4"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-004
+    created_at: "2026-05-10"
+    title: "Use Case 4 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 4"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-007
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 7 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-008
+    created_at: "2026-05-10"
+    title: "Use Case 8 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-009
+    created_at: "2026-05-10"
+    title: "Use Case 9 for feature 4"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-010
+    created_at: "2026-05-10"
+    title: "Use Case 10 for feature 4"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-011
+    created_at: "2026-05-10"
+    title: "Use Case 11 for feature 4"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-012
+    created_at: "2026-05-10"
+    title: "Use Case 12 for feature 4"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-013
+    created_at: "2026-05-10"
+    title: "Use Case 13 for feature 4"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-014
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 14 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-015
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 15 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-016
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 16 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-017
+    created_at: "2026-05-10"
+    title: "Use Case 17 for feature 4"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-018
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 18 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-019
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 19 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-020
+    created_at: "2026-05-10"
+    title: "Use Case 20 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-021
+    created_at: "2026-05-10"
+    title: "Use Case 21 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-022
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 22 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-023
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 23 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-024
+    created_at: "2026-05-10"
+    title: "Use Case 24 for feature 4"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-025
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 25 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-026
+    created_at: "2026-05-10"
+    title: "Use Case 26 for feature 4"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-027
+    created_at: "2026-05-10"
+    title: "Use Case 27 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-028
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 28 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-029
+    created_at: "2026-05-10"
+    title: "Use Case 29 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-030
+    created_at: "2026-05-10"
+    title: "Use Case 30 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-031
+    created_at: "2026-05-10"
+    title: "Use Case 31 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-032
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 32 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-033
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 33 for feature 4"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-034
+    created_at: "2026-05-10"
+    title: "Use Case 34 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-035
+    created_at: "2026-05-10"
+    title: "Use Case 35 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-036
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 36 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-037
+    created_at: "2026-05-10"
+    title: "Use Case 37 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-038
+    created_at: "2026-05-10"
+    title: "Use Case 38 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-039
+    created_at: "2026-05-10"
+    title: "Use Case 39 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-040
+    created_at: "2026-05-10"
+    title: "Use Case 40 for feature 4"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-041
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 41 for feature 4"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-004-042
+    created_at: "2026-05-10"
+    title: "Use Case 42 for feature 4"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

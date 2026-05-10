@@ -1,0 +1,19 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-021-83d297
+  title: "Random Feature 21"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 21.
+
+artifacts:
+  - id: art-021-001
+    created_at: "2026-05-10"
+    title: "Use Case 1 for feature 21"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

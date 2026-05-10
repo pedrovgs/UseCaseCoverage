@@ -1,0 +1,107 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-062-876814
+  title: "Random Feature 62"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 62.
+
+artifacts:
+  - id: art-062-001
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 1 for feature 62"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 62"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-003
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 3 for feature 62"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-004
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 4 for feature 62"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 62"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 62"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-007
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 7 for feature 62"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-008
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 8 for feature 62"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-009
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 9 for feature 62"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-010
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 10 for feature 62"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-062-011
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 11 for feature 62"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

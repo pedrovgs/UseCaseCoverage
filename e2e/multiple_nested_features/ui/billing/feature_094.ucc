@@ -1,0 +1,82 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-094-a967be
+  title: "Random Feature 94"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 94.
+
+artifacts:
+  - id: art-094-001
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 1 for feature 94"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-094-002
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 2 for feature 94"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-094-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 94"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-094-004
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 4 for feature 94"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-094-005
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 5 for feature 94"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-094-006
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 6 for feature 94"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-094-007
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 7 for feature 94"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-094-008
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 8 for feature 94"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

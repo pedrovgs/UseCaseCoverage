@@ -1,0 +1,215 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-063-718bc2
+  title: "Random Feature 63"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 63.
+
+artifacts:
+  - id: art-063-001
+    created_at: "2026-05-10"
+    title: "Use Case 1 for feature 63"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-002
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 2 for feature 63"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-003
+    created_at: "2026-05-10"
+    title: "Use Case 3 for feature 63"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-004
+    created_at: "2026-05-10"
+    title: "Use Case 4 for feature 63"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 63"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-006
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 6 for feature 63"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-007
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 7 for feature 63"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-008
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 8 for feature 63"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-009
+    created_at: "2026-05-10"
+    title: "Use Case 9 for feature 63"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-010
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 10 for feature 63"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-011
+    created_at: "2026-05-10"
+    title: "Use Case 11 for feature 63"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-012
+    created_at: "2026-05-10"
+    title: "Use Case 12 for feature 63"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-013
+    created_at: "2026-05-10"
+    title: "Use Case 13 for feature 63"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-014
+    created_at: "2026-05-10"
+    title: "Use Case 14 for feature 63"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-015
+    created_at: "2026-05-10"
+    title: "Use Case 15 for feature 63"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-016
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 16 for feature 63"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-017
+    created_at: "2026-05-10"
+    title: "Use Case 17 for feature 63"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-018
+    created_at: "2026-05-10"
+    title: "Use Case 18 for feature 63"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-019
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 19 for feature 63"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-020
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 20 for feature 63"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-021
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 21 for feature 63"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-022
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 22 for feature 63"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-023
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 23 for feature 63"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-063-024
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 24 for feature 63"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

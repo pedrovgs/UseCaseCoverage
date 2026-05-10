@@ -1,0 +1,161 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-030-9d2c0d
+  title: "Random Feature 30"
+  created_at: "2026-05-10"
+  description: >
+    Auto-generated feature number 30.
+
+artifacts:
+  - id: art-030-001
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 1 for feature 30"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-002
+    created_at: "2026-05-10"
+    title: "Use Case 2 for feature 30"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-003
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 3 for feature 30"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-004
+    created_at: "2026-05-10"
+    title: "Use Case 4 for feature 30"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-005
+    created_at: "2026-05-10"
+    title: "Use Case 5 for feature 30"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-006
+    created_at: "2026-05-10"
+    title: "Use Case 6 for feature 30"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-007
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 7 for feature 30"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-008
+    type: regression
+    created_at: "2026-05-10"
+    title: "Bug 8 for feature 30"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-009
+    created_at: "2026-05-10"
+    title: "Use Case 9 for feature 30"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-010
+    created_at: "2026-05-10"
+    title: "Use Case 10 for feature 30"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-011
+    created_at: "2026-05-10"
+    title: "Use Case 11 for feature 30"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-012
+    created_at: "2026-05-10"
+    title: "Use Case 12 for feature 30"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-013
+    created_at: "2026-05-10"
+    title: "Use Case 13 for feature 30"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-014
+    created_at: "2026-05-10"
+    title: "Use Case 14 for feature 30"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-015
+    created_at: "2026-05-10"
+    title: "Use Case 15 for feature 30"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-016
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 16 for feature 30"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-017
+    created_at: "2026-05-10"
+    title: "Use Case 17 for feature 30"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-030-018
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug 18 for feature 30"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

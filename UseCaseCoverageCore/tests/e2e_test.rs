@@ -61,3 +61,9 @@ fn test_only_bugs_scenario() {
     let features = parse_scenario("only_bugs");
     insta::assert_yaml_snapshot!(features);
 }
+
+#[test]
+fn test_multiple_nested_features_scenario() {
+    let features = parse_scenario("multiple_nested_features");
+    insta::assert_yaml_snapshot!(features);
+}
