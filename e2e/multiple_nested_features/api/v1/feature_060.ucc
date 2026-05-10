@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-060-f9a159
   title: "Random Feature 60"
-  created_at: "2026-05-10"
+  created_at: "2025-02-12"
+  updated_at: "2025-10-27"
   description: >
     Auto-generated feature number 60.
 
 artifacts:
   - id: art-060-001
-    created_at: "2026-05-10"
+    created_at: "2025-09-27"
     title: "Use Case 1 for feature 60"
     priority: highest
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-002
-    created_at: "2026-05-10"
+    created_at: "2025-08-01"
     title: "Use Case 2 for feature 60"
     priority: medium
     steps:
@@ -25,7 +26,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-003
-    created_at: "2026-05-10"
+    created_at: "2024-07-31"
     title: "Use Case 3 for feature 60"
     priority: medium
     steps:
@@ -33,7 +34,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-004
-    created_at: "2026-05-10"
+    created_at: "2024-06-19"
     title: "Use Case 4 for feature 60"
     priority: none
     steps:
@@ -41,7 +42,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-005
-    created_at: "2026-05-10"
+    created_at: "2025-07-26"
     title: "Use Case 5 for feature 60"
     priority: high
     steps:
@@ -49,7 +50,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-006
-    created_at: "2026-05-10"
+    created_at: "2025-04-05"
     title: "Use Case 6 for feature 60"
     priority: highest
     steps:
@@ -58,7 +59,7 @@ artifacts:
       - Expected outcome
   - id: art-060-007
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-21"
     title: "Bug 7 for feature 60"
     priority: medium
     steps:
@@ -67,7 +68,7 @@ artifacts:
       - Expected outcome
   - id: art-060-008
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-05"
     title: "Bug 8 for feature 60"
     priority: none
     steps:
@@ -75,7 +76,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-009
-    created_at: "2026-05-10"
+    created_at: "2024-08-11"
     title: "Use Case 9 for feature 60"
     priority: none
     steps:
@@ -83,7 +84,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-010
-    created_at: "2026-05-10"
+    created_at: "2024-12-30"
     title: "Use Case 10 for feature 60"
     priority: none
     steps:
@@ -91,7 +92,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-011
-    created_at: "2026-05-10"
+    created_at: "2024-05-31"
     title: "Use Case 11 for feature 60"
     priority: high
     steps:
@@ -99,7 +100,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-060-012
-    created_at: "2026-05-10"
+    created_at: "2025-02-09"
     title: "Use Case 12 for feature 60"
     priority: low
     steps:

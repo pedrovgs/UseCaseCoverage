@@ -1,0 +1,332 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-084-2b1e1e
+  title: "Random Feature 84"
+  created_at: "2025-08-06"
+  updated_at: "2026-01-13"
+  description: >
+    Auto-generated feature number 84.
+
+artifacts:
+  - id: art-084-001
+    created_at: "2024-06-20"
+    title: "Use Case 1 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-002
+    type: bug
+    created_at: "2024-07-11"
+    title: "Bug 2 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-003
+    type: bug
+    created_at: "2024-07-02"
+    title: "Bug 3 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-004
+    created_at: "2025-12-05"
+    title: "Use Case 4 for feature 84"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-005
+    created_at: "2025-02-25"
+    title: "Use Case 5 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-006
+    created_at: "2025-06-30"
+    title: "Use Case 6 for feature 84"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-007
+    created_at: "2025-12-17"
+    title: "Use Case 7 for feature 84"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-008
+    created_at: "2024-08-09"
+    title: "Use Case 8 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-009
+    created_at: "2025-09-01"
+    title: "Use Case 9 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-010
+    type: bug
+    created_at: "2025-12-26"
+    title: "Bug 10 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-011
+    created_at: "2025-11-18"
+    title: "Use Case 11 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-012
+    created_at: "2024-09-24"
+    title: "Use Case 12 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-013
+    type: regression
+    created_at: "2024-12-04"
+    title: "Bug 13 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-014
+    type: bug
+    created_at: "2024-05-19"
+    title: "Bug 14 for feature 84"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-015
+    created_at: "2025-11-17"
+    title: "Use Case 15 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-016
+    type: regression
+    created_at: "2024-07-22"
+    title: "Bug 16 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-017
+    type: bug
+    created_at: "2024-12-24"
+    title: "Bug 17 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-018
+    type: regression
+    created_at: "2025-07-12"
+    title: "Bug 18 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-019
+    type: bug
+    created_at: "2025-11-05"
+    title: "Bug 19 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-020
+    type: bug
+    created_at: "2024-08-15"
+    title: "Bug 20 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-021
+    created_at: "2025-12-08"
+    title: "Use Case 21 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-022
+    type: bug
+    created_at: "2025-12-17"
+    title: "Bug 22 for feature 84"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-023
+    created_at: "2025-04-11"
+    title: "Use Case 23 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-024
+    type: bug
+    created_at: "2025-05-11"
+    title: "Bug 24 for feature 84"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-025
+    created_at: "2025-04-29"
+    title: "Use Case 25 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-026
+    created_at: "2025-09-09"
+    title: "Use Case 26 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-027
+    created_at: "2024-09-06"
+    title: "Use Case 27 for feature 84"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-028
+    created_at: "2024-09-26"
+    title: "Use Case 28 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-029
+    created_at: "2024-05-20"
+    title: "Use Case 29 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-030
+    created_at: "2024-10-05"
+    title: "Use Case 30 for feature 84"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-031
+    created_at: "2024-08-10"
+    title: "Use Case 31 for feature 84"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-032
+    type: bug
+    created_at: "2025-05-19"
+    title: "Bug 32 for feature 84"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-033
+    created_at: "2024-07-25"
+    title: "Use Case 33 for feature 84"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-034
+    created_at: "2025-12-28"
+    title: "Use Case 34 for feature 84"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-035
+    type: bug
+    created_at: "2025-05-31"
+    title: "Bug 35 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-036
+    created_at: "2025-05-28"
+    title: "Use Case 36 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-037
+    type: bug
+    created_at: "2025-11-06"
+    title: "Bug 37 for feature 84"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-084-038
+    type: regression
+    created_at: "2025-02-27"
+    title: "Bug 38 for feature 84"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

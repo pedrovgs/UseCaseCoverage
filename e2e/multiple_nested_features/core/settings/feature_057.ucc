@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-057-a5b248
   title: "Random Feature 57"
-  created_at: "2026-05-10"
+  created_at: "2026-02-27"
+  updated_at: "2026-03-22"
   description: >
     Auto-generated feature number 57.
 
 artifacts:
   - id: art-057-001
-    created_at: "2026-05-10"
+    created_at: "2025-08-28"
     title: "Use Case 1 for feature 57"
     priority: high
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-002
-    created_at: "2026-05-10"
+    created_at: "2025-09-12"
     title: "Use Case 2 for feature 57"
     priority: highest
     steps:
@@ -25,7 +26,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-003
-    created_at: "2026-05-10"
+    created_at: "2026-02-15"
     title: "Use Case 3 for feature 57"
     priority: medium
     steps:
@@ -34,7 +35,7 @@ artifacts:
       - Expected outcome
   - id: art-057-004
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-12"
     title: "Bug 4 for feature 57"
     priority: low
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-005
-    created_at: "2026-05-10"
+    created_at: "2024-09-25"
     title: "Use Case 5 for feature 57"
     priority: highest
     steps:
@@ -50,7 +51,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-006
-    created_at: "2026-05-10"
+    created_at: "2024-07-13"
     title: "Use Case 6 for feature 57"
     priority: highest
     steps:
@@ -58,7 +59,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-007
-    created_at: "2026-05-10"
+    created_at: "2025-08-21"
     title: "Use Case 7 for feature 57"
     priority: high
     steps:
@@ -67,7 +68,7 @@ artifacts:
       - Expected outcome
   - id: art-057-008
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-06-16"
     title: "Bug 8 for feature 57"
     priority: high
     steps:
@@ -75,7 +76,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-009
-    created_at: "2026-05-10"
+    created_at: "2025-03-06"
     title: "Use Case 9 for feature 57"
     priority: highest
     steps:
@@ -83,7 +84,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-010
-    created_at: "2026-05-10"
+    created_at: "2024-12-02"
     title: "Use Case 10 for feature 57"
     priority: highest
     steps:
@@ -92,7 +93,7 @@ artifacts:
       - Expected outcome
   - id: art-057-011
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-06-23"
     title: "Bug 11 for feature 57"
     priority: low
     steps:
@@ -101,7 +102,7 @@ artifacts:
       - Expected outcome
   - id: art-057-012
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-11-30"
     title: "Bug 12 for feature 57"
     priority: medium
     steps:
@@ -109,7 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-013
-    created_at: "2026-05-10"
+    created_at: "2024-06-21"
     title: "Use Case 13 for feature 57"
     priority: none
     steps:
@@ -117,7 +118,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-014
-    created_at: "2026-05-10"
+    created_at: "2025-03-29"
     title: "Use Case 14 for feature 57"
     priority: medium
     steps:
@@ -125,7 +126,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-015
-    created_at: "2026-05-10"
+    created_at: "2025-03-23"
     title: "Use Case 15 for feature 57"
     priority: none
     steps:
@@ -133,7 +134,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-016
-    created_at: "2026-05-10"
+    created_at: "2025-10-19"
     title: "Use Case 16 for feature 57"
     priority: low
     steps:
@@ -142,7 +143,7 @@ artifacts:
       - Expected outcome
   - id: art-057-017
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-06-21"
     title: "Bug 17 for feature 57"
     priority: highest
     steps:
@@ -150,7 +151,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-018
-    created_at: "2026-05-10"
+    created_at: "2025-11-17"
     title: "Use Case 18 for feature 57"
     priority: none
     steps:
@@ -159,7 +160,7 @@ artifacts:
       - Expected outcome
   - id: art-057-019
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-09-06"
     title: "Bug 19 for feature 57"
     priority: high
     steps:
@@ -168,7 +169,7 @@ artifacts:
       - Expected outcome
   - id: art-057-020
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-24"
     title: "Bug 20 for feature 57"
     priority: none
     steps:
@@ -176,7 +177,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-021
-    created_at: "2026-05-10"
+    created_at: "2024-06-16"
     title: "Use Case 21 for feature 57"
     priority: highest
     steps:
@@ -185,7 +186,7 @@ artifacts:
       - Expected outcome
   - id: art-057-022
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2026-03-03"
     title: "Bug 22 for feature 57"
     priority: medium
     steps:
@@ -193,7 +194,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-023
-    created_at: "2026-05-10"
+    created_at: "2024-11-21"
     title: "Use Case 23 for feature 57"
     priority: medium
     steps:
@@ -202,7 +203,7 @@ artifacts:
       - Expected outcome
   - id: art-057-024
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-26"
     title: "Bug 24 for feature 57"
     priority: high
     steps:
@@ -210,7 +211,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-025
-    created_at: "2026-05-10"
+    created_at: "2025-05-10"
     title: "Use Case 25 for feature 57"
     priority: medium
     steps:
@@ -218,7 +219,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-026
-    created_at: "2026-05-10"
+    created_at: "2024-06-27"
     title: "Use Case 26 for feature 57"
     priority: none
     steps:
@@ -226,7 +227,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-027
-    created_at: "2026-05-10"
+    created_at: "2026-03-12"
     title: "Use Case 27 for feature 57"
     priority: high
     steps:
@@ -235,7 +236,7 @@ artifacts:
       - Expected outcome
   - id: art-057-028
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-14"
     title: "Bug 28 for feature 57"
     priority: medium
     steps:
@@ -244,7 +245,7 @@ artifacts:
       - Expected outcome
   - id: art-057-029
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-13"
     title: "Bug 29 for feature 57"
     priority: high
     steps:
@@ -252,7 +253,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-030
-    created_at: "2026-05-10"
+    created_at: "2024-09-14"
     title: "Use Case 30 for feature 57"
     priority: low
     steps:
@@ -261,7 +262,7 @@ artifacts:
       - Expected outcome
   - id: art-057-031
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-05-21"
     title: "Bug 31 for feature 57"
     priority: low
     steps:
@@ -269,7 +270,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-032
-    created_at: "2026-05-10"
+    created_at: "2025-07-31"
     title: "Use Case 32 for feature 57"
     priority: high
     steps:
@@ -277,7 +278,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-033
-    created_at: "2026-05-10"
+    created_at: "2025-06-23"
     title: "Use Case 33 for feature 57"
     priority: highest
     steps:
@@ -285,7 +286,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-034
-    created_at: "2026-05-10"
+    created_at: "2025-08-03"
     title: "Use Case 34 for feature 57"
     priority: highest
     steps:
@@ -293,7 +294,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-035
-    created_at: "2026-05-10"
+    created_at: "2025-06-09"
     title: "Use Case 35 for feature 57"
     priority: highest
     steps:
@@ -302,7 +303,7 @@ artifacts:
       - Expected outcome
   - id: art-057-036
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-04-22"
     title: "Bug 36 for feature 57"
     priority: none
     steps:
@@ -310,7 +311,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-057-037
-    created_at: "2026-05-10"
+    created_at: "2024-11-17"
     title: "Use Case 37 for feature 57"
     priority: high
     steps:

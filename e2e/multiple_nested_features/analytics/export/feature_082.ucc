@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-082-2b101b
   title: "Random Feature 82"
-  created_at: "2026-05-10"
+  created_at: "2025-02-05"
+  updated_at: "2025-04-18"
   description: >
     Auto-generated feature number 82.
 
 artifacts:
   - id: art-082-001
-    created_at: "2026-05-10"
+    created_at: "2024-09-13"
     title: "Use Case 1 for feature 82"
     priority: medium
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-002
-    created_at: "2026-05-10"
+    created_at: "2025-02-21"
     title: "Use Case 2 for feature 82"
     priority: medium
     steps:
@@ -25,7 +26,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-003
-    created_at: "2026-05-10"
+    created_at: "2025-02-09"
     title: "Use Case 3 for feature 82"
     priority: none
     steps:
@@ -34,7 +35,7 @@ artifacts:
       - Expected outcome
   - id: art-082-004
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-09-21"
     title: "Bug 4 for feature 82"
     priority: high
     steps:
@@ -43,7 +44,7 @@ artifacts:
       - Expected outcome
   - id: art-082-005
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-03-05"
     title: "Bug 5 for feature 82"
     priority: low
     steps:
@@ -51,7 +52,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-006
-    created_at: "2026-05-10"
+    created_at: "2024-12-15"
     title: "Use Case 6 for feature 82"
     priority: medium
     steps:
@@ -60,7 +61,7 @@ artifacts:
       - Expected outcome
   - id: art-082-007
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-03-04"
     title: "Bug 7 for feature 82"
     priority: highest
     steps:
@@ -68,7 +69,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-008
-    created_at: "2026-05-10"
+    created_at: "2024-11-30"
     title: "Use Case 8 for feature 82"
     priority: low
     steps:
@@ -77,7 +78,7 @@ artifacts:
       - Expected outcome
   - id: art-082-009
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-11"
     title: "Bug 9 for feature 82"
     priority: none
     steps:
@@ -85,7 +86,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-010
-    created_at: "2026-05-10"
+    created_at: "2024-08-30"
     title: "Use Case 10 for feature 82"
     priority: medium
     steps:
@@ -93,7 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-011
-    created_at: "2026-05-10"
+    created_at: "2024-07-19"
     title: "Use Case 11 for feature 82"
     priority: medium
     steps:
@@ -101,7 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-012
-    created_at: "2026-05-10"
+    created_at: "2025-01-25"
     title: "Use Case 12 for feature 82"
     priority: low
     steps:
@@ -110,7 +111,7 @@ artifacts:
       - Expected outcome
   - id: art-082-013
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-17"
     title: "Bug 13 for feature 82"
     priority: medium
     steps:
@@ -119,7 +120,7 @@ artifacts:
       - Expected outcome
   - id: art-082-014
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-25"
     title: "Bug 14 for feature 82"
     priority: high
     steps:
@@ -128,7 +129,7 @@ artifacts:
       - Expected outcome
   - id: art-082-015
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-06-03"
     title: "Bug 15 for feature 82"
     priority: highest
     steps:
@@ -137,7 +138,7 @@ artifacts:
       - Expected outcome
   - id: art-082-016
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-05"
     title: "Bug 16 for feature 82"
     priority: highest
     steps:
@@ -146,7 +147,7 @@ artifacts:
       - Expected outcome
   - id: art-082-017
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-27"
     title: "Bug 17 for feature 82"
     priority: medium
     steps:
@@ -154,7 +155,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-018
-    created_at: "2026-05-10"
+    created_at: "2025-03-27"
     title: "Use Case 18 for feature 82"
     priority: highest
     steps:
@@ -163,7 +164,7 @@ artifacts:
       - Expected outcome
   - id: art-082-019
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-07-30"
     title: "Bug 19 for feature 82"
     priority: highest
     steps:
@@ -171,7 +172,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-020
-    created_at: "2026-05-10"
+    created_at: "2024-12-12"
     title: "Use Case 20 for feature 82"
     priority: highest
     steps:
@@ -180,7 +181,7 @@ artifacts:
       - Expected outcome
   - id: art-082-021
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-03-11"
     title: "Bug 21 for feature 82"
     priority: none
     steps:
@@ -189,7 +190,7 @@ artifacts:
       - Expected outcome
   - id: art-082-022
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-11"
     title: "Bug 22 for feature 82"
     priority: highest
     steps:
@@ -198,7 +199,7 @@ artifacts:
       - Expected outcome
   - id: art-082-023
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-23"
     title: "Bug 23 for feature 82"
     priority: none
     steps:
@@ -206,7 +207,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-024
-    created_at: "2026-05-10"
+    created_at: "2024-11-21"
     title: "Use Case 24 for feature 82"
     priority: medium
     steps:
@@ -214,7 +215,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-025
-    created_at: "2026-05-10"
+    created_at: "2025-03-11"
     title: "Use Case 25 for feature 82"
     priority: highest
     steps:
@@ -223,7 +224,7 @@ artifacts:
       - Expected outcome
   - id: art-082-026
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-04"
     title: "Bug 26 for feature 82"
     priority: high
     steps:
@@ -231,7 +232,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-027
-    created_at: "2026-05-10"
+    created_at: "2025-02-04"
     title: "Use Case 27 for feature 82"
     priority: high
     steps:
@@ -239,7 +240,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-028
-    created_at: "2026-05-10"
+    created_at: "2024-09-15"
     title: "Use Case 28 for feature 82"
     priority: medium
     steps:
@@ -247,7 +248,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-029
-    created_at: "2026-05-10"
+    created_at: "2025-02-17"
     title: "Use Case 29 for feature 82"
     priority: highest
     steps:
@@ -256,7 +257,7 @@ artifacts:
       - Expected outcome
   - id: art-082-030
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-05-15"
     title: "Bug 30 for feature 82"
     priority: none
     steps:
@@ -265,7 +266,7 @@ artifacts:
       - Expected outcome
   - id: art-082-031
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-07"
     title: "Bug 31 for feature 82"
     priority: highest
     steps:
@@ -273,7 +274,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-032
-    created_at: "2026-05-10"
+    created_at: "2025-02-08"
     title: "Use Case 32 for feature 82"
     priority: medium
     steps:
@@ -282,7 +283,7 @@ artifacts:
       - Expected outcome
   - id: art-082-033
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-09-23"
     title: "Bug 33 for feature 82"
     priority: medium
     steps:
@@ -290,7 +291,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-034
-    created_at: "2026-05-10"
+    created_at: "2025-04-03"
     title: "Use Case 34 for feature 82"
     priority: high
     steps:
@@ -298,7 +299,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-035
-    created_at: "2026-05-10"
+    created_at: "2024-10-31"
     title: "Use Case 35 for feature 82"
     priority: high
     steps:
@@ -306,7 +307,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-036
-    created_at: "2026-05-10"
+    created_at: "2024-07-06"
     title: "Use Case 36 for feature 82"
     priority: low
     steps:
@@ -315,7 +316,7 @@ artifacts:
       - Expected outcome
   - id: art-082-037
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-10-07"
     title: "Bug 37 for feature 82"
     priority: highest
     steps:
@@ -323,7 +324,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-038
-    created_at: "2026-05-10"
+    created_at: "2024-12-18"
     title: "Use Case 38 for feature 82"
     priority: high
     steps:
@@ -331,7 +332,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-039
-    created_at: "2026-05-10"
+    created_at: "2024-07-29"
     title: "Use Case 39 for feature 82"
     priority: highest
     steps:
@@ -340,7 +341,7 @@ artifacts:
       - Expected outcome
   - id: art-082-040
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-12-28"
     title: "Bug 40 for feature 82"
     priority: high
     steps:
@@ -349,7 +350,7 @@ artifacts:
       - Expected outcome
   - id: art-082-041
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-05-11"
     title: "Bug 41 for feature 82"
     priority: low
     steps:
@@ -358,7 +359,7 @@ artifacts:
       - Expected outcome
   - id: art-082-042
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-21"
     title: "Bug 42 for feature 82"
     priority: high
     steps:
@@ -367,7 +368,7 @@ artifacts:
       - Expected outcome
   - id: art-082-043
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-21"
     title: "Bug 43 for feature 82"
     priority: medium
     steps:
@@ -376,7 +377,7 @@ artifacts:
       - Expected outcome
   - id: art-082-044
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-08-09"
     title: "Bug 44 for feature 82"
     priority: medium
     steps:
@@ -384,7 +385,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-045
-    created_at: "2026-05-10"
+    created_at: "2025-01-24"
     title: "Use Case 45 for feature 82"
     priority: none
     steps:
@@ -393,7 +394,7 @@ artifacts:
       - Expected outcome
   - id: art-082-046
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-03"
     title: "Bug 46 for feature 82"
     priority: highest
     steps:
@@ -401,7 +402,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-047
-    created_at: "2026-05-10"
+    created_at: "2025-03-26"
     title: "Use Case 47 for feature 82"
     priority: highest
     steps:
@@ -410,7 +411,7 @@ artifacts:
       - Expected outcome
   - id: art-082-048
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-09"
     title: "Bug 48 for feature 82"
     priority: high
     steps:
@@ -419,7 +420,7 @@ artifacts:
       - Expected outcome
   - id: art-082-049
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-02"
     title: "Bug 49 for feature 82"
     priority: highest
     steps:
@@ -428,7 +429,7 @@ artifacts:
       - Expected outcome
   - id: art-082-050
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-24"
     title: "Bug 50 for feature 82"
     priority: medium
     steps:
@@ -436,7 +437,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-051
-    created_at: "2026-05-10"
+    created_at: "2025-03-17"
     title: "Use Case 51 for feature 82"
     priority: high
     steps:
@@ -444,7 +445,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-052
-    created_at: "2026-05-10"
+    created_at: "2024-08-19"
     title: "Use Case 52 for feature 82"
     priority: medium
     steps:
@@ -452,7 +453,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-053
-    created_at: "2026-05-10"
+    created_at: "2024-07-27"
     title: "Use Case 53 for feature 82"
     priority: highest
     steps:
@@ -460,7 +461,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-054
-    created_at: "2026-05-10"
+    created_at: "2024-11-17"
     title: "Use Case 54 for feature 82"
     priority: high
     steps:
@@ -469,7 +470,7 @@ artifacts:
       - Expected outcome
   - id: art-082-055
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-07-31"
     title: "Bug 55 for feature 82"
     priority: medium
     steps:
@@ -477,7 +478,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-056
-    created_at: "2026-05-10"
+    created_at: "2025-02-10"
     title: "Use Case 56 for feature 82"
     priority: highest
     steps:
@@ -486,7 +487,7 @@ artifacts:
       - Expected outcome
   - id: art-082-057
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-05"
     title: "Bug 57 for feature 82"
     priority: none
     steps:
@@ -494,7 +495,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-058
-    created_at: "2026-05-10"
+    created_at: "2024-05-10"
     title: "Use Case 58 for feature 82"
     priority: medium
     steps:
@@ -502,7 +503,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-059
-    created_at: "2026-05-10"
+    created_at: "2025-03-12"
     title: "Use Case 59 for feature 82"
     priority: high
     steps:
@@ -511,7 +512,7 @@ artifacts:
       - Expected outcome
   - id: art-082-060
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-10-22"
     title: "Bug 60 for feature 82"
     priority: highest
     steps:
@@ -520,7 +521,7 @@ artifacts:
       - Expected outcome
   - id: art-082-061
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-15"
     title: "Bug 61 for feature 82"
     priority: highest
     steps:
@@ -529,7 +530,7 @@ artifacts:
       - Expected outcome
   - id: art-082-062
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-05-19"
     title: "Bug 62 for feature 82"
     priority: high
     steps:
@@ -538,7 +539,7 @@ artifacts:
       - Expected outcome
   - id: art-082-063
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-06"
     title: "Bug 63 for feature 82"
     priority: highest
     steps:
@@ -546,7 +547,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-064
-    created_at: "2026-05-10"
+    created_at: "2024-11-11"
     title: "Use Case 64 for feature 82"
     priority: low
     steps:
@@ -555,7 +556,7 @@ artifacts:
       - Expected outcome
   - id: art-082-065
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-10-14"
     title: "Bug 65 for feature 82"
     priority: high
     steps:
@@ -563,7 +564,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-066
-    created_at: "2026-05-10"
+    created_at: "2024-09-09"
     title: "Use Case 66 for feature 82"
     priority: highest
     steps:
@@ -571,7 +572,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-067
-    created_at: "2026-05-10"
+    created_at: "2024-06-08"
     title: "Use Case 67 for feature 82"
     priority: highest
     steps:
@@ -579,7 +580,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-068
-    created_at: "2026-05-10"
+    created_at: "2024-09-10"
     title: "Use Case 68 for feature 82"
     priority: none
     steps:
@@ -588,7 +589,7 @@ artifacts:
       - Expected outcome
   - id: art-082-069
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-24"
     title: "Bug 69 for feature 82"
     priority: none
     steps:
@@ -597,7 +598,7 @@ artifacts:
       - Expected outcome
   - id: art-082-070
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-19"
     title: "Bug 70 for feature 82"
     priority: low
     steps:
@@ -605,7 +606,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-071
-    created_at: "2026-05-10"
+    created_at: "2024-06-22"
     title: "Use Case 71 for feature 82"
     priority: high
     steps:
@@ -613,7 +614,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-072
-    created_at: "2026-05-10"
+    created_at: "2025-01-13"
     title: "Use Case 72 for feature 82"
     priority: high
     steps:
@@ -622,7 +623,7 @@ artifacts:
       - Expected outcome
   - id: art-082-073
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-06-14"
     title: "Bug 73 for feature 82"
     priority: medium
     steps:
@@ -631,7 +632,7 @@ artifacts:
       - Expected outcome
   - id: art-082-074
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-06"
     title: "Bug 74 for feature 82"
     priority: medium
     steps:
@@ -639,7 +640,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-075
-    created_at: "2026-05-10"
+    created_at: "2024-07-13"
     title: "Use Case 75 for feature 82"
     priority: none
     steps:
@@ -647,7 +648,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-082-076
-    created_at: "2026-05-10"
+    created_at: "2024-07-14"
     title: "Use Case 76 for feature 82"
     priority: low
     steps:
@@ -656,7 +657,7 @@ artifacts:
       - Expected outcome
   - id: art-082-077
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-12"
     title: "Bug 77 for feature 82"
     priority: highest
     steps:

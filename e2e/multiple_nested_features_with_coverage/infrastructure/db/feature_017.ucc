@@ -1,0 +1,171 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-017-686bb1
+  title: "Random Feature 17"
+  created_at: "2025-08-14"
+  updated_at: "2025-10-13"
+  description: >
+    Auto-generated feature number 17.
+
+artifacts:
+  - id: art-017-001
+    type: bug
+    created_at: "2024-11-03"
+    title: "Bug 1 for feature 17"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-002
+    created_at: "2025-08-07"
+    title: "Use Case 2 for feature 17"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-003
+    created_at: "2025-03-09"
+    title: "Use Case 3 for feature 17"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-004
+    created_at: "2024-08-27"
+    title: "Use Case 4 for feature 17"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-005
+    created_at: "2024-07-11"
+    title: "Use Case 5 for feature 17"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-006
+    created_at: "2025-07-04"
+    title: "Use Case 6 for feature 17"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-007
+    type: regression
+    created_at: "2025-06-29"
+    title: "Bug 7 for feature 17"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-008
+    type: regression
+    created_at: "2025-08-01"
+    title: "Bug 8 for feature 17"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-009
+    created_at: "2025-09-20"
+    title: "Use Case 9 for feature 17"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-010
+    created_at: "2024-09-08"
+    title: "Use Case 10 for feature 17"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-011
+    created_at: "2024-11-05"
+    title: "Use Case 11 for feature 17"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-012
+    created_at: "2025-02-11"
+    title: "Use Case 12 for feature 17"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-013
+    created_at: "2024-07-20"
+    title: "Use Case 13 for feature 17"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-014
+    type: regression
+    created_at: "2024-10-04"
+    title: "Bug 14 for feature 17"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-015
+    created_at: "2025-04-09"
+    title: "Use Case 15 for feature 17"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-016
+    created_at: "2025-01-24"
+    title: "Use Case 16 for feature 17"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-017
+    type: bug
+    created_at: "2025-05-01"
+    title: "Bug 17 for feature 17"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-018
+    type: bug
+    created_at: "2025-01-08"
+    title: "Bug 18 for feature 17"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-017-019
+    type: regression
+    created_at: "2024-06-02"
+    title: "Bug 19 for feature 17"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

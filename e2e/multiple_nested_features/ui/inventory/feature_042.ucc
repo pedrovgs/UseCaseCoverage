@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-042-c248ae
   title: "Random Feature 42"
-  created_at: "2026-05-10"
+  created_at: "2024-06-15"
+  updated_at: "2026-01-07"
   description: >
     Auto-generated feature number 42.
 
 artifacts:
   - id: art-042-001
-    created_at: "2026-05-10"
+    created_at: "2025-11-23"
     title: "Use Case 1 for feature 42"
     priority: high
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-002
-    created_at: "2026-05-10"
+    created_at: "2024-05-10"
     title: "Use Case 2 for feature 42"
     priority: highest
     steps:
@@ -25,7 +26,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-003
-    created_at: "2026-05-10"
+    created_at: "2024-08-11"
     title: "Use Case 3 for feature 42"
     priority: medium
     steps:
@@ -34,7 +35,7 @@ artifacts:
       - Expected outcome
   - id: art-042-004
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-03-17"
     title: "Bug 4 for feature 42"
     priority: low
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-005
-    created_at: "2026-05-10"
+    created_at: "2025-10-12"
     title: "Use Case 5 for feature 42"
     priority: highest
     steps:
@@ -50,7 +51,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-006
-    created_at: "2026-05-10"
+    created_at: "2025-12-06"
     title: "Use Case 6 for feature 42"
     priority: none
     steps:
@@ -58,7 +59,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-007
-    created_at: "2026-05-10"
+    created_at: "2024-12-07"
     title: "Use Case 7 for feature 42"
     priority: low
     steps:
@@ -67,7 +68,7 @@ artifacts:
       - Expected outcome
   - id: art-042-008
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-08-20"
     title: "Bug 8 for feature 42"
     priority: low
     steps:
@@ -75,7 +76,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-009
-    created_at: "2026-05-10"
+    created_at: "2025-04-24"
     title: "Use Case 9 for feature 42"
     priority: low
     steps:
@@ -83,7 +84,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-010
-    created_at: "2026-05-10"
+    created_at: "2025-05-17"
     title: "Use Case 10 for feature 42"
     priority: medium
     steps:
@@ -91,7 +92,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-011
-    created_at: "2026-05-10"
+    created_at: "2024-07-04"
     title: "Use Case 11 for feature 42"
     priority: medium
     steps:
@@ -100,7 +101,7 @@ artifacts:
       - Expected outcome
   - id: art-042-012
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-12-24"
     title: "Bug 12 for feature 42"
     priority: high
     steps:
@@ -108,7 +109,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-013
-    created_at: "2026-05-10"
+    created_at: "2025-08-18"
     title: "Use Case 13 for feature 42"
     priority: low
     steps:
@@ -117,7 +118,7 @@ artifacts:
       - Expected outcome
   - id: art-042-014
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-14"
     title: "Bug 14 for feature 42"
     priority: high
     steps:
@@ -126,7 +127,7 @@ artifacts:
       - Expected outcome
   - id: art-042-015
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-12-04"
     title: "Bug 15 for feature 42"
     priority: none
     steps:
@@ -134,7 +135,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-016
-    created_at: "2026-05-10"
+    created_at: "2025-09-06"
     title: "Use Case 16 for feature 42"
     priority: medium
     steps:
@@ -142,7 +143,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-017
-    created_at: "2026-05-10"
+    created_at: "2025-05-17"
     title: "Use Case 17 for feature 42"
     priority: low
     steps:
@@ -150,7 +151,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-018
-    created_at: "2026-05-10"
+    created_at: "2025-08-16"
     title: "Use Case 18 for feature 42"
     priority: highest
     steps:
@@ -158,7 +159,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-019
-    created_at: "2026-05-10"
+    created_at: "2024-09-03"
     title: "Use Case 19 for feature 42"
     priority: high
     steps:
@@ -167,7 +168,7 @@ artifacts:
       - Expected outcome
   - id: art-042-020
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-08-17"
     title: "Bug 20 for feature 42"
     priority: high
     steps:
@@ -175,7 +176,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-021
-    created_at: "2026-05-10"
+    created_at: "2024-12-23"
     title: "Use Case 21 for feature 42"
     priority: none
     steps:
@@ -183,7 +184,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-022
-    created_at: "2026-05-10"
+    created_at: "2024-05-12"
     title: "Use Case 22 for feature 42"
     priority: none
     steps:
@@ -192,7 +193,7 @@ artifacts:
       - Expected outcome
   - id: art-042-023
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-24"
     title: "Bug 23 for feature 42"
     priority: none
     steps:
@@ -201,7 +202,7 @@ artifacts:
       - Expected outcome
   - id: art-042-024
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-05-08"
     title: "Bug 24 for feature 42"
     priority: medium
     steps:
@@ -209,7 +210,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-025
-    created_at: "2026-05-10"
+    created_at: "2025-03-04"
     title: "Use Case 25 for feature 42"
     priority: low
     steps:
@@ -217,7 +218,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-026
-    created_at: "2026-05-10"
+    created_at: "2025-11-21"
     title: "Use Case 26 for feature 42"
     priority: high
     steps:
@@ -226,7 +227,7 @@ artifacts:
       - Expected outcome
   - id: art-042-027
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-10-26"
     title: "Bug 27 for feature 42"
     priority: highest
     steps:
@@ -234,7 +235,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-028
-    created_at: "2026-05-10"
+    created_at: "2025-05-27"
     title: "Use Case 28 for feature 42"
     priority: high
     steps:
@@ -243,7 +244,7 @@ artifacts:
       - Expected outcome
   - id: art-042-029
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-08-26"
     title: "Bug 29 for feature 42"
     priority: high
     steps:
@@ -251,7 +252,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-030
-    created_at: "2026-05-10"
+    created_at: "2024-06-25"
     title: "Use Case 30 for feature 42"
     priority: low
     steps:
@@ -259,7 +260,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-031
-    created_at: "2026-05-10"
+    created_at: "2024-10-25"
     title: "Use Case 31 for feature 42"
     priority: highest
     steps:
@@ -268,7 +269,7 @@ artifacts:
       - Expected outcome
   - id: art-042-032
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-09-26"
     title: "Bug 32 for feature 42"
     priority: medium
     steps:
@@ -276,7 +277,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-033
-    created_at: "2026-05-10"
+    created_at: "2024-09-30"
     title: "Use Case 33 for feature 42"
     priority: medium
     steps:
@@ -284,7 +285,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-034
-    created_at: "2026-05-10"
+    created_at: "2025-07-03"
     title: "Use Case 34 for feature 42"
     priority: low
     steps:
@@ -292,7 +293,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-035
-    created_at: "2026-05-10"
+    created_at: "2024-08-27"
     title: "Use Case 35 for feature 42"
     priority: none
     steps:
@@ -300,7 +301,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-036
-    created_at: "2026-05-10"
+    created_at: "2025-01-25"
     title: "Use Case 36 for feature 42"
     priority: medium
     steps:
@@ -308,7 +309,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-037
-    created_at: "2026-05-10"
+    created_at: "2024-11-26"
     title: "Use Case 37 for feature 42"
     priority: medium
     steps:
@@ -317,7 +318,7 @@ artifacts:
       - Expected outcome
   - id: art-042-038
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-18"
     title: "Bug 38 for feature 42"
     priority: high
     steps:
@@ -325,7 +326,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-039
-    created_at: "2026-05-10"
+    created_at: "2024-09-10"
     title: "Use Case 39 for feature 42"
     priority: medium
     steps:
@@ -333,7 +334,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-040
-    created_at: "2026-05-10"
+    created_at: "2025-06-16"
     title: "Use Case 40 for feature 42"
     priority: high
     steps:
@@ -341,7 +342,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-042-041
-    created_at: "2026-05-10"
+    created_at: "2024-12-16"
     title: "Use Case 41 for feature 42"
     priority: high
     steps:

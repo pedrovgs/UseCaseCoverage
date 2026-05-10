@@ -3,14 +3,15 @@ schema_version: "1.0"
 feature:
   id: feat-029-407940
   title: "Random Feature 29"
-  created_at: "2026-05-10"
+  created_at: "2026-02-23"
+  updated_at: "2026-03-10"
   description: >
     Auto-generated feature number 29.
 
 artifacts:
   - id: art-029-001
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-04"
     title: "Bug 1 for feature 29"
     priority: medium
     steps:
@@ -18,7 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-002
-    created_at: "2026-05-10"
+    created_at: "2025-02-15"
     title: "Use Case 2 for feature 29"
     priority: low
     steps:
@@ -27,7 +28,7 @@ artifacts:
       - Expected outcome
   - id: art-029-003
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-15"
     title: "Bug 3 for feature 29"
     priority: low
     steps:
@@ -35,7 +36,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-004
-    created_at: "2026-05-10"
+    created_at: "2024-12-24"
     title: "Use Case 4 for feature 29"
     priority: high
     steps:
@@ -43,7 +44,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-005
-    created_at: "2026-05-10"
+    created_at: "2024-09-29"
     title: "Use Case 5 for feature 29"
     priority: none
     steps:
@@ -52,7 +53,7 @@ artifacts:
       - Expected outcome
   - id: art-029-006
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-08-22"
     title: "Bug 6 for feature 29"
     priority: highest
     steps:
@@ -60,7 +61,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-007
-    created_at: "2026-05-10"
+    created_at: "2025-11-19"
     title: "Use Case 7 for feature 29"
     priority: highest
     steps:
@@ -68,7 +69,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-008
-    created_at: "2026-05-10"
+    created_at: "2024-08-07"
     title: "Use Case 8 for feature 29"
     priority: none
     steps:
@@ -76,7 +77,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-009
-    created_at: "2026-05-10"
+    created_at: "2026-01-04"
     title: "Use Case 9 for feature 29"
     priority: medium
     steps:
@@ -85,7 +86,7 @@ artifacts:
       - Expected outcome
   - id: art-029-010
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-07-16"
     title: "Bug 10 for feature 29"
     priority: none
     steps:
@@ -93,7 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-029-011
-    created_at: "2026-05-10"
+    created_at: "2024-06-11"
     title: "Use Case 11 for feature 29"
     priority: none
     steps:

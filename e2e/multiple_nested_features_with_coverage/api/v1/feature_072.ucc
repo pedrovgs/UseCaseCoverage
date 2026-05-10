@@ -1,0 +1,20 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-072-fc87f0
+  title: "Random Feature 72"
+  created_at: "2026-03-23"
+  updated_at: "2026-04-19"
+  description: >
+    Auto-generated feature number 72.
+
+artifacts:
+  - id: art-072-001
+    created_at: "2026-04-02"
+    title: "Use Case 1 for feature 72"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

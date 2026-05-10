@@ -1,0 +1,112 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-080-ff617a
+  title: "Random Feature 80"
+  created_at: "2025-12-21"
+  updated_at: "2026-01-07"
+  description: >
+    Auto-generated feature number 80.
+
+artifacts:
+  - id: art-080-001
+    created_at: "2025-02-25"
+    title: "Use Case 1 for feature 80"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-002
+    created_at: "2025-02-21"
+    title: "Use Case 2 for feature 80"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-003
+    type: regression
+    created_at: "2024-10-04"
+    title: "Bug 3 for feature 80"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-004
+    created_at: "2024-05-30"
+    title: "Use Case 4 for feature 80"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-005
+    created_at: "2024-11-05"
+    title: "Use Case 5 for feature 80"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-006
+    created_at: "2025-10-27"
+    title: "Use Case 6 for feature 80"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-007
+    type: regression
+    created_at: "2026-01-05"
+    title: "Bug 7 for feature 80"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-008
+    created_at: "2025-08-06"
+    title: "Use Case 8 for feature 80"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-009
+    type: bug
+    created_at: "2025-12-24"
+    title: "Bug 9 for feature 80"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-010
+    created_at: "2024-10-09"
+    title: "Use Case 10 for feature 80"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-011
+    created_at: "2025-08-16"
+    title: "Use Case 11 for feature 80"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-080-012
+    type: bug
+    created_at: "2024-12-01"
+    title: "Bug 12 for feature 80"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

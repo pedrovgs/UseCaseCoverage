@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-059-0bbd16
   title: "Random Feature 59"
-  created_at: "2026-05-10"
+  created_at: "2024-12-01"
+  updated_at: "2026-04-06"
   description: >
     Auto-generated feature number 59.
 
 artifacts:
   - id: art-059-001
-    created_at: "2026-05-10"
+    created_at: "2025-03-27"
     title: "Use Case 1 for feature 59"
     priority: low
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-002
-    created_at: "2026-05-10"
+    created_at: "2024-11-07"
     title: "Use Case 2 for feature 59"
     priority: none
     steps:
@@ -26,7 +27,7 @@ artifacts:
       - Expected outcome
   - id: art-059-003
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-06-21"
     title: "Bug 3 for feature 59"
     priority: medium
     steps:
@@ -34,7 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-004
-    created_at: "2026-05-10"
+    created_at: "2025-04-01"
     title: "Use Case 4 for feature 59"
     priority: medium
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-005
-    created_at: "2026-05-10"
+    created_at: "2025-03-04"
     title: "Use Case 5 for feature 59"
     priority: medium
     steps:
@@ -50,7 +51,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-006
-    created_at: "2026-05-10"
+    created_at: "2026-02-17"
     title: "Use Case 6 for feature 59"
     priority: none
     steps:
@@ -59,7 +60,7 @@ artifacts:
       - Expected outcome
   - id: art-059-007
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-09-24"
     title: "Bug 7 for feature 59"
     priority: high
     steps:
@@ -68,7 +69,7 @@ artifacts:
       - Expected outcome
   - id: art-059-008
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-12-20"
     title: "Bug 8 for feature 59"
     priority: low
     steps:
@@ -77,7 +78,7 @@ artifacts:
       - Expected outcome
   - id: art-059-009
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-13"
     title: "Bug 9 for feature 59"
     priority: highest
     steps:
@@ -85,7 +86,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-010
-    created_at: "2026-05-10"
+    created_at: "2025-04-08"
     title: "Use Case 10 for feature 59"
     priority: low
     steps:
@@ -93,7 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-011
-    created_at: "2026-05-10"
+    created_at: "2025-05-30"
     title: "Use Case 11 for feature 59"
     priority: high
     steps:
@@ -101,7 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-012
-    created_at: "2026-05-10"
+    created_at: "2025-02-21"
     title: "Use Case 12 for feature 59"
     priority: highest
     steps:
@@ -109,7 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-013
-    created_at: "2026-05-10"
+    created_at: "2025-06-16"
     title: "Use Case 13 for feature 59"
     priority: high
     steps:
@@ -117,7 +118,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-014
-    created_at: "2026-05-10"
+    created_at: "2025-05-18"
     title: "Use Case 14 for feature 59"
     priority: medium
     steps:
@@ -126,7 +127,7 @@ artifacts:
       - Expected outcome
   - id: art-059-015
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-09-03"
     title: "Bug 15 for feature 59"
     priority: medium
     steps:
@@ -134,7 +135,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-016
-    created_at: "2026-05-10"
+    created_at: "2025-12-08"
     title: "Use Case 16 for feature 59"
     priority: highest
     steps:
@@ -142,7 +143,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-017
-    created_at: "2026-05-10"
+    created_at: "2024-11-30"
     title: "Use Case 17 for feature 59"
     priority: high
     steps:
@@ -150,7 +151,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-018
-    created_at: "2026-05-10"
+    created_at: "2026-01-06"
     title: "Use Case 18 for feature 59"
     priority: low
     steps:
@@ -158,7 +159,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-019
-    created_at: "2026-05-10"
+    created_at: "2025-11-19"
     title: "Use Case 19 for feature 59"
     priority: none
     steps:
@@ -167,7 +168,7 @@ artifacts:
       - Expected outcome
   - id: art-059-020
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-11-10"
     title: "Bug 20 for feature 59"
     priority: low
     steps:
@@ -175,7 +176,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-021
-    created_at: "2026-05-10"
+    created_at: "2025-11-24"
     title: "Use Case 21 for feature 59"
     priority: high
     steps:
@@ -183,7 +184,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-022
-    created_at: "2026-05-10"
+    created_at: "2024-06-06"
     title: "Use Case 22 for feature 59"
     priority: none
     steps:
@@ -191,7 +192,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-023
-    created_at: "2026-05-10"
+    created_at: "2025-08-25"
     title: "Use Case 23 for feature 59"
     priority: none
     steps:
@@ -200,7 +201,7 @@ artifacts:
       - Expected outcome
   - id: art-059-024
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-12-10"
     title: "Bug 24 for feature 59"
     priority: medium
     steps:
@@ -208,7 +209,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-025
-    created_at: "2026-05-10"
+    created_at: "2025-08-01"
     title: "Use Case 25 for feature 59"
     priority: low
     steps:
@@ -216,7 +217,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-026
-    created_at: "2026-05-10"
+    created_at: "2025-03-04"
     title: "Use Case 26 for feature 59"
     priority: high
     steps:
@@ -224,7 +225,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-027
-    created_at: "2026-05-10"
+    created_at: "2024-07-19"
     title: "Use Case 27 for feature 59"
     priority: low
     steps:
@@ -232,7 +233,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-028
-    created_at: "2026-05-10"
+    created_at: "2025-07-02"
     title: "Use Case 28 for feature 59"
     priority: highest
     steps:
@@ -241,7 +242,7 @@ artifacts:
       - Expected outcome
   - id: art-059-029
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2026-03-30"
     title: "Bug 29 for feature 59"
     priority: highest
     steps:
@@ -250,7 +251,7 @@ artifacts:
       - Expected outcome
   - id: art-059-030
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-10-03"
     title: "Bug 30 for feature 59"
     priority: highest
     steps:
@@ -258,7 +259,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-031
-    created_at: "2026-05-10"
+    created_at: "2024-09-29"
     title: "Use Case 31 for feature 59"
     priority: medium
     steps:
@@ -267,7 +268,7 @@ artifacts:
       - Expected outcome
   - id: art-059-032
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2026-02-17"
     title: "Bug 32 for feature 59"
     priority: none
     steps:
@@ -275,7 +276,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-033
-    created_at: "2026-05-10"
+    created_at: "2025-03-16"
     title: "Use Case 33 for feature 59"
     priority: low
     steps:
@@ -283,7 +284,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-034
-    created_at: "2026-05-10"
+    created_at: "2025-01-12"
     title: "Use Case 34 for feature 59"
     priority: low
     steps:
@@ -292,7 +293,7 @@ artifacts:
       - Expected outcome
   - id: art-059-035
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-23"
     title: "Bug 35 for feature 59"
     priority: highest
     steps:
@@ -300,7 +301,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-036
-    created_at: "2026-05-10"
+    created_at: "2026-03-15"
     title: "Use Case 36 for feature 59"
     priority: low
     steps:
@@ -309,7 +310,7 @@ artifacts:
       - Expected outcome
   - id: art-059-037
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-10-14"
     title: "Bug 37 for feature 59"
     priority: none
     steps:
@@ -317,7 +318,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-038
-    created_at: "2026-05-10"
+    created_at: "2025-07-17"
     title: "Use Case 38 for feature 59"
     priority: high
     steps:
@@ -325,7 +326,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-039
-    created_at: "2026-05-10"
+    created_at: "2025-05-31"
     title: "Use Case 39 for feature 59"
     priority: low
     steps:
@@ -333,7 +334,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-040
-    created_at: "2026-05-10"
+    created_at: "2024-07-24"
     title: "Use Case 40 for feature 59"
     priority: none
     steps:
@@ -341,7 +342,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-059-041
-    created_at: "2026-05-10"
+    created_at: "2025-08-12"
     title: "Use Case 41 for feature 59"
     priority: high
     steps:

@@ -1,0 +1,181 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-020-163812
+  title: "Random Feature 20"
+  created_at: "2026-03-08"
+  updated_at: "2026-03-22"
+  description: >
+    Auto-generated feature number 20.
+
+artifacts:
+  - id: art-020-001
+    created_at: "2024-10-05"
+    title: "Use Case 1 for feature 20"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-002
+    created_at: "2025-07-05"
+    title: "Use Case 2 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-003
+    type: bug
+    created_at: "2025-01-17"
+    title: "Bug 3 for feature 20"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-004
+    type: regression
+    created_at: "2025-12-22"
+    title: "Bug 4 for feature 20"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-005
+    type: bug
+    created_at: "2025-04-30"
+    title: "Bug 5 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-006
+    type: bug
+    created_at: "2025-04-02"
+    title: "Bug 6 for feature 20"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-007
+    created_at: "2025-08-06"
+    title: "Use Case 7 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-008
+    type: regression
+    created_at: "2025-12-16"
+    title: "Bug 8 for feature 20"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-009
+    created_at: "2025-10-24"
+    title: "Use Case 9 for feature 20"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-010
+    type: regression
+    created_at: "2024-11-17"
+    title: "Bug 10 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-011
+    created_at: "2026-01-26"
+    title: "Use Case 11 for feature 20"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-012
+    created_at: "2024-09-14"
+    title: "Use Case 12 for feature 20"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-013
+    type: bug
+    created_at: "2024-07-24"
+    title: "Bug 13 for feature 20"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-014
+    type: regression
+    created_at: "2025-07-04"
+    title: "Bug 14 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-015
+    created_at: "2025-06-29"
+    title: "Use Case 15 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-016
+    created_at: "2025-03-30"
+    title: "Use Case 16 for feature 20"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-017
+    type: bug
+    created_at: "2025-02-27"
+    title: "Bug 17 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-018
+    created_at: "2024-09-23"
+    title: "Use Case 18 for feature 20"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-019
+    created_at: "2024-05-11"
+    title: "Use Case 19 for feature 20"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-020-020
+    created_at: "2025-07-19"
+    title: "Use Case 20 for feature 20"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

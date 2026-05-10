@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-096-5b696a
   title: "Random Feature 96"
-  created_at: "2026-05-10"
+  created_at: "2024-09-30"
+  updated_at: "2025-04-10"
   description: >
     Auto-generated feature number 96.
 
 artifacts:
   - id: art-096-001
-    created_at: "2026-05-10"
+    created_at: "2024-10-18"
     title: "Use Case 1 for feature 96"
     priority: high
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-002
-    created_at: "2026-05-10"
+    created_at: "2024-12-26"
     title: "Use Case 2 for feature 96"
     priority: medium
     steps:
@@ -26,7 +27,7 @@ artifacts:
       - Expected outcome
   - id: art-096-003
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-03-23"
     title: "Bug 3 for feature 96"
     priority: medium
     steps:
@@ -35,7 +36,7 @@ artifacts:
       - Expected outcome
   - id: art-096-004
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-06"
     title: "Bug 4 for feature 96"
     priority: high
     steps:
@@ -44,7 +45,7 @@ artifacts:
       - Expected outcome
   - id: art-096-005
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-09"
     title: "Bug 5 for feature 96"
     priority: high
     steps:
@@ -53,7 +54,7 @@ artifacts:
       - Expected outcome
   - id: art-096-006
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-05-14"
     title: "Bug 6 for feature 96"
     priority: high
     steps:
@@ -61,7 +62,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-007
-    created_at: "2026-05-10"
+    created_at: "2025-01-13"
     title: "Use Case 7 for feature 96"
     priority: none
     steps:
@@ -70,7 +71,7 @@ artifacts:
       - Expected outcome
   - id: art-096-008
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-07-18"
     title: "Bug 8 for feature 96"
     priority: none
     steps:
@@ -78,7 +79,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-009
-    created_at: "2026-05-10"
+    created_at: "2024-08-17"
     title: "Use Case 9 for feature 96"
     priority: low
     steps:
@@ -86,7 +87,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-010
-    created_at: "2026-05-10"
+    created_at: "2024-11-22"
     title: "Use Case 10 for feature 96"
     priority: none
     steps:
@@ -94,7 +95,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-011
-    created_at: "2026-05-10"
+    created_at: "2025-02-21"
     title: "Use Case 11 for feature 96"
     priority: high
     steps:
@@ -102,7 +103,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-012
-    created_at: "2026-05-10"
+    created_at: "2025-01-23"
     title: "Use Case 12 for feature 96"
     priority: highest
     steps:
@@ -110,7 +111,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-013
-    created_at: "2026-05-10"
+    created_at: "2025-04-09"
     title: "Use Case 13 for feature 96"
     priority: low
     steps:
@@ -118,7 +119,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-014
-    created_at: "2026-05-10"
+    created_at: "2025-01-18"
     title: "Use Case 14 for feature 96"
     priority: highest
     steps:
@@ -127,7 +128,7 @@ artifacts:
       - Expected outcome
   - id: art-096-015
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-12-05"
     title: "Bug 15 for feature 96"
     priority: none
     steps:
@@ -136,7 +137,7 @@ artifacts:
       - Expected outcome
   - id: art-096-016
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-16"
     title: "Bug 16 for feature 96"
     priority: highest
     steps:
@@ -144,7 +145,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-017
-    created_at: "2026-05-10"
+    created_at: "2024-12-08"
     title: "Use Case 17 for feature 96"
     priority: medium
     steps:
@@ -153,7 +154,7 @@ artifacts:
       - Expected outcome
   - id: art-096-018
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-12-23"
     title: "Bug 18 for feature 96"
     priority: highest
     steps:
@@ -162,7 +163,7 @@ artifacts:
       - Expected outcome
   - id: art-096-019
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-15"
     title: "Bug 19 for feature 96"
     priority: high
     steps:
@@ -171,7 +172,7 @@ artifacts:
       - Expected outcome
   - id: art-096-020
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-08-03"
     title: "Bug 20 for feature 96"
     priority: highest
     steps:
@@ -179,7 +180,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-021
-    created_at: "2026-05-10"
+    created_at: "2024-06-21"
     title: "Use Case 21 for feature 96"
     priority: highest
     steps:
@@ -188,7 +189,7 @@ artifacts:
       - Expected outcome
   - id: art-096-022
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-23"
     title: "Bug 22 for feature 96"
     priority: high
     steps:
@@ -196,7 +197,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-023
-    created_at: "2026-05-10"
+    created_at: "2024-05-25"
     title: "Use Case 23 for feature 96"
     priority: medium
     steps:
@@ -204,7 +205,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-024
-    created_at: "2026-05-10"
+    created_at: "2024-08-30"
     title: "Use Case 24 for feature 96"
     priority: medium
     steps:
@@ -213,7 +214,7 @@ artifacts:
       - Expected outcome
   - id: art-096-025
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-06"
     title: "Bug 25 for feature 96"
     priority: low
     steps:
@@ -221,7 +222,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-026
-    created_at: "2026-05-10"
+    created_at: "2024-05-26"
     title: "Use Case 26 for feature 96"
     priority: highest
     steps:
@@ -229,7 +230,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-027
-    created_at: "2026-05-10"
+    created_at: "2024-09-27"
     title: "Use Case 27 for feature 96"
     priority: none
     steps:
@@ -237,7 +238,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-028
-    created_at: "2026-05-10"
+    created_at: "2024-09-02"
     title: "Use Case 28 for feature 96"
     priority: highest
     steps:
@@ -245,7 +246,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-029
-    created_at: "2026-05-10"
+    created_at: "2025-02-09"
     title: "Use Case 29 for feature 96"
     priority: high
     steps:
@@ -253,7 +254,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-030
-    created_at: "2026-05-10"
+    created_at: "2024-10-04"
     title: "Use Case 30 for feature 96"
     priority: highest
     steps:
@@ -262,7 +263,7 @@ artifacts:
       - Expected outcome
   - id: art-096-031
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-08-04"
     title: "Bug 31 for feature 96"
     priority: highest
     steps:
@@ -271,7 +272,7 @@ artifacts:
       - Expected outcome
   - id: art-096-032
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-12-30"
     title: "Bug 32 for feature 96"
     priority: low
     steps:
@@ -279,7 +280,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-033
-    created_at: "2026-05-10"
+    created_at: "2025-02-23"
     title: "Use Case 33 for feature 96"
     priority: highest
     steps:
@@ -287,7 +288,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-034
-    created_at: "2026-05-10"
+    created_at: "2025-01-18"
     title: "Use Case 34 for feature 96"
     priority: high
     steps:
@@ -296,7 +297,7 @@ artifacts:
       - Expected outcome
   - id: art-096-035
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-15"
     title: "Bug 35 for feature 96"
     priority: high
     steps:
@@ -304,7 +305,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-036
-    created_at: "2026-05-10"
+    created_at: "2025-01-26"
     title: "Use Case 36 for feature 96"
     priority: medium
     steps:
@@ -312,7 +313,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-037
-    created_at: "2026-05-10"
+    created_at: "2024-07-06"
     title: "Use Case 37 for feature 96"
     priority: highest
     steps:
@@ -321,7 +322,7 @@ artifacts:
       - Expected outcome
   - id: art-096-038
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-27"
     title: "Bug 38 for feature 96"
     priority: low
     steps:
@@ -329,7 +330,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-039
-    created_at: "2026-05-10"
+    created_at: "2024-07-07"
     title: "Use Case 39 for feature 96"
     priority: high
     steps:
@@ -338,7 +339,7 @@ artifacts:
       - Expected outcome
   - id: art-096-040
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-24"
     title: "Bug 40 for feature 96"
     priority: high
     steps:
@@ -346,7 +347,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-041
-    created_at: "2026-05-10"
+    created_at: "2025-02-12"
     title: "Use Case 41 for feature 96"
     priority: medium
     steps:
@@ -354,7 +355,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-042
-    created_at: "2026-05-10"
+    created_at: "2024-11-13"
     title: "Use Case 42 for feature 96"
     priority: low
     steps:
@@ -362,7 +363,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-096-043
-    created_at: "2026-05-10"
+    created_at: "2025-02-11"
     title: "Use Case 43 for feature 96"
     priority: low
     steps:

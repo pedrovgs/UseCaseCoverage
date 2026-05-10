@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-099-faccee
   title: "Random Feature 99"
-  created_at: "2026-05-10"
+  created_at: "2025-12-12"
+  updated_at: "2026-01-31"
   description: >
     Auto-generated feature number 99.
 
 artifacts:
   - id: art-099-001
-    created_at: "2026-05-10"
+    created_at: "2024-11-05"
     title: "Use Case 1 for feature 99"
     priority: none
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-002
-    created_at: "2026-05-10"
+    created_at: "2026-01-25"
     title: "Use Case 2 for feature 99"
     priority: medium
     steps:
@@ -26,7 +27,7 @@ artifacts:
       - Expected outcome
   - id: art-099-003
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-06-29"
     title: "Bug 3 for feature 99"
     priority: low
     steps:
@@ -34,7 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-004
-    created_at: "2026-05-10"
+    created_at: "2025-07-21"
     title: "Use Case 4 for feature 99"
     priority: low
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-005
-    created_at: "2026-05-10"
+    created_at: "2025-10-19"
     title: "Use Case 5 for feature 99"
     priority: highest
     steps:
@@ -51,7 +52,7 @@ artifacts:
       - Expected outcome
   - id: art-099-006
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-04-10"
     title: "Bug 6 for feature 99"
     priority: low
     steps:
@@ -59,7 +60,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-007
-    created_at: "2026-05-10"
+    created_at: "2024-08-06"
     title: "Use Case 7 for feature 99"
     priority: medium
     steps:
@@ -68,7 +69,7 @@ artifacts:
       - Expected outcome
   - id: art-099-008
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-06-24"
     title: "Bug 8 for feature 99"
     priority: highest
     steps:
@@ -76,7 +77,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-009
-    created_at: "2026-05-10"
+    created_at: "2024-08-15"
     title: "Use Case 9 for feature 99"
     priority: low
     steps:
@@ -85,7 +86,7 @@ artifacts:
       - Expected outcome
   - id: art-099-010
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-15"
     title: "Bug 10 for feature 99"
     priority: highest
     steps:
@@ -93,7 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-011
-    created_at: "2026-05-10"
+    created_at: "2024-09-30"
     title: "Use Case 11 for feature 99"
     priority: highest
     steps:
@@ -101,7 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-012
-    created_at: "2026-05-10"
+    created_at: "2025-09-10"
     title: "Use Case 12 for feature 99"
     priority: low
     steps:
@@ -109,7 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-013
-    created_at: "2026-05-10"
+    created_at: "2025-04-06"
     title: "Use Case 13 for feature 99"
     priority: medium
     steps:
@@ -117,7 +118,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-014
-    created_at: "2026-05-10"
+    created_at: "2025-01-19"
     title: "Use Case 14 for feature 99"
     priority: high
     steps:
@@ -125,7 +126,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-015
-    created_at: "2026-05-10"
+    created_at: "2024-05-16"
     title: "Use Case 15 for feature 99"
     priority: low
     steps:
@@ -134,7 +135,7 @@ artifacts:
       - Expected outcome
   - id: art-099-016
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-01"
     title: "Bug 16 for feature 99"
     priority: high
     steps:
@@ -142,7 +143,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-017
-    created_at: "2026-05-10"
+    created_at: "2025-06-06"
     title: "Use Case 17 for feature 99"
     priority: medium
     steps:
@@ -150,7 +151,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-018
-    created_at: "2026-05-10"
+    created_at: "2025-01-06"
     title: "Use Case 18 for feature 99"
     priority: high
     steps:
@@ -159,7 +160,7 @@ artifacts:
       - Expected outcome
   - id: art-099-019
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-08-10"
     title: "Bug 19 for feature 99"
     priority: none
     steps:
@@ -168,7 +169,7 @@ artifacts:
       - Expected outcome
   - id: art-099-020
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-07"
     title: "Bug 20 for feature 99"
     priority: high
     steps:
@@ -176,7 +177,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-099-021
-    created_at: "2026-05-10"
+    created_at: "2025-04-12"
     title: "Use Case 21 for feature 99"
     priority: medium
     steps:

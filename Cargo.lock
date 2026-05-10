@@ -706,6 +706,7 @@ dependencies = [
 name = "use_case_coverage_reporter"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "serde_json",
  "tempfile",
  "use_case_coverage_core",

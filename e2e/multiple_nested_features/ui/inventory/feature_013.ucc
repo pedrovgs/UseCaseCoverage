@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-013-1edb8d
   title: "Random Feature 13"
-  created_at: "2026-05-10"
+  created_at: "2025-05-29"
+  updated_at: "2026-04-22"
   description: >
     Auto-generated feature number 13.
 
 artifacts:
   - id: art-013-001
-    created_at: "2026-05-10"
+    created_at: "2025-01-26"
     title: "Use Case 1 for feature 13"
     priority: medium
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-002
-    created_at: "2026-05-10"
+    created_at: "2025-11-08"
     title: "Use Case 2 for feature 13"
     priority: medium
     steps:
@@ -26,7 +27,7 @@ artifacts:
       - Expected outcome
   - id: art-013-003
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2026-02-07"
     title: "Bug 3 for feature 13"
     priority: low
     steps:
@@ -34,7 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-004
-    created_at: "2026-05-10"
+    created_at: "2024-06-28"
     title: "Use Case 4 for feature 13"
     priority: medium
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-005
-    created_at: "2026-05-10"
+    created_at: "2026-01-08"
     title: "Use Case 5 for feature 13"
     priority: low
     steps:
@@ -51,7 +52,7 @@ artifacts:
       - Expected outcome
   - id: art-013-006
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-28"
     title: "Bug 6 for feature 13"
     priority: none
     steps:
@@ -59,7 +60,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-007
-    created_at: "2026-05-10"
+    created_at: "2026-03-18"
     title: "Use Case 7 for feature 13"
     priority: none
     steps:
@@ -67,7 +68,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-008
-    created_at: "2026-05-10"
+    created_at: "2024-08-28"
     title: "Use Case 8 for feature 13"
     priority: highest
     steps:
@@ -75,7 +76,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-009
-    created_at: "2026-05-10"
+    created_at: "2026-03-10"
     title: "Use Case 9 for feature 13"
     priority: medium
     steps:
@@ -84,7 +85,7 @@ artifacts:
       - Expected outcome
   - id: art-013-010
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-05-30"
     title: "Bug 10 for feature 13"
     priority: low
     steps:
@@ -93,7 +94,7 @@ artifacts:
       - Expected outcome
   - id: art-013-011
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-28"
     title: "Bug 11 for feature 13"
     priority: highest
     steps:
@@ -102,7 +103,7 @@ artifacts:
       - Expected outcome
   - id: art-013-012
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2026-04-16"
     title: "Bug 12 for feature 13"
     priority: none
     steps:
@@ -111,7 +112,7 @@ artifacts:
       - Expected outcome
   - id: art-013-013
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-05"
     title: "Bug 13 for feature 13"
     priority: high
     steps:
@@ -119,7 +120,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-014
-    created_at: "2026-05-10"
+    created_at: "2025-07-10"
     title: "Use Case 14 for feature 13"
     priority: none
     steps:
@@ -128,7 +129,7 @@ artifacts:
       - Expected outcome
   - id: art-013-015
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-08-07"
     title: "Bug 15 for feature 13"
     priority: low
     steps:
@@ -137,7 +138,7 @@ artifacts:
       - Expected outcome
   - id: art-013-016
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-06-03"
     title: "Bug 16 for feature 13"
     priority: high
     steps:
@@ -145,7 +146,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-017
-    created_at: "2026-05-10"
+    created_at: "2024-09-13"
     title: "Use Case 17 for feature 13"
     priority: high
     steps:
@@ -154,7 +155,7 @@ artifacts:
       - Expected outcome
   - id: art-013-018
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-11-21"
     title: "Bug 18 for feature 13"
     priority: none
     steps:
@@ -162,7 +163,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-019
-    created_at: "2026-05-10"
+    created_at: "2025-01-23"
     title: "Use Case 19 for feature 13"
     priority: medium
     steps:
@@ -170,7 +171,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-020
-    created_at: "2026-05-10"
+    created_at: "2025-09-07"
     title: "Use Case 20 for feature 13"
     priority: low
     steps:
@@ -178,7 +179,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-021
-    created_at: "2026-05-10"
+    created_at: "2024-10-13"
     title: "Use Case 21 for feature 13"
     priority: high
     steps:
@@ -186,7 +187,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-013-022
-    created_at: "2026-05-10"
+    created_at: "2024-12-06"
     title: "Use Case 22 for feature 13"
     priority: medium
     steps:

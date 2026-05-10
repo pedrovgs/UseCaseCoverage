@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-090-ca61f5
   title: "Random Feature 90"
-  created_at: "2026-05-10"
+  created_at: "2025-09-08"
+  updated_at: "2026-05-09"
   description: >
     Auto-generated feature number 90.
 
 artifacts:
   - id: art-090-001
-    created_at: "2026-05-10"
+    created_at: "2025-11-23"
     title: "Use Case 1 for feature 90"
     priority: medium
     steps:
@@ -18,7 +19,7 @@ artifacts:
       - Expected outcome
   - id: art-090-002
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-26"
     title: "Bug 2 for feature 90"
     priority: medium
     steps:
@@ -26,7 +27,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-003
-    created_at: "2026-05-10"
+    created_at: "2025-02-05"
     title: "Use Case 3 for feature 90"
     priority: none
     steps:
@@ -34,7 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-004
-    created_at: "2026-05-10"
+    created_at: "2025-11-01"
     title: "Use Case 4 for feature 90"
     priority: none
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-005
-    created_at: "2026-05-10"
+    created_at: "2026-01-21"
     title: "Use Case 5 for feature 90"
     priority: medium
     steps:
@@ -50,7 +51,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-006
-    created_at: "2026-05-10"
+    created_at: "2025-07-17"
     title: "Use Case 6 for feature 90"
     priority: low
     steps:
@@ -59,7 +60,7 @@ artifacts:
       - Expected outcome
   - id: art-090-007
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-12-12"
     title: "Bug 7 for feature 90"
     priority: high
     steps:
@@ -67,7 +68,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-008
-    created_at: "2026-05-10"
+    created_at: "2025-11-13"
     title: "Use Case 8 for feature 90"
     priority: none
     steps:
@@ -76,7 +77,7 @@ artifacts:
       - Expected outcome
   - id: art-090-009
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2026-04-16"
     title: "Bug 9 for feature 90"
     priority: low
     steps:
@@ -84,7 +85,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-010
-    created_at: "2026-05-10"
+    created_at: "2024-12-01"
     title: "Use Case 10 for feature 90"
     priority: medium
     steps:
@@ -92,7 +93,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-011
-    created_at: "2026-05-10"
+    created_at: "2025-03-25"
     title: "Use Case 11 for feature 90"
     priority: highest
     steps:
@@ -100,7 +101,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-012
-    created_at: "2026-05-10"
+    created_at: "2025-06-22"
     title: "Use Case 12 for feature 90"
     priority: high
     steps:
@@ -108,7 +109,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-013
-    created_at: "2026-05-10"
+    created_at: "2026-03-28"
     title: "Use Case 13 for feature 90"
     priority: high
     steps:
@@ -116,7 +117,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-014
-    created_at: "2026-05-10"
+    created_at: "2026-03-06"
     title: "Use Case 14 for feature 90"
     priority: none
     steps:
@@ -125,7 +126,7 @@ artifacts:
       - Expected outcome
   - id: art-090-015
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-05-27"
     title: "Bug 15 for feature 90"
     priority: high
     steps:
@@ -134,7 +135,7 @@ artifacts:
       - Expected outcome
   - id: art-090-016
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-08-01"
     title: "Bug 16 for feature 90"
     priority: low
     steps:
@@ -142,7 +143,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-017
-    created_at: "2026-05-10"
+    created_at: "2025-10-21"
     title: "Use Case 17 for feature 90"
     priority: none
     steps:
@@ -151,7 +152,7 @@ artifacts:
       - Expected outcome
   - id: art-090-018
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-08-15"
     title: "Bug 18 for feature 90"
     priority: high
     steps:
@@ -159,7 +160,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-019
-    created_at: "2026-05-10"
+    created_at: "2024-09-10"
     title: "Use Case 19 for feature 90"
     priority: highest
     steps:
@@ -167,7 +168,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-090-020
-    created_at: "2026-05-10"
+    created_at: "2025-01-18"
     title: "Use Case 20 for feature 90"
     priority: highest
     steps:

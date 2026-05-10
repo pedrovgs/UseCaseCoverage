@@ -3,14 +3,15 @@ schema_version: "1.0"
 feature:
   id: feat-016-9dcd5d
   title: "Random Feature 16"
-  created_at: "2026-05-10"
+  created_at: "2025-12-10"
+  updated_at: "2025-12-21"
   description: >
     Auto-generated feature number 16.
 
 artifacts:
   - id: art-016-001
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-30"
     title: "Bug 1 for feature 16"
     priority: low
     steps:
@@ -18,7 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-002
-    created_at: "2026-05-10"
+    created_at: "2025-11-06"
     title: "Use Case 2 for feature 16"
     priority: highest
     steps:
@@ -27,7 +28,7 @@ artifacts:
       - Expected outcome
   - id: art-016-003
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-07-22"
     title: "Bug 3 for feature 16"
     priority: high
     steps:
@@ -35,7 +36,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-004
-    created_at: "2026-05-10"
+    created_at: "2025-05-24"
     title: "Use Case 4 for feature 16"
     priority: none
     steps:
@@ -44,7 +45,7 @@ artifacts:
       - Expected outcome
   - id: art-016-005
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-19"
     title: "Bug 5 for feature 16"
     priority: low
     steps:
@@ -52,7 +53,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-006
-    created_at: "2026-05-10"
+    created_at: "2025-10-10"
     title: "Use Case 6 for feature 16"
     priority: low
     steps:
@@ -61,7 +62,7 @@ artifacts:
       - Expected outcome
   - id: art-016-007
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-24"
     title: "Bug 7 for feature 16"
     priority: highest
     steps:
@@ -69,7 +70,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-008
-    created_at: "2026-05-10"
+    created_at: "2024-05-22"
     title: "Use Case 8 for feature 16"
     priority: high
     steps:
@@ -77,7 +78,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-009
-    created_at: "2026-05-10"
+    created_at: "2025-07-14"
     title: "Use Case 9 for feature 16"
     priority: highest
     steps:
@@ -85,7 +86,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-010
-    created_at: "2026-05-10"
+    created_at: "2025-09-23"
     title: "Use Case 10 for feature 16"
     priority: low
     steps:
@@ -93,7 +94,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-011
-    created_at: "2026-05-10"
+    created_at: "2024-08-26"
     title: "Use Case 11 for feature 16"
     priority: high
     steps:
@@ -101,7 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-012
-    created_at: "2026-05-10"
+    created_at: "2025-07-27"
     title: "Use Case 12 for feature 16"
     priority: medium
     steps:
@@ -109,7 +110,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-013
-    created_at: "2026-05-10"
+    created_at: "2025-05-15"
     title: "Use Case 13 for feature 16"
     priority: none
     steps:
@@ -117,7 +118,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-014
-    created_at: "2026-05-10"
+    created_at: "2025-08-23"
     title: "Use Case 14 for feature 16"
     priority: high
     steps:
@@ -126,7 +127,7 @@ artifacts:
       - Expected outcome
   - id: art-016-015
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-13"
     title: "Bug 15 for feature 16"
     priority: none
     steps:
@@ -135,7 +136,7 @@ artifacts:
       - Expected outcome
   - id: art-016-016
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-07-29"
     title: "Bug 16 for feature 16"
     priority: highest
     steps:
@@ -143,7 +144,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-017
-    created_at: "2026-05-10"
+    created_at: "2024-11-06"
     title: "Use Case 17 for feature 16"
     priority: none
     steps:
@@ -152,7 +153,7 @@ artifacts:
       - Expected outcome
   - id: art-016-018
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-10-26"
     title: "Bug 18 for feature 16"
     priority: low
     steps:
@@ -161,7 +162,7 @@ artifacts:
       - Expected outcome
   - id: art-016-019
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-10"
     title: "Bug 19 for feature 16"
     priority: medium
     steps:
@@ -169,7 +170,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-020
-    created_at: "2026-05-10"
+    created_at: "2025-11-12"
     title: "Use Case 20 for feature 16"
     priority: low
     steps:
@@ -177,7 +178,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-021
-    created_at: "2026-05-10"
+    created_at: "2025-09-17"
     title: "Use Case 21 for feature 16"
     priority: highest
     steps:
@@ -185,7 +186,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-022
-    created_at: "2026-05-10"
+    created_at: "2025-08-29"
     title: "Use Case 22 for feature 16"
     priority: low
     steps:
@@ -194,7 +195,7 @@ artifacts:
       - Expected outcome
   - id: art-016-023
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-07-30"
     title: "Bug 23 for feature 16"
     priority: highest
     steps:
@@ -203,7 +204,7 @@ artifacts:
       - Expected outcome
   - id: art-016-024
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-08"
     title: "Bug 24 for feature 16"
     priority: medium
     steps:
@@ -211,7 +212,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-025
-    created_at: "2026-05-10"
+    created_at: "2025-04-05"
     title: "Use Case 25 for feature 16"
     priority: low
     steps:
@@ -219,7 +220,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-026
-    created_at: "2026-05-10"
+    created_at: "2025-01-16"
     title: "Use Case 26 for feature 16"
     priority: high
     steps:
@@ -227,7 +228,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-027
-    created_at: "2026-05-10"
+    created_at: "2024-08-06"
     title: "Use Case 27 for feature 16"
     priority: low
     steps:
@@ -236,7 +237,7 @@ artifacts:
       - Expected outcome
   - id: art-016-028
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-19"
     title: "Bug 28 for feature 16"
     priority: low
     steps:
@@ -244,7 +245,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-029
-    created_at: "2026-05-10"
+    created_at: "2025-08-14"
     title: "Use Case 29 for feature 16"
     priority: highest
     steps:
@@ -252,7 +253,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-030
-    created_at: "2026-05-10"
+    created_at: "2025-01-14"
     title: "Use Case 30 for feature 16"
     priority: medium
     steps:
@@ -260,7 +261,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-031
-    created_at: "2026-05-10"
+    created_at: "2025-08-28"
     title: "Use Case 31 for feature 16"
     priority: medium
     steps:
@@ -269,7 +270,7 @@ artifacts:
       - Expected outcome
   - id: art-016-032
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-12-14"
     title: "Bug 32 for feature 16"
     priority: none
     steps:
@@ -278,7 +279,7 @@ artifacts:
       - Expected outcome
   - id: art-016-033
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-06-02"
     title: "Bug 33 for feature 16"
     priority: high
     steps:
@@ -286,7 +287,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-034
-    created_at: "2026-05-10"
+    created_at: "2025-04-19"
     title: "Use Case 34 for feature 16"
     priority: medium
     steps:
@@ -295,7 +296,7 @@ artifacts:
       - Expected outcome
   - id: art-016-035
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-06-08"
     title: "Bug 35 for feature 16"
     priority: highest
     steps:
@@ -303,7 +304,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-036
-    created_at: "2026-05-10"
+    created_at: "2025-09-28"
     title: "Use Case 36 for feature 16"
     priority: none
     steps:
@@ -311,7 +312,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-037
-    created_at: "2026-05-10"
+    created_at: "2025-04-07"
     title: "Use Case 37 for feature 16"
     priority: medium
     steps:
@@ -320,7 +321,7 @@ artifacts:
       - Expected outcome
   - id: art-016-038
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-11-12"
     title: "Bug 38 for feature 16"
     priority: low
     steps:
@@ -328,7 +329,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-016-039
-    created_at: "2026-05-10"
+    created_at: "2025-09-21"
     title: "Use Case 39 for feature 16"
     priority: none
     steps:

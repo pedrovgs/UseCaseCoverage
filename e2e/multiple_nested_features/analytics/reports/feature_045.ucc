@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-045-0fb7d1
   title: "Random Feature 45"
-  created_at: "2026-05-10"
+  created_at: "2025-04-14"
+  updated_at: "2025-04-29"
   description: >
     Auto-generated feature number 45.
 
 artifacts:
   - id: art-045-001
-    created_at: "2026-05-10"
+    created_at: "2024-07-08"
     title: "Use Case 1 for feature 45"
     priority: none
     steps:
@@ -18,7 +19,7 @@ artifacts:
       - Expected outcome
   - id: art-045-002
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-20"
     title: "Bug 2 for feature 45"
     priority: none
     steps:
@@ -26,7 +27,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-003
-    created_at: "2026-05-10"
+    created_at: "2024-08-09"
     title: "Use Case 3 for feature 45"
     priority: none
     steps:
@@ -34,7 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-004
-    created_at: "2026-05-10"
+    created_at: "2025-03-03"
     title: "Use Case 4 for feature 45"
     priority: medium
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-005
-    created_at: "2026-05-10"
+    created_at: "2024-09-22"
     title: "Use Case 5 for feature 45"
     priority: medium
     steps:
@@ -51,7 +52,7 @@ artifacts:
       - Expected outcome
   - id: art-045-006
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-05-29"
     title: "Bug 6 for feature 45"
     priority: low
     steps:
@@ -59,7 +60,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-007
-    created_at: "2026-05-10"
+    created_at: "2024-07-04"
     title: "Use Case 7 for feature 45"
     priority: highest
     steps:
@@ -67,7 +68,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-008
-    created_at: "2026-05-10"
+    created_at: "2025-03-11"
     title: "Use Case 8 for feature 45"
     priority: high
     steps:
@@ -75,7 +76,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-009
-    created_at: "2026-05-10"
+    created_at: "2024-12-18"
     title: "Use Case 9 for feature 45"
     priority: none
     steps:
@@ -83,7 +84,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-010
-    created_at: "2026-05-10"
+    created_at: "2024-11-02"
     title: "Use Case 10 for feature 45"
     priority: highest
     steps:
@@ -92,7 +93,7 @@ artifacts:
       - Expected outcome
   - id: art-045-011
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-17"
     title: "Bug 11 for feature 45"
     priority: none
     steps:
@@ -100,7 +101,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-012
-    created_at: "2026-05-10"
+    created_at: "2024-12-19"
     title: "Use Case 12 for feature 45"
     priority: low
     steps:
@@ -108,7 +109,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-013
-    created_at: "2026-05-10"
+    created_at: "2025-03-16"
     title: "Use Case 13 for feature 45"
     priority: none
     steps:
@@ -117,7 +118,7 @@ artifacts:
       - Expected outcome
   - id: art-045-014
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-26"
     title: "Bug 14 for feature 45"
     priority: none
     steps:
@@ -126,7 +127,7 @@ artifacts:
       - Expected outcome
   - id: art-045-015
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-07-08"
     title: "Bug 15 for feature 45"
     priority: medium
     steps:
@@ -134,7 +135,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-016
-    created_at: "2026-05-10"
+    created_at: "2024-11-23"
     title: "Use Case 16 for feature 45"
     priority: none
     steps:
@@ -143,7 +144,7 @@ artifacts:
       - Expected outcome
   - id: art-045-017
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-03-01"
     title: "Bug 17 for feature 45"
     priority: none
     steps:
@@ -151,7 +152,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-018
-    created_at: "2026-05-10"
+    created_at: "2024-08-15"
     title: "Use Case 18 for feature 45"
     priority: medium
     steps:
@@ -159,7 +160,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-019
-    created_at: "2026-05-10"
+    created_at: "2024-09-17"
     title: "Use Case 19 for feature 45"
     priority: none
     steps:
@@ -168,7 +169,7 @@ artifacts:
       - Expected outcome
   - id: art-045-020
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-06-01"
     title: "Bug 20 for feature 45"
     priority: highest
     steps:
@@ -176,7 +177,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-021
-    created_at: "2026-05-10"
+    created_at: "2024-12-19"
     title: "Use Case 21 for feature 45"
     priority: low
     steps:
@@ -185,7 +186,7 @@ artifacts:
       - Expected outcome
   - id: art-045-022
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-05-10"
     title: "Bug 22 for feature 45"
     priority: high
     steps:
@@ -193,7 +194,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-023
-    created_at: "2026-05-10"
+    created_at: "2025-01-31"
     title: "Use Case 23 for feature 45"
     priority: highest
     steps:
@@ -202,7 +203,7 @@ artifacts:
       - Expected outcome
   - id: art-045-024
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-09"
     title: "Bug 24 for feature 45"
     priority: highest
     steps:
@@ -210,7 +211,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-025
-    created_at: "2026-05-10"
+    created_at: "2025-04-26"
     title: "Use Case 25 for feature 45"
     priority: none
     steps:
@@ -218,7 +219,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-026
-    created_at: "2026-05-10"
+    created_at: "2025-04-18"
     title: "Use Case 26 for feature 45"
     priority: none
     steps:
@@ -226,7 +227,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-027
-    created_at: "2026-05-10"
+    created_at: "2024-08-18"
     title: "Use Case 27 for feature 45"
     priority: high
     steps:
@@ -235,7 +236,7 @@ artifacts:
       - Expected outcome
   - id: art-045-028
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-11-12"
     title: "Bug 28 for feature 45"
     priority: high
     steps:
@@ -244,7 +245,7 @@ artifacts:
       - Expected outcome
   - id: art-045-029
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-12-16"
     title: "Bug 29 for feature 45"
     priority: medium
     steps:
@@ -252,7 +253,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-030
-    created_at: "2026-05-10"
+    created_at: "2024-06-14"
     title: "Use Case 30 for feature 45"
     priority: low
     steps:
@@ -260,7 +261,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-045-031
-    created_at: "2026-05-10"
+    created_at: "2025-04-15"
     title: "Use Case 31 for feature 45"
     priority: medium
     steps:

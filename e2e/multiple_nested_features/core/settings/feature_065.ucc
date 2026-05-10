@@ -3,14 +3,15 @@ schema_version: "1.0"
 feature:
   id: feat-065-9e24ad
   title: "Random Feature 65"
-  created_at: "2026-05-10"
+  created_at: "2025-11-03"
+  updated_at: "2026-02-05"
   description: >
     Auto-generated feature number 65.
 
 artifacts:
   - id: art-065-001
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-06-21"
     title: "Bug 1 for feature 65"
     priority: highest
     steps:
@@ -19,7 +20,7 @@ artifacts:
       - Expected outcome
   - id: art-065-002
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-03-27"
     title: "Bug 2 for feature 65"
     priority: low
     steps:
@@ -28,7 +29,7 @@ artifacts:
       - Expected outcome
   - id: art-065-003
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-19"
     title: "Bug 3 for feature 65"
     priority: none
     steps:
@@ -37,7 +38,7 @@ artifacts:
       - Expected outcome
   - id: art-065-004
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-20"
     title: "Bug 4 for feature 65"
     priority: medium
     steps:
@@ -45,7 +46,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-005
-    created_at: "2026-05-10"
+    created_at: "2024-09-03"
     title: "Use Case 5 for feature 65"
     priority: highest
     steps:
@@ -53,7 +54,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-006
-    created_at: "2026-05-10"
+    created_at: "2024-06-05"
     title: "Use Case 6 for feature 65"
     priority: none
     steps:
@@ -62,7 +63,7 @@ artifacts:
       - Expected outcome
   - id: art-065-007
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-16"
     title: "Bug 7 for feature 65"
     priority: highest
     steps:
@@ -70,7 +71,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-008
-    created_at: "2026-05-10"
+    created_at: "2025-10-03"
     title: "Use Case 8 for feature 65"
     priority: none
     steps:
@@ -78,7 +79,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-009
-    created_at: "2026-05-10"
+    created_at: "2025-10-22"
     title: "Use Case 9 for feature 65"
     priority: high
     steps:
@@ -87,7 +88,7 @@ artifacts:
       - Expected outcome
   - id: art-065-010
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-06-10"
     title: "Bug 10 for feature 65"
     priority: medium
     steps:
@@ -95,7 +96,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-011
-    created_at: "2026-05-10"
+    created_at: "2025-12-06"
     title: "Use Case 11 for feature 65"
     priority: highest
     steps:
@@ -103,7 +104,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-012
-    created_at: "2026-05-10"
+    created_at: "2024-09-07"
     title: "Use Case 12 for feature 65"
     priority: medium
     steps:
@@ -111,7 +112,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-013
-    created_at: "2026-05-10"
+    created_at: "2025-02-02"
     title: "Use Case 13 for feature 65"
     priority: highest
     steps:
@@ -120,7 +121,7 @@ artifacts:
       - Expected outcome
   - id: art-065-014
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-01-31"
     title: "Bug 14 for feature 65"
     priority: highest
     steps:
@@ -128,7 +129,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-015
-    created_at: "2026-05-10"
+    created_at: "2025-08-09"
     title: "Use Case 15 for feature 65"
     priority: none
     steps:
@@ -136,7 +137,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-016
-    created_at: "2026-05-10"
+    created_at: "2024-12-15"
     title: "Use Case 16 for feature 65"
     priority: medium
     steps:
@@ -144,7 +145,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-017
-    created_at: "2026-05-10"
+    created_at: "2026-01-26"
     title: "Use Case 17 for feature 65"
     priority: none
     steps:
@@ -152,7 +153,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-018
-    created_at: "2026-05-10"
+    created_at: "2025-02-26"
     title: "Use Case 18 for feature 65"
     priority: highest
     steps:
@@ -160,7 +161,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-019
-    created_at: "2026-05-10"
+    created_at: "2025-09-24"
     title: "Use Case 19 for feature 65"
     priority: none
     steps:
@@ -169,7 +170,7 @@ artifacts:
       - Expected outcome
   - id: art-065-020
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-11-30"
     title: "Bug 20 for feature 65"
     priority: highest
     steps:
@@ -177,7 +178,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-021
-    created_at: "2026-05-10"
+    created_at: "2024-09-12"
     title: "Use Case 21 for feature 65"
     priority: none
     steps:
@@ -185,7 +186,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-022
-    created_at: "2026-05-10"
+    created_at: "2024-09-25"
     title: "Use Case 22 for feature 65"
     priority: medium
     steps:
@@ -193,7 +194,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-023
-    created_at: "2026-05-10"
+    created_at: "2024-07-24"
     title: "Use Case 23 for feature 65"
     priority: medium
     steps:
@@ -202,7 +203,7 @@ artifacts:
       - Expected outcome
   - id: art-065-024
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-08-15"
     title: "Bug 24 for feature 65"
     priority: highest
     steps:
@@ -210,7 +211,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-025
-    created_at: "2026-05-10"
+    created_at: "2024-11-02"
     title: "Use Case 25 for feature 65"
     priority: high
     steps:
@@ -218,7 +219,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-026
-    created_at: "2026-05-10"
+    created_at: "2025-08-08"
     title: "Use Case 26 for feature 65"
     priority: highest
     steps:
@@ -226,7 +227,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-027
-    created_at: "2026-05-10"
+    created_at: "2024-08-07"
     title: "Use Case 27 for feature 65"
     priority: highest
     steps:
@@ -234,7 +235,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-028
-    created_at: "2026-05-10"
+    created_at: "2025-04-02"
     title: "Use Case 28 for feature 65"
     priority: medium
     steps:
@@ -243,7 +244,7 @@ artifacts:
       - Expected outcome
   - id: art-065-029
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-30"
     title: "Bug 29 for feature 65"
     priority: high
     steps:
@@ -252,7 +253,7 @@ artifacts:
       - Expected outcome
   - id: art-065-030
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-15"
     title: "Bug 30 for feature 65"
     priority: highest
     steps:
@@ -260,7 +261,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-031
-    created_at: "2026-05-10"
+    created_at: "2025-11-24"
     title: "Use Case 31 for feature 65"
     priority: none
     steps:
@@ -268,7 +269,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-032
-    created_at: "2026-05-10"
+    created_at: "2025-11-16"
     title: "Use Case 32 for feature 65"
     priority: low
     steps:
@@ -276,7 +277,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-033
-    created_at: "2026-05-10"
+    created_at: "2025-03-03"
     title: "Use Case 33 for feature 65"
     priority: medium
     steps:
@@ -284,7 +285,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-034
-    created_at: "2026-05-10"
+    created_at: "2025-03-13"
     title: "Use Case 34 for feature 65"
     priority: none
     steps:
@@ -292,7 +293,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-035
-    created_at: "2026-05-10"
+    created_at: "2024-10-18"
     title: "Use Case 35 for feature 65"
     priority: medium
     steps:
@@ -300,7 +301,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-036
-    created_at: "2026-05-10"
+    created_at: "2024-11-04"
     title: "Use Case 36 for feature 65"
     priority: medium
     steps:
@@ -309,7 +310,7 @@ artifacts:
       - Expected outcome
   - id: art-065-037
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-05-15"
     title: "Bug 37 for feature 65"
     priority: none
     steps:
@@ -317,7 +318,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-038
-    created_at: "2026-05-10"
+    created_at: "2025-10-12"
     title: "Use Case 38 for feature 65"
     priority: high
     steps:
@@ -325,7 +326,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-039
-    created_at: "2026-05-10"
+    created_at: "2024-12-25"
     title: "Use Case 39 for feature 65"
     priority: medium
     steps:
@@ -334,7 +335,7 @@ artifacts:
       - Expected outcome
   - id: art-065-040
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-11"
     title: "Bug 40 for feature 65"
     priority: low
     steps:
@@ -342,7 +343,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-041
-    created_at: "2026-05-10"
+    created_at: "2024-12-01"
     title: "Use Case 41 for feature 65"
     priority: highest
     steps:
@@ -351,7 +352,7 @@ artifacts:
       - Expected outcome
   - id: art-065-042
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-29"
     title: "Bug 42 for feature 65"
     priority: low
     steps:
@@ -359,7 +360,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-043
-    created_at: "2026-05-10"
+    created_at: "2025-01-07"
     title: "Use Case 43 for feature 65"
     priority: high
     steps:
@@ -367,7 +368,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-044
-    created_at: "2026-05-10"
+    created_at: "2025-09-27"
     title: "Use Case 44 for feature 65"
     priority: highest
     steps:
@@ -376,7 +377,7 @@ artifacts:
       - Expected outcome
   - id: art-065-045
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-06-05"
     title: "Bug 45 for feature 65"
     priority: high
     steps:
@@ -385,7 +386,7 @@ artifacts:
       - Expected outcome
   - id: art-065-046
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-05-14"
     title: "Bug 46 for feature 65"
     priority: high
     steps:
@@ -393,7 +394,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-047
-    created_at: "2026-05-10"
+    created_at: "2025-11-28"
     title: "Use Case 47 for feature 65"
     priority: low
     steps:
@@ -401,7 +402,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-065-048
-    created_at: "2026-05-10"
+    created_at: "2025-12-17"
     title: "Use Case 48 for feature 65"
     priority: high
     steps:

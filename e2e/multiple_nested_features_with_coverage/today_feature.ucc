@@ -1,0 +1,31 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-today-001
+  title: "Today's Feature"
+  created_at: "2026-05-10"
+  updated_at: "2026-05-10"
+  description: >
+    Feature created today to validate coverage of a single bug artifact.
+
+artifacts:
+  - id: art-today-uc-001
+    created_at: "2026-05-10"
+    title: "Use Case - today's feature flow"
+    priority: high
+    steps:
+      - User navigates to the feature
+      - User performs the primary action
+    expected:
+      - The system responds correctly
+
+  - id: art-today-bug-001
+    type: bug
+    created_at: "2026-05-10"
+    title: "Bug - crash on today's feature initialization"
+    priority: highest
+    steps:
+      - Open the feature cold
+      - Trigger initialization
+    expected:
+      - No crash occurs

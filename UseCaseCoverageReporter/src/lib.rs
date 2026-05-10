@@ -21,6 +21,7 @@ pub fn build_report(covered: u32, total: u32) -> String {
 /// Returns an error if report directory or files cannot be written.
 pub fn generate_html_report(
     output_dir: &Path,
+    repo_name: &str,
     features: &[FeatureDocument],
     lint_results: &[UccLintResult],
     coverage_index: &ArtifactCoverageIndex,
@@ -31,7 +32,8 @@ pub fn generate_html_report(
     let report_json = serde_json::to_string_pretty(&report_data)
         .map_err(|error| std::io::Error::other(format!("JSON serialization failed: {error}")))?;
 
-    fs::write(output_dir.join("index.html"), html_template(&report_json))?;
+    let report_date = chrono::Local::now().format("%b %d, %Y").to_string();
+    fs::write(output_dir.join("index.html"), html_template(repo_name, &report_date, &report_json))?;
     fs::write(output_dir.join("styles.css"), css_template())?;
     fs::write(output_dir.join("app.ts"), ts_template())?;
     fs::write(output_dir.join("app.js"), js_template())?;
@@ -123,6 +125,149 @@ fn build_report_data(
         },
         "features": feature_rows,
         "lintIssues": lint_issues,
+        "growth": build_growth_data(features, coverage_index),
+    })
+}
+
+fn build_growth_data(
+    features: &[FeatureDocument],
+    coverage_index: &ArtifactCoverageIndex,
+) -> Value {
+    fn is_leap(y: i32) -> bool {
+        y % 4 == 0 && (y % 100 != 0 || y % 400 == 0)
+    }
+
+    fn current_year_month() -> (i32, u32) {
+        use std::time::{SystemTime, UNIX_EPOCH};
+        let secs = SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_secs();
+        let mut days = secs / 86400;
+
+        let mut y = 1970i32;
+        loop {
+            let days_in_year = if is_leap(y) { 366 } else { 365 };
+            if days < days_in_year {
+                break;
+            }
+            days -= days_in_year;
+            y += 1;
+        }
+
+        let month_days = if is_leap(y) {
+            [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        } else {
+            [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        };
+
+        let mut m = 1u32;
+        for &md in month_days.iter() {
+            if days < md {
+                break;
+            }
+            days -= md;
+            m += 1;
+        }
+
+        (y, m)
+    }
+
+    fn parse_year_month(date_str: &str) -> Option<(i32, u32)> {
+        let parts: Vec<&str> = date_str.split('-').collect();
+        let year = parts.first()?.parse::<i32>().ok()?;
+        let month = parts.get(1)?.parse::<u32>().ok()?;
+        if (1..=12).contains(&month) {
+            Some((year, month))
+        } else {
+            None
+        }
+    }
+
+    fn month_short_name(month: u32) -> &'static str {
+        match month {
+            1 => "Jan",
+            2 => "Feb",
+            3 => "Mar",
+            4 => "Apr",
+            5 => "May",
+            6 => "Jun",
+            7 => "Jul",
+            8 => "Aug",
+            9 => "Sep",
+            10 => "Oct",
+            11 => "Nov",
+            12 => "Dec",
+            _ => "??",
+        }
+    }
+
+    let (now_year, now_month) = current_year_month();
+
+    let mut start_year = now_year;
+    let mut start_month = now_month;
+    for _ in 0..11 {
+        if start_month == 1 {
+            start_month = 12;
+            start_year -= 1;
+        } else {
+            start_month -= 1;
+        }
+    }
+
+    let mut months = Vec::with_capacity(12);
+    let mut features_count = vec![0u32; 12];
+    let mut use_cases_count = vec![0u32; 12];
+    let mut bugs_count = vec![0u32; 12];
+    let mut artifacts_count = vec![0u32; 12];
+    let mut covered_use_cases_count = vec![0u32; 12];
+    let mut covered_bugs_count = vec![0u32; 12];
+
+    let mut y = start_year;
+    let mut m = start_month;
+    for idx in 0..12 {
+        months.push(month_short_name(m).to_string());
+
+        for feature in features {
+            if let Some((fy, fm)) = parse_year_month(&feature.feature.created_at) {
+                if fy == y && fm == m {
+                    features_count[idx] += 1;
+                }
+            }
+            for artifact in &feature.artifacts {
+                if let Some((ay, am)) = parse_year_month(&artifact.created_at) {
+                    if ay == y && am == m {
+                        artifacts_count[idx] += 1;
+                        let covered = coverage_index.is_covered(&artifact.id);
+                        if is_bug(artifact.artifact_type.as_deref()) {
+                            bugs_count[idx] += 1;
+                            if covered {
+                                covered_bugs_count[idx] += 1;
+                            }
+                        } else {
+                            use_cases_count[idx] += 1;
+                            if covered {
+                                covered_use_cases_count[idx] += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if m == 12 {
+            m = 1;
+            y += 1;
+        } else {
+            m += 1;
+        }
+    }
+
+    json!({
+        "months": months,
+        "features": features_count,
+        "useCases": use_cases_count,
+        "bugs": bugs_count,
+        "artifacts": artifacts_count,
+        "coveredUseCases": covered_use_cases_count,
+        "coveredBugs": covered_bugs_count,
     })
 }
 
@@ -133,7 +278,7 @@ fn is_bug(artifact_type: Option<&str>) -> bool {
     })
 }
 
-fn html_template(data_json: &str) -> String {
+fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String {
     format!(
         r##"<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -141,6 +286,10 @@ fn html_template(data_json: &str) -> String {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Analysis Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='4' y='4' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='36' y='4' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='4' y='36' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='36' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='36' y='68' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='68' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='4' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3Crect x='36' y='36' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3Crect x='4' y='68' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
@@ -150,7 +299,17 @@ fn html_template(data_json: &str) -> String {
     <div class="layout">
       <aside class="sidebar">
         <div class="logo-box">
-          <svg width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="#fff" rx="4"/><rect x="12" y="12" width="10" height="10" fill="#a5c8ff"/><rect x="26" y="12" width="10" height="10" fill="#fcb714"/><rect x="12" y="26" width="10" height="10" fill="#fcb714"/><rect x="26" y="26" width="10" height="10" fill="#a5c8ff"/></svg>
+          <svg width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="28" height="28" rx="6" fill="#1e3656" />
+            <rect x="36" y="4" width="28" height="28" rx="6" fill="#1e3656" />
+            <rect x="4" y="36" width="28" height="28" rx="6" fill="#1e3656" />
+            <rect x="68" y="36" width="28" height="28" rx="6" fill="#1e3656" />
+            <rect x="36" y="68" width="28" height="28" rx="6" fill="#1e3656" />
+            <rect x="68" y="68" width="28" height="28" rx="6" fill="#1e3656" />
+            <rect x="68" y="4" width="28" height="28" rx="8" fill="#fcb714" />
+            <rect x="36" y="36" width="28" height="28" rx="8" fill="#fcb714" />
+            <rect x="4" y="68" width="28" height="28" rx="8" fill="#fcb714" />            
+          </svg>
         </div>
         <nav>
           <a href="#" class="nav-item active">
@@ -168,16 +327,10 @@ fn html_template(data_json: &str) -> String {
         <header class="topbar">
           <div class="topbar-left">
             <h1>Analysis Report</h1>
-            <span class="repo-name">main/repo-name</span>
-            <span class="report-date">Jan 24, 2024</span>
+            <span class="repo-name">{repo_name}</span>
+            <span class="report-date">{report_date}</span>
           </div>
-          <div class="topbar-right">
-            <button class="date-picker">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              Last 6M
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-          </div>
+
         </header>
 
         <div class="container">
@@ -188,7 +341,7 @@ fn html_template(data_json: &str) -> String {
               <div class="card-header">
                 <div>
                   <h2>Use Cases Growth</h2>
-                  <span class="subtitle">Scope vs Coverage</span>
+                  <span class="subtitle">Created per month</span>
                 </div>
               </div>
               <div class="chart-container"><canvas id="useCaseGrowthChart"></canvas></div>
@@ -197,7 +350,7 @@ fn html_template(data_json: &str) -> String {
               <div class="card-header">
                 <div>
                   <h2>Features Growth</h2>
-                  <span class="subtitle">Module Expansion & Audit</span>
+                  <span class="subtitle">Created per month</span>
                 </div>
               </div>
               <div class="chart-container"><canvas id="featureGrowthChart"></canvas></div>
@@ -206,7 +359,7 @@ fn html_template(data_json: &str) -> String {
               <div class="card-header">
                 <div>
                   <h2>Bugs Growth</h2>
-                  <span class="subtitle">Identified vs Covered</span>
+                  <span class="subtitle">Created per month</span>
                 </div>
               </div>
               <div class="chart-container"><canvas id="bugGrowthChart"></canvas></div>
@@ -217,7 +370,7 @@ fn html_template(data_json: &str) -> String {
             <div class="card-header">
               <div>
                 <h2>Feature Coverage Progress</h2>
-                <span class="subtitle">Aggregated progress of Use Cases & Bugs Covered over time</span>
+                <span class="subtitle">Artifacts vs Covered over time</span>
               </div>
             </div>
             <div class="large-chart-container"><canvas id="featureCoverageChart"></canvas></div>
@@ -229,23 +382,19 @@ fn html_template(data_json: &str) -> String {
               <table>
                 <thead>
                   <tr>
-                    <th>Feature ID</th>
-                    <th>Use Cases Reported</th>
-                    <th>Use Cases Covered</th>
-                    <th>Bugs Reported</th>
-                    <th>Bugs Covered</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
+                    <th data-sort="title" class="sortable">Feature Title <span class="sort-icon"></span></th>
+                    <th data-sort="useCases" class="sortable">Use Cases <span class="sort-icon"></span></th>
+                    <th data-sort="useCasesCovered" class="sortable">UC Covered <span class="sort-icon"></span></th>
+                    <th data-sort="ucPct" class="sortable">UC % <span class="sort-icon"></span></th>
+                    <th data-sort="bugs" class="sortable">Bugs <span class="sort-icon"></span></th>
+                    <th data-sort="bugsCovered" class="sortable">Bugs Covered <span class="sort-icon"></span></th>
+                    <th data-sort="bugsPct" class="sortable">Bugs % <span class="sort-icon"></span></th>
+                    <th data-sort="updatedAt" class="sortable">Updated At <span class="sort-icon"></span></th>
                   </tr>
                 </thead>
                 <tbody id="featureRows"></tbody>
               </table>
             </div>
-          </section>
-          
-          <section class="card">
-            <div class="card-header"><h2>Lint Results</h2></div>
-            <ul id="lintList" class="lint-list"></ul>
           </section>
         </div>
       </main>
@@ -270,7 +419,7 @@ const fn css_template() -> &'static str {
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: var(--bg-main);
   color: var(--text-main);
 }
@@ -469,6 +618,17 @@ td { color: var(--text-blue); }
 .lint-item { padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: rgba(255,255,255,0.02);}
 .lint-path { font-family: monospace; color: var(--text-blue); margin-bottom: 0.25rem; font-size: 0.85rem;}
 .lint-msg { font-size: 0.85rem; color: var(--text-muted); }
+
+th.sortable { cursor: pointer; user-select: none; white-space: nowrap; transition: color 0.2s; }
+th.sortable:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.sort-icon { display: inline-block; width: 12px; margin-left: 6px; font-style: normal; opacity: 0.3; }
+.sort-icon::after { content: '↕'; }
+th.sort-asc, th.sort-desc { color: var(--accent); }
+th.sort-asc .sort-icon { opacity: 1; }
+th.sort-asc .sort-icon::after { content: '↑'; }
+th.sort-desc .sort-icon { opacity: 1; }
+th.sort-desc .sort-icon::after { content: '↓'; }
+.lint-msg { font-size: 0.85rem; color: var(--text-muted); }
 "##
 }
 
@@ -510,7 +670,7 @@ function renderMetrics(data) {
       <div class="label">Total Bugs</div>
       <div class="value-row">
         <div class="value">${data.summary.totalBugs}</div>
-        <div class="subtitle gray">12 open</div>
+        <div class="subtitle gray">${data.summary.totalFeatures > 0 ? (data.summary.totalBugs / data.summary.totalFeatures).toFixed(1) : 0} / feature</div>
       </div>
     </article>
     <article class="metric accent-border" style="border-right:0;">
@@ -523,22 +683,57 @@ function renderMetrics(data) {
   `;
 }
 
+let _sortKey = 'title';
+let _sortAsc = true;
+
+function getSortValue(feature, key) {
+  switch (key) {
+    case 'title': return feature.title.toLowerCase();
+    case 'useCases': return feature.useCases;
+    case 'useCasesCovered': return feature.useCasesCovered;
+    case 'ucPct': return feature.useCases > 0 ? feature.useCasesCovered / feature.useCases : -1;
+    case 'bugs': return feature.bugs;
+    case 'bugsCovered': return feature.bugsCovered;
+    case 'bugsPct': return feature.bugs > 0 ? feature.bugsCovered / feature.bugs : -1;
+    case 'updatedAt': return feature.updatedAt || feature.createdAt;
+    default: return '';
+  }
+}
+
 function renderFeatureTable(data) {
-  const table = document.getElementById('featureRows');
-  if (!table) return;
-  table.innerHTML = data.features
+  const tbody = document.getElementById('featureRows');
+  if (!tbody) return;
+
+  const sorted = [...data.features].sort((a, b) => {
+    const va = getSortValue(a, _sortKey);
+    const vb = getSortValue(b, _sortKey);
+    if (va < vb) return _sortAsc ? -1 : 1;
+    if (va > vb) return _sortAsc ? 1 : -1;
+    return 0;
+  });
+
+  tbody.innerHTML = sorted
     .map(
       (feature) => `<tr>
-        <td style="color:#a5c8ff;">#${feature.id.toUpperCase().substring(0, 15)}</td>
+        <td style="color:#a5c8ff; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${feature.title}">${feature.title}</td>
         <td>${feature.useCases}</td>
         <td>${feature.useCasesCovered}</td>
+        <td>${feature.useCases > 0 ? ((feature.useCasesCovered / feature.useCases) * 100).toFixed(0) + '%' : '-'}</td>
         <td>${feature.bugs}</td>
         <td>${feature.bugsCovered}</td>
-        <td>${feature.createdAt}</td>
-        <td>${feature.updatedAt || '-'}</td>
+        <td>${feature.bugs > 0 ? ((feature.bugsCovered / feature.bugs) * 100).toFixed(0) + '%' : '-'}</td>
+        <td>${feature.updatedAt ? feature.updatedAt : feature.createdAt}</td>
       </tr>`
     )
     .join('');
+
+  // Update header sort indicators
+  document.querySelectorAll('th.sortable').forEach((th) => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.sort === _sortKey) {
+      th.classList.add(_sortAsc ? 'sort-asc' : 'sort-desc');
+    }
+  });
 }
 
 function renderLint(data) {
@@ -560,9 +755,9 @@ function renderLint(data) {
     .join('');
 }
 
-function renderCharts() {
+function renderCharts(data) {
   Chart.defaults.color = '#8b9eb0';
-  Chart.defaults.font.family = 'Inter';
+  Chart.defaults.font.family = 'Roboto';
 
   const chartConfig = {
     plugins: { legend: { display: false } },
@@ -573,7 +768,7 @@ function renderCharts() {
     maintainAspectRatio: false
   };
 
-  const months = ['AUG', 'OCT', 'DEC', 'FEB'];
+  const months = data.growth.months;
 
   const useCaseCanvas = document.getElementById('useCaseGrowthChart');
   if (useCaseCanvas) {
@@ -582,8 +777,7 @@ function renderCharts() {
       data: {
         labels: months,
         datasets: [
-          { label: 'Covered', data: [8, 15, 25, 38], backgroundColor: '#fcb714', barPercentage: 0.6 },
-          { label: 'Total', data: [10, 20, 30, 40], backgroundColor: '#96afc9', barPercentage: 0.6 }
+          { label: 'Use Cases', data: data.growth.useCases, backgroundColor: '#fcb714', barPercentage: 0.6 }
         ]
       },
       options: chartConfig
@@ -597,8 +791,7 @@ function renderCharts() {
       data: {
         labels: months,
         datasets: [
-          { label: 'Covered', data: [5, 12, 18, 22], borderColor: '#fcb714', borderWidth: 2, pointBackgroundColor: '#fcb714' },
-          { label: 'Total', data: [7, 15, 20, 25], borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9' }
+          { label: 'Features', data: data.growth.features, borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9', tension: 0.1 }
         ]
       },
       options: chartConfig
@@ -610,19 +803,12 @@ function renderCharts() {
     new Chart(bugCanvas, {
       type: 'bar',
       data: {
-        labels: ['S1', 'S3', 'S5', 'S7', 'Covered'],
+        labels: months,
         datasets: [
-          { label: 'Covered', data: [15, 22, 12, 25, 28], backgroundColor: '#fcb714' },
-          { label: 'Total', data: [20, 30, 18, 30, 35], backgroundColor: '#96afc9' }
+          { label: 'Bugs', data: data.growth.bugs, backgroundColor: '#fcb714', barPercentage: 0.6 }
         ]
       },
-      options: {
-        ...chartConfig,
-        scales: {
-          x: { stacked: true, grid: { display: false }, ticks: { color: '#8b9eb0' } },
-          y: { display: false }
-        }
-      }
+      options: chartConfig
     });
   }
 
@@ -631,11 +817,12 @@ function renderCharts() {
     new Chart(progressCanvas, {
       type: 'line',
       data: {
-        labels: ['AUG','OCT','DEC','FEB','APR'],
+        labels: months,
         datasets: [
-          { label: '#AUTH-001', data: [5, 20, 50, 80, 95], borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9', tension: 0.1 },
-          { label: '#API-GATE', data: [2, 15, 25, 45, 65], borderColor: '#fcb714', borderWidth: 2, pointBackgroundColor: '#fcb714', tension: 0.1 },
-          { label: '#DB-MIGR', data: [1, 8, 12, 18, 30], borderColor: '#e5a410', borderWidth: 2, pointBackgroundColor: '#e5a410', tension: 0.1 }
+          { label: 'Use Cases', data: data.growth.useCases, borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9', tension: 0.1 },
+          { label: 'Covered UC', data: data.growth.coveredUseCases, borderColor: '#a5c8ff', borderWidth: 2, pointBackgroundColor: '#a5c8ff', tension: 0.1, borderDash: [4,3] },
+          { label: 'Bugs', data: data.growth.bugs, borderColor: '#fcb714', borderWidth: 2, pointBackgroundColor: '#fcb714', tension: 0.1 },
+          { label: 'Covered Bugs', data: data.growth.coveredBugs, borderColor: '#e5a410', borderWidth: 2, pointBackgroundColor: '#e5a410', tension: 0.1, borderDash: [4,3] },
         ]
       },
       options: {
@@ -644,7 +831,7 @@ function renderCharts() {
         },
         scales: {
           x: { grid: { display: false }, ticks: { color: '#8b9eb0' } },
-          y: { grid: { color: '#242d38' }, ticks: { color: '#8b9eb0', stepSize: 25 }, min: 0, max: 100 }
+          y: { grid: { color: '#242d38' }, ticks: { color: '#8b9eb0' } },
         },
         maintainAspectRatio: false
       }
@@ -657,10 +844,21 @@ function bootstrap() {
   renderMetrics(data);
   renderFeatureTable(data);
   renderLint(data);
-  renderCharts();
-}
+  renderCharts(data);
 
-void bootstrap();
+  document.querySelectorAll('th.sortable').forEach((th) => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      if (_sortKey === key) {
+        _sortAsc = !_sortAsc;
+      } else {
+        _sortKey = key;
+        _sortAsc = true;
+      }
+      renderFeatureTable(data);
+    });
+  });
+}
 "##
 }
 
@@ -700,7 +898,7 @@ function renderMetrics(data) {
       <div class="label">Total Bugs</div>
       <div class="value-row">
         <div class="value">${data.summary.totalBugs}</div>
-        <div class="subtitle gray">12 open</div>
+        <div class="subtitle gray">${data.summary.totalFeatures > 0 ? (data.summary.totalBugs / data.summary.totalFeatures).toFixed(1) : 0} / feature</div>
       </div>
     </article>
     <article class="metric accent-border" style="border-right:0;">
@@ -713,22 +911,57 @@ function renderMetrics(data) {
   `;
 }
 
+let _sortKey = 'title';
+let _sortAsc = true;
+
+function getSortValue(feature, key) {
+  switch (key) {
+    case 'title': return feature.title.toLowerCase();
+    case 'useCases': return feature.useCases;
+    case 'useCasesCovered': return feature.useCasesCovered;
+    case 'ucPct': return feature.useCases > 0 ? feature.useCasesCovered / feature.useCases : -1;
+    case 'bugs': return feature.bugs;
+    case 'bugsCovered': return feature.bugsCovered;
+    case 'bugsPct': return feature.bugs > 0 ? feature.bugsCovered / feature.bugs : -1;
+    case 'updatedAt': return feature.updatedAt || feature.createdAt;
+    default: return '';
+  }
+}
+
 function renderFeatureTable(data) {
-  const table = document.getElementById('featureRows');
-  if (!table) return;
-  table.innerHTML = data.features
+  const tbody = document.getElementById('featureRows');
+  if (!tbody) return;
+
+  const sorted = [...data.features].sort((a, b) => {
+    const va = getSortValue(a, _sortKey);
+    const vb = getSortValue(b, _sortKey);
+    if (va < vb) return _sortAsc ? -1 : 1;
+    if (va > vb) return _sortAsc ? 1 : -1;
+    return 0;
+  });
+
+  tbody.innerHTML = sorted
     .map(
       (feature) => `<tr>
-        <td style="color:#a5c8ff;">#${feature.id.toUpperCase().substring(0, 15)}</td>
+        <td style="color:#a5c8ff; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${feature.title}">${feature.title}</td>
         <td>${feature.useCases}</td>
         <td>${feature.useCasesCovered}</td>
+        <td>${feature.useCases > 0 ? ((feature.useCasesCovered / feature.useCases) * 100).toFixed(0) + '%' : '-'}</td>
         <td>${feature.bugs}</td>
         <td>${feature.bugsCovered}</td>
-        <td>${feature.createdAt}</td>
-        <td>${feature.updatedAt || '-'}</td>
+        <td>${feature.bugs > 0 ? ((feature.bugsCovered / feature.bugs) * 100).toFixed(0) + '%' : '-'}</td>
+        <td>${feature.updatedAt ? feature.updatedAt : feature.createdAt}</td>
       </tr>`
     )
     .join('');
+
+  // Update header sort indicators
+  document.querySelectorAll('th.sortable').forEach((th) => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.sort === _sortKey) {
+      th.classList.add(_sortAsc ? 'sort-asc' : 'sort-desc');
+    }
+  });
 }
 
 function renderLint(data) {
@@ -750,9 +983,9 @@ function renderLint(data) {
     .join('');
 }
 
-function renderCharts() {
+function renderCharts(data) {
   Chart.defaults.color = '#8b9eb0';
-  Chart.defaults.font.family = 'Inter';
+  Chart.defaults.font.family = 'Roboto';
 
   const chartConfig = {
     plugins: { legend: { display: false } },
@@ -763,7 +996,7 @@ function renderCharts() {
     maintainAspectRatio: false
   };
 
-  const months = ['AUG', 'OCT', 'DEC', 'FEB'];
+  const months = data.growth.months;
 
   const useCaseCanvas = document.getElementById('useCaseGrowthChart');
   if (useCaseCanvas) {
@@ -772,8 +1005,7 @@ function renderCharts() {
       data: {
         labels: months,
         datasets: [
-          { label: 'Covered', data: [8, 15, 25, 38], backgroundColor: '#fcb714', barPercentage: 0.6 },
-          { label: 'Total', data: [10, 20, 30, 40], backgroundColor: '#96afc9', barPercentage: 0.6 }
+          { label: 'Use Cases', data: data.growth.useCases, backgroundColor: '#fcb714', barPercentage: 0.6 }
         ]
       },
       options: chartConfig
@@ -787,8 +1019,7 @@ function renderCharts() {
       data: {
         labels: months,
         datasets: [
-          { label: 'Covered', data: [5, 12, 18, 22], borderColor: '#fcb714', borderWidth: 2, pointBackgroundColor: '#fcb714' },
-          { label: 'Total', data: [7, 15, 20, 25], borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9' }
+          { label: 'Features', data: data.growth.features, borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9', tension: 0.1 }
         ]
       },
       options: chartConfig
@@ -800,19 +1031,12 @@ function renderCharts() {
     new Chart(bugCanvas, {
       type: 'bar',
       data: {
-        labels: ['S1', 'S3', 'S5', 'S7', 'Covered'],
+        labels: months,
         datasets: [
-          { label: 'Covered', data: [15, 22, 12, 25, 28], backgroundColor: '#fcb714' },
-          { label: 'Total', data: [20, 30, 18, 30, 35], backgroundColor: '#96afc9' }
+          { label: 'Bugs', data: data.growth.bugs, backgroundColor: '#fcb714', barPercentage: 0.6 }
         ]
       },
-      options: {
-        ...chartConfig,
-        scales: {
-          x: { stacked: true, grid: { display: false }, ticks: { color: '#8b9eb0' } },
-          y: { display: false }
-        }
-      }
+      options: chartConfig
     });
   }
 
@@ -821,11 +1045,12 @@ function renderCharts() {
     new Chart(progressCanvas, {
       type: 'line',
       data: {
-        labels: ['AUG','OCT','DEC','FEB','APR'],
+        labels: months,
         datasets: [
-          { label: '#AUTH-001', data: [5, 20, 50, 80, 95], borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9', tension: 0.1 },
-          { label: '#API-GATE', data: [2, 15, 25, 45, 65], borderColor: '#fcb714', borderWidth: 2, pointBackgroundColor: '#fcb714', tension: 0.1 },
-          { label: '#DB-MIGR', data: [1, 8, 12, 18, 30], borderColor: '#e5a410', borderWidth: 2, pointBackgroundColor: '#e5a410', tension: 0.1 }
+          { label: 'Use Cases', data: data.growth.useCases, borderColor: '#96afc9', borderWidth: 2, pointBackgroundColor: '#96afc9', tension: 0.1 },
+          { label: 'Covered UC', data: data.growth.coveredUseCases, borderColor: '#a5c8ff', borderWidth: 2, pointBackgroundColor: '#a5c8ff', tension: 0.1, borderDash: [4,3] },
+          { label: 'Bugs', data: data.growth.bugs, borderColor: '#fcb714', borderWidth: 2, pointBackgroundColor: '#fcb714', tension: 0.1 },
+          { label: 'Covered Bugs', data: data.growth.coveredBugs, borderColor: '#e5a410', borderWidth: 2, pointBackgroundColor: '#e5a410', tension: 0.1, borderDash: [4,3] },
         ]
       },
       options: {
@@ -834,7 +1059,7 @@ function renderCharts() {
         },
         scales: {
           x: { grid: { display: false }, ticks: { color: '#8b9eb0' } },
-          y: { grid: { color: '#242d38' }, ticks: { color: '#8b9eb0', stepSize: 25 }, min: 0, max: 100 }
+          y: { grid: { color: '#242d38' }, ticks: { color: '#8b9eb0' } },
         },
         maintainAspectRatio: false
       }
@@ -847,7 +1072,20 @@ function bootstrap() {
   renderMetrics(data);
   renderFeatureTable(data);
   renderLint(data);
-  renderCharts();
+  renderCharts(data);
+
+  document.querySelectorAll('th.sortable').forEach((th) => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      if (_sortKey === key) {
+        _sortAsc = !_sortAsc;
+      } else {
+        _sortKey = key;
+        _sortAsc = true;
+      }
+      renderFeatureTable(data);
+    });
+  });
 }
 
 void bootstrap();
@@ -905,7 +1143,7 @@ mod tests {
         let coverage_index = ArtifactCoverageIndex::default();
 
         let output_dir = root.join(".ucc");
-        generate_html_report(&output_dir, &features, &lint_results, &coverage_index)
+        generate_html_report(&output_dir, "test-repo", &features, &lint_results, &coverage_index)
             .expect("report should be generated");
 
         assert!(output_dir.join("index.html").exists());
@@ -940,8 +1178,14 @@ mod tests {
         }];
 
         let output_dir = root.join(".ucc");
-        generate_html_report(&output_dir, &[], &lint_results, &ArtifactCoverageIndex::default())
-            .expect("report should be generated");
+        generate_html_report(
+            &output_dir,
+            "test-repo",
+            &[],
+            &lint_results,
+            &ArtifactCoverageIndex::default(),
+        )
+        .expect("report should be generated");
 
         let json =
             fs::read_to_string(output_dir.join("data.json")).expect("json should be readable");

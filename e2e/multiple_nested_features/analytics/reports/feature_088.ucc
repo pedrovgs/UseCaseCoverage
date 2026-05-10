@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-088-c93f62
   title: "Random Feature 88"
-  created_at: "2026-05-10"
+  created_at: "2024-11-29"
+  updated_at: "2025-02-15"
   description: >
     Auto-generated feature number 88.
 
 artifacts:
   - id: art-088-001
-    created_at: "2026-05-10"
+    created_at: "2024-09-11"
     title: "Use Case 1 for feature 88"
     priority: low
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-088-002
-    created_at: "2026-05-10"
+    created_at: "2024-07-01"
     title: "Use Case 2 for feature 88"
     priority: highest
     steps:
@@ -25,7 +26,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-088-003
-    created_at: "2026-05-10"
+    created_at: "2024-10-11"
     title: "Use Case 3 for feature 88"
     priority: none
     steps:
@@ -33,7 +34,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-088-004
-    created_at: "2026-05-10"
+    created_at: "2024-07-10"
     title: "Use Case 4 for feature 88"
     priority: highest
     steps:

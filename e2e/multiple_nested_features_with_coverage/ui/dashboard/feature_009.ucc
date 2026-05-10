@@ -1,0 +1,189 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-009-9b5280
+  title: "Random Feature 9"
+  created_at: "2025-02-27"
+  updated_at: "2025-09-24"
+  description: >
+    Auto-generated feature number 9.
+
+artifacts:
+  - id: art-009-001
+    type: bug
+    created_at: "2025-08-13"
+    title: "Bug 1 for feature 9"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-002
+    created_at: "2024-09-18"
+    title: "Use Case 2 for feature 9"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-003
+    type: regression
+    created_at: "2024-11-08"
+    title: "Bug 3 for feature 9"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-004
+    created_at: "2024-11-26"
+    title: "Use Case 4 for feature 9"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-005
+    created_at: "2025-01-20"
+    title: "Use Case 5 for feature 9"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-006
+    created_at: "2025-05-16"
+    title: "Use Case 6 for feature 9"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-007
+    created_at: "2024-06-20"
+    title: "Use Case 7 for feature 9"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-008
+    created_at: "2024-08-16"
+    title: "Use Case 8 for feature 9"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-009
+    created_at: "2024-06-16"
+    title: "Use Case 9 for feature 9"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-010
+    type: regression
+    created_at: "2024-11-09"
+    title: "Bug 10 for feature 9"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-011
+    type: regression
+    created_at: "2024-12-25"
+    title: "Bug 11 for feature 9"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-012
+    created_at: "2025-02-12"
+    title: "Use Case 12 for feature 9"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-013
+    created_at: "2024-05-13"
+    title: "Use Case 13 for feature 9"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-014
+    type: bug
+    created_at: "2024-05-17"
+    title: "Bug 14 for feature 9"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-015
+    created_at: "2025-03-18"
+    title: "Use Case 15 for feature 9"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-016
+    type: bug
+    created_at: "2025-05-22"
+    title: "Bug 16 for feature 9"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-017
+    type: bug
+    created_at: "2025-06-23"
+    title: "Bug 17 for feature 9"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-018
+    type: regression
+    created_at: "2024-07-01"
+    title: "Bug 18 for feature 9"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-019
+    created_at: "2025-08-25"
+    title: "Use Case 19 for feature 9"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-020
+    type: regression
+    created_at: "2024-10-10"
+    title: "Bug 20 for feature 9"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-009-021
+    created_at: "2024-12-03"
+    title: "Use Case 21 for feature 9"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

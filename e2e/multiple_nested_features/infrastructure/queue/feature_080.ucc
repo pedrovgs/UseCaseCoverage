@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-080-ff617a
   title: "Random Feature 80"
-  created_at: "2026-05-10"
+  created_at: "2024-08-05"
+  updated_at: "2024-11-25"
   description: >
     Auto-generated feature number 80.
 
 artifacts:
   - id: art-080-001
-    created_at: "2026-05-10"
+    created_at: "2024-11-22"
     title: "Use Case 1 for feature 80"
     priority: low
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-002
-    created_at: "2026-05-10"
+    created_at: "2024-07-12"
     title: "Use Case 2 for feature 80"
     priority: highest
     steps:
@@ -26,7 +27,7 @@ artifacts:
       - Expected outcome
   - id: art-080-003
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-10-25"
     title: "Bug 3 for feature 80"
     priority: low
     steps:
@@ -34,7 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-004
-    created_at: "2026-05-10"
+    created_at: "2024-10-27"
     title: "Use Case 4 for feature 80"
     priority: medium
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-005
-    created_at: "2026-05-10"
+    created_at: "2024-08-08"
     title: "Use Case 5 for feature 80"
     priority: medium
     steps:
@@ -50,7 +51,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-006
-    created_at: "2026-05-10"
+    created_at: "2024-06-21"
     title: "Use Case 6 for feature 80"
     priority: low
     steps:
@@ -59,7 +60,7 @@ artifacts:
       - Expected outcome
   - id: art-080-007
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-10-22"
     title: "Bug 7 for feature 80"
     priority: high
     steps:
@@ -67,7 +68,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-008
-    created_at: "2026-05-10"
+    created_at: "2024-10-13"
     title: "Use Case 8 for feature 80"
     priority: low
     steps:
@@ -76,7 +77,7 @@ artifacts:
       - Expected outcome
   - id: art-080-009
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-05-21"
     title: "Bug 9 for feature 80"
     priority: low
     steps:
@@ -84,7 +85,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-010
-    created_at: "2026-05-10"
+    created_at: "2024-10-01"
     title: "Use Case 10 for feature 80"
     priority: highest
     steps:
@@ -92,7 +93,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-080-011
-    created_at: "2026-05-10"
+    created_at: "2024-10-22"
     title: "Use Case 11 for feature 80"
     priority: medium
     steps:
@@ -101,7 +102,7 @@ artifacts:
       - Expected outcome
   - id: art-080-012
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-30"
     title: "Bug 12 for feature 80"
     priority: none
     steps:

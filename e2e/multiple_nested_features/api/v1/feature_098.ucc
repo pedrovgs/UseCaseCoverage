@@ -3,14 +3,15 @@ schema_version: "1.0"
 feature:
   id: feat-098-73c72d
   title: "Random Feature 98"
-  created_at: "2026-05-10"
+  created_at: "2025-03-08"
+  updated_at: "2026-03-26"
   description: >
     Auto-generated feature number 98.
 
 artifacts:
   - id: art-098-001
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-04-21"
     title: "Bug 1 for feature 98"
     priority: highest
     steps:
@@ -18,7 +19,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-002
-    created_at: "2026-05-10"
+    created_at: "2024-09-04"
     title: "Use Case 2 for feature 98"
     priority: high
     steps:
@@ -26,7 +27,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-003
-    created_at: "2026-05-10"
+    created_at: "2025-09-01"
     title: "Use Case 3 for feature 98"
     priority: low
     steps:
@@ -34,7 +35,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-004
-    created_at: "2026-05-10"
+    created_at: "2024-07-26"
     title: "Use Case 4 for feature 98"
     priority: high
     steps:
@@ -42,7 +43,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-005
-    created_at: "2026-05-10"
+    created_at: "2024-10-01"
     title: "Use Case 5 for feature 98"
     priority: high
     steps:
@@ -51,7 +52,7 @@ artifacts:
       - Expected outcome
   - id: art-098-006
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-12-27"
     title: "Bug 6 for feature 98"
     priority: highest
     steps:
@@ -59,7 +60,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-007
-    created_at: "2026-05-10"
+    created_at: "2025-06-20"
     title: "Use Case 7 for feature 98"
     priority: low
     steps:
@@ -67,7 +68,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-008
-    created_at: "2026-05-10"
+    created_at: "2025-12-01"
     title: "Use Case 8 for feature 98"
     priority: none
     steps:
@@ -76,7 +77,7 @@ artifacts:
       - Expected outcome
   - id: art-098-009
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-05-19"
     title: "Bug 9 for feature 98"
     priority: low
     steps:
@@ -84,7 +85,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-010
-    created_at: "2026-05-10"
+    created_at: "2024-08-10"
     title: "Use Case 10 for feature 98"
     priority: medium
     steps:
@@ -93,7 +94,7 @@ artifacts:
       - Expected outcome
   - id: art-098-011
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-06-18"
     title: "Bug 11 for feature 98"
     priority: high
     steps:
@@ -101,7 +102,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-012
-    created_at: "2026-05-10"
+    created_at: "2024-05-24"
     title: "Use Case 12 for feature 98"
     priority: highest
     steps:
@@ -110,7 +111,7 @@ artifacts:
       - Expected outcome
   - id: art-098-013
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-04"
     title: "Bug 13 for feature 98"
     priority: highest
     steps:
@@ -118,7 +119,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-014
-    created_at: "2026-05-10"
+    created_at: "2025-11-10"
     title: "Use Case 14 for feature 98"
     priority: medium
     steps:
@@ -126,7 +127,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-015
-    created_at: "2026-05-10"
+    created_at: "2024-09-13"
     title: "Use Case 15 for feature 98"
     priority: low
     steps:
@@ -134,7 +135,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-016
-    created_at: "2026-05-10"
+    created_at: "2025-08-18"
     title: "Use Case 16 for feature 98"
     priority: none
     steps:
@@ -142,7 +143,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-017
-    created_at: "2026-05-10"
+    created_at: "2025-05-22"
     title: "Use Case 17 for feature 98"
     priority: highest
     steps:
@@ -151,7 +152,7 @@ artifacts:
       - Expected outcome
   - id: art-098-018
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-02"
     title: "Bug 18 for feature 98"
     priority: medium
     steps:
@@ -159,7 +160,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-019
-    created_at: "2026-05-10"
+    created_at: "2025-12-29"
     title: "Use Case 19 for feature 98"
     priority: medium
     steps:
@@ -167,7 +168,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-020
-    created_at: "2026-05-10"
+    created_at: "2025-06-04"
     title: "Use Case 20 for feature 98"
     priority: highest
     steps:
@@ -176,7 +177,7 @@ artifacts:
       - Expected outcome
   - id: art-098-021
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2026-02-22"
     title: "Bug 21 for feature 98"
     priority: highest
     steps:
@@ -184,7 +185,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-022
-    created_at: "2026-05-10"
+    created_at: "2025-05-25"
     title: "Use Case 22 for feature 98"
     priority: high
     steps:
@@ -192,7 +193,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-023
-    created_at: "2026-05-10"
+    created_at: "2024-08-28"
     title: "Use Case 23 for feature 98"
     priority: highest
     steps:
@@ -200,7 +201,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-024
-    created_at: "2026-05-10"
+    created_at: "2025-01-04"
     title: "Use Case 24 for feature 98"
     priority: none
     steps:
@@ -209,7 +210,7 @@ artifacts:
       - Expected outcome
   - id: art-098-025
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-09-04"
     title: "Bug 25 for feature 98"
     priority: highest
     steps:
@@ -217,7 +218,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-026
-    created_at: "2026-05-10"
+    created_at: "2024-06-04"
     title: "Use Case 26 for feature 98"
     priority: none
     steps:
@@ -225,7 +226,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-098-027
-    created_at: "2026-05-10"
+    created_at: "2026-02-03"
     title: "Use Case 27 for feature 98"
     priority: medium
     steps:

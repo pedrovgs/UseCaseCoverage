@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-022-ff0a16
   title: "Random Feature 22"
-  created_at: "2026-05-10"
+  created_at: "2026-01-24"
+  updated_at: "2026-04-15"
   description: >
     Auto-generated feature number 22.
 
 artifacts:
   - id: art-022-001
-    created_at: "2026-05-10"
+    created_at: "2025-07-22"
     title: "Use Case 1 for feature 22"
     priority: medium
     steps:
@@ -18,7 +19,7 @@ artifacts:
       - Expected outcome
   - id: art-022-002
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-10-26"
     title: "Bug 2 for feature 22"
     priority: high
     steps:
@@ -26,7 +27,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-003
-    created_at: "2026-05-10"
+    created_at: "2026-01-30"
     title: "Use Case 3 for feature 22"
     priority: high
     steps:
@@ -35,7 +36,7 @@ artifacts:
       - Expected outcome
   - id: art-022-004
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-29"
     title: "Bug 4 for feature 22"
     priority: low
     steps:
@@ -43,7 +44,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-005
-    created_at: "2026-05-10"
+    created_at: "2024-12-07"
     title: "Use Case 5 for feature 22"
     priority: medium
     steps:
@@ -52,7 +53,7 @@ artifacts:
       - Expected outcome
   - id: art-022-006
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-12-07"
     title: "Bug 6 for feature 22"
     priority: medium
     steps:
@@ -60,7 +61,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-007
-    created_at: "2026-05-10"
+    created_at: "2024-07-09"
     title: "Use Case 7 for feature 22"
     priority: high
     steps:
@@ -68,7 +69,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-008
-    created_at: "2026-05-10"
+    created_at: "2025-12-14"
     title: "Use Case 8 for feature 22"
     priority: medium
     steps:
@@ -76,7 +77,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-009
-    created_at: "2026-05-10"
+    created_at: "2025-05-04"
     title: "Use Case 9 for feature 22"
     priority: high
     steps:
@@ -84,7 +85,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-010
-    created_at: "2026-05-10"
+    created_at: "2025-11-06"
     title: "Use Case 10 for feature 22"
     priority: highest
     steps:
@@ -92,7 +93,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-011
-    created_at: "2026-05-10"
+    created_at: "2025-02-21"
     title: "Use Case 11 for feature 22"
     priority: none
     steps:
@@ -101,7 +102,7 @@ artifacts:
       - Expected outcome
   - id: art-022-012
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2026-01-11"
     title: "Bug 12 for feature 22"
     priority: highest
     steps:
@@ -110,7 +111,7 @@ artifacts:
       - Expected outcome
   - id: art-022-013
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-11-12"
     title: "Bug 13 for feature 22"
     priority: none
     steps:
@@ -118,7 +119,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-014
-    created_at: "2026-05-10"
+    created_at: "2024-10-29"
     title: "Use Case 14 for feature 22"
     priority: none
     steps:
@@ -126,7 +127,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-015
-    created_at: "2026-05-10"
+    created_at: "2025-04-06"
     title: "Use Case 15 for feature 22"
     priority: low
     steps:
@@ -134,7 +135,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-016
-    created_at: "2026-05-10"
+    created_at: "2025-03-05"
     title: "Use Case 16 for feature 22"
     priority: low
     steps:
@@ -142,7 +143,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-017
-    created_at: "2026-05-10"
+    created_at: "2025-03-02"
     title: "Use Case 17 for feature 22"
     priority: highest
     steps:
@@ -150,7 +151,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-018
-    created_at: "2026-05-10"
+    created_at: "2025-12-17"
     title: "Use Case 18 for feature 22"
     priority: highest
     steps:
@@ -158,7 +159,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-019
-    created_at: "2026-05-10"
+    created_at: "2025-02-07"
     title: "Use Case 19 for feature 22"
     priority: none
     steps:
@@ -166,7 +167,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-020
-    created_at: "2026-05-10"
+    created_at: "2025-10-18"
     title: "Use Case 20 for feature 22"
     priority: high
     steps:
@@ -175,7 +176,7 @@ artifacts:
       - Expected outcome
   - id: art-022-021
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2026-04-05"
     title: "Bug 21 for feature 22"
     priority: none
     steps:
@@ -183,7 +184,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-022
-    created_at: "2026-05-10"
+    created_at: "2024-08-15"
     title: "Use Case 22 for feature 22"
     priority: low
     steps:
@@ -192,7 +193,7 @@ artifacts:
       - Expected outcome
   - id: art-022-023
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-25"
     title: "Bug 23 for feature 22"
     priority: low
     steps:
@@ -201,7 +202,7 @@ artifacts:
       - Expected outcome
   - id: art-022-024
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-07-05"
     title: "Bug 24 for feature 22"
     priority: high
     steps:
@@ -210,7 +211,7 @@ artifacts:
       - Expected outcome
   - id: art-022-025
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-07-09"
     title: "Bug 25 for feature 22"
     priority: low
     steps:
@@ -218,7 +219,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-026
-    created_at: "2026-05-10"
+    created_at: "2025-02-17"
     title: "Use Case 26 for feature 22"
     priority: none
     steps:
@@ -226,7 +227,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-027
-    created_at: "2026-05-10"
+    created_at: "2026-03-12"
     title: "Use Case 27 for feature 22"
     priority: high
     steps:
@@ -235,7 +236,7 @@ artifacts:
       - Expected outcome
   - id: art-022-028
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-09-16"
     title: "Bug 28 for feature 22"
     priority: high
     steps:
@@ -243,7 +244,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-022-029
-    created_at: "2026-05-10"
+    created_at: "2024-09-22"
     title: "Use Case 29 for feature 22"
     priority: none
     steps:

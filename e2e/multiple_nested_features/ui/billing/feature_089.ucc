@@ -3,13 +3,14 @@ schema_version: "1.0"
 feature:
   id: feat-089-25d0fe
   title: "Random Feature 89"
-  created_at: "2026-05-10"
+  created_at: "2025-04-05"
+  updated_at: "2025-06-14"
   description: >
     Auto-generated feature number 89.
 
 artifacts:
   - id: art-089-001
-    created_at: "2026-05-10"
+    created_at: "2024-07-29"
     title: "Use Case 1 for feature 89"
     priority: highest
     steps:
@@ -17,7 +18,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-002
-    created_at: "2026-05-10"
+    created_at: "2025-05-19"
     title: "Use Case 2 for feature 89"
     priority: low
     steps:
@@ -25,7 +26,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-003
-    created_at: "2026-05-10"
+    created_at: "2024-12-19"
     title: "Use Case 3 for feature 89"
     priority: medium
     steps:
@@ -33,7 +34,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-004
-    created_at: "2026-05-10"
+    created_at: "2025-04-02"
     title: "Use Case 4 for feature 89"
     priority: medium
     steps:
@@ -41,7 +42,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-005
-    created_at: "2026-05-10"
+    created_at: "2025-01-14"
     title: "Use Case 5 for feature 89"
     priority: high
     steps:
@@ -49,7 +50,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-006
-    created_at: "2026-05-10"
+    created_at: "2025-04-07"
     title: "Use Case 6 for feature 89"
     priority: none
     steps:
@@ -57,7 +58,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-007
-    created_at: "2026-05-10"
+    created_at: "2024-10-19"
     title: "Use Case 7 for feature 89"
     priority: highest
     steps:
@@ -65,7 +66,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-008
-    created_at: "2026-05-10"
+    created_at: "2024-08-07"
     title: "Use Case 8 for feature 89"
     priority: low
     steps:
@@ -74,7 +75,7 @@ artifacts:
       - Expected outcome
   - id: art-089-009
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-05-07"
     title: "Bug 9 for feature 89"
     priority: medium
     steps:
@@ -82,7 +83,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-010
-    created_at: "2026-05-10"
+    created_at: "2025-02-21"
     title: "Use Case 10 for feature 89"
     priority: high
     steps:
@@ -90,7 +91,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-011
-    created_at: "2026-05-10"
+    created_at: "2025-04-30"
     title: "Use Case 11 for feature 89"
     priority: low
     steps:
@@ -98,7 +99,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-012
-    created_at: "2026-05-10"
+    created_at: "2025-03-20"
     title: "Use Case 12 for feature 89"
     priority: highest
     steps:
@@ -106,7 +107,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-013
-    created_at: "2026-05-10"
+    created_at: "2024-11-08"
     title: "Use Case 13 for feature 89"
     priority: medium
     steps:
@@ -114,7 +115,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-014
-    created_at: "2026-05-10"
+    created_at: "2024-09-01"
     title: "Use Case 14 for feature 89"
     priority: low
     steps:
@@ -122,7 +123,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-015
-    created_at: "2026-05-10"
+    created_at: "2025-04-15"
     title: "Use Case 15 for feature 89"
     priority: none
     steps:
@@ -130,7 +131,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-016
-    created_at: "2026-05-10"
+    created_at: "2025-03-07"
     title: "Use Case 16 for feature 89"
     priority: none
     steps:
@@ -138,7 +139,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-017
-    created_at: "2026-05-10"
+    created_at: "2024-08-07"
     title: "Use Case 17 for feature 89"
     priority: none
     steps:
@@ -146,7 +147,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-018
-    created_at: "2026-05-10"
+    created_at: "2024-11-19"
     title: "Use Case 18 for feature 89"
     priority: none
     steps:
@@ -154,7 +155,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-019
-    created_at: "2026-05-10"
+    created_at: "2024-10-14"
     title: "Use Case 19 for feature 89"
     priority: high
     steps:
@@ -162,7 +163,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-020
-    created_at: "2026-05-10"
+    created_at: "2025-05-20"
     title: "Use Case 20 for feature 89"
     priority: none
     steps:
@@ -170,7 +171,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-021
-    created_at: "2026-05-10"
+    created_at: "2025-04-27"
     title: "Use Case 21 for feature 89"
     priority: none
     steps:
@@ -178,7 +179,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-022
-    created_at: "2026-05-10"
+    created_at: "2024-10-07"
     title: "Use Case 22 for feature 89"
     priority: medium
     steps:
@@ -186,7 +187,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-023
-    created_at: "2026-05-10"
+    created_at: "2024-07-14"
     title: "Use Case 23 for feature 89"
     priority: none
     steps:
@@ -194,7 +195,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-024
-    created_at: "2026-05-10"
+    created_at: "2024-08-08"
     title: "Use Case 24 for feature 89"
     priority: medium
     steps:
@@ -202,7 +203,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-025
-    created_at: "2026-05-10"
+    created_at: "2025-05-18"
     title: "Use Case 25 for feature 89"
     priority: none
     steps:
@@ -210,7 +211,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-026
-    created_at: "2026-05-10"
+    created_at: "2024-05-10"
     title: "Use Case 26 for feature 89"
     priority: high
     steps:
@@ -219,7 +220,7 @@ artifacts:
       - Expected outcome
   - id: art-089-027
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-05-04"
     title: "Bug 27 for feature 89"
     priority: high
     steps:
@@ -228,7 +229,7 @@ artifacts:
       - Expected outcome
   - id: art-089-028
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-27"
     title: "Bug 28 for feature 89"
     priority: high
     steps:
@@ -237,7 +238,7 @@ artifacts:
       - Expected outcome
   - id: art-089-029
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-26"
     title: "Bug 29 for feature 89"
     priority: low
     steps:
@@ -246,7 +247,7 @@ artifacts:
       - Expected outcome
   - id: art-089-030
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-06-08"
     title: "Bug 30 for feature 89"
     priority: high
     steps:
@@ -254,7 +255,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-031
-    created_at: "2026-05-10"
+    created_at: "2025-02-24"
     title: "Use Case 31 for feature 89"
     priority: high
     steps:
@@ -263,7 +264,7 @@ artifacts:
       - Expected outcome
   - id: art-089-032
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-05-26"
     title: "Bug 32 for feature 89"
     priority: high
     steps:
@@ -272,7 +273,7 @@ artifacts:
       - Expected outcome
   - id: art-089-033
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-08-11"
     title: "Bug 33 for feature 89"
     priority: none
     steps:
@@ -280,7 +281,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-034
-    created_at: "2026-05-10"
+    created_at: "2025-03-14"
     title: "Use Case 34 for feature 89"
     priority: none
     steps:
@@ -288,7 +289,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-035
-    created_at: "2026-05-10"
+    created_at: "2024-10-19"
     title: "Use Case 35 for feature 89"
     priority: low
     steps:
@@ -297,7 +298,7 @@ artifacts:
       - Expected outcome
   - id: art-089-036
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-03-19"
     title: "Bug 36 for feature 89"
     priority: none
     steps:
@@ -305,7 +306,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-037
-    created_at: "2026-05-10"
+    created_at: "2024-08-31"
     title: "Use Case 37 for feature 89"
     priority: highest
     steps:
@@ -313,7 +314,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-038
-    created_at: "2026-05-10"
+    created_at: "2025-04-02"
     title: "Use Case 38 for feature 89"
     priority: high
     steps:
@@ -322,7 +323,7 @@ artifacts:
       - Expected outcome
   - id: art-089-039
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-02-23"
     title: "Bug 39 for feature 89"
     priority: low
     steps:
@@ -330,7 +331,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-040
-    created_at: "2026-05-10"
+    created_at: "2024-07-02"
     title: "Use Case 40 for feature 89"
     priority: highest
     steps:
@@ -339,7 +340,7 @@ artifacts:
       - Expected outcome
   - id: art-089-041
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-01-19"
     title: "Bug 41 for feature 89"
     priority: medium
     steps:
@@ -348,7 +349,7 @@ artifacts:
       - Expected outcome
   - id: art-089-042
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-07-21"
     title: "Bug 42 for feature 89"
     priority: highest
     steps:
@@ -356,7 +357,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-043
-    created_at: "2026-05-10"
+    created_at: "2024-10-26"
     title: "Use Case 43 for feature 89"
     priority: low
     steps:
@@ -364,7 +365,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-044
-    created_at: "2026-05-10"
+    created_at: "2025-05-26"
     title: "Use Case 44 for feature 89"
     priority: highest
     steps:
@@ -372,7 +373,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-045
-    created_at: "2026-05-10"
+    created_at: "2024-06-18"
     title: "Use Case 45 for feature 89"
     priority: low
     steps:
@@ -380,7 +381,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-046
-    created_at: "2026-05-10"
+    created_at: "2024-09-08"
     title: "Use Case 46 for feature 89"
     priority: high
     steps:
@@ -388,7 +389,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-047
-    created_at: "2026-05-10"
+    created_at: "2024-11-03"
     title: "Use Case 47 for feature 89"
     priority: medium
     steps:
@@ -396,7 +397,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-048
-    created_at: "2026-05-10"
+    created_at: "2024-10-20"
     title: "Use Case 48 for feature 89"
     priority: none
     steps:
@@ -404,7 +405,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-049
-    created_at: "2026-05-10"
+    created_at: "2024-08-03"
     title: "Use Case 49 for feature 89"
     priority: medium
     steps:
@@ -412,7 +413,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-050
-    created_at: "2026-05-10"
+    created_at: "2025-03-31"
     title: "Use Case 50 for feature 89"
     priority: high
     steps:
@@ -420,7 +421,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-051
-    created_at: "2026-05-10"
+    created_at: "2024-06-24"
     title: "Use Case 51 for feature 89"
     priority: medium
     steps:
@@ -428,7 +429,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-052
-    created_at: "2026-05-10"
+    created_at: "2025-05-07"
     title: "Use Case 52 for feature 89"
     priority: highest
     steps:
@@ -436,7 +437,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-053
-    created_at: "2026-05-10"
+    created_at: "2025-04-18"
     title: "Use Case 53 for feature 89"
     priority: low
     steps:
@@ -445,7 +446,7 @@ artifacts:
       - Expected outcome
   - id: art-089-054
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-02"
     title: "Bug 54 for feature 89"
     priority: low
     steps:
@@ -453,7 +454,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-089-055
-    created_at: "2026-05-10"
+    created_at: "2025-05-18"
     title: "Use Case 55 for feature 89"
     priority: low
     steps:

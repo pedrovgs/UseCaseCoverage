@@ -1,0 +1,666 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-095-b635ac
+  title: "Random Feature 95"
+  created_at: "2025-08-01"
+  updated_at: "2025-08-07"
+  description: >
+    Auto-generated feature number 95.
+
+artifacts:
+  - id: art-095-001
+    created_at: "2024-11-08"
+    title: "Use Case 1 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-002
+    type: bug
+    created_at: "2025-01-26"
+    title: "Bug 2 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-003
+    created_at: "2025-07-25"
+    title: "Use Case 3 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-004
+    created_at: "2024-10-27"
+    title: "Use Case 4 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-005
+    type: regression
+    created_at: "2024-12-07"
+    title: "Bug 5 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-006
+    created_at: "2025-06-26"
+    title: "Use Case 6 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-007
+    type: bug
+    created_at: "2025-04-16"
+    title: "Bug 7 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-008
+    type: bug
+    created_at: "2025-03-31"
+    title: "Bug 8 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-009
+    created_at: "2025-05-20"
+    title: "Use Case 9 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-010
+    created_at: "2025-05-17"
+    title: "Use Case 10 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-011
+    created_at: "2025-07-10"
+    title: "Use Case 11 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-012
+    type: regression
+    created_at: "2024-12-20"
+    title: "Bug 12 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-013
+    type: bug
+    created_at: "2025-02-03"
+    title: "Bug 13 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-014
+    created_at: "2024-11-14"
+    title: "Use Case 14 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-015
+    type: regression
+    created_at: "2024-10-18"
+    title: "Bug 15 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-016
+    created_at: "2024-12-09"
+    title: "Use Case 16 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-017
+    type: regression
+    created_at: "2025-08-06"
+    title: "Bug 17 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-018
+    created_at: "2024-07-26"
+    title: "Use Case 18 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-019
+    type: bug
+    created_at: "2025-04-06"
+    title: "Bug 19 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-020
+    type: regression
+    created_at: "2025-07-10"
+    title: "Bug 20 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-021
+    type: regression
+    created_at: "2024-12-23"
+    title: "Bug 21 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-022
+    created_at: "2024-07-06"
+    title: "Use Case 22 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-023
+    created_at: "2024-06-26"
+    title: "Use Case 23 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-024
+    created_at: "2025-03-15"
+    title: "Use Case 24 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-025
+    type: regression
+    created_at: "2024-06-05"
+    title: "Bug 25 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-026
+    created_at: "2024-05-27"
+    title: "Use Case 26 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-027
+    type: regression
+    created_at: "2025-06-23"
+    title: "Bug 27 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-028
+    created_at: "2024-12-20"
+    title: "Use Case 28 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-029
+    created_at: "2024-12-26"
+    title: "Use Case 29 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-030
+    created_at: "2024-07-21"
+    title: "Use Case 30 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-031
+    created_at: "2024-10-13"
+    title: "Use Case 31 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-032
+    created_at: "2025-05-08"
+    title: "Use Case 32 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-033
+    type: regression
+    created_at: "2025-05-06"
+    title: "Bug 33 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-034
+    type: regression
+    created_at: "2025-02-25"
+    title: "Bug 34 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-035
+    created_at: "2024-11-16"
+    title: "Use Case 35 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-036
+    created_at: "2025-04-26"
+    title: "Use Case 36 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-037
+    created_at: "2024-06-03"
+    title: "Use Case 37 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-038
+    created_at: "2024-06-15"
+    title: "Use Case 38 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-039
+    created_at: "2024-09-04"
+    title: "Use Case 39 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-040
+    type: regression
+    created_at: "2025-05-05"
+    title: "Bug 40 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-041
+    type: regression
+    created_at: "2024-09-11"
+    title: "Bug 41 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-042
+    type: regression
+    created_at: "2024-09-02"
+    title: "Bug 42 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-043
+    type: bug
+    created_at: "2024-05-26"
+    title: "Bug 43 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-044
+    created_at: "2025-02-25"
+    title: "Use Case 44 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-045
+    type: bug
+    created_at: "2025-01-21"
+    title: "Bug 45 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-046
+    type: bug
+    created_at: "2025-06-23"
+    title: "Bug 46 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-047
+    created_at: "2025-07-10"
+    title: "Use Case 47 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-048
+    type: regression
+    created_at: "2025-07-29"
+    title: "Bug 48 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-049
+    created_at: "2024-11-12"
+    title: "Use Case 49 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-050
+    type: regression
+    created_at: "2024-12-21"
+    title: "Bug 50 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-051
+    created_at: "2024-11-10"
+    title: "Use Case 51 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-052
+    type: regression
+    created_at: "2024-12-22"
+    title: "Bug 52 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-053
+    created_at: "2025-05-21"
+    title: "Use Case 53 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-054
+    created_at: "2024-08-27"
+    title: "Use Case 54 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-055
+    created_at: "2024-10-16"
+    title: "Use Case 55 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-056
+    created_at: "2025-07-09"
+    title: "Use Case 56 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-057
+    created_at: "2025-02-28"
+    title: "Use Case 57 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-058
+    type: regression
+    created_at: "2024-12-06"
+    title: "Bug 58 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-059
+    type: bug
+    created_at: "2025-05-28"
+    title: "Bug 59 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-060
+    created_at: "2024-09-20"
+    title: "Use Case 60 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-061
+    created_at: "2024-11-02"
+    title: "Use Case 61 for feature 95"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-062
+    created_at: "2025-01-05"
+    title: "Use Case 62 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-063
+    created_at: "2025-07-10"
+    title: "Use Case 63 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-064
+    created_at: "2025-06-24"
+    title: "Use Case 64 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-065
+    type: bug
+    created_at: "2024-08-30"
+    title: "Bug 65 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-066
+    created_at: "2025-02-06"
+    title: "Use Case 66 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-067
+    created_at: "2025-03-27"
+    title: "Use Case 67 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-068
+    created_at: "2024-12-02"
+    title: "Use Case 68 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-069
+    created_at: "2024-09-03"
+    title: "Use Case 69 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-070
+    created_at: "2025-02-01"
+    title: "Use Case 70 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-071
+    created_at: "2025-01-18"
+    title: "Use Case 71 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-072
+    type: bug
+    created_at: "2025-06-21"
+    title: "Bug 72 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-073
+    created_at: "2025-07-17"
+    title: "Use Case 73 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-074
+    created_at: "2024-06-28"
+    title: "Use Case 74 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-075
+    type: regression
+    created_at: "2024-07-31"
+    title: "Bug 75 for feature 95"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-076
+    created_at: "2025-04-11"
+    title: "Use Case 76 for feature 95"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-077
+    type: regression
+    created_at: "2025-01-04"
+    title: "Bug 77 for feature 95"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-095-078
+    created_at: "2024-12-17"
+    title: "Use Case 78 for feature 95"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

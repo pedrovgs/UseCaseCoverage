@@ -3,14 +3,15 @@ schema_version: "1.0"
 feature:
   id: feat-071-273dc2
   title: "Random Feature 71"
-  created_at: "2026-05-10"
+  created_at: "2025-05-12"
+  updated_at: "2026-03-11"
   description: >
     Auto-generated feature number 71.
 
 artifacts:
   - id: art-071-001
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-07"
     title: "Bug 1 for feature 71"
     priority: medium
     steps:
@@ -19,7 +20,7 @@ artifacts:
       - Expected outcome
   - id: art-071-002
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-05-05"
     title: "Bug 2 for feature 71"
     priority: none
     steps:
@@ -27,7 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-003
-    created_at: "2026-05-10"
+    created_at: "2025-12-12"
     title: "Use Case 3 for feature 71"
     priority: high
     steps:
@@ -35,7 +36,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-004
-    created_at: "2026-05-10"
+    created_at: "2025-12-08"
     title: "Use Case 4 for feature 71"
     priority: low
     steps:
@@ -44,7 +45,7 @@ artifacts:
       - Expected outcome
   - id: art-071-005
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-02"
     title: "Bug 5 for feature 71"
     priority: highest
     steps:
@@ -53,7 +54,7 @@ artifacts:
       - Expected outcome
   - id: art-071-006
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-12-07"
     title: "Bug 6 for feature 71"
     priority: medium
     steps:
@@ -61,7 +62,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-007
-    created_at: "2026-05-10"
+    created_at: "2024-11-18"
     title: "Use Case 7 for feature 71"
     priority: none
     steps:
@@ -70,7 +71,7 @@ artifacts:
       - Expected outcome
   - id: art-071-008
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-09-26"
     title: "Bug 8 for feature 71"
     priority: none
     steps:
@@ -79,7 +80,7 @@ artifacts:
       - Expected outcome
   - id: art-071-009
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-11-16"
     title: "Bug 9 for feature 71"
     priority: highest
     steps:
@@ -87,7 +88,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-010
-    created_at: "2026-05-10"
+    created_at: "2025-03-22"
     title: "Use Case 10 for feature 71"
     priority: low
     steps:
@@ -96,7 +97,7 @@ artifacts:
       - Expected outcome
   - id: art-071-011
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-05"
     title: "Bug 11 for feature 71"
     priority: medium
     steps:
@@ -104,7 +105,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-012
-    created_at: "2026-05-10"
+    created_at: "2025-09-24"
     title: "Use Case 12 for feature 71"
     priority: none
     steps:
@@ -112,7 +113,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-013
-    created_at: "2026-05-10"
+    created_at: "2024-06-17"
     title: "Use Case 13 for feature 71"
     priority: medium
     steps:
@@ -120,7 +121,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-014
-    created_at: "2026-05-10"
+    created_at: "2024-08-10"
     title: "Use Case 14 for feature 71"
     priority: highest
     steps:
@@ -129,7 +130,7 @@ artifacts:
       - Expected outcome
   - id: art-071-015
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-06"
     title: "Bug 15 for feature 71"
     priority: none
     steps:
@@ -137,7 +138,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-016
-    created_at: "2026-05-10"
+    created_at: "2025-01-03"
     title: "Use Case 16 for feature 71"
     priority: highest
     steps:
@@ -145,7 +146,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-017
-    created_at: "2026-05-10"
+    created_at: "2026-01-16"
     title: "Use Case 17 for feature 71"
     priority: none
     steps:
@@ -154,7 +155,7 @@ artifacts:
       - Expected outcome
   - id: art-071-018
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-12-20"
     title: "Bug 18 for feature 71"
     priority: low
     steps:
@@ -162,7 +163,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-019
-    created_at: "2026-05-10"
+    created_at: "2024-05-30"
     title: "Use Case 19 for feature 71"
     priority: low
     steps:
@@ -170,7 +171,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-020
-    created_at: "2026-05-10"
+    created_at: "2025-10-31"
     title: "Use Case 20 for feature 71"
     priority: highest
     steps:
@@ -178,7 +179,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-021
-    created_at: "2026-05-10"
+    created_at: "2025-09-11"
     title: "Use Case 21 for feature 71"
     priority: low
     steps:
@@ -186,7 +187,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-022
-    created_at: "2026-05-10"
+    created_at: "2024-05-10"
     title: "Use Case 22 for feature 71"
     priority: highest
     steps:
@@ -195,7 +196,7 @@ artifacts:
       - Expected outcome
   - id: art-071-023
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-14"
     title: "Bug 23 for feature 71"
     priority: low
     steps:
@@ -204,7 +205,7 @@ artifacts:
       - Expected outcome
   - id: art-071-024
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2026-01-28"
     title: "Bug 24 for feature 71"
     priority: medium
     steps:
@@ -212,7 +213,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-025
-    created_at: "2026-05-10"
+    created_at: "2024-12-02"
     title: "Use Case 25 for feature 71"
     priority: highest
     steps:
@@ -221,7 +222,7 @@ artifacts:
       - Expected outcome
   - id: art-071-026
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-09-20"
     title: "Bug 26 for feature 71"
     priority: medium
     steps:
@@ -230,7 +231,7 @@ artifacts:
       - Expected outcome
   - id: art-071-027
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-23"
     title: "Bug 27 for feature 71"
     priority: low
     steps:
@@ -238,7 +239,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-028
-    created_at: "2026-05-10"
+    created_at: "2024-11-07"
     title: "Use Case 28 for feature 71"
     priority: low
     steps:
@@ -247,7 +248,7 @@ artifacts:
       - Expected outcome
   - id: art-071-029
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-04-06"
     title: "Bug 29 for feature 71"
     priority: none
     steps:
@@ -255,7 +256,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-030
-    created_at: "2026-05-10"
+    created_at: "2024-07-09"
     title: "Use Case 30 for feature 71"
     priority: none
     steps:
@@ -264,7 +265,7 @@ artifacts:
       - Expected outcome
   - id: art-071-031
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-06-01"
     title: "Bug 31 for feature 71"
     priority: medium
     steps:
@@ -272,7 +273,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-032
-    created_at: "2026-05-10"
+    created_at: "2024-10-08"
     title: "Use Case 32 for feature 71"
     priority: none
     steps:
@@ -280,7 +281,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-033
-    created_at: "2026-05-10"
+    created_at: "2025-12-31"
     title: "Use Case 33 for feature 71"
     priority: low
     steps:
@@ -289,7 +290,7 @@ artifacts:
       - Expected outcome
   - id: art-071-034
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-10-02"
     title: "Bug 34 for feature 71"
     priority: medium
     steps:
@@ -297,7 +298,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-035
-    created_at: "2026-05-10"
+    created_at: "2024-08-31"
     title: "Use Case 35 for feature 71"
     priority: highest
     steps:
@@ -305,7 +306,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-036
-    created_at: "2026-05-10"
+    created_at: "2025-10-30"
     title: "Use Case 36 for feature 71"
     priority: low
     steps:
@@ -313,7 +314,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-037
-    created_at: "2026-05-10"
+    created_at: "2025-05-18"
     title: "Use Case 37 for feature 71"
     priority: medium
     steps:
@@ -322,7 +323,7 @@ artifacts:
       - Expected outcome
   - id: art-071-038
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-23"
     title: "Bug 38 for feature 71"
     priority: medium
     steps:
@@ -331,7 +332,7 @@ artifacts:
       - Expected outcome
   - id: art-071-039
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-05-27"
     title: "Bug 39 for feature 71"
     priority: low
     steps:
@@ -340,7 +341,7 @@ artifacts:
       - Expected outcome
   - id: art-071-040
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-06-19"
     title: "Bug 40 for feature 71"
     priority: high
     steps:
@@ -348,7 +349,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-071-041
-    created_at: "2026-05-10"
+    created_at: "2025-12-31"
     title: "Use Case 41 for feature 71"
     priority: medium
     steps:
@@ -357,7 +358,7 @@ artifacts:
       - Expected outcome
   - id: art-071-042
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-08-21"
     title: "Bug 42 for feature 71"
     priority: medium
     steps:
@@ -366,7 +367,7 @@ artifacts:
       - Expected outcome
   - id: art-071-043
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-04-19"
     title: "Bug 43 for feature 71"
     priority: none
     steps:
@@ -375,7 +376,7 @@ artifacts:
       - Expected outcome
   - id: art-071-044
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-03-15"
     title: "Bug 44 for feature 71"
     priority: low
     steps:

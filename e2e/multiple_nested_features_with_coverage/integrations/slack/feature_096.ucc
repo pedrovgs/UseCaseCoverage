@@ -1,0 +1,373 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-096-5b696a
+  title: "Random Feature 96"
+  created_at: "2025-03-13"
+  updated_at: "2025-04-04"
+  description: >
+    Auto-generated feature number 96.
+
+artifacts:
+  - id: art-096-001
+    created_at: "2025-01-29"
+    title: "Use Case 1 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-002
+    created_at: "2025-02-28"
+    title: "Use Case 2 for feature 96"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-003
+    type: regression
+    created_at: "2024-07-11"
+    title: "Bug 3 for feature 96"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-004
+    type: regression
+    created_at: "2024-09-16"
+    title: "Bug 4 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-005
+    type: bug
+    created_at: "2024-09-03"
+    title: "Bug 5 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-006
+    type: bug
+    created_at: "2024-07-30"
+    title: "Bug 6 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-007
+    created_at: "2024-07-29"
+    title: "Use Case 7 for feature 96"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-008
+    type: regression
+    created_at: "2024-11-06"
+    title: "Bug 8 for feature 96"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-009
+    created_at: "2024-08-28"
+    title: "Use Case 9 for feature 96"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-010
+    created_at: "2024-10-30"
+    title: "Use Case 10 for feature 96"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-011
+    created_at: "2024-11-23"
+    title: "Use Case 11 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-012
+    created_at: "2024-11-19"
+    title: "Use Case 12 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-013
+    created_at: "2025-02-07"
+    title: "Use Case 13 for feature 96"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-014
+    created_at: "2024-10-07"
+    title: "Use Case 14 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-015
+    type: regression
+    created_at: "2025-03-29"
+    title: "Bug 15 for feature 96"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-016
+    type: bug
+    created_at: "2024-10-15"
+    title: "Bug 16 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-017
+    created_at: "2024-11-11"
+    title: "Use Case 17 for feature 96"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-018
+    type: regression
+    created_at: "2024-09-13"
+    title: "Bug 18 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-019
+    type: regression
+    created_at: "2025-01-11"
+    title: "Bug 19 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-020
+    type: regression
+    created_at: "2025-02-01"
+    title: "Bug 20 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-021
+    created_at: "2024-10-19"
+    title: "Use Case 21 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-022
+    type: regression
+    created_at: "2024-10-02"
+    title: "Bug 22 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-023
+    created_at: "2024-05-20"
+    title: "Use Case 23 for feature 96"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-024
+    created_at: "2024-12-24"
+    title: "Use Case 24 for feature 96"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-025
+    type: bug
+    created_at: "2025-01-19"
+    title: "Bug 25 for feature 96"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-026
+    created_at: "2024-11-30"
+    title: "Use Case 26 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-027
+    created_at: "2024-11-18"
+    title: "Use Case 27 for feature 96"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-028
+    created_at: "2024-10-27"
+    title: "Use Case 28 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-029
+    created_at: "2024-08-05"
+    title: "Use Case 29 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-030
+    created_at: "2024-06-12"
+    title: "Use Case 30 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-031
+    type: bug
+    created_at: "2024-11-23"
+    title: "Bug 31 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-032
+    type: regression
+    created_at: "2024-09-29"
+    title: "Bug 32 for feature 96"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-033
+    created_at: "2025-03-07"
+    title: "Use Case 33 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-034
+    created_at: "2024-11-05"
+    title: "Use Case 34 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-035
+    type: regression
+    created_at: "2024-05-31"
+    title: "Bug 35 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-036
+    created_at: "2024-11-24"
+    title: "Use Case 36 for feature 96"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-037
+    created_at: "2025-03-11"
+    title: "Use Case 37 for feature 96"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-038
+    type: bug
+    created_at: "2024-12-07"
+    title: "Bug 38 for feature 96"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-039
+    created_at: "2024-10-19"
+    title: "Use Case 39 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-040
+    type: bug
+    created_at: "2024-10-20"
+    title: "Bug 40 for feature 96"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-041
+    created_at: "2024-12-17"
+    title: "Use Case 41 for feature 96"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-042
+    created_at: "2024-10-06"
+    title: "Use Case 42 for feature 96"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-096-043
+    created_at: "2024-10-12"
+    title: "Use Case 43 for feature 96"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+

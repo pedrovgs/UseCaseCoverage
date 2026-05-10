@@ -3,14 +3,15 @@ schema_version: "1.0"
 feature:
   id: feat-055-545e81
   title: "Random Feature 55"
-  created_at: "2026-05-10"
+  created_at: "2025-09-10"
+  updated_at: "2026-02-24"
   description: >
     Auto-generated feature number 55.
 
 artifacts:
   - id: art-055-001
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-11-30"
     title: "Bug 1 for feature 55"
     priority: none
     steps:
@@ -19,7 +20,7 @@ artifacts:
       - Expected outcome
   - id: art-055-002
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-02-28"
     title: "Bug 2 for feature 55"
     priority: high
     steps:
@@ -27,7 +28,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-055-003
-    created_at: "2026-05-10"
+    created_at: "2025-04-03"
     title: "Use Case 3 for feature 55"
     priority: highest
     steps:
@@ -35,7 +36,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-055-004
-    created_at: "2026-05-10"
+    created_at: "2025-02-26"
     title: "Use Case 4 for feature 55"
     priority: highest
     steps:
@@ -44,7 +45,7 @@ artifacts:
       - Expected outcome
   - id: art-055-005
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-07-09"
     title: "Bug 5 for feature 55"
     priority: none
     steps:
@@ -53,7 +54,7 @@ artifacts:
       - Expected outcome
   - id: art-055-006
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-08-09"
     title: "Bug 6 for feature 55"
     priority: medium
     steps:
@@ -62,7 +63,7 @@ artifacts:
       - Expected outcome
   - id: art-055-007
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-12-18"
     title: "Bug 7 for feature 55"
     priority: low
     steps:
@@ -70,7 +71,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-055-008
-    created_at: "2026-05-10"
+    created_at: "2025-01-02"
     title: "Use Case 8 for feature 55"
     priority: none
     steps:
@@ -79,7 +80,7 @@ artifacts:
       - Expected outcome
   - id: art-055-009
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2025-11-08"
     title: "Bug 9 for feature 55"
     priority: none
     steps:
@@ -87,7 +88,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-055-010
-    created_at: "2026-05-10"
+    created_at: "2024-06-17"
     title: "Use Case 10 for feature 55"
     priority: medium
     steps:
@@ -96,7 +97,7 @@ artifacts:
       - Expected outcome
   - id: art-055-011
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2024-11-05"
     title: "Bug 11 for feature 55"
     priority: medium
     steps:
@@ -104,7 +105,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-055-012
-    created_at: "2026-05-10"
+    created_at: "2025-07-11"
     title: "Use Case 12 for feature 55"
     priority: highest
     steps:
@@ -113,7 +114,7 @@ artifacts:
       - Expected outcome
   - id: art-055-013
     type: bug
-    created_at: "2026-05-10"
+    created_at: "2024-11-06"
     title: "Bug 13 for feature 55"
     priority: highest
     steps:
@@ -121,7 +122,7 @@ artifacts:
     expected:
       - Expected outcome
   - id: art-055-014
-    created_at: "2026-05-10"
+    created_at: "2024-06-16"
     title: "Use Case 14 for feature 55"
     priority: high
     steps:
@@ -130,7 +131,7 @@ artifacts:
       - Expected outcome
   - id: art-055-015
     type: regression
-    created_at: "2026-05-10"
+    created_at: "2025-06-20"
     title: "Bug 15 for feature 55"
     priority: none
     steps:

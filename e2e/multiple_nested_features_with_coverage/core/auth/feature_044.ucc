@@ -1,0 +1,119 @@
+schema_version: "1.0"
+
+feature:
+  id: feat-044-a152dd
+  title: "Random Feature 44"
+  created_at: "2025-09-02"
+  updated_at: "2026-03-28"
+  description: >
+    Auto-generated feature number 44.
+
+artifacts:
+  - id: art-044-001
+    created_at: "2024-11-29"
+    title: "Use Case 1 for feature 44"
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-002
+    created_at: "2025-06-05"
+    title: "Use Case 2 for feature 44"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-003
+    created_at: "2025-08-06"
+    title: "Use Case 3 for feature 44"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-004
+    created_at: "2025-12-11"
+    title: "Use Case 4 for feature 44"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-005
+    created_at: "2025-03-23"
+    title: "Use Case 5 for feature 44"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-006
+    type: regression
+    created_at: "2024-08-16"
+    title: "Bug 6 for feature 44"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-007
+    created_at: "2025-10-20"
+    title: "Use Case 7 for feature 44"
+    priority: none
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-008
+    created_at: "2025-10-03"
+    title: "Use Case 8 for feature 44"
+    priority: highest
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-009
+    created_at: "2026-02-21"
+    title: "Use Case 9 for feature 44"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-010
+    type: bug
+    created_at: "2024-07-02"
+    title: "Bug 10 for feature 44"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-011
+    created_at: "2025-05-23"
+    title: "Use Case 11 for feature 44"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-012
+    type: regression
+    created_at: "2024-12-28"
+    title: "Bug 12 for feature 44"
+    priority: low
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+  - id: art-044-013
+    created_at: "2026-03-02"
+    title: "Use Case 13 for feature 44"
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected outcome
+
