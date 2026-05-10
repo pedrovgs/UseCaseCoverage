@@ -38,6 +38,9 @@ jobs:
       - name: Install coverage tool
         run: cargo install cargo-llvm-cov --locked
 
+      - name: Create coverage directory
+        run: mkdir -p coverage
+
       - name: Generate coverage report
         run: cargo llvm-cov --workspace --all-features --lcov --output-path coverage/lcov.info
 
