@@ -113,6 +113,11 @@ Run from repository root.
    ```bash
    cargo test --workspace --all-targets --all-features
    ```
+   *To re-record `insta` snapshot tests if your changes intentionally modify output schemas (like adding new `.ucc` scenarios or modifying parsers), run:*
+   ```bash
+   INSTA_UPDATE=always cargo test
+   ```
+   *Alternatively, if you have `cargo-insta` installed, you can interactively review and accept snapshots with `cargo insta review`.*
 4. Mutation testing (quick listing mode):
    ```bash
    cargo mutants --workspace --list --no-times

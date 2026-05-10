@@ -1,0 +1,52 @@
+---
+source: UseCaseCoverageCore/tests/e2e_test.rs
+expression: features
+---
+- source_path: feature.ucc
+  schema_version: "1.0"
+  feature:
+    id: feature-multiple-use-cases-and-bugs
+    title: Feature with multiple use cases and bugs
+    created_at: 2026-05-10
+    updated_at: ~
+    description: "This scenario contains 1 feature, multiple use cases, and multiple bugs.\n"
+  tags: []
+  platforms: []
+  related_features: []
+  artifacts:
+    - id: bug-001
+      artifact_type: regression
+      created_at: 2026-05-10
+      title: First bug
+      priority: none
+      related:
+        - ucc-001
+      steps: []
+      expected: []
+    - id: bug-002
+      artifact_type: regression
+      created_at: 2026-05-10
+      title: Second bug
+      priority: none
+      related:
+        - ucc-002
+      steps: []
+      expected: []
+    - id: ucc-001
+      artifact_type: ~
+      created_at: 2026-05-10
+      title: First use case
+      priority: high
+      related: []
+      steps:
+        - Step 1
+      expected: []
+    - id: ucc-002
+      artifact_type: ~
+      created_at: 2026-05-10
+      title: Second use case
+      priority: medium
+      related: []
+      steps:
+        - Step 1
+      expected: []

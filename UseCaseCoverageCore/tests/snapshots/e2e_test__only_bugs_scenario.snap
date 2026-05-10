@@ -1,0 +1,32 @@
+---
+source: UseCaseCoverageCore/tests/e2e_test.rs
+expression: features
+---
+- source_path: feature.ucc
+  schema_version: "1.0"
+  feature:
+    id: feature-only-bugs
+    title: Feature with only bugs
+    created_at: 2026-05-10
+    updated_at: ~
+    description: "This scenario contains 1 feature and multiple bugs, but absolutely no use cases.\n"
+  tags: []
+  platforms: []
+  related_features: []
+  artifacts:
+    - id: bug-only-001
+      artifact_type: bug
+      created_at: 2026-05-10
+      title: First critical bug
+      priority: none
+      related: []
+      steps: []
+      expected: []
+    - id: bug-only-002
+      artifact_type: regression
+      created_at: 2026-05-10
+      title: Second minor bug
+      priority: none
+      related: []
+      steps: []
+      expected: []

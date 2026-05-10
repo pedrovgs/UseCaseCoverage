@@ -4,7 +4,7 @@ use std::str::FromStr;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct FeatureDocument {
     pub source_path: PathBuf,
     pub schema_version: String,
@@ -15,7 +15,7 @@ pub struct FeatureDocument {
     pub artifacts: Vec<Artifact>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct FeatureMetadata {
     pub id: String,
     pub title: String,
@@ -24,7 +24,7 @@ pub struct FeatureMetadata {
     pub description: String,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct Artifact {
     pub id: String,
     pub artifact_type: Option<String>,

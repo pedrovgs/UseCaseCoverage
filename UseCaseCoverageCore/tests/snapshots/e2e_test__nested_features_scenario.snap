@@ -1,0 +1,62 @@
+---
+source: UseCaseCoverageCore/tests/e2e_test.rs
+expression: features
+---
+- source_path: core/feature_a.ucc
+  schema_version: "1.0"
+  feature:
+    id: nested-feature-a
+    title: Nested Feature A
+    created_at: 2026-05-10
+    updated_at: ~
+    description: "First nested feature in the core directory.\n"
+  tags: []
+  platforms: []
+  related_features: []
+  artifacts:
+    - id: nf-a-bug-001
+      artifact_type: regression
+      created_at: 2026-05-10
+      title: Bug 1 NF A
+      priority: none
+      related: []
+      steps: []
+      expected: []
+    - id: nf-a-ucc-001
+      artifact_type: ~
+      created_at: 2026-05-10
+      title: First use case NF A
+      priority: high
+      related: []
+      steps:
+        - Step 1
+      expected: []
+- source_path: core/auth/feature_b.ucc
+  schema_version: "1.0"
+  feature:
+    id: nested-feature-b
+    title: Nested Feature B
+    created_at: 2026-05-10
+    updated_at: ~
+    description: "Second nested feature in the auth directory.\n"
+  tags: []
+  platforms: []
+  related_features: []
+  artifacts:
+    - id: nf-b-bug-001
+      artifact_type: regression
+      created_at: 2026-05-10
+      title: Bug 1 NF B
+      priority: none
+      related: []
+      steps: []
+      expected: []
+    - id: nf-b-ucc-001
+      artifact_type: ~
+      created_at: 2026-05-10
+      title: First use case NF B
+      priority: high
+      related: []
+      steps:
+        - Step 1
+      expected: []
