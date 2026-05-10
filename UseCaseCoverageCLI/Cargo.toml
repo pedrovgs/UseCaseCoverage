@@ -13,5 +13,5 @@ use_case_coverage_core = { path = "../UseCaseCoverageCore" }
 use_case_coverage_reporter = { path = "../UseCaseCoverageReporter" }
 
 [[bin]]
-name = "UseCaseCoverageCLI"
+name = "ucc"
 path = "src/main.rs"

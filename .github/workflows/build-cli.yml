@@ -25,11 +25,11 @@ jobs:
       - name: Prepare artifact
         run: |
           mkdir -p dist
-          cp target/release/UseCaseCoverageCLI dist/UseCaseCoverageCLI
-          tar -czf dist/UseCaseCoverageCLI-linux-x86_64.tar.gz -C dist UseCaseCoverageCLI
+          cp target/release/ucc dist/ucc
+          tar -czf dist/ucc-linux-x86_64.tar.gz -C dist ucc
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: UseCaseCoverageCLI-linux-x86_64
-          path: dist/UseCaseCoverageCLI-linux-x86_64.tar.gz
+          name: ucc-linux-x86_64
+          path: dist/ucc-linux-x86_64.tar.gz
