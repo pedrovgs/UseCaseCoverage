@@ -120,3 +120,29 @@ impl FromStr for Priority {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn priority_display_and_from_str() {
+        let valid_cases = [
+            ("none", Priority::None),
+            ("low", Priority::Low),
+            ("medium", Priority::Medium),
+            ("high", Priority::High),
+            ("highest", Priority::Highest),
+        ];
+
+        for (s, p) in valid_cases {
+            assert_eq!(Priority::from_str(s).unwrap(), p);
+            assert_eq!(p.to_string(), s);
+        }
+
+        assert_eq!(Priority::from_str("  HIGH  ").unwrap(), Priority::High);
+
+        let err = Priority::from_str("critical").unwrap_err();
+        assert_eq!(err, "Invalid priority: 'critical'");
+    }
+}

@@ -69,3 +69,27 @@ pub trait TestFileRepository {
     /// Returns an error when the file cannot be read.
     fn read_lines(&self, path: &Path) -> Result<Vec<String>, CoreError>;
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::error::Error;
+    use std::io;
+
+    #[test]
+    fn core_error_display_and_source() {
+        let io_err = CoreError::Io {
+            path: PathBuf::from("/tmp/foo"),
+            source: io::Error::new(io::ErrorKind::NotFound, "file not found"),
+        };
+        assert_eq!(io_err.to_string(), "I/O error at '/tmp/foo': file not found");
+        assert!(io_err.source().is_some());
+
+        let parse_err = CoreError::Parse {
+            path: PathBuf::from("bar.ucc"),
+            reason: "invalid markup".to_string(),
+        };
+        assert_eq!(parse_err.to_string(), "Parse error at 'bar.ucc': invalid markup");
+        assert!(parse_err.source().is_none());
+    }
+}

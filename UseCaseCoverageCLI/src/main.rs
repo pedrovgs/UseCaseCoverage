@@ -117,7 +117,8 @@ fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
         find_artifact_coverage(root, &features).map_err(|error| error.to_string())?;
 
     let cwd = std::env::current_dir().map_err(|error| error.to_string())?;
-    let default_output = cwd.join(".ucc");
+    let timestamp = chrono::Local::now().format("%Y-%m-%d_%H-%M-%S").to_string();
+    let default_output = cwd.join(".ucc").join(timestamp);
     let output_dir = output.unwrap_or(&default_output);
     generate_html_report(output_dir, &features, &lint_results, &coverage_index)
         .map_err(|error| error.to_string())?;

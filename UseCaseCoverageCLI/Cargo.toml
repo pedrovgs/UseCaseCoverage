@@ -9,6 +9,7 @@ authors.workspace = true
 workspace = true
 
 [dependencies]
+chrono = "0.4.44"
 use_case_coverage_core = { path = "../UseCaseCoverageCore" }
 use_case_coverage_reporter = { path = "../UseCaseCoverageReporter" }
 
