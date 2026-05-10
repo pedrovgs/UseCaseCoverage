@@ -50,7 +50,7 @@ impl UccParser for YamlUccParser {
             })
             .ok();
 
-        Ok(parsed.into_feature_document(source_path.to_path_buf(), last_modified_at))
+        Ok(parsed.into_feature_document(source_path.to_path_buf(), last_modified_at.as_deref()))
     }
 }
 
@@ -72,7 +72,7 @@ impl RawUccDocument {
     fn into_feature_document(
         self,
         source_path: PathBuf,
-        last_modified_at: Option<String>,
+        last_modified_at: Option<&str>,
     ) -> FeatureDocument {
         FeatureDocument {
             source_path,
@@ -82,7 +82,7 @@ impl RawUccDocument {
                 title: self.feature.title,
                 created_at: self.feature.created_at,
                 updated_at: self.feature.updated_at,
-                last_modified_at: last_modified_at.clone(),
+                last_modified_at: last_modified_at.map(|s| s.to_owned()),
                 description: self.feature.description,
             },
             tags: self.tags,
@@ -96,7 +96,7 @@ impl RawUccDocument {
                     artifact_type: artifact.artifact_type,
                     created_at: artifact.created_at,
                     updated_at: artifact.updated_at,
-                    last_modified_at: last_modified_at.clone(),
+                    last_modified_at: last_modified_at.map(|s| s.to_owned()),
                     title: artifact.title,
                     priority: artifact.priority,
                     related: artifact.related,
