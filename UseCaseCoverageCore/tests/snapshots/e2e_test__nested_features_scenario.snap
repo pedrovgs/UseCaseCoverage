@@ -1,6 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 56
+assertion_line: 64
 expression: features
 ---
 - sourcePath: core/feature_a.ucc
@@ -10,7 +10,7 @@ expression: features
     title: Nested Feature A
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 15:51"
+    lastModifiedAt: ~
     description: "First nested feature in the core directory.\n"
   tags: []
   platforms: []
@@ -20,7 +20,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:51"
+      lastModifiedAt: ~
       title: Bug 1 NF A
       priority: none
       related: []
@@ -31,7 +31,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:51"
+      lastModifiedAt: ~
       title: First use case NF A
       priority: high
       related: []
@@ -46,7 +46,7 @@ expression: features
     title: Nested Feature B
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 15:51"
+    lastModifiedAt: ~
     description: "Second nested feature in the auth directory.\n"
   tags: []
   platforms: []
@@ -56,7 +56,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:51"
+      lastModifiedAt: ~
       title: Bug 1 NF B
       priority: none
       related: []
@@ -67,7 +67,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:51"
+      lastModifiedAt: ~
       title: First use case NF B
       priority: high
       related: []

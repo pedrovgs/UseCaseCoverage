@@ -1,6 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 44
+assertion_line: 52
 expression: features
 ---
 - sourcePath: feature.ucc
@@ -10,7 +10,7 @@ expression: features
     title: Feature with multiple use cases and bugs
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 15:50"
+    lastModifiedAt: ~
     description: "This scenario contains 1 feature, multiple use cases, and multiple bugs.\n"
   tags: []
   platforms: []
@@ -20,7 +20,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: First bug
       priority: none
       related:
@@ -32,7 +32,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: Second bug
       priority: none
       related:
@@ -44,7 +44,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: First use case
       priority: high
       related: []
@@ -56,7 +56,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: Second use case
       priority: medium
       related: []

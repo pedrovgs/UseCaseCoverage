@@ -23,6 +23,14 @@ fn parse_scenario(scenario: &str) -> Vec<FeatureDocument> {
             doc.source_path.strip_prefix(&root).unwrap_or(&doc.source_path).to_path_buf();
     }
 
+    // Strip filesystem-dependent timestamps to keep snapshots portable
+    for doc in &mut features {
+        doc.feature.last_modified_at = None;
+        for artifact in &mut doc.artifacts {
+            artifact.last_modified_at = None;
+        }
+    }
+
     features
 }
 

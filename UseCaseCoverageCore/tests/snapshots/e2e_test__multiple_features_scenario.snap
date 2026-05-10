@@ -1,6 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 50
+assertion_line: 58
 expression: features
 ---
 - sourcePath: feature1.ucc
@@ -10,7 +10,7 @@ expression: features
     title: First Feature
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 15:50"
+    lastModifiedAt: ~
     description: "First feature with multiple use cases and bugs.\n"
   tags: []
   platforms: []
@@ -20,7 +20,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: Bug F1
       priority: none
       related: []
@@ -31,7 +31,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: First use case F1
       priority: high
       related: []
@@ -43,7 +43,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: Second use case F1
       priority: medium
       related: []
@@ -58,7 +58,7 @@ expression: features
     title: Second Feature
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 15:50"
+    lastModifiedAt: ~
     description: "Second feature with multiple use cases and bugs.\n"
   tags: []
   platforms: []
@@ -68,7 +68,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: Bug 1 F2
       priority: none
       related: []
@@ -79,7 +79,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: Bug 2 F2
       priority: none
       related: []
@@ -90,7 +90,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: First use case F2
       priority: high
       related: []
@@ -102,7 +102,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 15:50"
+      lastModifiedAt: ~
       title: Second use case F2
       priority: medium
       related: []
