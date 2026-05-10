@@ -12,6 +12,9 @@ workspace = true
 use_case_coverage_core = { path = "../UseCaseCoverageCore" }
 use_case_coverage_reporter = { path = "../UseCaseCoverageReporter" }
 
+[dev-dependencies]
+tempfile = "3.13"
+
 [[bin]]
 name = "ucc"
 path = "src/main.rs"

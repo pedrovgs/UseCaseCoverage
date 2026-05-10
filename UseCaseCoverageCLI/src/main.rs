@@ -1,6 +1,12 @@
 #![forbid(unsafe_code)]
 
+use std::fmt::Write;
+use std::path::Path;
 use std::process::ExitCode;
+
+use use_case_coverage_core::domain::UccLintResult;
+use use_case_coverage_core::{collect_features_from, find_artifact_coverage, lint_ucc_formats};
+use use_case_coverage_reporter::generate_html_report;
 
 #[must_use]
 fn help_message() -> String {
@@ -25,17 +31,104 @@ fn help_message() -> String {
     )
 }
 
-fn run(args: &[String]) -> Result<String, String> {
+fn run_lint(root: &Path) -> Result<String, String> {
+    let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
+    format_lint_results(lint_results)
+}
+
+fn format_lint_results(lint_results: Vec<UccLintResult>) -> Result<String, String> {
+    if lint_results.is_empty() {
+        return Ok("No .ucc files were found in the current directory tree.".to_string());
+    }
+
+    let valid = lint_results.iter().filter(|result| result.is_valid).count();
+    let invalid = lint_results.len().saturating_sub(valid);
+
+    let mut output = String::new();
+    let _ = writeln!(
+        output,
+        "Linted {} .ucc file(s): {} valid, {} invalid",
+        lint_results.len(),
+        valid,
+        invalid
+    );
+
+    for result in lint_results {
+        if result.is_valid {
+            let _ = writeln!(output, "[OK] {}", result.file_path.display());
+        } else if let Some(issue) = result.issue {
+            let mut location = String::new();
+            if let Some(line) = issue.line {
+                let _ = write!(location, "line {line}");
+            }
+            if let Some(column) = issue.column {
+                if !location.is_empty() {
+                    location.push_str(", ");
+                }
+                let _ = write!(location, "column {column}");
+            }
+            if location.is_empty() {
+                location.push_str("unknown location");
+            }
+
+            let _ = writeln!(
+                output,
+                "[ERROR] {} ({location})\n  {}",
+                result.file_path.display(),
+                issue.message
+            );
+
+            if let Some(suggestion) = issue.suggestion {
+                let _ = writeln!(output, "  Suggestion: {suggestion}");
+            }
+        }
+    }
+
+    if invalid > 0 {
+        return Err(output);
+    }
+
+    Ok(output)
+}
+
+fn run_report(root: &Path) -> Result<String, String> {
+    let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
+
+    let invalid_count = lint_results.iter().filter(|result| !result.is_valid).count();
+    if invalid_count > 0 {
+        let lint_output = format_lint_results(lint_results).unwrap_or_else(|error| error);
+        return Err(format!(
+            "Cannot generate report because {invalid_count} .ucc file(s) are invalid.\n\n{lint_output}"
+        ));
+    }
+
+    let features = collect_features_from(root).map_err(|error| error.to_string())?;
+    let coverage_index =
+        find_artifact_coverage(root, &features).map_err(|error| error.to_string())?;
+
+    generate_html_report(root, &features, &lint_results, &coverage_index)
+        .map_err(|error| error.to_string())?;
+
+    let report_path = root.join(".ucc/index.html");
+    Ok(format!("Report generated successfully at:\n{}", report_path.display()))
+}
+
+fn run_with_root(args: &[String], root: &Path) -> Result<String, String> {
     if args.len() == 1 {
         return Ok(help_message());
     }
 
     match args[1].as_str() {
         "-h" | "--help" => Ok(help_message()),
-        "lint" => Err("The 'lint' command is not implemented yet.".to_string()),
-        "report" => Err("The 'report' command is not implemented yet.".to_string()),
+        "lint" => run_lint(root),
+        "report" => run_report(root),
         unknown => Err(format!("Unknown command or option: {unknown}\n\n{}", help_message())),
     }
+}
+
+fn run(args: &[String]) -> Result<String, String> {
+    let root = std::env::current_dir().map_err(|error| error.to_string())?;
+    run_with_root(args, &root)
 }
 
 fn print_result(result: Result<String, String>) -> ExitCode {
@@ -58,26 +151,102 @@ fn main() -> ExitCode {
 
 #[cfg(test)]
 mod tests {
-    use super::{help_message, run};
+    use std::fs;
+
+    use tempfile::tempdir;
+
+    use super::{help_message, run_with_root};
 
     #[test]
     fn simple_cli_test() {
         let args = vec!["ucc".to_string()];
-        let output = run(&args).expect("CLI should return help");
+        let output =
+            run_with_root(&args, std::path::Path::new(".")).expect("CLI should return help");
         assert!(output.contains("Commands:"));
     }
 
     #[test]
     fn short_help_option_prints_help() {
         let args = vec!["ucc".to_string(), "-h".to_string()];
-        let output = run(&args).expect("CLI should return help");
+        let output =
+            run_with_root(&args, std::path::Path::new(".")).expect("CLI should return help");
         assert_eq!(output, help_message());
     }
 
     #[test]
     fn long_help_option_prints_help() {
         let args = vec!["ucc".to_string(), "--help".to_string()];
-        let output = run(&args).expect("CLI should return help");
+        let output =
+            run_with_root(&args, std::path::Path::new(".")).expect("CLI should return help");
         assert_eq!(output, help_message());
+    }
+
+    #[test]
+    fn lint_command_reports_invalid_files() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root = temp.path();
+
+        fs::write(root.join("valid.ucc"), sample_ucc()).expect("valid ucc should be written");
+        fs::write(root.join("broken.ucc"), "schema_version: [")
+            .expect("broken ucc should be written");
+
+        let args = vec!["ucc".to_string(), "lint".to_string()];
+        let error = run_with_root(&args, root).expect_err("lint should fail");
+
+        assert!(error.contains("invalid"));
+        assert!(error.contains("broken.ucc"));
+    }
+
+    #[test]
+    fn report_command_generates_report_when_lint_passes() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root = temp.path();
+
+        fs::write(root.join("feature.ucc"), sample_ucc()).expect("valid ucc should be written");
+        fs::write(root.join("feature.spec.ts"), "test('covers ucc-001', () => {});\n")
+            .expect("test file should be written");
+
+        let args = vec!["ucc".to_string(), "report".to_string()];
+        let output = run_with_root(&args, root).expect("report should succeed");
+
+        assert!(output.contains(".ucc/index.html"));
+        assert!(root.join(".ucc/index.html").exists());
+    }
+
+    #[test]
+    fn report_command_fails_if_lint_fails() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root = temp.path();
+
+        fs::write(root.join("broken.ucc"), "schema_version: [")
+            .expect("broken ucc should be written");
+
+        let args = vec!["ucc".to_string(), "report".to_string()];
+        let error = run_with_root(&args, root).expect_err("report should fail");
+
+        assert!(error.contains("Cannot generate report"));
+        assert!(error.contains("broken.ucc"));
+    }
+
+    fn sample_ucc() -> &'static str {
+        r#"schema_version: "1.0"
+
+feature:
+  id: feat-1
+  title: Feature One
+  created_at: "2026-05-10"
+  description: >
+    Sample feature.
+
+artifacts:
+  - id: ucc-001
+    created_at: "2026-05-10"
+    title: A use case
+    priority: high
+    steps:
+      - Step one
+    expected:
+      - Expected one
+"#
     }
 }

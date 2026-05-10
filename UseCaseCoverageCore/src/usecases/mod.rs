@@ -1,6 +1,9 @@
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 
+use aho_corasick::AhoCorasick;
+use rayon::prelude::*;
+
 use crate::domain::{
     ArtifactCoverageIndex, ArtifactTestLocation, FeatureDocument, UccLintIssue, UccLintResult,
 };
@@ -14,8 +17,8 @@ pub struct CollectFeaturesUseCase<R, P> {
 
 impl<R, P> CollectFeaturesUseCase<R, P>
 where
-    R: UccFileRepository,
-    P: UccParser,
+    R: Sync + UccFileRepository,
+    P: Sync + UccParser,
 {
     #[must_use]
     pub const fn new(repository: R, parser: P) -> Self {
@@ -32,10 +35,10 @@ where
         paths.sort();
 
         paths
-            .into_iter()
+            .par_iter()
             .map(|path| {
-                let content = self.repository.read_file(&path)?;
-                self.parser.parse(&path, &content)
+                let content = self.repository.read_file(path)?;
+                self.parser.parse(path, &content)
             })
             .collect()
     }
@@ -54,8 +57,8 @@ pub struct LintUccFormatsUseCase<R, P> {
 
 impl<R, P> LintUccFormatsUseCase<R, P>
 where
-    R: UccFileRepository,
-    P: UccParser,
+    R: Sync + UccFileRepository,
+    P: Sync + UccParser,
 {
     #[must_use]
     pub const fn new(repository: R, parser: P) -> Self {
@@ -71,38 +74,37 @@ where
         let mut paths = self.repository.find_ucc_files(root)?;
         paths.sort();
 
-        let mut results = Vec::with_capacity(paths.len());
-
-        for path in paths {
-            let content = self.repository.read_file(&path)?;
-            match self.parser.parse(&path, &content) {
-                Ok(_) => {
-                    results.push(UccLintResult { file_path: path, is_valid: true, issue: None });
+        paths
+            .par_iter()
+            .map(|path| {
+                let content = self.repository.read_file(path)?;
+                match self.parser.parse(path, &content) {
+                    Ok(_) => {
+                        Ok(UccLintResult { file_path: path.clone(), is_valid: true, issue: None })
+                    }
+                    Err(CoreError::Parse { reason, .. }) => {
+                        let (line, column) = extract_line_and_column(&reason);
+                        Ok(UccLintResult {
+                            file_path: path.clone(),
+                            is_valid: false,
+                            issue: Some(UccLintIssue {
+                                message: reason.clone(),
+                                line,
+                                column,
+                                suggestion: infer_suggestion(&reason),
+                            }),
+                        })
+                    }
+                    Err(other) => Err(other),
                 }
-                Err(CoreError::Parse { reason, .. }) => {
-                    let (line, column) = extract_line_and_column(&reason);
-                    results.push(UccLintResult {
-                        file_path: path,
-                        is_valid: false,
-                        issue: Some(UccLintIssue {
-                            message: reason.clone(),
-                            line,
-                            column,
-                            suggestion: infer_suggestion(&reason),
-                        }),
-                    });
-                }
-                Err(other) => return Err(other),
-            }
-        }
-
-        Ok(results)
+            })
+            .collect()
     }
 }
 
 impl<R> FindArtifactCoverageUseCase<R>
 where
-    R: TestFileRepository,
+    R: Sync + TestFileRepository,
 {
     #[must_use]
     pub const fn new(repository: R) -> Self {
@@ -119,45 +121,126 @@ where
         root: &Path,
         features: &[FeatureDocument],
     ) -> Result<ArtifactCoverageIndex, CoreError> {
+        let artifact_matcher = ArtifactIdMatcher::from_features(features);
+
+        let mut test_files = self.repository.find_test_files(root)?;
+        test_files.sort();
+
+        let matches_by_file: Vec<Vec<(String, ArtifactTestLocation)>> = test_files
+            .par_iter()
+            .map(|file_path| {
+                let lines = self.repository.read_lines(file_path)?;
+                let mut matches = Vec::new();
+                let mut previous_was_test_attribute = false;
+
+                for (line_idx, line) in lines.iter().enumerate() {
+                    let has_test_context =
+                        looks_like_test_declaration(line) || previous_was_test_attribute;
+                    previous_was_test_attribute = line.to_ascii_lowercase().contains("#[test]")
+                        || line.to_ascii_lowercase().contains("@test");
+
+                    if !has_test_context {
+                        continue;
+                    }
+
+                    for artifact_id in artifact_matcher.find_artifact_ids(line) {
+                        matches.push((
+                            artifact_id,
+                            ArtifactTestLocation {
+                                file_path: file_path.clone(),
+                                line: line_idx + 1,
+                            },
+                        ));
+                    }
+                }
+
+                Ok(matches)
+            })
+            .collect::<Result<Vec<_>, CoreError>>()?;
+
+        let mut by_artifact_id: HashMap<String, Vec<ArtifactTestLocation>> = HashMap::new();
+        for (artifact_id, location) in matches_by_file.into_iter().flatten() {
+            by_artifact_id.entry(artifact_id).or_default().push(location);
+        }
+
+        for locations in by_artifact_id.values_mut() {
+            locations.sort_by(|left, right| {
+                left.file_path.cmp(&right.file_path).then_with(|| left.line.cmp(&right.line))
+            });
+        }
+
+        Ok(ArtifactCoverageIndex { by_artifact_id })
+    }
+}
+
+struct ArtifactIdMatcher {
+    matcher: Option<AhoCorasick>,
+    artifact_ids_by_pattern_index: Vec<String>,
+}
+
+impl ArtifactIdMatcher {
+    fn from_features(features: &[FeatureDocument]) -> Self {
         let artifact_ids: HashSet<&str> = features
             .iter()
             .flat_map(|feature| feature.artifacts.iter().map(|artifact| artifact.id.as_str()))
             .collect();
 
-        let mut test_files = self.repository.find_test_files(root)?;
-        test_files.sort();
+        let mut patterns = Vec::new();
+        let mut artifact_ids_by_pattern_index = Vec::new();
 
-        let mut by_artifact_id: HashMap<String, Vec<ArtifactTestLocation>> = HashMap::new();
-
-        for file_path in test_files {
-            let lines = self.repository.read_lines(&file_path)?;
-            let mut previous_was_test_attribute = false;
-
-            for (line_idx, line) in lines.iter().enumerate() {
-                let has_test_context =
-                    looks_like_test_declaration(line) || previous_was_test_attribute;
-                previous_was_test_attribute = line.to_ascii_lowercase().contains("#[test]")
-                    || line.to_ascii_lowercase().contains("@test");
-
-                if !has_test_context {
-                    continue;
-                }
-
-                for artifact_id in &artifact_ids {
-                    if line.contains(artifact_id) {
-                        by_artifact_id.entry((*artifact_id).to_string()).or_default().push(
-                            ArtifactTestLocation {
-                                file_path: file_path.clone(),
-                                line: line_idx + 1,
-                            },
-                        );
-                    }
-                }
+        for artifact_id in artifact_ids {
+            for pattern in artifact_id_patterns(artifact_id) {
+                patterns.push(pattern);
+                artifact_ids_by_pattern_index.push(artifact_id.to_string());
             }
         }
 
-        Ok(ArtifactCoverageIndex { by_artifact_id })
+        let matcher = if patterns.is_empty() {
+            None
+        } else {
+            Some(
+                AhoCorasick::builder()
+                    .ascii_case_insensitive(true)
+                    .build(patterns)
+                    .expect("artifact id patterns are valid"),
+            )
+        };
+
+        Self { matcher, artifact_ids_by_pattern_index }
     }
+
+    fn find_artifact_ids(&self, line: &str) -> Vec<String> {
+        let Some(matcher) = &self.matcher else {
+            return Vec::new();
+        };
+
+        let mut artifact_ids = HashSet::new();
+        for matched in matcher.find_iter(line) {
+            if let Some(artifact_id) =
+                self.artifact_ids_by_pattern_index.get(matched.pattern().as_usize())
+            {
+                artifact_ids.insert(artifact_id.clone());
+            }
+        }
+
+        artifact_ids.into_iter().collect()
+    }
+}
+
+fn artifact_id_patterns(artifact_id: &str) -> Vec<String> {
+    let normalized = normalize_artifact_id_for_test_name(artifact_id);
+    if normalized == artifact_id {
+        vec![artifact_id.to_string()]
+    } else {
+        vec![artifact_id.to_string(), normalized]
+    }
+}
+
+fn normalize_artifact_id_for_test_name(artifact_id: &str) -> String {
+    artifact_id
+        .chars()
+        .map(|character| if character.is_ascii_alphanumeric() { character } else { '_' })
+        .collect()
 }
 
 fn looks_like_test_declaration(line: &str) -> bool {
@@ -332,10 +415,10 @@ mod tests {
         let index = finder.execute(root, &features).expect("coverage search should work");
 
         let matches = index.for_artifact("ucc-feat-1");
-        assert_eq!(matches.len(), 3);
+        assert_eq!(matches.len(), 5);
         let mut lines: Vec<usize> = matches.iter().map(|location| location.line).collect();
         lines.sort_unstable();
-        assert_eq!(lines, vec![1, 2, 2]);
+        assert_eq!(lines, vec![1, 1, 2, 2, 2]);
     }
 
     #[test]

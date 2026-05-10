@@ -9,34 +9,9 @@ use crate::ports::{CoreError, TestFileRepository, UccFileRepository, UccParser};
 pub struct LocalFileSystemRepository;
 pub struct LocalTestFileRepository;
 
-impl LocalFileSystemRepository {
-    fn collect_ucc_files_from_dir(
-        dir: &Path,
-        collector: &mut Vec<PathBuf>,
-    ) -> Result<(), CoreError> {
-        for entry in
-            fs::read_dir(dir).map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?
-        {
-            let entry =
-                entry.map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?;
-            let path = entry.path();
-
-            if path.is_dir() {
-                Self::collect_ucc_files_from_dir(&path, collector)?;
-            } else if path.extension().and_then(std::ffi::OsStr::to_str) == Some("ucc") {
-                collector.push(path);
-            }
-        }
-
-        Ok(())
-    }
-}
-
 impl UccFileRepository for LocalFileSystemRepository {
     fn find_ucc_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
-        let mut files = Vec::new();
-        Self::collect_ucc_files_from_dir(root, &mut files)?;
-        Ok(files)
+        collect_files_matching(root, is_ucc_file)
     }
 
     fn read_file(&self, path: &Path) -> Result<String, CoreError> {
@@ -45,34 +20,9 @@ impl UccFileRepository for LocalFileSystemRepository {
     }
 }
 
-impl LocalTestFileRepository {
-    fn collect_test_files_from_dir(
-        dir: &Path,
-        collector: &mut Vec<PathBuf>,
-    ) -> Result<(), CoreError> {
-        for entry in
-            fs::read_dir(dir).map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?
-        {
-            let entry =
-                entry.map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?;
-            let path = entry.path();
-
-            if path.is_dir() {
-                Self::collect_test_files_from_dir(&path, collector)?;
-            } else if is_supported_test_extension(&path) {
-                collector.push(path);
-            }
-        }
-
-        Ok(())
-    }
-}
-
 impl TestFileRepository for LocalTestFileRepository {
     fn find_test_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
-        let mut files = Vec::new();
-        Self::collect_test_files_from_dir(root, &mut files)?;
-        Ok(files)
+        collect_files_matching(root, is_supported_test_extension)
     }
 
     fn read_lines(&self, path: &Path) -> Result<Vec<String>, CoreError> {
@@ -173,4 +123,38 @@ fn is_supported_test_extension(path: &Path) -> bool {
         path.extension().and_then(std::ffi::OsStr::to_str),
         Some("swift" | "ts" | "tsx" | "kt" | "kts" | "rs")
     )
+}
+
+fn is_ucc_file(path: &Path) -> bool {
+    path.extension().and_then(std::ffi::OsStr::to_str) == Some("ucc")
+}
+
+fn collect_files_matching(
+    root: &Path,
+    predicate: impl Fn(&Path) -> bool + Copy,
+) -> Result<Vec<PathBuf>, CoreError> {
+    let mut files = Vec::new();
+    collect_files_matching_from_dir(root, predicate, &mut files)?;
+    Ok(files)
+}
+
+fn collect_files_matching_from_dir(
+    dir: &Path,
+    predicate: impl Fn(&Path) -> bool + Copy,
+    collector: &mut Vec<PathBuf>,
+) -> Result<(), CoreError> {
+    for entry in
+        fs::read_dir(dir).map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?
+    {
+        let entry = entry.map_err(|source| CoreError::Io { path: dir.to_path_buf(), source })?;
+        let path = entry.path();
+
+        if path.is_dir() {
+            collect_files_matching_from_dir(&path, predicate, collector)?;
+        } else if predicate(&path) {
+            collector.push(path);
+        }
+    }
+
+    Ok(())
 }

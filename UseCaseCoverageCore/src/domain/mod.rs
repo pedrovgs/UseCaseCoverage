@@ -52,6 +52,11 @@ impl ArtifactCoverageIndex {
     pub fn for_artifact(&self, artifact_id: &str) -> &[ArtifactTestLocation] {
         self.by_artifact_id.get(artifact_id).map_or(&[], Vec::as_slice)
     }
+
+    #[must_use]
+    pub fn is_covered(&self, artifact_id: &str) -> bool {
+        self.by_artifact_id.contains_key(artifact_id)
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
