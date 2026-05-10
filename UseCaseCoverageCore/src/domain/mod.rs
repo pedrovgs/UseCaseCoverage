@@ -54,6 +54,21 @@ impl ArtifactCoverageIndex {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct UccLintIssue {
+    pub message: String,
+    pub line: Option<usize>,
+    pub column: Option<usize>,
+    pub suggestion: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct UccLintResult {
+    pub file_path: PathBuf,
+    pub is_valid: bool,
+    pub issue: Option<UccLintIssue>,
+}
+
 #[derive(
     Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize, Serialize, Default,
 )]

@@ -7,10 +7,10 @@ pub mod usecases;
 
 use std::path::Path;
 
-use domain::{ArtifactCoverageIndex, FeatureDocument};
+use domain::{ArtifactCoverageIndex, FeatureDocument, UccLintResult};
 use infrastructure::{LocalFileSystemRepository, LocalTestFileRepository, YamlUccParser};
 use ports::CoreError;
-use usecases::{CollectFeaturesUseCase, FindArtifactCoverageUseCase};
+use usecases::{CollectFeaturesUseCase, FindArtifactCoverageUseCase, LintUccFormatsUseCase};
 
 /// Calculates simple use case coverage as a percentage in the `0.0..=100.0` range.
 #[must_use]
@@ -43,6 +43,16 @@ pub fn find_artifact_coverage(
 ) -> Result<ArtifactCoverageIndex, CoreError> {
     let use_case = FindArtifactCoverageUseCase::new(LocalTestFileRepository);
     use_case.execute(root, features)
+}
+
+/// Facade for linting `.ucc` file formats under a root folder.
+///
+/// # Errors
+///
+/// Returns an error when file discovery or reads fail.
+pub fn lint_ucc_formats(root: &Path) -> Result<Vec<UccLintResult>, CoreError> {
+    let use_case = LintUccFormatsUseCase::new(LocalFileSystemRepository, YamlUccParser);
+    use_case.execute(root)
 }
 
 #[cfg(test)]

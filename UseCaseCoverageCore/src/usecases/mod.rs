@@ -1,7 +1,9 @@
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 
-use crate::domain::{ArtifactCoverageIndex, ArtifactTestLocation, FeatureDocument};
+use crate::domain::{
+    ArtifactCoverageIndex, ArtifactTestLocation, FeatureDocument, UccLintIssue, UccLintResult,
+};
 use crate::ports::{CoreError, TestFileRepository, UccFileRepository, UccParser};
 
 /// Use case that discovers and parses all `.ucc` files from a root folder recursively.
@@ -42,6 +44,60 @@ where
 /// Use case that searches automated tests referencing artifact ids.
 pub struct FindArtifactCoverageUseCase<R> {
     repository: R,
+}
+
+/// Use case that validates the format of all discovered `.ucc` files.
+pub struct LintUccFormatsUseCase<R, P> {
+    repository: R,
+    parser: P,
+}
+
+impl<R, P> LintUccFormatsUseCase<R, P>
+where
+    R: UccFileRepository,
+    P: UccParser,
+{
+    #[must_use]
+    pub const fn new(repository: R, parser: P) -> Self {
+        Self { repository, parser }
+    }
+
+    /// Lints every `.ucc` file under `root` and returns a per-file analysis result.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when file discovery or file reading fails.
+    pub fn execute(&self, root: &Path) -> Result<Vec<UccLintResult>, CoreError> {
+        let mut paths = self.repository.find_ucc_files(root)?;
+        paths.sort();
+
+        let mut results = Vec::with_capacity(paths.len());
+
+        for path in paths {
+            let content = self.repository.read_file(&path)?;
+            match self.parser.parse(&path, &content) {
+                Ok(_) => {
+                    results.push(UccLintResult { file_path: path, is_valid: true, issue: None });
+                }
+                Err(CoreError::Parse { reason, .. }) => {
+                    let (line, column) = extract_line_and_column(&reason);
+                    results.push(UccLintResult {
+                        file_path: path,
+                        is_valid: false,
+                        issue: Some(UccLintIssue {
+                            message: reason.clone(),
+                            line,
+                            column,
+                            suggestion: infer_suggestion(&reason),
+                        }),
+                    });
+                }
+                Err(other) => return Err(other),
+            }
+        }
+
+        Ok(results)
+    }
 }
 
 impl<R> FindArtifactCoverageUseCase<R>
@@ -116,6 +172,45 @@ fn looks_like_test_declaration(line: &str) -> bool {
         || lower.contains("fun `")
 }
 
+fn extract_line_and_column(reason: &str) -> (Option<usize>, Option<usize>) {
+    let tokens: Vec<&str> = reason
+        .split(|character: char| character.is_whitespace() || [',', ':'].contains(&character))
+        .collect();
+
+    let mut line = None;
+    let mut column = None;
+
+    for (index, token) in tokens.iter().enumerate() {
+        if *token == "line" {
+            line = tokens.get(index + 1).and_then(|value| value.parse::<usize>().ok());
+        }
+        if *token == "column" {
+            column = tokens.get(index + 1).and_then(|value| value.parse::<usize>().ok());
+        }
+    }
+
+    (line, column)
+}
+
+fn infer_suggestion(reason: &str) -> Option<String> {
+    let lower = reason.to_ascii_lowercase();
+
+    if lower.contains("cannot start any token") {
+        return Some("Check YAML syntax near the reported location: fix invalid characters, indentation, or unclosed quotes/brackets.".to_string());
+    }
+    if lower.contains("did not find expected key") {
+        return Some("Ensure mapping keys end with ':' and indentation is consistent (2 spaces recommended).".to_string());
+    }
+    if lower.contains("invalid type") {
+        return Some(
+            "Verify field types and structure match the .ucc schema (for example, list vs string)."
+                .to_string(),
+        );
+    }
+
+    None
+}
+
 #[cfg(test)]
 mod tests {
     use std::collections::{BTreeMap, HashMap};
@@ -124,7 +219,7 @@ mod tests {
 
     use proptest::prelude::*;
 
-    use super::{CollectFeaturesUseCase, FindArtifactCoverageUseCase};
+    use super::{CollectFeaturesUseCase, FindArtifactCoverageUseCase, LintUccFormatsUseCase};
     use crate::domain::{FeatureDocument, Priority};
     use crate::infrastructure::YamlUccParser;
     use crate::ports::{CoreError, TestFileRepository, UccFileRepository};
@@ -241,6 +336,34 @@ mod tests {
         let mut lines: Vec<usize> = matches.iter().map(|location| location.line).collect();
         lines.sort_unstable();
         assert_eq!(lines, vec![1, 2, 2]);
+    }
+
+    #[test]
+    fn lint_ucc_formats_reports_valid_and_invalid_files_with_hints() {
+        let root = Path::new("/lint");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("valid.ucc"), sample_document("feat-lint", Priority::High))
+            .with_file(root.join("broken.ucc"), "schema_version: [".to_string());
+
+        let use_case = LintUccFormatsUseCase::new(repository, YamlUccParser);
+        let results = use_case.execute(root).expect("lint should run");
+
+        assert_eq!(results.len(), 2);
+        let valid = results
+            .iter()
+            .find(|result| result.file_path.ends_with("valid.ucc"))
+            .expect("valid result should be present");
+        assert!(valid.is_valid);
+        assert!(valid.issue.is_none());
+
+        let invalid = results
+            .iter()
+            .find(|result| result.file_path.ends_with("broken.ucc"))
+            .expect("invalid result should be present");
+        assert!(!invalid.is_valid);
+        let issue = invalid.issue.as_ref().expect("invalid file should include issue");
+        assert!(!issue.message.trim().is_empty());
+        assert!(issue.line.is_some() || issue.column.is_some());
     }
 
     proptest! {
