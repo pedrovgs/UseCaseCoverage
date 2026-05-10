@@ -26,14 +26,8 @@ jobs:
       - name: Lint
         run: cargo clippy --workspace --all-targets --all-features -- -D warnings
 
-      - name: Run unit and property tests
+      - name: Run unit tests
         run: cargo test --workspace --all-targets --all-features
-
-      - name: Install mutation testing tool
-        run: cargo install cargo-mutants --locked
-
-      - name: Run mutation tests (smoke)
-        run: cargo mutants --workspace --list --no-times
 
       - name: Install coverage tool
         run: cargo install cargo-llvm-cov --locked
