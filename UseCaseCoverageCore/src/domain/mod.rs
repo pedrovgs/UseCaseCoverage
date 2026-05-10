@@ -5,6 +5,7 @@ use std::str::FromStr;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct FeatureDocument {
     pub source_path: PathBuf,
     pub schema_version: String,
@@ -16,20 +17,24 @@ pub struct FeatureDocument {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct FeatureMetadata {
     pub id: String,
     pub title: String,
     pub created_at: String,
     pub updated_at: Option<String>,
+    pub last_modified_at: Option<String>,
     pub description: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Artifact {
     pub id: String,
     pub artifact_type: Option<String>,
     pub created_at: String,
     pub updated_at: Option<String>,
+    pub last_modified_at: Option<String>,
     pub title: String,
     pub priority: Priority,
     pub related: Vec<String>,

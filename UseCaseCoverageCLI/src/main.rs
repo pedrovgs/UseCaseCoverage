@@ -1,7 +1,7 @@
 #![forbid(unsafe_code)]
 
 use std::fmt::Write;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::ExitCode;
 
 use use_case_coverage_core::domain::UccLintResult;
@@ -178,8 +178,13 @@ fn run_with_root(args: &[String], root: &Path) -> Result<String, String> {
 fn run(args: &[String]) -> Result<String, String> {
     let (input, output, command) = parse_args(args);
     let root = match input {
-        Some(path) => PathBuf::from(path),
+        Some(path) => std::path::PathBuf::from(path),
         None => std::env::current_dir().map_err(|error| error.to_string())?,
+    };
+    let root = if root.is_absolute() {
+        root
+    } else {
+        std::env::current_dir().map_err(|e| e.to_string())?.join(root)
     };
     dispatch(&root, output.as_deref().map(Path::new), command.as_deref())
 }

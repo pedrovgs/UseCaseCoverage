@@ -694,6 +694,7 @@ name = "use_case_coverage_core"
 version = "0.1.0"
 dependencies = [
  "aho-corasick",
+ "chrono",
  "insta",
  "proptest",
  "rayon",

@@ -305,13 +305,14 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Analysis Report</title>
+    <title>UCC Report - {report_date}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='4' y='4' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='36' y='4' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='4' y='36' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='36' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='36' y='68' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='68' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='4' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3Crect x='36' y='36' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3Crect x='4' y='68' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.7.31/dist/flexsearch.bundle.js"></script>
   </head>
   <body>
     <script id="report-data" type="application/json">{data_json}</script>
@@ -331,12 +332,12 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
             <rect x="4" y="68" width="28" height="28" rx="8" fill="#fcb714" />            
           </svg>
         </div>
-        <nav>
-          <a href="#" class="nav-item active">
+        <nav id="sidebarNav">
+          <a href="#dashboard" class="nav-item active">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
             Dashboard
           </a>
-          <a href="#" class="nav-item">
+          <a href="#inventory" class="nav-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
             Inventory
           </a>
@@ -346,7 +347,7 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
       <main class="main-content">
         <header class="topbar">
           <div class="topbar-left">
-            <h1>Analysis Report</h1>
+            <h1>UCC Report</h1>
             <span class="repo-name">{repo_name}</span>
             <span class="report-date">{report_date}</span>
           </div>
@@ -418,8 +419,56 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
           </section>
         </div>
 
-        <div id="featureDetailView" class="container" style="display:none"></div>
-      </main>
+          <div id="featureDetailView" class="container" style="display:none;"></div>
+
+          <div id="inventoryView" class="container" style="display:none;">
+            <div class="detail-header" style="padding:0; margin-bottom: 2rem;">
+              <button class="back-btn" onclick="navigate(event, '')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Dashboard
+              </button>
+            </div>
+            <section class="charts-row" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <article class="card">
+                <div class="card-header" style="text-align:center;"><h2>Use Cases Distribution</h2></div>
+                <div class="chart-container" style="height: 300px;"><canvas id="invUCChart"></canvas></div>
+              </article>
+              <article class="card">
+                <div class="card-header" style="text-align:center;"><h2>Bugs Distribution</h2></div>
+                <div class="chart-container" style="height: 300px;"><canvas id="invBugChart"></canvas></div>
+              </article>
+              <article class="card">
+                <div class="card-header" style="text-align:center;"><h2>Covered Use Cases</h2></div>
+                <div class="chart-container" style="height: 300px;"><canvas id="invCoveredUCChart"></canvas></div>
+              </article>
+              <article class="card">
+                <div class="card-header" style="text-align:center;"><h2>Covered Bugs</h2></div>
+                <div class="chart-container" style="height: 300px;"><canvas id="invCoveredBugChart"></canvas></div>
+              </article>
+            </section>
+
+            <section class="card">
+              <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <h2>Features inventory <span id="featCount" style="font-size:0.9rem; color:var(--accent); margin-left:10px; font-weight:normal;"></span></h2>
+                <input type="text" id="invSearch" placeholder="Search title, desc, use cases..." 
+                       style="background:rgba(255,255,255,0.05); border:1px solid var(--border); color:#fff; padding:8px 16px; border-radius:6px; width:350px; outline:none; transition: border-color 0.2s;">
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width:250px;">Title</th>
+                      <th>Description</th>
+                      <th style="width:120px;">Last Updated</th>
+                      <th style="width:150px;">Coverage</th>
+                    </tr>
+                  </thead>
+                  <tbody id="invRows"></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
     </div>
     <script src="./app.js"></script>
   </body>
@@ -796,7 +845,7 @@ function renderFeatureTable(data) {
 
   tbody.innerHTML = sorted
     .map(
-      (feature) => `<tr onclick="location.hash='#feature/${feature.id}'">
+      (feature) => `<tr onclick="navigate(event, '#feature/${feature.id}')" style="cursor:pointer;">
         <td style="color:#a5c8ff; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${feature.title}">${feature.title}</td>
         <td>${feature.useCases}</td>
         <td>${feature.useCasesCovered}</td>
@@ -827,6 +876,16 @@ function renderFeatureDetail(data, featureId) {
   }
 
   let artifacts = [...feature.artifacts];
+
+  // Search
+  if (_detailSearchText) {
+    const s = _detailSearchText.toLowerCase();
+    artifacts = artifacts.filter(a => 
+      a.title.toLowerCase().includes(s) || 
+      (a.steps || []).some(step => step.toLowerCase().includes(s)) ||
+      (a.expected || []).some(exp => exp.toLowerCase().includes(s))
+    );
+  }
 
   // Filtering
   if (_detailFilter === 'covered') artifacts = artifacts.filter(a => a.isCovered);
@@ -862,7 +921,7 @@ function renderFeatureDetail(data, featureId) {
 
   container.innerHTML = `
     <div class="detail-header">
-      <button class="back-btn" onclick="location.hash=''">
+      <button class="back-btn" onclick="navigate(event, '')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to Dashboard
       </button>
@@ -896,26 +955,36 @@ function renderFeatureDetail(data, featureId) {
       </article>
     </section>
 
-    <div class="detail-controls card" style="display:flex; gap:2rem; padding:1rem; margin-bottom: 2rem; align-items:center;">
-       <div style="display:flex; gap:0.75rem; align-items:center;">
-         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Filter:</span>
-         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+    <div class="detail-controls card" style="display:flex; padding:0; overflow:hidden; margin-bottom: 2rem; align-items:stretch; border-radius:12px; background:var(--bg-card); border:1px solid var(--border);">
+       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Filter</span>
+         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
            <option value="all" ${_detailFilter==='all'?'selected':''}>All Artifacts</option>
            <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered only</option>
            <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing only</option>
-           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing (High/Highest)</option>
+           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing</option>
          </select>
        </div>
-       <div style="display:flex; gap:0.75rem; align-items:center;">
-         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Sort by:</span>
-         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
-           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority (Highest first)</option>
-           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Creation Date</option>
-           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Update Date</option>
-           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage Status</option>
+       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Sort</span>
+         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
+           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority</option>
+           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Date Created</option>
+           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Date Updated</option>
+           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage</option>
          </select>
        </div>
-       <div style="margin-left:auto; font-size:0.85rem; color:var(--text-muted);">Showing <strong>${artifacts.length}</strong> of <strong>${feature.artifacts.length}</strong> artifacts</div>
+       <div style="flex:1; display:flex; align-items:center; padding:0 1.25rem; background:rgba(255,255,255,0.01);">
+         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.75rem;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+         <input type="text" id="detailSearch" value="${_detailSearchText}" placeholder="Search artifacts by title, steps, or content..." 
+                oninput="_detailSearchText=this.value; renderFeatureDetail(window._lastData, '${featureId}')"
+                style="background:transparent; border:none; color:#fff; padding:1rem 0; width:100%; outline:none; font-size:0.9rem;">
+       </div>
+       <div style="display:flex; align-items:center; padding:0 1.5rem; border-left:1px solid var(--border); font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">
+         <strong>${artifacts.length}</strong> &nbsp;results
+       </div>
     </div>
 
     <div class="artifact-section">
@@ -944,9 +1013,9 @@ function renderFeatureDetail(data, featureId) {
               ${a.isCovered && a.coverageLocations && a.coverageLocations.length > 0 ? `
                 <div style="position: absolute; bottom: 1.25rem; right: 1.25rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content: flex-end;">
                   ${a.coverageLocations.map(loc => `
-                    <a href="vscode://file${loc.path}:${loc.line}" class="back-btn" style="margin:0; padding:4px 8px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; background:rgba(0,122,204,0.1); border-color:rgba(0,122,204,0.3); color:#4fc1ff;">
+                    <a href="vscode://file/${loc.path}:${loc.line}" class="back-btn" style="margin:0; padding:4px 8px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; background:rgba(0,122,204,0.1); border-color:rgba(0,122,204,0.3); color:#4fc1ff;">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.58L19.8 1.45c-.32-.11-.66.1-.66.44v5.45c0 .12-.05.23-.14.31L13 13.7l-3.3-3.04c-.16-.14-.4-.14-.56 0L1 17.72c-.12.11-.12.3 0 .41l3.3 3.04c.16.14.4.14.56 0l1.24-1.14 7.22-6.66c.09-.08.14-.19.14-.31V6.26l6.68-6.16c.16-.14.4-.14.56 0l2.45 2.26c.12.11.12.3 0 .41L18.46 9c-.16.15-.16.4 0 .55l4.69 4.31c.12.11.12.3 0 .41l-2.45 2.26c-.16.14-.4.14-.56 0L13 12.23V17.74c0 .34.34.55.66.44l3.35-1.13c.12-.04.23-.04.35 0l2.45.83c.32.11.66-.1.66-.44V3.02c0-.12-.05-.23-.14-.31l-.18-.13z"/></svg>
-                      Open in VS Code (L${loc.line})
+                      ${loc.path.split('/').pop().split('\\').pop()}:L${loc.line}
                     </a>
                   `).join('')}
                 </div>
@@ -975,11 +1044,23 @@ function renderFeatureDetail(data, featureId) {
   `;
 
   renderDetailCharts(feature);
+
+  const searchInput = document.getElementById('detailSearch');
+  if (searchInput) {
+    searchInput.focus();
+    searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+  }
 }
 
 function renderDetailCharts(feature) {
   if (_detailUCChart) _detailUCChart.destroy();
   if (_detailBugChart) _detailBugChart.destroy();
+
+  const animationConfig = {
+    duration: 1200,
+    easing: 'easeOutElastic',
+    delay: (context) => context.dataIndex * 300
+  };
 
   const ctxUC = document.getElementById('detailUCChart');
   if (ctxUC) {
@@ -995,6 +1076,7 @@ function renderDetailCharts(feature) {
         }]
       },
       options: {
+        animation: animationConfig,
         plugins: { legend: { display: false } },
         maintainAspectRatio: false
       }
@@ -1015,6 +1097,7 @@ function renderDetailCharts(feature) {
         }]
       },
       options: {
+        animation: animationConfig,
         plugins: { legend: { display: false } },
         maintainAspectRatio: false
       }
@@ -1022,22 +1105,177 @@ function renderDetailCharts(feature) {
   }
 }
 
+let _detailFilter = 'all';
+let _detailSort = 'priority';
+let _detailSearchText = '';
+let _detailUCChart = null;
+let _detailBugChart = null;
+let _dashboardCharts = [];
+let _invCharts = [];
+let _searchIndex = null;
+
+const PRIORITY_MAP = { 'Highest': 5, 'High': 4, 'Medium': 3, 'Low': 2, 'None': 1 };
+
+function navigate(e, hash) {
+  if (e.metaKey || e.ctrlKey) {
+    window.open(window.location.pathname + hash, '_blank');
+  } else {
+    window.location.hash = hash;
+  }
+}
+
 function handleRouting(data) {
-  const hash = window.location.hash;
+  window.scrollTo(0, 0);
+  const hash = window.location.hash || '#dashboard';
   const dashboard = document.getElementById('dashboardView');
   const detail = document.getElementById('featureDetailView');
+  const inventory = document.getElementById('inventoryView');
   
+  [dashboard, detail, inventory].forEach(v => { if(v) v.style.display = 'none'; });
+  
+  document.querySelectorAll('.nav-item').forEach(link => {
+    const href = link.getAttribute('href');
+    link.classList.toggle('active', href === hash || (hash === '#dashboard' && href === '#dashboard'));
+  });
+
   if (hash.startsWith('#feature/')) {
-    const featureId = hash.replace('#feature/', '');
-    dashboard.style.display = 'none';
     detail.style.display = 'block';
-    renderFeatureDetail(data, featureId);
-    window.scrollTo(0,0);
+    renderFeatureDetail(data, hash.replace('#feature/', ''));
+  } else if (hash === '#inventory') {
+    inventory.style.display = 'block';
+    renderInventory(data);
   } else {
     dashboard.style.display = 'block';
-    detail.style.display = 'none';
     renderCharts(data);
   }
+}
+
+function renderInventory(data) {
+  if (!_searchIndex && typeof FlexSearch !== 'undefined') {
+    _searchIndex = new FlexSearch.Document({
+      document: {
+        id: "id",
+        index: ["title", "description", "content"],
+        store: ["id"]
+      },
+      tokenize: "forward"
+    });
+    
+    data.features.forEach(f => {
+       const content = (f.artifacts || []).map(a => 
+         `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')}`
+       ).join(' ');
+       _searchIndex.add({
+          id: f.id,
+          title: f.title,
+          description: f.description || "",
+          content: content
+       });
+    });
+  }
+
+  renderInventoryCharts(data);
+  renderInventoryTable(data);
+  
+  const search = document.getElementById('invSearch');
+  if (search) {
+    search.oninput = (e) => renderInventoryTable(data, e.target.value);
+  }
+}
+
+function renderInventoryCharts(data) {
+  _invCharts.forEach(c => c.destroy());
+  _invCharts = [];
+  
+  const features = data.features;
+  const labels = features.map(f => f.title);
+  const colors = features.map((_, i) => `hsl(${(i * 360 / features.length) % 360}, 65%, 50%)`);
+
+  const animationConfig = {
+    duration: 200,
+    easing: 'easeOutQuart',
+    delay: (context) => context.dataIndex * 20
+  };
+
+  const createChart = (id, label, values, total) => {
+    const ctx = document.getElementById(id);
+    if (!ctx) return;
+    _invCharts.push(new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }]
+      },
+      options: {
+        animation: animationConfig,
+        plugins: { 
+          legend: { 
+            display: true, 
+            position: 'right', 
+            labels: { color: '#8b9eb0', boxWidth: 12, padding: 10, font: { size: 10 } } 
+          },
+          tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} ${label}` } }
+        },
+        maintainAspectRatio: false,
+        cutout: '65%'
+      },
+      plugins: [{
+        id: 'centerText',
+        beforeDraw: (chart) => {
+          const { ctx, width, height } = chart;
+          ctx.save();
+          ctx.font = 'bold 1.2rem Roboto';
+          ctx.fillStyle = '#fff';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          const centerLeft = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
+          ctx.fillText(total, centerLeft, height / 2 - 10);
+          ctx.font = '0.7rem Roboto';
+          ctx.fillStyle = '#8b9eb0';
+          ctx.fillText('TOTAL', centerLeft, height / 2 + 15);
+          ctx.restore();
+        }
+      }]
+    }));
+  };
+
+  const totalUC = features.reduce((sum, f) => sum + f.useCases, 0);
+  const totalBugs = features.reduce((sum, f) => sum + f.bugs, 0);
+  const totalCovUC = features.reduce((sum, f) => sum + f.useCasesCovered, 0);
+  const totalCovBugs = features.reduce((sum, f) => sum + f.bugsCovered, 0);
+
+  createChart('invUCChart', 'Use Cases', features.map(f => f.useCases), totalUC);
+  createChart('invBugChart', 'Bugs', features.map(f => f.bugs), totalBugs);
+  createChart('invCoveredUCChart', 'Covered UC', features.map(f => f.useCasesCovered), totalCovUC);
+  createChart('invCoveredBugChart', 'Covered Bugs', features.map(f => f.bugsCovered), totalCovBugs);
+}
+
+function renderInventoryTable(data, filter = '') {
+  const tbody = document.getElementById('invRows');
+  if (!tbody) return;
+
+  let matched = data.features;
+  if (filter && _searchIndex) {
+    const results = _searchIndex.search(filter);
+    const ids = new Set();
+    results.forEach(r => r.result.forEach(id => ids.add(id)));
+    matched = data.features.filter(feat => ids.has(feat.id));
+  }
+
+  const countEl = document.getElementById('featCount');
+  if (countEl) countEl.textContent = `(${matched.length} features)`;
+
+  tbody.innerHTML = matched.map(feat => `
+    <tr onclick="navigate(event, '#feature/${feat.id}')" style="cursor:pointer;">
+      <td style="color:#a5c8ff;">${feat.title}</td>
+      <td style="color:var(--text-muted); font-size:0.85rem;">${feat.description || '-'}</td>
+      <td style="color:var(--text-muted); font-size:0.8rem;">${feat.lastModifiedAt || feat.updatedAt || feat.createdAt}</td>
+      <td>
+        <div style="font-size:0.8rem;">UC: <strong>${feat.useCasesCovered}/${feat.useCases}</strong></div>
+        <div style="font-size:0.8rem;">Bugs: <strong>${feat.bugsCovered}/${feat.bugs}</strong></div>
+      </td>
+    </tr>
+  `).join('');
 }
 
 function renderLint(data) {
@@ -1060,10 +1298,23 @@ function renderLint(data) {
 }
 
 function renderCharts(data) {
-  Chart.defaults.color = '#8b9eb0';
-  Chart.defaults.font.family = 'Roboto';
+  _dashboardCharts.forEach(c => c.destroy());
+  _dashboardCharts = [];
+
+  let delayed = false;
+  const animationConfig = {
+    onComplete: () => { delayed = true; },
+    delay: (context) => {
+      let delay = 0;
+      if (context.type === 'data' && context.mode === 'default' && !delayed) {
+        delay = context.dataIndex * 300 + context.datasetIndex * 100;
+      }
+      return delay;
+    }
+  };
 
   const chartConfig = {
+    animation: animationConfig,
     plugins: { legend: { display: false } },
     scales: {
       x: { grid: { display: false }, ticks: { color: '#8b9eb0' } },
@@ -1076,7 +1327,7 @@ function renderCharts(data) {
 
   const useCaseCanvas = document.getElementById('useCaseGrowthChart');
   if (useCaseCanvas) {
-    new Chart(useCaseCanvas, {
+    _dashboardCharts.push(new Chart(useCaseCanvas, {
       type: 'bar',
       data: {
         labels: months,
@@ -1085,12 +1336,12 @@ function renderCharts(data) {
         ]
       },
       options: chartConfig
-    });
+    }));
   }
 
   const featureCanvas = document.getElementById('featureGrowthChart');
   if (featureCanvas) {
-    new Chart(featureCanvas, {
+    _dashboardCharts.push(new Chart(featureCanvas, {
       type: 'line',
       data: {
         labels: months,
@@ -1099,12 +1350,12 @@ function renderCharts(data) {
         ]
       },
       options: chartConfig
-    });
+    }));
   }
 
   const bugCanvas = document.getElementById('bugGrowthChart');
   if (bugCanvas) {
-    new Chart(bugCanvas, {
+    _dashboardCharts.push(new Chart(bugCanvas, {
       type: 'bar',
       data: {
         labels: months,
@@ -1113,12 +1364,12 @@ function renderCharts(data) {
         ]
       },
       options: chartConfig
-    });
+    }));
   }
 
   const progressCanvas = document.getElementById('featureCoverageChart');
   if (progressCanvas) {
-    new Chart(progressCanvas, {
+    _dashboardCharts.push(new Chart(progressCanvas, {
       type: 'line',
       data: {
         labels: months,
@@ -1130,6 +1381,7 @@ function renderCharts(data) {
         ]
       },
       options: {
+        animation: animationConfig,
         plugins: { 
           legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 12, color: '#8b9eb0' } }
         },
@@ -1139,7 +1391,7 @@ function renderCharts(data) {
         },
         maintainAspectRatio: false
       }
-    });
+    }));
   }
 }
 
@@ -1225,10 +1477,22 @@ let _sortKey = 'title';
 let _sortAsc = true;
 let _detailFilter = 'all';
 let _detailSort = 'priority';
+let _detailSearchText = '';
 let _detailUCChart = null;
 let _detailBugChart = null;
+let _dashboardCharts = [];
+let _invCharts = [];
+let _searchIndex = null;
 
 const PRIORITY_MAP = { 'Highest': 5, 'High': 4, 'Medium': 3, 'Low': 2, 'None': 1 };
+
+function navigate(e, hash) {
+  if (e.metaKey || e.ctrlKey) {
+    window.open(window.location.pathname + hash, '_blank');
+  } else {
+    window.location.hash = hash;
+  }
+}
 
 function getSortValue(feature, key) {
   switch (key) {
@@ -1282,7 +1546,7 @@ function renderFeatureTable(data) {
 
   tbody.innerHTML = sorted
     .map(
-      (feature) => `<tr onclick="location.hash='#feature/${feature.id}'">
+      (feature) => `<tr onclick="navigate(event, '#feature/${feature.id}')" style="cursor:pointer;">
         <td style="color:#a5c8ff; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${feature.title}">${feature.title}</td>
         <td>${feature.useCases}</td>
         <td>${feature.useCasesCovered}</td>
@@ -1313,6 +1577,16 @@ function renderFeatureDetail(data, featureId) {
   }
 
   let artifacts = [...feature.artifacts];
+
+  // Search
+  if (_detailSearchText) {
+    const s = _detailSearchText.toLowerCase();
+    artifacts = artifacts.filter(a => 
+      a.title.toLowerCase().includes(s) || 
+      (a.steps || []).some(step => step.toLowerCase().includes(s)) ||
+      (a.expected || []).some(exp => exp.toLowerCase().includes(s))
+    );
+  }
 
   // Filtering
   if (_detailFilter === 'covered') artifacts = artifacts.filter(a => a.isCovered);
@@ -1348,7 +1622,7 @@ function renderFeatureDetail(data, featureId) {
 
   container.innerHTML = `
     <div class="detail-header">
-      <button class="back-btn" onclick="location.hash=''">
+      <button class="back-btn" onclick="navigate(event, '')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Back to Dashboard
       </button>
@@ -1382,26 +1656,36 @@ function renderFeatureDetail(data, featureId) {
       </article>
     </section>
 
-    <div class="detail-controls card" style="display:flex; gap:2rem; padding:1rem; margin-bottom: 2rem; align-items:center;">
-       <div style="display:flex; gap:0.75rem; align-items:center;">
-         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Filter:</span>
-         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+    <div class="detail-controls card" style="display:flex; padding:0; overflow:hidden; margin-bottom: 2rem; align-items:stretch; border-radius:12px; background:var(--bg-card); border:1px solid var(--border);">
+       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Filter</span>
+         <select id="filterSelect" onchange="_detailFilter=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
            <option value="all" ${_detailFilter==='all'?'selected':''}>All Artifacts</option>
            <option value="covered" ${_detailFilter==='covered'?'selected':''}>Covered only</option>
            <option value="missing" ${_detailFilter==='missing'?'selected':''}>Missing only</option>
-           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing (High/Highest)</option>
+           <option value="critical" ${_detailFilter==='critical'?'selected':''}>Critical Missing</option>
          </select>
        </div>
-       <div style="display:flex; gap:0.75rem; align-items:center;">
-         <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Sort by:</span>
-         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:var(--bg-main); color:#fff; border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
-           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority (Highest first)</option>
-           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Creation Date</option>
-           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Update Date</option>
-           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage Status</option>
+       <div style="display:flex; align-items:center; padding:0 1.25rem; border-right:1px solid var(--border); background:rgba(255,255,255,0.02);">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.5rem;"><path d="M3 12h18M3 6h18M3 18h18"></path></svg>
+         <span style="font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Sort</span>
+         <select id="sortSelect" onchange="_detailSort=this.value; renderFeatureDetail(window._lastData, '${featureId}')" style="background:transparent; color:#fff; border:none; padding:1rem 0.5rem; font-size:0.9rem; outline:none; cursor:pointer;">
+           <option value="priority" ${_detailSort==='priority'?'selected':''}>Priority</option>
+           <option value="createdAt" ${_detailSort==='createdAt'?'selected':''}>Date Created</option>
+           <option value="updatedAt" ${_detailSort==='updatedAt'?'selected':''}>Date Updated</option>
+           <option value="status" ${_detailSort==='status'?'selected':''}>Coverage</option>
          </select>
        </div>
-       <div style="margin-left:auto; font-size:0.85rem; color:var(--text-muted);">Showing <strong>${artifacts.length}</strong> of <strong>${feature.artifacts.length}</strong> artifacts</div>
+       <div style="flex:1; display:flex; align-items:center; padding:0 1.25rem; background:rgba(255,255,255,0.01);">
+         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-right:0.75rem;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+         <input type="text" id="detailSearch" value="${_detailSearchText}" placeholder="Search artifacts by title, steps, or content..." 
+                oninput="_detailSearchText=this.value; renderFeatureDetail(window._lastData, '${featureId}')"
+                style="background:transparent; border:none; color:#fff; padding:1rem 0; width:100%; outline:none; font-size:0.9rem;">
+       </div>
+       <div style="display:flex; align-items:center; padding:0 1.5rem; border-left:1px solid var(--border); font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">
+         <strong>${artifacts.length}</strong> &nbsp;results
+       </div>
     </div>
 
     <div class="artifact-section">
@@ -1430,9 +1714,9 @@ function renderFeatureDetail(data, featureId) {
               ${a.isCovered && a.coverageLocations && a.coverageLocations.length > 0 ? `
                 <div style="position: absolute; bottom: 1.25rem; right: 1.25rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content: flex-end;">
                   ${a.coverageLocations.map(loc => `
-                    <a href="vscode://file${loc.path}:${loc.line}" class="back-btn" style="margin:0; padding:4px 8px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; background:rgba(0,122,204,0.1); border-color:rgba(0,122,204,0.3); color:#4fc1ff;">
+                    <a href="vscode://file/${loc.path}:${loc.line}" class="back-btn" style="margin:0; padding:4px 8px; font-size:0.75rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; background:rgba(0,122,204,0.1); border-color:rgba(0,122,204,0.3); color:#4fc1ff;">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.58L19.8 1.45c-.32-.11-.66.1-.66.44v5.45c0 .12-.05.23-.14.31L13 13.7l-3.3-3.04c-.16-.14-.4-.14-.56 0L1 17.72c-.12.11-.12.3 0 .41l3.3 3.04c.16.14.4.14.56 0l1.24-1.14 7.22-6.66c.09-.08.14-.19.14-.31V6.26l6.68-6.16c.16-.14.4-.14.56 0l2.45 2.26c.12.11.12.3 0 .41L18.46 9c-.16.15-.16.4 0 .55l4.69 4.31c.12.11.12.3 0 .41l-2.45 2.26c-.16.14-.4.14-.56 0L13 12.23V17.74c0 .34.34.55.66.44l3.35-1.13c.12-.04.23-.04.35 0l2.45.83c.32.11.66-.1.66-.44V3.02c0-.12-.05-.23-.14-.31l-.18-.13z"/></svg>
-                      Open in VS Code (L${loc.line})
+                      ${loc.path.split('/').pop().split('\\').pop()}:L${loc.line}
                     </a>
                   `).join('')}
                 </div>
@@ -1461,11 +1745,23 @@ function renderFeatureDetail(data, featureId) {
   `;
 
   renderDetailCharts(feature);
+  
+  const searchInput = document.getElementById('detailSearch');
+  if (searchInput) {
+    searchInput.focus();
+    searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+  }
 }
 
 function renderDetailCharts(feature) {
   if (_detailUCChart) _detailUCChart.destroy();
   if (_detailBugChart) _detailBugChart.destroy();
+
+  const animationConfig = {
+    duration: 1200,
+    easing: 'easeOutElastic',
+    delay: (context) => context.dataIndex * 300
+  };
 
   const ctxUC = document.getElementById('detailUCChart');
   if (ctxUC) {
@@ -1481,6 +1777,7 @@ function renderDetailCharts(feature) {
         }]
       },
       options: {
+        animation: animationConfig,
         plugins: { legend: { display: false } },
         maintainAspectRatio: false
       }
@@ -1501,6 +1798,7 @@ function renderDetailCharts(feature) {
         }]
       },
       options: {
+        animation: animationConfig,
         plugins: { legend: { display: false } },
         maintainAspectRatio: false
       }
@@ -1509,22 +1807,160 @@ function renderDetailCharts(feature) {
 }
 
 
+
+
 function handleRouting(data) {
-  const hash = window.location.hash;
+  window.scrollTo(0, 0);
+  const hash = window.location.hash || '#dashboard';
   const dashboard = document.getElementById('dashboardView');
   const detail = document.getElementById('featureDetailView');
+  const inventory = document.getElementById('inventoryView');
   
+  [dashboard, detail, inventory].forEach(v => { if(v) v.style.display = 'none'; });
+  
+  document.querySelectorAll('.nav-item').forEach(link => {
+    const href = link.getAttribute('href');
+    link.classList.toggle('active', href === hash || (hash === '#dashboard' && href === '#dashboard'));
+  });
+
   if (hash.startsWith('#feature/')) {
-    const featureId = hash.replace('#feature/', '');
-    dashboard.style.display = 'none';
     detail.style.display = 'block';
-    renderFeatureDetail(data, featureId);
-    window.scrollTo(0,0);
+    renderFeatureDetail(data, hash.replace('#feature/', ''));
+  } else if (hash === '#inventory') {
+    inventory.style.display = 'block';
+    renderInventory(data);
   } else {
     dashboard.style.display = 'block';
-    detail.style.display = 'none';
     renderCharts(data);
   }
+}
+
+function renderInventory(data) {
+  if (!_searchIndex && typeof FlexSearch !== 'undefined') {
+    _searchIndex = new FlexSearch.Document({
+      document: {
+        id: "id",
+        index: ["title", "description", "content"],
+        store: ["id"]
+      },
+      tokenize: "forward"
+    });
+    
+    data.features.forEach(f => {
+       const content = (f.artifacts || []).map(a => 
+         `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')}`
+       ).join(' ');
+       _searchIndex.add({
+          id: f.id,
+          title: f.title,
+          description: f.description || "",
+          content: content
+       });
+    });
+  }
+
+  renderInventoryCharts(data);
+  renderInventoryTable(data);
+  
+  const search = document.getElementById('invSearch');
+  if (search) {
+    search.oninput = (e) => renderInventoryTable(data, e.target.value);
+  }
+}
+
+function renderInventoryCharts(data) {
+  _invCharts.forEach(c => c.destroy());
+  _invCharts = [];
+  
+  const features = data.features;
+  const labels = features.map(f => f.title);
+  const colors = features.map((_, i) => `hsl(${(i * 360 / features.length) % 360}, 65%, 50%)`);
+
+  const animationConfig = {
+    duration: 200,
+    easing: 'easeOutQuart',
+    delay: (context) => context.dataIndex * 20
+  };
+
+  const createChart = (id, label, values, total) => {
+    const ctx = document.getElementById(id);
+    if (!ctx) return;
+    _invCharts.push(new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }]
+      },
+      options: {
+        animation: animationConfig,
+        plugins: { 
+          legend: { 
+            display: true, 
+            position: 'right', 
+            labels: { color: '#8b9eb0', boxWidth: 12, padding: 10, font: { size: 10 } } 
+          },
+          tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} ${label}` } }
+        },
+        maintainAspectRatio: false,
+        cutout: '65%'
+      },
+      plugins: [{
+        id: 'centerText',
+        beforeDraw: (chart) => {
+          const { ctx, width, height } = chart;
+          ctx.save();
+          ctx.font = 'bold 1.2rem Roboto';
+          ctx.fillStyle = '#fff';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          const centerLeft = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
+          ctx.fillText(total, centerLeft, height / 2 - 10);
+          ctx.font = '0.7rem Roboto';
+          ctx.fillStyle = '#8b9eb0';
+          ctx.fillText('TOTAL', centerLeft, height / 2 + 15);
+          ctx.restore();
+        }
+      }]
+    }));
+  };
+
+  const totalUC = features.reduce((sum, f) => sum + f.useCases, 0);
+  const totalBugs = features.reduce((sum, f) => sum + f.bugs, 0);
+  const totalCovUC = features.reduce((sum, f) => sum + f.useCasesCovered, 0);
+  const totalCovBugs = features.reduce((sum, f) => sum + f.bugsCovered, 0);
+
+  createChart('invUCChart', 'Use Cases', features.map(f => f.useCases), totalUC);
+  createChart('invBugChart', 'Bugs', features.map(f => f.bugs), totalBugs);
+  createChart('invCoveredUCChart', 'Covered UC', features.map(f => f.useCasesCovered), totalCovUC);
+  createChart('invCoveredBugChart', 'Covered Bugs', features.map(f => f.bugsCovered), totalCovBugs);
+}
+
+function renderInventoryTable(data, filter = '') {
+  const tbody = document.getElementById('invRows');
+  if (!tbody) return;
+
+  let matched = data.features;
+  if (filter && _searchIndex) {
+    const results = _searchIndex.search(filter);
+    const ids = new Set();
+    results.forEach(r => r.result.forEach(id => ids.add(id)));
+    matched = data.features.filter(feat => ids.has(feat.id));
+  }
+
+  const countEl = document.getElementById('featCount');
+  if (countEl) countEl.textContent = `(${matched.length} features)`;
+
+  tbody.innerHTML = matched.map(feat => `
+    <tr onclick="navigate(event, '#feature/${feat.id}')" style="cursor:pointer;">
+      <td style="color:#a5c8ff;">${feat.title}</td>
+      <td style="color:var(--text-muted); font-size:0.85rem;">${feat.description || '-'}</td>
+      <td style="color:var(--text-muted); font-size:0.8rem;">${feat.updatedAt || feat.createdAt}</td>
+      <td>
+        <div style="font-size:0.8rem;">UC: <strong>${feat.useCasesCovered}/${feat.useCases}</strong></div>
+        <div style="font-size:0.8rem;">Bugs: <strong>${feat.bugsCovered}/${feat.bugs}</strong></div>
+      </td>
+    </tr>
+  `).join('');
 }
 
 function renderLint(data) {
@@ -1547,10 +1983,23 @@ function renderLint(data) {
 }
 
 function renderCharts(data) {
-  Chart.defaults.color = '#8b9eb0';
-  Chart.defaults.font.family = 'Roboto';
+  _dashboardCharts.forEach(c => c.destroy());
+  _dashboardCharts = [];
+
+  let delayed = false;
+  const animationConfig = {
+    onComplete: () => { delayed = true; },
+    delay: (context) => {
+      let delay = 0;
+      if (context.type === 'data' && context.mode === 'default' && !delayed) {
+        delay = context.dataIndex * 300 + context.datasetIndex * 100;
+      }
+      return delay;
+    }
+  };
 
   const chartConfig = {
+    animation: animationConfig,
     plugins: { legend: { display: false } },
     scales: {
       x: { grid: { display: false }, ticks: { color: '#8b9eb0' } },
@@ -1563,7 +2012,7 @@ function renderCharts(data) {
 
   const useCaseCanvas = document.getElementById('useCaseGrowthChart');
   if (useCaseCanvas) {
-    new Chart(useCaseCanvas, {
+    _dashboardCharts.push(new Chart(useCaseCanvas, {
       type: 'bar',
       data: {
         labels: months,
@@ -1572,12 +2021,12 @@ function renderCharts(data) {
         ]
       },
       options: chartConfig
-    });
+    }));
   }
 
   const featureCanvas = document.getElementById('featureGrowthChart');
   if (featureCanvas) {
-    new Chart(featureCanvas, {
+    _dashboardCharts.push(new Chart(featureCanvas, {
       type: 'line',
       data: {
         labels: months,
@@ -1586,12 +2035,12 @@ function renderCharts(data) {
         ]
       },
       options: chartConfig
-    });
+    }));
   }
 
   const bugCanvas = document.getElementById('bugGrowthChart');
   if (bugCanvas) {
-    new Chart(bugCanvas, {
+    _dashboardCharts.push(new Chart(bugCanvas, {
       type: 'bar',
       data: {
         labels: months,
@@ -1600,12 +2049,12 @@ function renderCharts(data) {
         ]
       },
       options: chartConfig
-    });
+    }));
   }
 
   const progressCanvas = document.getElementById('featureCoverageChart');
   if (progressCanvas) {
-    new Chart(progressCanvas, {
+    _dashboardCharts.push(new Chart(progressCanvas, {
       type: 'line',
       data: {
         labels: months,
@@ -1617,6 +2066,7 @@ function renderCharts(data) {
         ]
       },
       options: {
+        animation: animationConfig,
         plugins: { 
           legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 12, color: '#8b9eb0' } }
         },
@@ -1626,7 +2076,7 @@ function renderCharts(data) {
         },
         maintainAspectRatio: false
       }
-    });
+    }));
   }
 }
 
@@ -1684,6 +2134,7 @@ mod tests {
                 title: "Feature One".to_string(),
                 created_at: "2026-05-10".to_string(),
                 updated_at: None,
+                last_modified_at: None,
                 description: "desc".to_string(),
             },
             tags: vec![],
@@ -1694,6 +2145,7 @@ mod tests {
                 artifact_type: None,
                 created_at: "2026-05-10".to_string(),
                 updated_at: None,
+                last_modified_at: None,
                 title: "Use case".to_string(),
                 priority: Priority::High,
                 related: vec![],
@@ -1722,7 +2174,7 @@ mod tests {
 
         let html =
             fs::read_to_string(output_dir.join("index.html")).expect("html should be readable");
-        assert!(html.contains("Analysis Report"));
+        assert!(html.contains("UCC Report"));
 
         let json =
             fs::read_to_string(output_dir.join("data.json")).expect("json should be readable");

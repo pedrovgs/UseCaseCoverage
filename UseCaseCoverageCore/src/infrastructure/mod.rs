@@ -3,6 +3,8 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
+use chrono::{DateTime, Local};
+
 use crate::domain::{Artifact, FeatureDocument, FeatureMetadata, Priority};
 use crate::ports::{CoreError, TestFileRepository, UccFileRepository, UccParser};
 
@@ -40,7 +42,15 @@ impl UccParser for YamlUccParser {
             CoreError::Parse { path: source_path.to_path_buf(), reason: source.to_string() }
         })?;
 
-        Ok(parsed.into_feature_document(source_path.to_path_buf()))
+        let last_modified_at = fs::metadata(source_path)
+            .and_then(|m| m.modified())
+            .map(|t| {
+                let dt: DateTime<Local> = t.into();
+                dt.format("%Y-%m-%d %H:%M").to_string()
+            })
+            .ok();
+
+        Ok(parsed.into_feature_document(source_path.to_path_buf(), last_modified_at))
     }
 }
 
@@ -59,7 +69,11 @@ struct RawUccDocument {
 }
 
 impl RawUccDocument {
-    fn into_feature_document(self, source_path: PathBuf) -> FeatureDocument {
+    fn into_feature_document(
+        self,
+        source_path: PathBuf,
+        last_modified_at: Option<String>,
+    ) -> FeatureDocument {
         FeatureDocument {
             source_path,
             schema_version: self.schema_version,
@@ -68,6 +82,7 @@ impl RawUccDocument {
                 title: self.feature.title,
                 created_at: self.feature.created_at,
                 updated_at: self.feature.updated_at,
+                last_modified_at: last_modified_at.clone(),
                 description: self.feature.description,
             },
             tags: self.tags,
@@ -81,6 +96,7 @@ impl RawUccDocument {
                     artifact_type: artifact.artifact_type,
                     created_at: artifact.created_at,
                     updated_at: artifact.updated_at,
+                    last_modified_at: last_modified_at.clone(),
                     title: artifact.title,
                     priority: artifact.priority,
                     related: artifact.related,
