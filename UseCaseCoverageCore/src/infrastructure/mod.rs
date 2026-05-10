@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
-use chrono::{DateTime, Local};
+use chrono::{DateTime, Utc};
 
 use crate::domain::{Artifact, FeatureDocument, FeatureMetadata, Priority};
 use crate::ports::{CoreError, TestFileRepository, UccFileRepository, UccParser};
@@ -45,7 +45,7 @@ impl UccParser for YamlUccParser {
         let last_modified_at = fs::metadata(source_path)
             .and_then(|m| m.modified())
             .map(|t| {
-                let dt: DateTime<Local> = t.into();
+                let dt: DateTime<Utc> = t.into();
                 dt.format("%Y-%m-%d %H:%M").to_string()
             })
             .ok();

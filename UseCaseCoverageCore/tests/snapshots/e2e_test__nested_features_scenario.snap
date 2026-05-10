@@ -10,7 +10,7 @@ expression: features
     title: Nested Feature A
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 17:51"
+    lastModifiedAt: "2026-05-10 15:51"
     description: "First nested feature in the core directory.\n"
   tags: []
   platforms: []
@@ -20,7 +20,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 17:51"
+      lastModifiedAt: "2026-05-10 15:51"
       title: Bug 1 NF A
       priority: none
       related: []
@@ -31,7 +31,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 17:51"
+      lastModifiedAt: "2026-05-10 15:51"
       title: First use case NF A
       priority: high
       related: []
@@ -46,7 +46,7 @@ expression: features
     title: Nested Feature B
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 17:51"
+    lastModifiedAt: "2026-05-10 15:51"
     description: "Second nested feature in the auth directory.\n"
   tags: []
   platforms: []
@@ -56,7 +56,7 @@ expression: features
       artifactType: regression
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 17:51"
+      lastModifiedAt: "2026-05-10 15:51"
       title: Bug 1 NF B
       priority: none
       related: []
@@ -67,7 +67,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 17:51"
+      lastModifiedAt: "2026-05-10 15:51"
       title: First use case NF B
       priority: high
       related: []

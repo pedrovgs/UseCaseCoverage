@@ -10,7 +10,7 @@ expression: features
     title: A simple feature
     createdAt: 2026-05-10
     updatedAt: 2026-05-10
-    lastModifiedAt: "2026-05-10 17:42"
+    lastModifiedAt: "2026-05-10 15:42"
     description: "This is the most simple scenario for an e2e test. It contains a single feature with a single use case.\n"
   tags: []
   platforms: []
@@ -20,7 +20,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 17:42"
+      lastModifiedAt: "2026-05-10 15:42"
       title: Simple single use case
       priority: medium
       related: []

@@ -10,7 +10,7 @@ expression: features
     title: Feature with multiple use cases
     createdAt: 2026-05-10
     updatedAt: ~
-    lastModifiedAt: "2026-05-10 17:49"
+    lastModifiedAt: "2026-05-10 15:49"
     description: "This scenario contains 1 feature and multiple use cases.\n"
   tags: []
   platforms: []
@@ -20,7 +20,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 17:49"
+      lastModifiedAt: "2026-05-10 15:49"
       title: First use case
       priority: high
       related: []
@@ -33,7 +33,7 @@ expression: features
       artifactType: ~
       createdAt: 2026-05-10
       updatedAt: ~
-      lastModifiedAt: "2026-05-10 17:49"
+      lastModifiedAt: "2026-05-10 15:49"
       title: Second use case
       priority: medium
       related: []
