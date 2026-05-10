@@ -15,5 +15,6 @@ serde = { version = "1.0", features = ["derive"] }
 serde_yaml = "0.9"
 
 [dev-dependencies]
+insta = { version = "1.47.2", features = ["yaml"] }
 proptest.workspace = true
 tempfile = "3.13"

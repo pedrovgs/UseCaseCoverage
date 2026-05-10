@@ -1,3 +1,73 @@
+# Use Case Coverage
+
+This project helps you track and calculate your test implementation coverage against declared use cases and features using `.ucc` files.
+
+## The `.ucc` Format
+
+UseCaseCoverage relies on `.ucc` files. These files use strict YAML to declare an application feature along with its related use cases and bugs. You can place `.ucc` files anywhere in your project; UseCaseCoverage will discover them recursively.
+
+### Basic Structure
+
+Every `.ucc` file must define `schema_version` and a `feature`. Inside the `feature`, you list a set of `artifacts` (such as use cases or bugs).
+
+```yaml
+schema_version: "1.0"
+
+feature:
+  id: user-authentication
+  title: User Authentication
+  created_at: "2026-05-10"
+  updated_at: "2026-05-10"
+  description: >
+    Handles user login, signup, and session management.
+
+tags:
+  - security
+  - core
+
+platforms:
+  - web
+  - android
+  - ios
+
+related_features: []
+
+artifacts:
+  - id: ucc-auth-001
+    created_at: "2026-05-10"
+    title: Successful login with valid credentials
+    priority: high
+    steps:
+      - Enter username
+      - Enter password
+      - Click submit
+    expected:
+      - User is redirected to dashboard
+
+  - id: bug-auth-001
+    type: regression
+    created_at: "2026-05-10"
+    title: Login fails on slow connections
+    severity: high
+    status: open
+    related:
+      - ucc-auth-001
+```
+
+### Artifacts (Use Cases and Bugs)
+
+In the `artifacts` array, you declare the specific use cases you want to verify in your tests, or bugs associated with the feature.
+- **Use Cases** are standard artifacts without an explicit `type` (or `type` omitted).
+- **Bugs** declare an explicit `type` like `bug` or `regression`, and can optionally include `severity`, `status`, and `related` list (to link back to the use case they broke).
+
+## Usage
+
+You can spread multiple `.ucc` files anywhere across your codebase (e.g., nested inside your domain or e2e folders). 
+
+1. Write your `.ucc` scenarios to capture the feature specifications.
+2. In your integration or end-to-end tests, map these use cases to code.
+3. The tool will parse scenarios, discover matched cases within your tests, and compute your use case coverage seamlessly.
+
 # Developer Instructions
 
 ## Prerequisites

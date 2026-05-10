@@ -1,0 +1,19 @@
+schema_version: "1.0"
+
+feature:
+  id: feature-simple
+  title: A simple feature
+  created_at: "2026-05-10"
+  updated_at: "2026-05-10"
+  description: >
+    This is the most simple scenario for an e2e test. It contains a single feature with a single use case.
+
+artifacts:
+  - id: ucc-001
+    created_at: "2026-05-10"
+    title: Simple single use case
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected 1

@@ -1,0 +1,27 @@
+schema_version: "1.0"
+
+feature:
+  id: feature-multiple-use-cases
+  title: Feature with multiple use cases
+  created_at: "2026-05-10"
+  description: >
+    This scenario contains 1 feature and multiple use cases.
+
+artifacts:
+  - id: ucc-001
+    created_at: "2026-05-10"
+    title: First use case
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected 1
+
+  - id: ucc-002
+    created_at: "2026-05-10"
+    title: Second use case
+    priority: medium
+    steps:
+      - Step 1
+    expected:
+      - Expected 1
