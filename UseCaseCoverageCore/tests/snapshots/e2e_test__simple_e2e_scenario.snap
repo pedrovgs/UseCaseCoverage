@@ -1,5 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 32
 expression: features
 ---
 - sourcePath: simple_feature.ucc
@@ -23,6 +24,7 @@ expression: features
       title: Simple single use case
       priority: medium
       related: []
+      platforms: []
       steps:
         - Step 1
       expected:

@@ -1,5 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 44
 expression: features
 ---
 - sourcePath: feature.ucc
@@ -24,6 +25,7 @@ expression: features
       priority: none
       related:
         - ucc-001
+      platforms: []
       steps: []
       expected: []
     - id: bug-002
@@ -35,6 +37,7 @@ expression: features
       priority: none
       related:
         - ucc-002
+      platforms: []
       steps: []
       expected: []
     - id: ucc-001
@@ -45,6 +48,7 @@ expression: features
       title: First use case
       priority: high
       related: []
+      platforms: []
       steps:
         - Step 1
       expected: []
@@ -56,6 +60,7 @@ expression: features
       title: Second use case
       priority: medium
       related: []
+      platforms: []
       steps:
         - Step 1
       expected: []

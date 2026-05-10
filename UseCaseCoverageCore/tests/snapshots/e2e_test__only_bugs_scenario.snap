@@ -1,5 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 62
 expression: features
 ---
 - sourcePath: feature.ucc
@@ -23,6 +24,7 @@ expression: features
       title: First critical bug
       priority: none
       related: []
+      platforms: []
       steps: []
       expected: []
     - id: bug-only-002
@@ -33,5 +35,6 @@ expression: features
       title: Second minor bug
       priority: none
       related: []
+      platforms: []
       steps: []
       expected: []

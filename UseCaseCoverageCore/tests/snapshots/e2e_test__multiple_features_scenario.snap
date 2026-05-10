@@ -1,5 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 50
 expression: features
 ---
 - sourcePath: feature1.ucc
@@ -23,6 +24,7 @@ expression: features
       title: Bug F1
       priority: none
       related: []
+      platforms: []
       steps: []
       expected: []
     - id: f1-ucc-001
@@ -33,6 +35,7 @@ expression: features
       title: First use case F1
       priority: high
       related: []
+      platforms: []
       steps:
         - Step 1
       expected: []
@@ -44,6 +47,7 @@ expression: features
       title: Second use case F1
       priority: medium
       related: []
+      platforms: []
       steps:
         - Step 1
       expected: []
@@ -68,6 +72,7 @@ expression: features
       title: Bug 1 F2
       priority: none
       related: []
+      platforms: []
       steps: []
       expected: []
     - id: f2-bug-002
@@ -78,6 +83,7 @@ expression: features
       title: Bug 2 F2
       priority: none
       related: []
+      platforms: []
       steps: []
       expected: []
     - id: f2-ucc-001
@@ -88,6 +94,7 @@ expression: features
       title: First use case F2
       priority: high
       related: []
+      platforms: []
       steps:
         - Step 1
       expected: []
@@ -99,6 +106,7 @@ expression: features
       title: Second use case F2
       priority: medium
       related: []
+      platforms: []
       steps:
         - Step 1
       expected: []
