@@ -52,26 +52,25 @@ Tracking your coverage with UCC follows a simple three-step workflow:
 
 UCC is language-agnostic. You can annotate your tests by simply including the artifact ID anywhere in your test file (e.g., in a comment, test name, or metadata):
 
-````carousel
+#### 🍎 Swift (XCTest / Swift Testing)
 ```swift
-// Swift - XCTest / Swift Testing
 func testLoginFlow() {
     // ucc-feat-1
     let login = LoginView()
     ...
 }
 ```
-<!-- slide -->
+
+#### 🔷 TypeScript (Jest / Mocha / Vitest)
 ```typescript
-// TypeScript - Jest / Mocha / Vitest
 test('should authenticate user (ucc-feat-1)', () => {
     const auth = new AuthService();
     ...
 });
 ```
-<!-- slide -->
+
+#### 🦀 Rust (Cargo Test)
 ```rust
-// Rust - Cargo Test
 #[test]
 fn test_artifact_parsing() {
     // ucc-feat-1
@@ -79,9 +78,9 @@ fn test_artifact_parsing() {
     ...
 }
 ```
-<!-- slide -->
+
+#### ☕ Kotlin (JUnit / Spek)
 ```kotlin
-// Kotlin - JUnit / Spek
 @Test
 fun testSecureLogin() {
     /* ucc-feat-1 */
@@ -89,7 +88,6 @@ fun testSecureLogin() {
     ...
 }
 ```
-````
 
 ---
 
