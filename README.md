@@ -148,7 +148,7 @@ ucc lint
 
 > **Tip:** You can specify an input directory or an output file for automated audits:
 > ```bash
-> ucc lint --input ./specs --output lint-results.txt
+> ucc report --input ./specs --output output_folder
 > ```
 
 ### 📊 Generating Visual Reports
@@ -159,7 +159,7 @@ Transform your YAML files into a stunning, interactive HTML dashboard that visua
 ucc report
 ```
 
-By default, reports are neatly organized in `.ucc/reports/<YYYY-MM-DD>`. 
+By default, reports are neatly organized in `.ucc/reports/<REPORT_CREATION_DATE>`. 
 
 ---
 
