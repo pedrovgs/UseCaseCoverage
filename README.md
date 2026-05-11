@@ -3,11 +3,30 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-stable-brightgreen.svg)](https://www.rust-lang.org/)
 
-**Use Case Coverage** is a powerful developer tool designed to bridge the gap between feature specifications and test implementations. It helps you track, calculate, and visualize your test coverage against declared use cases, features, and bugs using a simple yet strict `.ucc` YAML format.
+🛡️ **Use Case Coverage** is a powerful developer tool designed to bridge the gap between feature specifications and test implementations. It helps you track, calculate, and visualize your test coverage against declared use cases, features, and bugs using a simple yet strict `.ucc` YAML format. 
 
-In the AI era, understand the coverage provided by your AI agents is crucial for ensuring the quality of your software, and UseCaseCoverage (UCC) is the tool that will help you to do that.
+🤖 **AI-Ready Quality Assurance**: In the age of AI-driven development, tracking the coverage of your AI agents is vital for maintaining software excellence. **UseCaseCoverage (UCC)** empowers you to measure that impact with precision and ease. ✨
 
 ---
+
+### 🖼️ Screenshots
+
+| Dashboard | Inventory |
+| :---: | :---: |
+| ![Dashboard](art/1%20dashboard.png) | ![Inventory](art/2%20inventory.png) |
+
+| Feature Detail | Coverage Gaps |
+| :---: | :---: |
+| ![Feature Detail](art/3%20feature-detail.png) | ![Coverage Gaps](art/4%20coverage-gaps.png) |
+
+| Tags |
+| :---: |
+| ![Tags](art/5%20tags.png) |
+
+---
+
+🧞 **Privacy First & Zero Infrastructure**: UseCaseCoverage is designed to run entirely on your local machine or within your CI pipeline. There is **no backend**, no data is ever uploaded to any server, and your specifications remain completely private and secure. Since it is a standalone CLI tool, there is no infrastructure to host or maintain.
+
 
 ## 📦 Installation
 

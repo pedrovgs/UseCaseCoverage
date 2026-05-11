@@ -34,18 +34,25 @@ fn help_message() -> String {
 }
 
 fn run_lint(root: &Path, output: Option<&Path>) -> Result<String, String> {
+    let start = std::time::Instant::now();
     println!("🔍 Scanning and linting .ucc files in {}...", root.display());
     let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
+    let duration = start.elapsed();
     let result = format_lint_results(lint_results);
 
+    let is_error = result.is_err();
+    let result_text = match result {
+        Ok(t) => format!("{t}\n✨ Done in {duration:.2?}"),
+        Err(e) => format!("{e}\n❌ Failed in {duration:.2?}"),
+    };
+
     if let Some(output_path) = output {
-        let text = match &result {
-            Ok(t) | Err(t) => t,
-        };
-        std::fs::write(output_path, text).map_err(|e| e.to_string())?;
-        result.map(|_| format!("Lint results written to {}", output_path.display()))
+        std::fs::write(output_path, &result_text).map_err(|e| e.to_string())?;
+        Ok(format!("Lint results written to {}", output_path.display()))
+    } else if is_error {
+        Err(result_text)
     } else {
-        result
+        Ok(result_text)
     }
 }
 
@@ -105,6 +112,7 @@ fn format_lint_results(lint_results: Vec<UccLintResult>) -> Result<String, Strin
 }
 
 fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
+    let start = std::time::Instant::now();
     println!("🔍 Linting .ucc files...");
     let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
 
@@ -129,8 +137,12 @@ fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
     generate_html_report(output_dir, repo_name, &features, &lint_results, &coverage_index)
         .map_err(|error| error.to_string())?;
 
+    let duration = start.elapsed();
     let report_path = output_dir.join("index.html");
-    Ok(format!("Report generated successfully at:\n{}", report_path.display()))
+    Ok(format!(
+        "Report generated successfully at:\n{}\n✨ Done in {duration:.2?}",
+        report_path.display()
+    ))
 }
 
 fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String>) {

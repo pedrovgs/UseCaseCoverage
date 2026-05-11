@@ -688,6 +688,7 @@ body {
   font-weight: 500;
   font-size: 0.95rem;
   transition: all 0.2s;
+  margin-bottom: 0.75rem;
 }
 
 .nav-item.active {
