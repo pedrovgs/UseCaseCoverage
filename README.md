@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-stable-brightgreen.svg)](https://www.rust-lang.org/)
 
-🛡️ **Use Case Coverage** is a powerful developer tool designed to bridge the gap between feature specifications and test implementations. It helps you track, calculate, and visualize your test coverage against declared use cases, features, and bugs using a simple yet strict `.ucc` YAML format. 
+🛡️ **Use Case Coverage** is a simple but powerful developer tool designed to bridge the gap between feature specifications and test implementations. It helps you track, calculate, and visualize your test coverage against declared use cases, features, and bugs using a simple yet strict `.ucc` YAML format. 
 
 🤖 **AI-Ready Quality Assurance**: In the age of AI-driven development, tracking the coverage of your AI agents is vital for maintaining software excellence. **UseCaseCoverage (UCC)** empowers you to measure that impact with precision and ease. ✨
 
