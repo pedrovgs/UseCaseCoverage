@@ -34,12 +34,12 @@ Assuming you have [Homebrew](https://brew.sh/) installed:
 
 ```bash
 brew tap pedrovgs/tap
-brew install ucc
+brew install use_case_coverage_cli
 ```
 
 Alternatively, you can install it in a single command:
 ```bash
-brew install pedrovgs/tap/ucc
+brew install pedrovgs/tap/use_case_coverage_cli
 ```
 
 ---
@@ -187,7 +187,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Install ucc
-        run: brew install pedrovgs/tap/ucc
+        run: brew install pedrovgs/tap/use_case_coverage_cli
         
       - name: Lint UCC files
         run: ucc lint
