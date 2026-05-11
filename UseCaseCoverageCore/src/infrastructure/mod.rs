@@ -168,7 +168,14 @@ fn collect_files_matching(
 
 fn is_ignored_directory(path: &Path) -> bool {
     let name = path.file_name().and_then(|n| n.to_str()).unwrap_or("");
-    name.starts_with('.') || name == "node_modules" || name == "build" || name == "DerivedData" || name == "target" || name == "dist" || name == "out" || name == "bin"
+    name.starts_with('.')
+        || name == "node_modules"
+        || name == "build"
+        || name == "DerivedData"
+        || name == "target"
+        || name == "dist"
+        || name == "out"
+        || name == "bin"
 }
 
 fn collect_files_matching_from_dir(
