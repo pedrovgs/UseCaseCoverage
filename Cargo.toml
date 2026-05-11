@@ -21,3 +21,8 @@ nursery = "warn"
 
 [workspace.dependencies]
 proptest = "1.5"
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"

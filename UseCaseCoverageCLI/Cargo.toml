@@ -1,6 +1,10 @@
 [package]
 name = "use_case_coverage_cli"
 version = "0.1.0"
+repository = "https://github.com/pedrovgs/UseCaseCoverage"
+description = "Command line interface for Use Case Coverage tool https://github.com/pedrovgs/UseCaseCoverage"
+homepage = "https://github.com/pedrovgs/UseCaseCoverage"
+keywords = ["testing", "coverage", "cli", "automation", "quality"]
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
