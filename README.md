@@ -43,11 +43,96 @@ brew install ucc
 Tracking your coverage with UCC follows a simple three-step workflow:
 
 1. 📝 **Define your Specs**: Write your features, use cases, bugs, and regressions in the simple `.ucc` YAML format anywhere in your project.
-2. 🏷️ **Annotate your Tests**: Include the unique ID of your artifacts in your test code (as a comment or within a string). UCC scans your codebase to find these matches automatically.
+2. 🏷️ **Annotate your Tests**: Include the unique ID of your artifacts in your test code (as a comment or within a string). UCC scans your codebase to find these matches automatically. **You can annotate any type of test even in monorepos using different proramming languages and frameworks.**
 3. 🚀 **Generate & Analyze**: Run `ucc report` to compute coverage metrics and generate a beautiful, interactive dashboard. You can exeucte ``ucc`` locally or integrate it in your CI/CD pipeline.
 
 ---
 
+### 🏷️ Annotation Examples
+
+UCC is language-agnostic. You can annotate your tests by simply including the artifact ID anywhere in your test file (e.g., in a comment, test name, or metadata):
+
+````carousel
+```swift
+// Swift - XCTest / Swift Testing
+func testLoginFlow() {
+    // ucc-feat-1
+    let login = LoginView()
+    ...
+}
+```
+<!-- slide -->
+```typescript
+// TypeScript - Jest / Mocha / Vitest
+test('should authenticate user (ucc-feat-1)', () => {
+    const auth = new AuthService();
+    ...
+});
+```
+<!-- slide -->
+```rust
+// Rust - Cargo Test
+#[test]
+fn test_artifact_parsing() {
+    // ucc-feat-1
+    let parser = YamlUccParser;
+    ...
+}
+```
+<!-- slide -->
+```kotlin
+// Kotlin - JUnit / Spek
+@Test
+fun testSecureLogin() {
+    /* ucc-feat-1 */
+    val security = SecurityManager()
+    ...
+}
+```
+````
+
+---
+
+## 📄 The `.ucc` Format
+
+UseCaseCoverage relies on `.ucc` files—standard YAML files that live alongside your code.
+
+### ✨ Basic Structure
+
+```yaml
+schema_version: "1.0"
+
+feature:
+  id: user-authentication
+  title: User Authentication
+  created_at: "2026-05-10"
+  description: >
+    Handles user login, signup, and session management.
+
+related_features: []
+
+artifacts:
+  - id: ucc-feat-1
+    title: Successful login with valid credentials
+    priority: high
+    created_at: "2026-05-10"
+    steps:
+      - Enter username
+      - Enter password
+      - Click submit
+    expected:
+      - User is redirected to dashboard
+
+  - id: ucc-feat-2
+    type: bug
+    title: Login fails on slow connections
+    priority: highest
+    created_at: "2026-05-10"
+    related: [ucc-auth-001]
+    tags: [auth, secure]
+    platforms: [web, android, ios]
+    coverage_gap_reason: "Impossible to test on Android automatically"
+```
 
 ### ✅ Linting `.ucc` files
 
@@ -73,47 +158,6 @@ ucc report
 By default, reports are neatly organized in `.ucc/reports/<YYYY-MM-DD>`. 
 
 ---
-
-## 📄 The `.ucc` Format
-
-UseCaseCoverage relies on `.ucc` files—standard YAML files that live alongside your code.
-
-### ✨ Basic Structure
-
-```yaml
-schema_version: "1.0"
-
-feature:
-  id: user-authentication
-  title: User Authentication
-  created_at: "2026-05-10"
-  description: >
-    Handles user login, signup, and session management.
-
-related_features: []
-
-artifacts:
-  - id: ucc-auth-001
-    title: Successful login with valid credentials
-    priority: high
-    created_at: "2026-05-10"
-    steps:
-      - Enter username
-      - Enter password
-      - Click submit
-    expected:
-      - User is redirected to dashboard
-
-  - id: bug-auth-001
-    type: bug
-    title: Login fails on slow connections
-    priority: highest
-    created_at: "2026-05-10"
-    related: [ucc-auth-001]
-    tags: [auth, secure]
-    platforms: [web, android, ios]
-    coverage_gap_reason: "Impossible to test on Android automatically"
-```
 
 ### 🧩 Key Components
 
