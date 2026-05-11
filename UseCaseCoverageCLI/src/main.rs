@@ -17,7 +17,7 @@ fn help_message() -> String {
             "\x1b[38;5;25m[\x1b[0m\x1b[38;5;220m✓\x1b[0m\x1b[38;5;25m]\x1b[0m\x1b[38;5;25m[\x1b[0m\x1b[38;5;25m■\x1b[0m\x1b[38;5;25m]\x1b[0m\x1b[38;5;25m[\x1b[0m\x1b[38;5;25m■\x1b[0m\x1b[38;5;25m]\x1b[0m\n\n",
             "\x1b[1;38;5;226mucc v{version}\x1b[0m\n\n",
             "\x1b[1mUse Case Coverage CLI\x1b[0m\n",
-            "Generate use case coverage analysis reports and vlaidate .ucc specifications\n\n",
+            "Generate use case coverage analysis reports and validate .ucc specifications\n\n",
             "\x1b[1;38;5;208mUsage:\x1b[0m\n",
             "  \x1b[38;5;159mucc [OPTIONS] [COMMAND]\x1b[0m\n\n",
             "\x1b[1;38;5;208mOptions:\x1b[0m\n",
@@ -34,6 +34,7 @@ fn help_message() -> String {
 }
 
 fn run_lint(root: &Path, output: Option<&Path>) -> Result<String, String> {
+    println!("🔍 Scanning and linting .ucc files in {}...", root.display());
     let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
     let result = format_lint_results(lint_results);
 
@@ -104,6 +105,7 @@ fn format_lint_results(lint_results: Vec<UccLintResult>) -> Result<String, Strin
 }
 
 fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
+    println!("🔍 Linting .ucc files...");
     let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
 
     let invalid_count = lint_results.iter().filter(|result| !result.is_valid).count();
@@ -112,15 +114,18 @@ fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
         return Err(format!("Cannot generate report because {invalid_count} .ucc file(s) are invalid.\n\n{lint_output}"));
     }
 
+    println!("📊 Collecting features and artifacts...");
     let features = collect_features_from(root).map_err(|error| error.to_string())?;
+    println!("🧪 Finding artifact coverage in codebase...");
     let coverage_index =
         find_artifact_coverage(root, &features).map_err(|error| error.to_string())?;
 
     let cwd = std::env::current_dir().map_err(|error| error.to_string())?;
     let repo_name = cwd.file_name().and_then(|name| name.to_str()).unwrap_or("Unknown");
-    let timestamp = chrono::Local::now().format("%Y-%m-%d_%H-%M-%S").to_string();
-    let default_output = cwd.join(".ucc").join(timestamp);
+    let date = chrono::Local::now().format("%Y-%m-%d").to_string();
+    let default_output = cwd.join(".ucc").join("reports").join(date);
     let output_dir = output.unwrap_or(&default_output);
+    println!("🔨 Generating HTML report in {}...", output_dir.display());
     generate_html_report(output_dir, repo_name, &features, &lint_results, &coverage_index)
         .map_err(|error| error.to_string())?;
 

@@ -34,9 +34,17 @@ where
         let mut paths = self.repository.find_ucc_files(root)?;
         paths.sort();
 
+        let total = paths.len();
+        println!("📂 Found {total} .ucc files to parse...");
+
+        let count = std::sync::atomic::AtomicUsize::new(0);
         paths
             .par_iter()
             .map(|path| {
+                let current = count.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
+                if current % 50 == 0 || current == total {
+                    println!("⏳ Parsed {current}/{total} .ucc files...");
+                }
                 let content = self.repository.read_file(path)?;
                 self.parser.parse(path, &content)
             })
@@ -74,9 +82,17 @@ where
         let mut paths = self.repository.find_ucc_files(root)?;
         paths.sort();
 
+        let total = paths.len();
+        println!("📂 Found {total} .ucc files to lint...");
+
+        let count = std::sync::atomic::AtomicUsize::new(0);
         paths
             .par_iter()
             .map(|path| {
+                let current = count.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
+                if current % 50 == 0 || current == total {
+                    println!("⏳ Linted {current}/{total} .ucc files...");
+                }
                 let content = self.repository.read_file(path)?;
                 match self.parser.parse(path, &content) {
                     Ok(_) => {
@@ -126,9 +142,17 @@ where
         let mut test_files = self.repository.find_test_files(root)?;
         test_files.sort();
 
+        let total = test_files.len();
+        println!("📂 Found {total} test files to scan for coverage...");
+
+        let count = std::sync::atomic::AtomicUsize::new(0);
         let matches_by_file: Vec<Vec<(String, ArtifactTestLocation)>> = test_files
             .par_iter()
             .map(|file_path| {
+                let current = count.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
+                if current % 100 == 0 || current == total {
+                    println!("⏳ Scanned {current}/{total} files...");
+                }
                 let lines = self.repository.read_lines(file_path)?;
                 let mut matches = Vec::new();
                 let mut previous_was_test_attribute = false;
@@ -157,6 +181,8 @@ where
                 Ok(matches)
             })
             .collect::<Result<Vec<_>, CoreError>>()?;
+
+        println!("✅ Coverage scan completed.");
 
         let mut by_artifact_id: HashMap<String, Vec<ArtifactTestLocation>> = HashMap::new();
         for (artifact_id, location) in matches_by_file.into_iter().flatten() {

@@ -103,6 +103,8 @@ impl RawUccDocument {
                     steps: artifact.steps,
                     expected: artifact.expected,
                     platforms: artifact.platforms,
+                    tags: artifact.tags,
+                    coverage_gap_reason: artifact.coverage_gap_reason,
                 })
                 .collect(),
         }
@@ -138,6 +140,10 @@ struct RawArtifact {
     steps: Vec<String>,
     #[serde(default)]
     expected: Vec<String>,
+    #[serde(default)]
+    tags: Vec<String>,
+    #[serde(default)]
+    coverage_gap_reason: Option<String>,
 }
 
 fn is_supported_test_extension(path: &Path) -> bool {

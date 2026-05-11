@@ -109,6 +109,8 @@ fn build_report_data(
                         "steps": a.steps,
                         "expected": a.expected,
                         "platforms": a.platforms,
+                        "tags": a.tags,
+                        "coverageGapReason": a.coverage_gap_reason,
                     })
                 }).collect::<Vec<_>>(),
             })
@@ -343,9 +345,22 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
           </a>
           <a href="#inventory" class="nav-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-            Inventory
+                        <span class="label">Inventory</span>
+          </a>
+          <a href="#tags" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            <span class="label">Tags</span>
+          </a>
+          <a href="#gaps" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span class="label">Gaps</span>
           </a>
         </nav>
+        <div class="sidebar-footer">
+          <a href="https://github.com/sponsors/pedrovgs" target="_blank" rel="noopener noreferrer">
+            Crafted with ❤️ by Pedro Gómez
+          </a>
+        </div>
       </aside>
 
       <main class="main-content">
@@ -472,8 +487,127 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
               </div>
             </section>
           </div>
+
+          <div id="tagsView" class="container" style="display:none;">
+            <div class="detail-header" style="padding:0; margin-bottom: 2rem;">
+              <button class="back-btn" onclick="navigate(event, '')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Dashboard
+              </button>
+            </div>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+              <section class="card">
+                <div class="card-header"><h2>Platforms Distribution</h2></div>
+                <div class="chart-container" style="height: 300px;"><canvas id="platformsChart"></canvas></div>
+              </section>
+              <section class="card">
+                <div class="card-header"><h2>Tags Distribution</h2></div>
+                <div class="chart-container" style="height: 300px;"><canvas id="tagsChart"></canvas></div>
+              </section>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+              <section class="card">
+                <div class="card-header"><h2>Platforms Inventory</h2></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Platform</th>
+                        <th>Occurrences</th>
+                      </tr>
+                    </thead>
+                    <tbody id="platformsTableBody"></tbody>
+                  </table>
+                </div>
+              </section>
+              <section class="card">
+                <div class="card-header"><h2>Tags Inventory</h2></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Tag</th>
+                        <th>Occurrences</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tagsTableBody"></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div id="gapsView" class="container" style="display:none;">
+            <div class="detail-header" style="padding:0; margin-bottom: 2rem;">
+              <button class="back-btn" onclick="navigate(event, '')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Dashboard
+              </button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+              <section class="card">
+                <div class="card-header">
+                   <h2>Gap Reason Cloud</h2>
+                   <span class="subtitle">Visualizing common missing coverage justifications</span>
+                </div>
+                <div id="gapCloud" style="height: 400px; display:flex; justify-content:center; align-items:center;"></div>
+              </section>
+              <section class="card">
+                <div class="card-header"><h2>Top Coverage Needs</h2></div>
+                <div class="table-wrap">
+                  <table style="font-size:0.85rem;">
+                    <thead>
+                      <tr>
+                        <th>Feature</th>
+                        <th>Missing UC coverage</th>
+                        <th>Missing Bug coverage</th>
+                      </tr>
+                    </thead>
+                    <tbody id="topMissingTableBody"></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem;">
+               <section class="card">
+                <div class="card-header"><h2>Most Gaps Declared</h2></div>
+                <div class="table-wrap">
+                  <table style="font-size:0.85rem;">
+                    <thead>
+                      <tr>
+                        <th>Feature</th>
+                        <th>Gap Explanations</th>
+                      </tr>
+                    </thead>
+                    <tbody id="topGapsTableBody"></tbody>
+                  </table>
+                </div>
+              </section>
+              <section class="card">
+                <div class="card-header"><h2>Coverage Gaps Inventory</h2></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Reason</th>
+                        <th>Count</th>
+                        <th>Impacted Features</th>
+                      </tr>
+                    </thead>
+                    <tbody id="gapsInventoryTableBody"></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
         </div>
     </div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>"##
@@ -524,6 +658,23 @@ body {
   flex-direction: column;
   padding: 0 1rem;
   gap: 0.5rem;
+}
+
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.sidebar-footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  transition: color 0.2s;
+}
+
+.sidebar-footer a:hover {
+  color: var(--accent);
 }
 
 .nav-item {
@@ -744,7 +895,7 @@ tbody tr:hover { background: rgba(255,255,255,0.02); }
 
 #[allow(clippy::too_many_lines)]
 const fn ts_template() -> &'static str {
-    r#"// @ts-nocheck
+    r##"// @ts-nocheck
 
 function loadData() {
   const el = document.getElementById('report-data');
@@ -759,7 +910,6 @@ function renderMetrics(data) {
       <div class="label">Total Features</div>
       <div class="value-row">
         <div class="value">${data.summary.totalFeatures}</div>
-        <div class="subtitle yellow">+2 this week</div>
       </div>
     </article>
     <article class="metric">
@@ -1035,6 +1185,12 @@ function renderFeatureDetail(data, featureId) {
                     ${a.platforms.map(p => `<div style="display:inline-flex; align-items:center; margin-right:0.6rem; font-size:0.7rem;">${renderPlatformIcon(p)} <span style="color:#fff; text-transform:uppercase; letter-spacing:0.02em;">${p}</span></div>`).join('')}
                   </div>
                 ` : ''}
+                ${a.tags && a.tags.length > 0 ? `
+                  <div style="display:flex; align-items:center; gap:0.4rem;">
+                    <span style="color:var(--text-muted)">Tags:</span>
+                    ${a.tags.map(t => `<span class="badge" style="background:rgba(252,183,20,0.1); color:#fcb714; border:1px solid rgba(252,183,20,0.2); font-size:0.65rem; text-transform:uppercase; padding: 2px 6px;">${t}</span>`).join('')}
+                  </div>
+                ` : ''}
                 <div>Created: <strong>${a.createdAt}</strong></div>
                 ${a.updatedAt ? `<div>Updated: <strong>${a.updatedAt}</strong></div>` : ''}
               </div>
@@ -1060,6 +1216,12 @@ function renderFeatureDetail(data, featureId) {
                   <ul class="steps-list" style="list-style-type: disc">
                     ${a.expected.map(e => `<li>${e}</li>`).join('')}
                   </ul>
+                </div>
+              ` : ''}
+              ${!a.isCovered && a.coverageGapReason ? `
+                <div style="margin-top:1rem; padding:0.75rem; background:rgba(252,183,20,0.05); border-left:3px solid var(--accent); border-radius:4px;">
+                  <div style="font-weight:600; color:var(--accent); font-size:0.75rem; text-transform:uppercase; margin-bottom:0.25rem;">Coverage Gap Reason</div>
+                  <div style="font-size:0.85rem; color:var(--text-blue); font-style:italic;">"${a.coverageGapReason}"</div>
                 </div>
               ` : ''}
             </div>
@@ -1140,6 +1302,7 @@ let _detailUCChart = null;
 let _detailBugChart = null;
 let _dashboardCharts = [];
 let _invCharts = [];
+let _tagsViewCharts = [];
 let _searchIndex = null;
 
 const PRIORITY_MAP = { 'Highest': 5, 'High': 4, 'Medium': 3, 'Low': 2, 'None': 1 };
@@ -1152,14 +1315,130 @@ function navigate(e, hash) {
   }
 }
 
+function renderGapsView(data) {
+  const topMissingTable = document.getElementById('topMissingTableBody');
+  const topGapsTable = document.getElementById('topGapsTableBody');
+  const gapsInventoryTable = document.getElementById('gapsInventoryTableBody');
+  if (!topMissingTable || !topGapsTable || !gapsInventoryTable) return;
+
+  const gapReasons = {};
+  const featureGaps = [];
+  const missingCoverage = [];
+
+  data.features.forEach(f => {
+    let gapsInFeature = 0;
+    const missingTests = f.useCases - f.useCasesCovered;
+    const missingBugs = f.bugs - f.bugsCovered;
+
+    f.artifacts.forEach(a => {
+      if (a.coverageGapReason) {
+        gapsInFeature++;
+        const reason = a.coverageGapReason;
+        gapReasons[reason] = gapReasons[reason] || { count: 0, features: new Set() };
+        gapReasons[reason].count++;
+        gapReasons[reason].features.add(f.title);
+      }
+    });
+
+    if (gapsInFeature > 0) {
+      featureGaps.push({ id: f.id, title: f.title, count: gapsInFeature });
+    }
+    if (missingTests > 0 || missingBugs > 0) {
+      missingCoverage.push({ id: f.id, title: f.title, missingTests, missingBugs });
+    }
+  });
+
+  // Top Missing
+  missingCoverage.sort((a, b) => (b.missingTests + b.missingBugs) - (a.missingTests + a.missingBugs));
+  topMissingTable.innerHTML = missingCoverage.slice(0, 10).map(m => `
+    <tr onclick="navigate(event, '#feature/${m.id}')" style="cursor:pointer;">
+      <td style="color:#a5c8ff;">${m.title}</td>
+      <td style="color:#fcb714; font-weight:bold;">${m.missingTests}</td>
+      <td style="color:#ef4444; font-weight:bold;">${m.missingBugs}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No missing coverage</td></tr>';
+
+  // Top Gaps
+  featureGaps.sort((a, b) => b.count - a.count);
+  topGapsTable.innerHTML = featureGaps.slice(0, 10).map(g => `
+    <tr onclick="navigate(event, '#feature/${g.id}')" style="cursor:pointer;">
+      <td style="color:#a5c8ff;">${g.title}</td>
+      <td style="font-weight:bold;">${g.count} artifacts</td>
+    </tr>
+  `).join('') || '<tr><td colspan="2" style="text-align:center; color:var(--text-muted);">No gaps declared</td></tr>';
+
+  // Gaps Inventory
+  const reasons = Object.entries(gapReasons).map(([reason, d]) => ({
+    reason,
+    count: d.count,
+    features: Array.from(d.features).join(', ')
+  })).sort((a, b) => b.count - a.count);
+
+  gapsInventoryTable.innerHTML = reasons.map(r => `
+    <tr>
+      <td style="color:#fcb714; max-width:300px;">${r.reason}</td>
+      <td style="font-weight:bold;">${r.count}</td>
+      <td style="font-size:0.75rem; color:var(--text-muted);">${r.features}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No gap reasons found</td></tr>';
+
+  if (typeof d3 !== 'undefined') {
+    renderGapCloud(reasons);
+  }
+}
+
+function renderGapCloud(reasons) {
+  const container = document.getElementById('gapCloud');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const width = container.offsetWidth || 600;
+  const height = 400;
+
+  const words = reasons.map(r => ({ text: r.reason, size: 10 + (Math.min(r.count, 20) * 10) }));
+
+  const layout = d3.layout.cloud()
+    .size([width, height])
+    .words(words)
+    .padding(5)
+    .rotate(() => (~~(Math.random() * 2) * 90))
+    .font("Impact")
+    .fontSize(d => d.size)
+    .on("end", (words) => {
+      const svg = d3.select("#gapCloud").append("svg")
+        .attr("width", layout.size()[0])
+        .attr("height", layout.size()[1])
+        .append("g")
+        .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")");
+
+      const texts = svg.selectAll("text")
+        .data(words)
+        .enter().append("text")
+        .style("font-size", "0px")
+        .style("font-family", "Impact")
+        .style("fill", () => d3.schemeTableau10[Math.floor(Math.random() * 10)])
+        .attr("text-anchor", "middle")
+        .attr("transform", d => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
+        .text(d => d.text);
+
+      texts.transition()
+        .duration(1000)
+        .style("font-size", d => d.size + "px");
+    });
+
+  layout.start();
+}
+
 function handleRouting(data) {
   window.scrollTo(0, 0);
   const hash = window.location.hash || '#dashboard';
   const dashboard = document.getElementById('dashboardView');
   const detail = document.getElementById('featureDetailView');
   const inventory = document.getElementById('inventoryView');
+  const tags = document.getElementById('tagsView');
+  const gaps = document.getElementById('gapsView');
   
-  [dashboard, detail, inventory].forEach(v => { if(v) v.style.display = 'none'; });
+  [dashboard, detail, inventory, tags, gaps].forEach(v => { if(v) v.style.display = 'none'; });
   
   document.querySelectorAll('.nav-item').forEach(link => {
     const href = link.getAttribute('href');
@@ -1172,10 +1451,87 @@ function handleRouting(data) {
   } else if (hash === '#inventory') {
     inventory.style.display = 'block';
     renderInventory(data);
+  } else if (hash === '#tags') {
+    if (tags) tags.style.display = 'block';
+    renderTagsView(data);
+  } else if (hash === '#gaps') {
+    if (gaps) gaps.style.display = 'block';
+    renderGapsView(data);
   } else {
     dashboard.style.display = 'block';
     renderCharts(data);
   }
+}
+
+function renderTagsView(data) {
+  const tagTable = document.getElementById('tagsTableBody');
+  const platformTable = document.getElementById('platformsTableBody');
+  if (!tagTable || !platformTable) return;
+
+  const tagCounts = {};
+  const platformCounts = {};
+
+  data.features.forEach(f => {
+    (f.tags || []).forEach(t => tagCounts[t] = (tagCounts[t] || 0) + 1);
+    (f.platforms || []).forEach(p => platformCounts[p] = (platformCounts[p] || 0) + 1);
+    (f.artifacts || []).forEach(a => {
+        (a.platforms || []).forEach(p => platformCounts[p] = (platformCounts[p] || 0) + 1);
+        (a.tags || []).forEach(t => tagCounts[t] = (tagCounts[t] || 0) + 1);
+    });
+  });
+
+  const tags = Object.entries(tagCounts).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
+  const platforms = Object.entries(platformCounts).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
+
+  tagTable.innerHTML = tags.map(item => `
+    <tr>
+      <td style="color:#fcb714;">${item.name}</td>
+      <td style="font-weight:bold;">${item.count}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="2" style="text-align:center; color:var(--text-muted);">No tags found</td></tr>';
+
+  platformTable.innerHTML = platforms.map(item => `
+    <tr>
+      <td style="color:#a5c8ff;">${item.name}</td>
+      <td style="font-weight:bold;">${item.count}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="2" style="text-align:center; color:var(--text-muted);">No platforms found</td></tr>';
+
+  renderTagsViewCharts(tags, platforms);
+}
+
+function renderTagsViewCharts(tags, platforms) {
+  _tagsViewCharts.forEach(c => c.destroy());
+  _tagsViewCharts = [];
+
+  const createChart = (id, items, color) => {
+    const ctx = document.getElementById(id);
+    if (!ctx) return;
+    _tagsViewCharts.push(new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: items.map(i => i.name),
+        datasets: [{
+          data: items.map(i => i.count),
+          backgroundColor: color,
+          borderRadius: 4
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        animation: { duration: 1000, easing: 'easeOutQuart' },
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { color: '#242d38' }, ticks: { color: '#8b9eb0' } },
+          y: { grid: { display: false }, ticks: { color: '#fff' } }
+        },
+        maintainAspectRatio: false
+      }
+    }));
+  };
+
+  createChart('platformsChart', platforms, '#a5c8ff');
+  createChart('tagsChart', tags, '#fcb714');
 }
 
 function renderInventory(data) {
@@ -1191,14 +1547,15 @@ function renderInventory(data) {
     
     data.features.forEach(f => {
        const content = (f.artifacts || []).map(a => 
-         `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')}`
+         `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')} ${(a.tags || []).join(' ')}`
        ).join(' ');
+       const tagContent = (f.tags || []).join(' ');
        const platformContent = [...(f.platforms || []), ...(f.artifacts || []).flatMap(a => a.platforms || [])].join(' ');
        _searchIndex.add({
           id: f.id,
           title: f.title,
           description: f.description || "",
-          content: `${content} ${platformContent}`
+          content: `${content} ${tagContent} ${platformContent}`
        });
     });
   }
@@ -1450,12 +1807,12 @@ function bootstrap() {
 }
 
 void bootstrap();
-"#
+"##
 }
 
 #[allow(clippy::too_many_lines)]
 const fn js_template() -> &'static str {
-    r#"
+    r##"
 function loadData() {
   const el = document.getElementById('report-data');
   return JSON.parse(el.textContent);
@@ -1469,7 +1826,6 @@ function renderMetrics(data) {
       <div class="label">Total Features</div>
       <div class="value-row">
         <div class="value">${data.summary.totalFeatures}</div>
-        <div class="subtitle yellow">+2 this week</div>
       </div>
     </article>
     <article class="metric">
@@ -1512,6 +1868,7 @@ let _detailUCChart = null;
 let _detailBugChart = null;
 let _dashboardCharts = [];
 let _invCharts = [];
+let _tagsViewCharts = [];
 let _searchIndex = null;
 
 const PRIORITY_MAP = { 'Highest': 5, 'High': 4, 'Medium': 3, 'Low': 2, 'None': 1 };
@@ -1522,6 +1879,120 @@ function navigate(e, hash) {
   } else {
     window.location.hash = hash;
   }
+}
+
+function renderGapsView(data) {
+  const topMissingTable = document.getElementById('topMissingTableBody');
+  const topGapsTable = document.getElementById('topGapsTableBody');
+  const gapsInventoryTable = document.getElementById('gapsInventoryTableBody');
+  if (!topMissingTable || !topGapsTable || !gapsInventoryTable) return;
+
+  const gapReasons = {};
+  const featureGaps = [];
+  const missingCoverage = [];
+
+  data.features.forEach(f => {
+    let gapsInFeature = 0;
+    const missingTests = f.useCases - f.useCasesCovered;
+    const missingBugs = f.bugs - f.bugsCovered;
+
+    f.artifacts.forEach(a => {
+      if (a.coverageGapReason) {
+        gapsInFeature++;
+        const reason = a.coverageGapReason;
+        gapReasons[reason] = gapReasons[reason] || { count: 0, features: new Set() };
+        gapReasons[reason].count++;
+        gapReasons[reason].features.add(f.title);
+      }
+    });
+
+    if (gapsInFeature > 0) {
+      featureGaps.push({ id: f.id, title: f.title, count: gapsInFeature });
+    }
+    if (missingTests > 0 || missingBugs > 0) {
+      missingCoverage.push({ id: f.id, title: f.title, missingTests, missingBugs });
+    }
+  });
+
+  // Top Missing
+  missingCoverage.sort((a, b) => (b.missingTests + b.missingBugs) - (a.missingTests + a.missingBugs));
+  topMissingTable.innerHTML = missingCoverage.slice(0, 10).map(m => `
+    <tr onclick="navigate(event, '#feature/${m.id}')" style="cursor:pointer;">
+      <td style="color:#a5c8ff;">${m.title}</td>
+      <td style="color:#fcb714; font-weight:bold;">${m.missingTests}</td>
+      <td style="color:#ef4444; font-weight:bold;">${m.missingBugs}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No missing coverage</td></tr>';
+
+  // Top Gaps
+  featureGaps.sort((a, b) => b.count - a.count);
+  topGapsTable.innerHTML = featureGaps.slice(0, 10).map(g => `
+    <tr onclick="navigate(event, '#feature/${g.id}')" style="cursor:pointer;">
+      <td style="color:#a5c8ff;">${g.title}</td>
+      <td style="font-weight:bold;">${g.count} artifacts</td>
+    </tr>
+  `).join('') || '<tr><td colspan="2" style="text-align:center; color:var(--text-muted);">No gaps declared</td></tr>';
+
+  // Gaps Inventory
+  const reasons = Object.entries(gapReasons).map(([reason, d]) => ({
+    reason,
+    count: d.count,
+    features: Array.from(d.features).join(', ')
+  })).sort((a, b) => b.count - a.count);
+
+  gapsInventoryTable.innerHTML = reasons.map(r => `
+    <tr>
+      <td style="color:#fcb714; max-width:300px;">${r.reason}</td>
+      <td style="font-weight:bold;">${r.count}</td>
+      <td style="font-size:0.75rem; color:var(--text-muted);">${r.features}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No gap reasons found</td></tr>';
+
+  if (typeof d3 !== 'undefined') {
+    renderGapCloud(reasons);
+  }
+}
+
+function renderGapCloud(reasons) {
+  const container = document.getElementById('gapCloud');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const width = container.offsetWidth || 600;
+  const height = 400;
+
+  const words = reasons.map(r => ({ text: r.reason, size: 10 + (Math.min(r.count, 20) * 10) }));
+
+  const layout = d3.layout.cloud()
+    .size([width, height])
+    .words(words)
+    .padding(5)
+    .rotate(() => (~~(Math.random() * 2) * 90))
+    .font("Impact")
+    .fontSize(d => d.size)
+    .on("end", (words) => {
+      const svg = d3.select("#gapCloud").append("svg")
+        .attr("width", layout.size()[0])
+        .attr("height", layout.size()[1])
+        .append("g")
+        .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")");
+
+      const texts = svg.selectAll("text")
+        .data(words)
+        .enter().append("text")
+        .style("font-size", "0px")
+        .style("font-family", "Impact")
+        .style("fill", () => d3.schemeTableau10[Math.floor(Math.random() * 10)])
+        .attr("text-anchor", "middle")
+        .attr("transform", d => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
+        .text(d => d.text);
+
+      texts.transition()
+        .duration(1000)
+        .style("font-size", d => d.size + "px");
+    });
+
+  layout.start();
 }
 
 function getSortValue(feature, key) {
@@ -1759,6 +2230,12 @@ function renderFeatureDetail(data, featureId) {
                     ${a.platforms.map(p => `<div style="display:inline-flex; align-items:center; margin-right:0.6rem; font-size:0.7rem;">${renderPlatformIcon(p)} <span style="color:#fff; text-transform:uppercase; letter-spacing:0.02em;">${p}</span></div>`).join('')}
                   </div>
                 ` : ''}
+                ${a.tags && a.tags.length > 0 ? `
+                  <div style="display:flex; align-items:center; gap:0.4rem;">
+                    <span style="color:var(--text-muted)">Tags:</span>
+                    ${a.tags.map(t => `<span class="badge" style="background:rgba(252,183,20,0.1); color:#fcb714; border:1px solid rgba(252,183,20,0.2); font-size:0.65rem; text-transform:uppercase; padding: 2px 6px;">${t}</span>`).join('')}
+                  </div>
+                ` : ''}
                 <div>Created: <strong>${a.createdAt}</strong></div>
                 ${a.updatedAt ? `<div>Updated: <strong>${a.updatedAt}</strong></div>` : ''}
               </div>
@@ -1784,6 +2261,12 @@ function renderFeatureDetail(data, featureId) {
                   <ul class="steps-list" style="list-style-type: disc">
                     ${a.expected.map(e => `<li>${e}</li>`).join('')}
                   </ul>
+                </div>
+              ` : ''}
+              ${!a.isCovered && a.coverageGapReason ? `
+                <div style="margin-top:1rem; padding:0.75rem; background:rgba(252,183,20,0.05); border-left:3px solid var(--accent); border-radius:4px;">
+                  <div style="font-weight:600; color:var(--accent); font-size:0.75rem; text-transform:uppercase; margin-bottom:0.25rem;">Coverage Gap Reason</div>
+                  <div style="font-size:0.85rem; color:var(--text-blue); font-style:italic;">"${a.coverageGapReason}"</div>
                 </div>
               ` : ''}
             </div>
@@ -1866,8 +2349,10 @@ function handleRouting(data) {
   const dashboard = document.getElementById('dashboardView');
   const detail = document.getElementById('featureDetailView');
   const inventory = document.getElementById('inventoryView');
+  const tags = document.getElementById('tagsView');
+  const gaps = document.getElementById('gapsView');
   
-  [dashboard, detail, inventory].forEach(v => { if(v) v.style.display = 'none'; });
+  [dashboard, detail, inventory, tags, gaps].forEach(v => { if(v) v.style.display = 'none'; });
   
   document.querySelectorAll('.nav-item').forEach(link => {
     const href = link.getAttribute('href');
@@ -1880,10 +2365,87 @@ function handleRouting(data) {
   } else if (hash === '#inventory') {
     inventory.style.display = 'block';
     renderInventory(data);
+  } else if (hash === '#tags') {
+    if (tags) tags.style.display = 'block';
+    renderTagsView(data);
+  } else if (hash === '#gaps') {
+    if (gaps) gaps.style.display = 'block';
+    renderGapsView(data);
   } else {
     dashboard.style.display = 'block';
     renderCharts(data);
   }
+}
+
+function renderTagsView(data) {
+  const tagTable = document.getElementById('tagsTableBody');
+  const platformTable = document.getElementById('platformsTableBody');
+  if (!tagTable || !platformTable) return;
+
+  const tagCounts = {};
+  const platformCounts = {};
+
+  data.features.forEach(f => {
+    (f.tags || []).forEach(t => tagCounts[t] = (tagCounts[t] || 0) + 1);
+    (f.platforms || []).forEach(p => platformCounts[p] = (platformCounts[p] || 0) + 1);
+    (f.artifacts || []).forEach(a => {
+        (a.platforms || []).forEach(p => platformCounts[p] = (platformCounts[p] || 0) + 1);
+        (a.tags || []).forEach(t => tagCounts[t] = (tagCounts[t] || 0) + 1);
+    });
+  });
+
+  const tags = Object.entries(tagCounts).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
+  const platforms = Object.entries(platformCounts).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
+
+  tagTable.innerHTML = tags.map(item => `
+    <tr>
+      <td style="color:#fcb714;">${item.name}</td>
+      <td style="font-weight:bold;">${item.count}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="2" style="text-align:center; color:var(--text-muted);">No tags found</td></tr>';
+
+  platformTable.innerHTML = platforms.map(item => `
+    <tr>
+      <td style="color:#a5c8ff;">${item.name}</td>
+      <td style="font-weight:bold;">${item.count}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="2" style="text-align:center; color:var(--text-muted);">No platforms found</td></tr>';
+
+  renderTagsViewCharts(tags, platforms);
+}
+
+function renderTagsViewCharts(tags, platforms) {
+  _tagsViewCharts.forEach(c => c.destroy());
+  _tagsViewCharts = [];
+
+  const createChart = (id, items, color) => {
+    const ctx = document.getElementById(id);
+    if (!ctx) return;
+    _tagsViewCharts.push(new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: items.map(i => i.name),
+        datasets: [{
+          data: items.map(i => i.count),
+          backgroundColor: color,
+          borderRadius: 4
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        animation: { duration: 1000, easing: 'easeOutQuart' },
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { color: '#242d38' }, ticks: { color: '#8b9eb0' } },
+          y: { grid: { display: false }, ticks: { color: '#fff' } }
+        },
+        maintainAspectRatio: false
+      }
+    }));
+  };
+
+  createChart('platformsChart', platforms, '#a5c8ff');
+  createChart('tagsChart', tags, '#fcb714');
 }
 
 function renderInventory(data) {
@@ -1899,14 +2461,15 @@ function renderInventory(data) {
     
     data.features.forEach(f => {
        const content = (f.artifacts || []).map(a => 
-         `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')}`
+         `${a.title} ${(a.steps || []).join(' ')} ${(a.expected || []).join(' ')} ${(a.tags || []).join(' ')}`
        ).join(' ');
+       const tagContent = (f.tags || []).join(' ');
        const platformContent = [...(f.platforms || []), ...(f.artifacts || []).flatMap(a => a.platforms || [])].join(' ');
        _searchIndex.add({
           id: f.id,
           title: f.title,
           description: f.description || "",
-          content: `${content} ${platformContent}`
+          content: `${content} ${tagContent} ${platformContent}`
        });
     });
   }
@@ -2158,7 +2721,7 @@ function bootstrap() {
 }
 
 void bootstrap();
-"#
+"##
 }
 
 #[cfg(test)]
@@ -2204,6 +2767,8 @@ mod tests {
                 platforms: vec![],
                 steps: vec![],
                 expected: vec![],
+                tags: vec![],
+                coverage_gap_reason: None,
             }],
         }];
 

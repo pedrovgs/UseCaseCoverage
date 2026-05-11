@@ -7,6 +7,7 @@ feature:
   updated_at: "2026-05-01"
   description: >
     Auto-generated feature number 2.
+tags: [core, auth, auth-test]
 
 artifacts:
   - id: art-002-001

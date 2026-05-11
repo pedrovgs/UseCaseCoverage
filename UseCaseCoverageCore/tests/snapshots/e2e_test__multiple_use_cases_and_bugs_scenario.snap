@@ -1,6 +1,5 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 52
 expression: features
 ---
 - sourcePath: feature.ucc
@@ -28,6 +27,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: Blocked by infrastructure issues.
     - id: bug-002
       artifactType: regression
       createdAt: 2026-05-10
@@ -40,6 +41,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: ucc-001
       artifactType: ~
       createdAt: 2026-05-10
@@ -52,6 +55,8 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: ucc-002
       artifactType: ~
       createdAt: 2026-05-10
@@ -64,3 +69,5 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: Manual verification required for hardware-specific steps.

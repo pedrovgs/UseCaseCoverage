@@ -21,6 +21,7 @@ artifacts:
     priority: medium
     steps:
       - Step 1
+    coverage_gap_reason: "Manual verification required for hardware-specific steps."
 
   - id: bug-001
     type: regression
@@ -28,6 +29,7 @@ artifacts:
     title: First bug
     severity: high
     status: open
+    coverage_gap_reason: "Blocked by infrastructure issues."
     related:
       - ucc-001
 

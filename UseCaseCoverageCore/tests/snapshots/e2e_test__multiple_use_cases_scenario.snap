@@ -1,6 +1,5 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 46
 expression: features
 ---
 - sourcePath: feature.ucc
@@ -29,6 +28,8 @@ expression: features
         - Step 1
       expected:
         - Expected 1
+      tags: []
+      coverageGapReason: ~
     - id: ucc-002
       artifactType: ~
       createdAt: 2026-05-10
@@ -42,3 +43,5 @@ expression: features
         - Step 1
       expected:
         - Expected 1
+      tags: []
+      coverageGapReason: ~

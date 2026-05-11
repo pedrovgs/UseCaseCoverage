@@ -1,6 +1,5 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 58
 expression: features
 ---
 - sourcePath: feature1.ucc
@@ -27,6 +26,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: f1-ucc-001
       artifactType: ~
       createdAt: 2026-05-10
@@ -39,6 +40,8 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: f1-ucc-002
       artifactType: ~
       createdAt: 2026-05-10
@@ -51,6 +54,8 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: ~
 - sourcePath: feature2.ucc
   schemaVersion: "1.0"
   feature:
@@ -75,6 +80,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: f2-bug-002
       artifactType: regression
       createdAt: 2026-05-10
@@ -86,6 +93,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: f2-ucc-001
       artifactType: ~
       createdAt: 2026-05-10
@@ -98,6 +107,8 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: f2-ucc-002
       artifactType: ~
       createdAt: 2026-05-10
@@ -110,3 +121,5 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: ~

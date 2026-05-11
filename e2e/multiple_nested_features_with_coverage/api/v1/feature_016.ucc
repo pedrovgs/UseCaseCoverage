@@ -7,6 +7,7 @@ feature:
   updated_at: "2025-12-23"
   description: >
     Auto-generated feature number 16.
+tags: [api, v1, legacy]
 
 artifacts:
   - id: art-016-001

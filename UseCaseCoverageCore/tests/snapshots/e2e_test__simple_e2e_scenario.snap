@@ -1,6 +1,5 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 40
 expression: features
 ---
 - sourcePath: simple_feature.ucc
@@ -29,3 +28,5 @@ expression: features
         - Step 1
       expected:
         - Expected 1
+      tags: []
+      coverageGapReason: ~

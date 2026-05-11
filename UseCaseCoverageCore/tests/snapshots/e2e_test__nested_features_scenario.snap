@@ -1,6 +1,5 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 64
 expression: features
 ---
 - sourcePath: core/feature_a.ucc
@@ -27,6 +26,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: nf-a-ucc-001
       artifactType: ~
       createdAt: 2026-05-10
@@ -39,6 +40,8 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: ~
 - sourcePath: core/auth/feature_b.ucc
   schemaVersion: "1.0"
   feature:
@@ -63,6 +66,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: nf-b-ucc-001
       artifactType: ~
       createdAt: 2026-05-10
@@ -75,3 +80,5 @@ expression: features
       steps:
         - Step 1
       expected: []
+      tags: []
+      coverageGapReason: ~

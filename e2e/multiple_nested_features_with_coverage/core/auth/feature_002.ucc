@@ -7,6 +7,7 @@ feature:
   updated_at: "2025-11-20"
   description: >
     Auto-generated feature number 2.
+tags: [core, auth, secure]
 
 artifacts:
   - id: art-002-001
@@ -19,6 +20,7 @@ artifacts:
       - Step 1
     expected:
       - Expected outcome
+    coverage_gap_reason: "Third party library dependency"
   - id: art-002-002
     platforms: [web, windows]
     created_at: "2025-03-17"

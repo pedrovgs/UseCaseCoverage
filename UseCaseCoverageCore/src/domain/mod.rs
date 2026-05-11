@@ -41,6 +41,8 @@ pub struct Artifact {
     pub platforms: Vec<String>,
     pub steps: Vec<String>,
     pub expected: Vec<String>,
+    pub tags: Vec<String>,
+    pub coverage_gap_reason: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]

@@ -1,6 +1,5 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
-assertion_line: 70
 expression: features
 ---
 - sourcePath: feature.ucc
@@ -27,6 +26,8 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~
     - id: bug-only-002
       artifactType: regression
       createdAt: 2026-05-10
@@ -38,3 +39,5 @@ expression: features
       platforms: []
       steps: []
       expected: []
+      tags: []
+      coverageGapReason: ~

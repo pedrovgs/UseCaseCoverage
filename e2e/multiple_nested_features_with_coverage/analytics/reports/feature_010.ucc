@@ -7,6 +7,7 @@ feature:
   updated_at: "2026-05-04"
   description: >
     Auto-generated feature number 10.
+tags: [analytics, reports, data-science]
 
 artifacts:
   - id: art-010-001
