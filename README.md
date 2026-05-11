@@ -30,10 +30,16 @@
 
 ## 📦 Installation
 
-Assuming you have [Homebrew](https://brew.sh/) installed, you can get up and running in seconds:
+Assuming you have [Homebrew](https://brew.sh/) installed:
 
 ```bash
+brew tap pedrovgs/tap
 brew install ucc
+```
+
+Alternatively, you can install it in a single command:
+```bash
+brew install pedrovgs/tap/ucc
 ```
 
 ---
@@ -181,7 +187,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Install ucc
-        run: brew install ucc
+        run: brew install pedrovgs/tap/ucc
         
       - name: Lint UCC files
         run: ucc lint
