@@ -40,6 +40,15 @@ brew install ucc
 
 ## 🛠 Usage
 
+Tracking your coverage with UCC follows a simple three-step workflow:
+
+1. 📝 **Define your Specs**: Write your features, use cases, bugs, and regressions in the simple `.ucc` YAML format anywhere in your project.
+2. 🏷️ **Annotate your Tests**: Include the unique ID of your artifacts in your test code (as a comment or within a string). UCC scans your codebase to find these matches automatically.
+3. 🚀 **Generate & Analyze**: Run `ucc report` to compute coverage metrics and generate a beautiful, interactive dashboard. You can exeucte ``ucc`` locally or integrate it in your CI/CD pipeline.
+
+---
+
+
 ### ✅ Linting `.ucc` files
 
 Ensure your specifications are perfect before generating reports. The `lint` command validates your `.ucc` files recursively.
@@ -78,12 +87,9 @@ feature:
   id: user-authentication
   title: User Authentication
   created_at: "2026-05-10"
-  updated_at: "2026-05-10"
   description: >
     Handles user login, signup, and session management.
 
-tags: [security, core]
-platforms: [web, android, ios]
 related_features: []
 
 artifacts:
@@ -91,7 +97,6 @@ artifacts:
     title: Successful login with valid credentials
     priority: high
     created_at: "2026-05-10"
-    tags: [auth, secure]
     steps:
       - Enter username
       - Enter password
@@ -105,14 +110,17 @@ artifacts:
     priority: highest
     created_at: "2026-05-10"
     related: [ucc-auth-001]
+    tags: [auth, secure]
+    platforms: [web, android, ios]
+    coverage_gap_reason: "Impossible to test on Android automatically"
 ```
 
 ### 🧩 Key Components
 
 - **Use Cases**: Standard artifacts capturing user requirements.
 - **Bugs & Regressions**: Explicitly tracked items with `type: bug` or `type: regression`.
-- **Cross-Platform Tracking**: Granularly track coverage across `android`, `apple`, `web`, and `windows`.
-- **Coverage Gaps**: Document known missing coverage with `coverage_gap_reason` to keep the team informed about technical debt.
+- **Cross-Platform Tracking**: Granularly track coverage across `android`, `apple`, `web`, `windows`, or any other platform you define in the `platforms` field.
+- **Coverage Gaps**: Document known missing coverage with `coverage_gap_reason` to keep the team informed about missing automated coverage.
 
 ---
 
