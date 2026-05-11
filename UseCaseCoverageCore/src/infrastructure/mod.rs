@@ -166,6 +166,11 @@ fn collect_files_matching(
     Ok(files)
 }
 
+fn is_ignored_directory(path: &Path) -> bool {
+    let name = path.file_name().and_then(|n| n.to_str()).unwrap_or("");
+    name.starts_with('.') || name == "node_modules" || name == "build" || name == "DerivedData" || name == "target" || name == "dist" || name == "out" || name == "bin"
+}
+
 fn collect_files_matching_from_dir(
     dir: &Path,
     predicate: impl Fn(&Path) -> bool + Copy,
@@ -178,7 +183,9 @@ fn collect_files_matching_from_dir(
         let path = entry.path();
 
         if path.is_dir() {
-            collect_files_matching_from_dir(&path, predicate, collector)?;
+            if !is_ignored_directory(&path) {
+                collect_files_matching_from_dir(&path, predicate, collector)?;
+            }
         } else if predicate(&path) {
             collector.push(path);
         }
