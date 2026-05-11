@@ -26,4 +26,3 @@ proptest = "1.5"
 [profile.dist]
 inherits = "release"
 lto = "thin"
-allow-dirty = ["ci"]
