@@ -255,4 +255,52 @@ artifacts:
 "#
         )
     }
+    #[test]
+    fn collect_features_from_handles_tag_and_platform_inheritance() {
+        let temp = tempdir().unwrap();
+        let root = temp.path();
+
+        let ucc_content = r#"schema_version: "1.0"
+feature:
+  id: inheritance
+  title: Inheritance
+  created_at: "2026-05-10"
+  description: Testing inheritance
+tags: ["feature-tag"]
+platforms: ["feature-platform"]
+artifacts:
+  - id: inherited
+    created_at: "2026-05-10"
+    title: Inherited
+  - id: overridden
+    created_at: "2026-05-10"
+    title: Overridden
+    tags: ["artifact-tag"]
+    platforms: ["artifact-platform"]
+  - id: partial-overridden
+    created_at: "2026-05-10"
+    title: Partial Overridden
+    tags: ["only-tag"]
+"#;
+
+        fs::write(root.join("test.ucc"), ucc_content).unwrap();
+
+        let results = collect_features_from(&[root.to_path_buf()], true).unwrap();
+        let feature = &results[0];
+
+        // Artifact 1: Inherited
+        let a1 = &feature.artifacts[0];
+        assert_eq!(a1.tags, vec!["feature-tag"]);
+        assert_eq!(a1.platforms, vec!["feature-platform"]);
+
+        // Artifact 2: Overridden
+        let a2 = &feature.artifacts[1];
+        assert_eq!(a2.tags, vec!["artifact-tag"]);
+        assert_eq!(a2.platforms, vec!["artifact-platform"]);
+
+        // Artifact 3: Partial Overridden
+        let a3 = &feature.artifacts[2];
+        assert_eq!(a3.tags, vec!["only-tag"]);
+        assert_eq!(a3.platforms, vec!["feature-platform"]);
+    }
 }

@@ -74,6 +74,30 @@ impl RawUccDocument {
         source_path: PathBuf,
         last_modified_at: Option<&str>,
     ) -> FeatureDocument {
+        let artifacts = self
+            .artifacts
+            .into_iter()
+            .map(|artifact| {
+                let platforms = artifact.platforms.unwrap_or_else(|| self.platforms.clone());
+                let tags = artifact.tags.unwrap_or_else(|| self.tags.clone());
+                Artifact {
+                    id: artifact.id,
+                    artifact_type: artifact.artifact_type,
+                    created_at: artifact.created_at,
+                    updated_at: artifact.updated_at,
+                    last_modified_at: last_modified_at.map(str::to_owned),
+                    title: artifact.title,
+                    priority: artifact.priority,
+                    related: artifact.related,
+                    steps: artifact.steps,
+                    expected: artifact.expected,
+                    platforms,
+                    tags,
+                    coverage_gap_reason: artifact.coverage_gap_reason,
+                }
+            })
+            .collect();
+
         FeatureDocument {
             source_path,
             schema_version: self.schema_version,
@@ -88,25 +112,7 @@ impl RawUccDocument {
             tags: self.tags,
             platforms: self.platforms,
             related_features: self.related_features,
-            artifacts: self
-                .artifacts
-                .into_iter()
-                .map(|artifact| Artifact {
-                    id: artifact.id,
-                    artifact_type: artifact.artifact_type,
-                    created_at: artifact.created_at,
-                    updated_at: artifact.updated_at,
-                    last_modified_at: last_modified_at.map(str::to_owned),
-                    title: artifact.title,
-                    priority: artifact.priority,
-                    related: artifact.related,
-                    steps: artifact.steps,
-                    expected: artifact.expected,
-                    platforms: artifact.platforms,
-                    tags: artifact.tags,
-                    coverage_gap_reason: artifact.coverage_gap_reason,
-                })
-                .collect(),
+            artifacts,
         }
     }
 }
@@ -135,13 +141,13 @@ struct RawArtifact {
     #[serde(default)]
     related: Vec<String>,
     #[serde(default)]
-    platforms: Vec<String>,
+    platforms: Option<Vec<String>>,
     #[serde(default)]
     steps: Vec<String>,
     #[serde(default)]
     expected: Vec<String>,
     #[serde(default)]
-    tags: Vec<String>,
+    tags: Option<Vec<String>>,
     #[serde(default)]
     coverage_gap_reason: Option<String>,
 }

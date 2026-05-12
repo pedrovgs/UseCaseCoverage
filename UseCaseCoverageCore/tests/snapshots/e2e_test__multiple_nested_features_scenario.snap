@@ -1,5 +1,6 @@
 ---
 source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 76
 expression: features
 ---
 - sourcePath: ui/dashboard/feature_001.ucc
@@ -31,7 +32,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: Resource constraints
     - id: art-001-002
       artifactType: regression
@@ -46,7 +50,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-003
       artifactType: ~
@@ -61,7 +68,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-004
       artifactType: ~
@@ -76,7 +86,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-005
       artifactType: ~
@@ -91,7 +104,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-006
       artifactType: bug
@@ -106,7 +122,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-007
       artifactType: regression
@@ -121,7 +140,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-008
       artifactType: ~
@@ -136,7 +158,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-009
       artifactType: regression
@@ -151,7 +176,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-010
       artifactType: ~
@@ -166,7 +194,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-011
       artifactType: regression
@@ -181,7 +212,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-012
       artifactType: ~
@@ -196,7 +230,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-013
       artifactType: regression
@@ -211,7 +248,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-014
       artifactType: ~
@@ -226,7 +266,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-015
       artifactType: ~
@@ -241,7 +284,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-016
       artifactType: ~
@@ -256,7 +302,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-017
       artifactType: ~
@@ -271,7 +320,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-018
       artifactType: ~
@@ -286,7 +338,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-019
       artifactType: bug
@@ -301,7 +356,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-020
       artifactType: ~
@@ -316,7 +374,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-021
       artifactType: regression
@@ -331,7 +392,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-022
       artifactType: ~
@@ -346,7 +410,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-023
       artifactType: ~
@@ -361,7 +428,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-024
       artifactType: ~
@@ -376,7 +446,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-025
       artifactType: ~
@@ -391,7 +464,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-026
       artifactType: ~
@@ -406,7 +482,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-027
       artifactType: ~
@@ -421,7 +500,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-028
       artifactType: bug
@@ -436,7 +518,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-029
       artifactType: ~
@@ -451,7 +536,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-030
       artifactType: bug
@@ -466,7 +554,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-031
       artifactType: ~
@@ -481,7 +572,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-032
       artifactType: ~
@@ -496,7 +590,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-033
       artifactType: ~
@@ -511,7 +608,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-034
       artifactType: ~
@@ -526,7 +626,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-035
       artifactType: ~
@@ -541,7 +644,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-036
       artifactType: ~
@@ -556,7 +662,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-037
       artifactType: ~
@@ -571,7 +680,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-038
       artifactType: regression
@@ -586,7 +698,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-039
       artifactType: ~
@@ -601,7 +716,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-040
       artifactType: ~
@@ -616,7 +734,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-041
       artifactType: ~
@@ -631,7 +752,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-042
       artifactType: bug
@@ -646,7 +770,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-043
       artifactType: ~
@@ -661,7 +788,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-044
       artifactType: bug
@@ -676,7 +806,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-045
       artifactType: ~
@@ -691,7 +824,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-046
       artifactType: ~
@@ -706,7 +842,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-047
       artifactType: bug
@@ -721,7 +860,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-048
       artifactType: bug
@@ -736,7 +878,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-049
       artifactType: ~
@@ -751,7 +896,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-050
       artifactType: ~
@@ -766,7 +914,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-051
       artifactType: ~
@@ -781,7 +932,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-052
       artifactType: regression
@@ -796,7 +950,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-053
       artifactType: bug
@@ -811,7 +968,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-054
       artifactType: regression
@@ -826,7 +986,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-055
       artifactType: ~
@@ -841,7 +1004,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-056
       artifactType: regression
@@ -856,7 +1022,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-057
       artifactType: bug
@@ -871,7 +1040,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-058
       artifactType: regression
@@ -886,7 +1058,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-059
       artifactType: bug
@@ -901,7 +1076,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-060
       artifactType: regression
@@ -916,7 +1094,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-061
       artifactType: bug
@@ -931,7 +1112,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-062
       artifactType: regression
@@ -946,7 +1130,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-063
       artifactType: ~
@@ -961,7 +1148,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-064
       artifactType: ~
@@ -976,7 +1166,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-065
       artifactType: bug
@@ -991,7 +1184,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-066
       artifactType: bug
@@ -1006,7 +1202,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-067
       artifactType: regression
@@ -1021,7 +1220,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-068
       artifactType: ~
@@ -1036,7 +1238,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-069
       artifactType: ~
@@ -1051,7 +1256,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-070
       artifactType: bug
@@ -1066,7 +1274,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-071
       artifactType: ~
@@ -1081,7 +1292,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-072
       artifactType: ~
@@ -1096,7 +1310,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-073
       artifactType: ~
@@ -1111,7 +1328,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-074
       artifactType: bug
@@ -1126,7 +1346,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-075
       artifactType: regression
@@ -1141,7 +1364,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-076
       artifactType: ~
@@ -1156,7 +1382,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-077
       artifactType: regression
@@ -1171,7 +1400,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-078
       artifactType: ~
@@ -1186,7 +1418,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-079
       artifactType: ~
@@ -1201,7 +1436,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
     - id: art-001-080
       artifactType: ~
@@ -1216,7 +1454,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - ui
+        - dashboard
+        - test
       coverageGapReason: ~
 - sourcePath: core/auth/feature_002.ucc
   schemaVersion: "1.0"
@@ -1247,7 +1488,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-002
       artifactType: ~
@@ -1262,7 +1506,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-003
       artifactType: regression
@@ -1277,7 +1524,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-004
       artifactType: bug
@@ -1292,7 +1542,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-005
       artifactType: ~
@@ -1307,7 +1560,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-006
       artifactType: ~
@@ -1322,7 +1578,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-007
       artifactType: regression
@@ -1337,7 +1596,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-008
       artifactType: ~
@@ -1352,7 +1614,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-009
       artifactType: ~
@@ -1367,7 +1632,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-010
       artifactType: regression
@@ -1382,7 +1650,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-011
       artifactType: ~
@@ -1397,7 +1668,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-012
       artifactType: ~
@@ -1412,7 +1686,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-013
       artifactType: ~
@@ -1427,7 +1704,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-014
       artifactType: bug
@@ -1442,7 +1722,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-015
       artifactType: bug
@@ -1457,7 +1740,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-016
       artifactType: bug
@@ -1472,7 +1758,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-017
       artifactType: ~
@@ -1487,7 +1776,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-018
       artifactType: ~
@@ -1502,7 +1794,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-019
       artifactType: regression
@@ -1517,7 +1812,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-020
       artifactType: bug
@@ -1532,7 +1830,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-021
       artifactType: regression
@@ -1547,7 +1848,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-022
       artifactType: ~
@@ -1562,7 +1866,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-023
       artifactType: bug
@@ -1577,7 +1884,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-024
       artifactType: ~
@@ -1592,7 +1902,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-025
       artifactType: ~
@@ -1607,7 +1920,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-026
       artifactType: ~
@@ -1622,7 +1938,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-027
       artifactType: ~
@@ -1637,7 +1956,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-028
       artifactType: ~
@@ -1652,7 +1974,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-029
       artifactType: regression
@@ -1667,7 +1992,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-030
       artifactType: ~
@@ -1682,7 +2010,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-031
       artifactType: bug
@@ -1697,7 +2028,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-032
       artifactType: bug
@@ -1712,7 +2046,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-033
       artifactType: ~
@@ -1727,7 +2064,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-034
       artifactType: ~
@@ -1742,7 +2082,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-035
       artifactType: ~
@@ -1757,7 +2100,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-036
       artifactType: ~
@@ -1772,7 +2118,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-037
       artifactType: ~
@@ -1787,7 +2136,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-038
       artifactType: regression
@@ -1802,7 +2154,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-039
       artifactType: ~
@@ -1817,7 +2172,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-040
       artifactType: ~
@@ -1832,7 +2190,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-041
       artifactType: regression
@@ -1847,7 +2208,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-042
       artifactType: ~
@@ -1862,7 +2226,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-043
       artifactType: regression
@@ -1877,7 +2244,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-044
       artifactType: ~
@@ -1892,7 +2262,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-045
       artifactType: ~
@@ -1907,7 +2280,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-046
       artifactType: ~
@@ -1922,7 +2298,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-047
       artifactType: ~
@@ -1937,7 +2316,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-048
       artifactType: ~
@@ -1952,7 +2334,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-049
       artifactType: regression
@@ -1967,7 +2352,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-050
       artifactType: ~
@@ -1982,7 +2370,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-051
       artifactType: bug
@@ -1997,7 +2388,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-052
       artifactType: ~
@@ -2012,7 +2406,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-053
       artifactType: ~
@@ -2027,7 +2424,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-054
       artifactType: bug
@@ -2042,7 +2442,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-055
       artifactType: regression
@@ -2057,7 +2460,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-056
       artifactType: ~
@@ -2072,7 +2478,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-057
       artifactType: ~
@@ -2087,7 +2496,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-058
       artifactType: bug
@@ -2102,7 +2514,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-059
       artifactType: ~
@@ -2117,7 +2532,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-060
       artifactType: ~
@@ -2132,7 +2550,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-061
       artifactType: regression
@@ -2147,7 +2568,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
     - id: art-002-062
       artifactType: ~
@@ -2162,7 +2586,10 @@ expression: features
         - Step 1
       expected:
         - Expected outcome
-      tags: []
+      tags:
+        - core
+        - auth
+        - auth-test
       coverageGapReason: ~
 - sourcePath: core/settings/feature_003.ucc
   schemaVersion: "1.0"
