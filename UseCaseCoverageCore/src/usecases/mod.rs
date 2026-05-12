@@ -1,5 +1,5 @@
 use std::collections::{HashMap, HashSet};
-use std::path::Path;
+use std::path::PathBuf;
 
 use aho_corasick::AhoCorasick;
 use rayon::prelude::*;
@@ -30,8 +30,15 @@ where
     /// # Errors
     ///
     /// Returns an error when file discovery, file reading, or YAML parsing fails.
-    pub fn execute(&self, root: &Path) -> Result<Vec<FeatureDocument>, CoreError> {
-        let mut paths = self.repository.find_ucc_files(root)?;
+    pub fn execute(&self, roots: &[PathBuf]) -> Result<Vec<FeatureDocument>, CoreError> {
+        let mut all_paths = HashSet::new();
+        for root in roots {
+            let paths = self.repository.find_ucc_files(root)?;
+            for path in paths {
+                all_paths.insert(path);
+            }
+        }
+        let mut paths: Vec<PathBuf> = all_paths.into_iter().collect();
         paths.sort();
 
         let total = paths.len();
@@ -78,8 +85,15 @@ where
     /// # Errors
     ///
     /// Returns an error when file discovery or file reading fails.
-    pub fn execute(&self, root: &Path) -> Result<Vec<UccLintResult>, CoreError> {
-        let mut paths = self.repository.find_ucc_files(root)?;
+    pub fn execute(&self, roots: &[PathBuf]) -> Result<Vec<UccLintResult>, CoreError> {
+        let mut all_paths = HashSet::new();
+        for root in roots {
+            let paths = self.repository.find_ucc_files(root)?;
+            for path in paths {
+                all_paths.insert(path);
+            }
+        }
+        let mut paths: Vec<PathBuf> = all_paths.into_iter().collect();
         paths.sort();
 
         let total = paths.len();
@@ -134,12 +148,20 @@ where
     /// Returns an error when source discovery or file reads fail.
     pub fn execute(
         &self,
-        root: &Path,
+        roots: &[PathBuf],
         features: &[FeatureDocument],
     ) -> Result<ArtifactCoverageIndex, CoreError> {
         let artifact_matcher = ArtifactIdMatcher::from_features(features);
 
-        let mut test_files = self.repository.find_test_files(root)?;
+        let mut all_test_files = HashSet::new();
+        for root in roots {
+            let paths = self.repository.find_test_files(root)?;
+            for path in paths {
+                all_test_files.insert(path);
+            }
+        }
+
+        let mut test_files: Vec<PathBuf> = all_test_files.into_iter().collect();
         test_files.sort();
 
         let total = test_files.len();
@@ -405,7 +427,7 @@ mod tests {
             .with_file(root.join("feature_broken.ucc"), "schema_version: [".to_string());
         let use_case = CollectFeaturesUseCase::new(repository, YamlUccParser);
 
-        let result = use_case.execute(root);
+        let result = use_case.execute(&[root.to_path_buf()]);
 
         assert!(result.is_err());
         let message = result.expect_err("must fail").to_string();
@@ -435,10 +457,11 @@ mod tests {
             );
 
         let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
-        let features = collect.execute(root).expect("features should parse");
+        let features = collect.execute(&[root.to_path_buf()]).expect("features should parse");
 
         let finder = FindArtifactCoverageUseCase::new(collect.repository);
-        let index = finder.execute(root, &features).expect("coverage search should work");
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
 
         let matches = index.for_artifact("ucc-feat-1");
         assert_eq!(matches.len(), 5);
@@ -455,7 +478,7 @@ mod tests {
             .with_file(root.join("broken.ucc"), "schema_version: [".to_string());
 
         let use_case = LintUccFormatsUseCase::new(repository, YamlUccParser);
-        let results = use_case.execute(root).expect("lint should run");
+        let results = use_case.execute(&[root.to_path_buf()]).expect("lint should run");
 
         assert_eq!(results.len(), 2);
         let valid = results
@@ -526,11 +549,11 @@ mod tests {
             };
 
             let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
-            let mut features = collect.execute(root).expect("features should parse");
+            let mut features = collect.execute(&[root.to_path_buf()]).expect("features should parse");
             features[0].artifacts[0].id = artifact_id.clone();
 
             let finder = FindArtifactCoverageUseCase::new(collect.repository);
-            let index = finder.execute(root, &features).expect("coverage should be searchable");
+            let index = finder.execute(&[root.to_path_buf()], &features).expect("coverage should be searchable");
 
             let expected = [include_ts, include_swift, include_kotlin, include_rust]
                 .into_iter()
@@ -573,7 +596,7 @@ mod tests {
                 });
 
             let use_case = CollectFeaturesUseCase::new(repository, YamlUccParser);
-            let result: Vec<FeatureDocument> = use_case.execute(root).expect("documents should parse");
+            let result: Vec<FeatureDocument> = use_case.execute(&[root.to_path_buf()]).expect("documents should parse");
 
             prop_assert_eq!(result.len(), total);
             for document in &result {

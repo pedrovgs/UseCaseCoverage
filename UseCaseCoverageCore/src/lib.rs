@@ -5,7 +5,7 @@ pub mod infrastructure;
 pub mod ports;
 pub mod usecases;
 
-use std::path::Path;
+use std::path::PathBuf;
 
 use domain::{ArtifactCoverageIndex, FeatureDocument, UccLintResult};
 use infrastructure::{LocalFileSystemRepository, LocalTestFileRepository, YamlUccParser};
@@ -27,9 +27,9 @@ pub fn coverage_percentage(covered: u32, total: u32) -> f64 {
 /// # Errors
 ///
 /// Returns an error when file discovery, file reading, or parsing fails.
-pub fn collect_features_from(root: &Path) -> Result<Vec<FeatureDocument>, CoreError> {
+pub fn collect_features_from(roots: &[PathBuf]) -> Result<Vec<FeatureDocument>, CoreError> {
     let use_case = CollectFeaturesUseCase::new(LocalFileSystemRepository, YamlUccParser);
-    use_case.execute(root)
+    use_case.execute(roots)
 }
 
 /// Facade for finding test coverage mapped by artifact id.
@@ -38,11 +38,11 @@ pub fn collect_features_from(root: &Path) -> Result<Vec<FeatureDocument>, CoreEr
 ///
 /// Returns an error when source discovery or file reading fails.
 pub fn find_artifact_coverage(
-    root: &Path,
+    roots: &[PathBuf],
     features: &[FeatureDocument],
 ) -> Result<ArtifactCoverageIndex, CoreError> {
     let use_case = FindArtifactCoverageUseCase::new(LocalTestFileRepository);
-    use_case.execute(root, features)
+    use_case.execute(roots, features)
 }
 
 /// Facade for linting `.ucc` file formats under a root folder.
@@ -50,9 +50,9 @@ pub fn find_artifact_coverage(
 /// # Errors
 ///
 /// Returns an error when file discovery or reads fail.
-pub fn lint_ucc_formats(root: &Path) -> Result<Vec<UccLintResult>, CoreError> {
+pub fn lint_ucc_formats(roots: &[PathBuf]) -> Result<Vec<UccLintResult>, CoreError> {
     let use_case = LintUccFormatsUseCase::new(LocalFileSystemRepository, YamlUccParser);
-    use_case.execute(root)
+    use_case.execute(roots)
 }
 
 #[cfg(test)]
@@ -96,7 +96,8 @@ mod tests {
         )
         .expect("second ucc file should be written");
 
-        let result = collect_features_from(root).expect("use case should parse all ucc files");
+        let result = collect_features_from(&[root.to_path_buf()])
+            .expect("use case should parse all ucc files");
 
         assert_eq!(result.len(), 2);
         assert_eq!(result[0].feature.id, "feat-alpha");
@@ -123,7 +124,7 @@ mod tests {
         fs::write(root.join("broken.ucc"), "feature: [this is not valid")
             .expect("broken ucc file should be written");
 
-        let result = collect_features_from(root);
+        let result = collect_features_from(&[root.to_path_buf()]);
 
         assert!(result.is_err());
         let error_message = result.expect_err("invalid yaml should fail").to_string();
@@ -150,7 +151,8 @@ feature:
         )
         .expect("minimal ucc file should be written");
 
-        let result = collect_features_from(root).expect("minimal ucc should parse");
+        let result =
+            collect_features_from(&[root.to_path_buf()]).expect("minimal ucc should parse");
         let feature = &result[0];
 
         assert_eq!(feature.feature.updated_at, None);

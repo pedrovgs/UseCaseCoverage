@@ -1,0 +1,8 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc cdbd885785eefa84cf3245b1c56fdcecfe62b55b5bc752f75bb6e7dcf501f4c8 # shrinks to feature_suffixes = {0}, priorities = [None]
+cc a47ebe0f6a2a0f7e7e57cc5d93c76c9e56004df4793c7ee834c73ffb6bc62cf0 # shrinks to suffix = 0, include_ts = false, include_swift = false, include_kotlin = false, include_rust = false
