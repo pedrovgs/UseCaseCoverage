@@ -1891,6 +1891,31 @@ function renderGapsView(data) {
   const gapReasons = {};
   const featureGaps = [];
   const missingCoverage = [];
+  
+  const stopWords = new Set([
+    "a", "an", "the", "and", "or", "but", "if", "then", "else", "when", "at", "from", "by", "for", "with", 
+    "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", 
+    "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", 
+    "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", 
+    "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", 
+    "t", "can", "will", "just", "don", "should", "now", "is", "are", "was", "were", "be", "been", "being", 
+    "have", "has", "had", "do", "does", "did", "am", "me", "my", "myself", "we", "our", "ours", "ourselves", 
+    "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", 
+    "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", 
+    "who", "whom", "this", "that", "these", "those", "doing", "would", "could", "should", "ought", "might", 
+    "must", "shall", "cannot", "couldn't", "didn't", "doesn't", "hadn't", "hasn't", "haven't", "isn't", 
+    "mustn't", "shan't", "shouldn't", "wasn't", "weren't", "won't", "wouldn't", "i"
+  ].map(w => w.toLowerCase()));
+
+  const cloudWordCounts = {};
+  const processText = (text) => {
+    if (!text) return;
+    text.toLowerCase().split(/\W+/).forEach(word => {
+      if (word.length > 2 && !stopWords.has(word.toLowerCase())) {
+        cloudWordCounts[word] = (cloudWordCounts[word] || 0) + 1;
+      }
+    });
+  };
 
   data.features.forEach(f => {
     let gapsInFeature = 0;
@@ -1898,12 +1923,16 @@ function renderGapsView(data) {
     const missingBugs = f.bugs - f.bugsCovered;
 
     f.artifacts.forEach(a => {
-      if (a.coverageGapReason) {
-        gapsInFeature++;
-        const reason = a.coverageGapReason;
-        gapReasons[reason] = gapReasons[reason] || { count: 0, features: new Set() };
-        gapReasons[reason].count++;
-        gapReasons[reason].features.add(f.title);
+      if (!a.isCovered) {
+        processText(a.title);
+        if (a.coverageGapReason) {
+          processText(a.coverageGapReason);
+          gapsInFeature++;
+          const reason = a.coverageGapReason;
+          gapReasons[reason] = gapReasons[reason] || { count: 0, features: new Set() };
+          gapReasons[reason].count++;
+          gapReasons[reason].features.add(f.title);
+        }
       }
     });
 
@@ -1950,11 +1979,12 @@ function renderGapsView(data) {
   `).join('') || '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No gap reasons found</td></tr>';
 
   if (typeof d3 !== 'undefined') {
-    renderGapCloud(reasons);
+    const cloudWords = Object.entries(cloudWordCounts).map(([text, count]) => ({ text, count }));
+    renderGapCloud(cloudWords);
   }
 }
 
-function renderGapCloud(reasons) {
+function renderGapCloud(words) {
   const container = document.getElementById('gapCloud');
   if (!container) return;
   container.innerHTML = '';
@@ -1962,11 +1992,11 @@ function renderGapCloud(reasons) {
   const width = container.offsetWidth || 600;
   const height = 400;
 
-  const words = reasons.map(r => ({ text: r.reason, size: 10 + (Math.min(r.count, 20) * 10) }));
+  const data = words.map(w => ({ text: w.text, size: 12 + (Math.min(w.count, 50) * 4) }));
 
   const layout = d3.layout.cloud()
     .size([width, height])
-    .words(words)
+    .words(data)
     .padding(5)
     .rotate(() => (~~(Math.random() * 2) * 90))
     .font("Impact")
