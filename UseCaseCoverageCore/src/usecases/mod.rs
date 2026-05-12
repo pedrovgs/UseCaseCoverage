@@ -1,5 +1,5 @@
 use std::collections::{HashMap, HashSet};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use aho_corasick::AhoCorasick;
 use rayon::prelude::*;
@@ -132,7 +132,7 @@ where
         println!("📂 Found {total} .ucc files to lint...");
 
         let count = std::sync::atomic::AtomicUsize::new(0);
-        paths
+        let parsed_results: Vec<(PathBuf, Result<FeatureDocument, CoreError>)> = paths
             .par_iter()
             .map(|path| {
                 let current = count.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
@@ -140,27 +140,67 @@ where
                     println!("⏳ Linted {current}/{total} .ucc files...");
                 }
                 let content = self.repository.read_file(path)?;
-                match self.parser.parse(path, &content) {
-                    Ok(_) => {
-                        Ok(UccLintResult { file_path: path.clone(), is_valid: true, issue: None })
-                    }
-                    Err(CoreError::Parse { reason, .. }) => {
-                        let (line, column) = extract_line_and_column(&reason);
-                        Ok(UccLintResult {
-                            file_path: path.clone(),
-                            is_valid: false,
-                            issue: Some(UccLintIssue {
-                                message: reason.clone(),
-                                line,
-                                column,
-                                suggestion: infer_suggestion(&reason),
-                            }),
-                        })
-                    }
-                    Err(other) => Err(other),
-                }
+                Ok((path.clone(), self.parser.parse(path, &content)))
             })
-            .collect()
+            .collect::<Result<Vec<_>, CoreError>>()?;
+
+        let mut artifact_id_to_files: HashMap<String, Vec<PathBuf>> = HashMap::new();
+        let mut feature_id_to_files: HashMap<String, Vec<PathBuf>> = HashMap::new();
+        let mut file_name_to_files: HashMap<String, Vec<PathBuf>> = HashMap::new();
+        let mut path_to_doc = HashMap::new();
+
+        for (path, res) in &parsed_results {
+            if let Ok(doc) = res {
+                path_to_doc.insert(path.clone(), doc.clone());
+                feature_id_to_files.entry(doc.feature.id.clone()).or_default().push(path.clone());
+                for artifact in &doc.artifacts {
+                    artifact_id_to_files.entry(artifact.id.clone()).or_default().push(path.clone());
+                }
+            }
+            if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+                file_name_to_files.entry(name.to_string()).or_default().push(path.clone());
+            }
+        }
+
+        let mut results = Vec::new();
+        for (path, res) in parsed_results {
+            match res {
+                Ok(_) => {
+                    let mut result =
+                        UccLintResult { file_path: path.clone(), is_valid: true, issue: None };
+
+                    if let Some(doc) = path_to_doc.get(&path) {
+                        if let Some(issue) = check_for_duplicates(
+                            &path,
+                            doc,
+                            &artifact_id_to_files,
+                            &feature_id_to_files,
+                            &file_name_to_files,
+                        ) {
+                            result.is_valid = false;
+                            result.issue = Some(issue);
+                        }
+                    }
+                    results.push(result);
+                }
+                Err(CoreError::Parse { reason, .. }) => {
+                    let (line, column) = extract_line_and_column(&reason);
+                    results.push(UccLintResult {
+                        file_path: path,
+                        is_valid: false,
+                        issue: Some(UccLintIssue {
+                            message: reason.clone(),
+                            line,
+                            column,
+                            suggestion: infer_suggestion(&reason),
+                        }),
+                    });
+                }
+                Err(other) => return Err(other),
+            }
+        }
+
+        Ok(results)
     }
 }
 
@@ -610,10 +650,11 @@ fn test_five_fails() {}
             );
 
         let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
-        let features = collect.execute(root).expect("features should parse");
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
 
         let finder = FindArtifactCoverageUseCase::new(collect.repository);
-        let index = finder.execute(root, &features).expect("coverage search should work");
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
 
         let matches = index.for_artifact("ucc-feat-1");
         // Matches should be found for test_one, test_two, test_three, test_four.
@@ -650,6 +691,40 @@ fn test_five_fails() {}
         let issue = invalid.issue.as_ref().expect("invalid file should include issue");
         assert!(!issue.message.trim().is_empty());
         assert!(issue.line.is_some() || issue.column.is_some());
+    }
+
+    #[test]
+    fn lint_ucc_formats_rejects_duplicate_ids_and_file_names_across_files() {
+        let root = Path::new("/lint");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feat-1.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(root.join("feat-2.ucc"), sample_document("feat-1", Priority::High));
+
+        let use_case = LintUccFormatsUseCase::new(repository, YamlUccParser);
+        let results = use_case.execute(&[root.to_path_buf()], true).expect("lint should run");
+
+        assert_eq!(results.len(), 2);
+        for result in results {
+            assert!(!result.is_valid);
+            let issue = result.issue.as_ref().expect("should have issue");
+            assert!(issue.message.contains("Duplicate artifact ID(s) found:"));
+            assert!(issue.message.contains("Duplicate feature ID found:"));
+            assert!(issue.message.contains("ucc-feat-1"));
+            assert!(issue.message.contains("bug-feat-1"));
+        }
+
+        // Test duplicate file names
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("a/feat.ucc"), sample_document("feat-a", Priority::High))
+            .with_file(root.join("b/feat.ucc"), sample_document("feat-b", Priority::High));
+        let use_case = LintUccFormatsUseCase::new(repository, YamlUccParser);
+        let results = use_case.execute(&[root.to_path_buf()], true).expect("lint should run");
+        assert_eq!(results.len(), 2);
+        for result in results {
+            assert!(!result.is_valid);
+            let issue = result.issue.as_ref().expect("should have issue");
+            assert!(issue.message.contains("Duplicate .ucc file name found: feat.ucc"));
+        }
     }
 
     proptest! {
@@ -804,4 +879,78 @@ artifacts:
 "#
         )
     }
+}
+
+fn check_for_duplicates(
+    path: &Path,
+    doc: &FeatureDocument,
+    artifact_id_to_files: &HashMap<String, Vec<PathBuf>>,
+    feature_id_to_files: &HashMap<String, Vec<PathBuf>>,
+    file_name_to_files: &HashMap<String, Vec<PathBuf>>,
+) -> Option<UccLintIssue> {
+    let mut duplicate_artifact_ids = Vec::new();
+    for artifact in &doc.artifacts {
+        if let Some(files) = artifact_id_to_files.get(&artifact.id) {
+            if files.len() > 1 {
+                duplicate_artifact_ids.push(artifact.id.clone());
+            }
+        }
+    }
+
+    let mut duplicate_feature_ids = Vec::new();
+    if let Some(files) = feature_id_to_files.get(&doc.feature.id) {
+        if files.len() > 1 {
+            duplicate_feature_ids.push(doc.feature.id.clone());
+        }
+    }
+
+    let mut duplicate_file_names = Vec::new();
+    if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+        if let Some(files) = file_name_to_files.get(name) {
+            if files.len() > 1 {
+                duplicate_file_names.push(name.to_string());
+            }
+        }
+    }
+
+    if !duplicate_artifact_ids.is_empty()
+        || !duplicate_feature_ids.is_empty()
+        || !duplicate_file_names.is_empty()
+    {
+        let mut errors = Vec::new();
+
+        if !duplicate_artifact_ids.is_empty() {
+            duplicate_artifact_ids.sort();
+            duplicate_artifact_ids.dedup();
+            errors.push(format!(
+                "Duplicate artifact ID(s) found: {}. All artifact IDs must be unique across the project.",
+                duplicate_artifact_ids.join(", ")
+            ));
+        }
+
+        if !duplicate_feature_ids.is_empty() {
+            errors.push(format!(
+                "Duplicate feature ID found: {}. All feature IDs must be unique across the project.",
+                doc.feature.id
+            ));
+        }
+
+        if !duplicate_file_names.is_empty() {
+            errors.push(format!(
+                "Duplicate .ucc file name found: {}. All .ucc file names must be unique across the project.",
+                duplicate_file_names[0]
+            ));
+        }
+
+        return Some(UccLintIssue {
+            message: errors.join("\n"),
+            line: None,
+            column: None,
+            suggestion: Some(
+                "Check other .ucc files for the same IDs or names and ensure they are unique."
+                    .to_string(),
+            ),
+        });
+    }
+    None
 }

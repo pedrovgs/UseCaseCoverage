@@ -1,0 +1,149 @@
+{
+  "features": [
+    {
+      "artifacts": [
+        {
+          "coverageGapReason": null,
+          "coverageLocations": [],
+          "createdAt": "2026-05-10",
+          "expected": [
+            "Expected one"
+          ],
+          "id": "ucc-001",
+          "isCovered": false,
+          "platforms": [],
+          "priority": "High",
+          "steps": [
+            "Step one"
+          ],
+          "tags": [],
+          "title": "A use case",
+          "type": "usecase",
+          "updatedAt": null
+        }
+      ],
+      "bugs": 0,
+      "bugsCovered": 0,
+      "createdAt": "2026-05-10",
+      "description": "Sample feature.\n",
+      "id": "feat-1",
+      "platforms": [],
+      "title": "Feature One",
+      "updatedAt": "",
+      "useCases": 1,
+      "useCasesCovered": 0
+    }
+  ],
+  "growth": {
+    "artifacts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "bugs": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "coveredBugs": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "coveredUseCases": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "features": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "months": [
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May"
+    ],
+    "useCases": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ]
+  },
+  "lintIssues": [],
+  "summary": {
+    "bugCoveragePct": 0.0,
+    "coveredBugs": 0,
+    "coveredUseCases": 0,
+    "invalidUccFiles": 0,
+    "totalBugs": 0,
+    "totalFeatures": 1,
+    "totalUseCases": 1,
+    "useCaseCoveragePct": 0.0,
+    "validUccFiles": 1
+  }
+}

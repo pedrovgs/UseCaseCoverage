@@ -385,8 +385,8 @@ mod tests {
         fs::create_dir_all(&root_a).unwrap();
         fs::create_dir_all(&root_b).unwrap();
 
-        fs::write(root_a.join("a.ucc"), sample_ucc()).unwrap();
-        fs::write(root_b.join("b.ucc"), sample_ucc()).unwrap();
+        fs::write(root_a.join("a.ucc"), sample_ucc_with_id("feat-a", "ucc-a")).unwrap();
+        fs::write(root_b.join("b.ucc"), sample_ucc_with_id("feat-b", "ucc-b")).unwrap();
 
         let args = vec![
             "ucc".to_string(),
@@ -403,9 +403,10 @@ mod tests {
         let temp = tempdir().expect("tempdir should be created");
         let root = temp.path();
 
-        fs::write(root.join("root.ucc"), sample_ucc()).expect("root ucc should be written");
+        fs::write(root.join("root.ucc"), sample_ucc_with_id("feat-root", "ucc-root"))
+            .expect("root ucc should be written");
         fs::create_dir(root.join("nested")).expect("nested dir should be created");
-        fs::write(root.join("nested/nested.ucc"), sample_ucc())
+        fs::write(root.join("nested/nested.ucc"), sample_ucc_with_id("feat-nested", "ucc-nested"))
             .expect("nested ucc should be written");
 
         // Without -s, both are found
@@ -417,6 +418,30 @@ mod tests {
         let args_single = vec!["ucc".to_string(), "lint".to_string(), "-s".to_string()];
         let output_single = run_with_root(&args_single, root).expect("lint should succeed");
         assert!(output_single.contains("Linted 1 .ucc file(s)"));
+    }
+
+    fn sample_ucc_with_id(feat_id: &str, artifact_id: &str) -> String {
+        format!(
+            r#"schema_version: "1.0"
+
+feature:
+  id: {feat_id}
+  title: Feature {feat_id}
+  created_at: "2026-05-10"
+  description: >
+    Sample feature.
+
+artifacts:
+  - id: {artifact_id}
+    created_at: "2026-05-10"
+    title: A use case
+    priority: high
+    steps:
+      - Step one
+    expected:
+      - Expected one
+"#
+        )
     }
 
     fn sample_ucc() -> &'static str {
