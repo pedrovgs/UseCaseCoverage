@@ -130,7 +130,7 @@ fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
 
     let cwd = std::env::current_dir().map_err(|error| error.to_string())?;
     let repo_name = cwd.file_name().and_then(|name| name.to_str()).unwrap_or("Unknown");
-    let date = chrono::Local::now().format("%Y-%m-%d").to_string();
+    let date = chrono::Local::now().format("%Y-%m-%d_%H-%M-%S").to_string();
     let default_output = cwd.join(".ucc").join("reports").join(date);
     let output_dir = output.unwrap_or(&default_output);
     println!("🔨 Generating HTML report in {}...", output_dir.display());
@@ -305,6 +305,24 @@ mod tests {
 
         assert!(error.contains("Cannot generate report"));
         assert!(error.contains("broken.ucc"));
+    }
+
+    #[test]
+    fn report_command_generates_report_with_timestamp_folder_by_default() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root = temp.path();
+
+        fs::write(root.join("feature.ucc"), sample_ucc()).expect("valid ucc should be written");
+
+        let args = vec!["ucc".to_string(), "report".to_string()];
+        let output = run_with_root(&args, root).expect("report should succeed");
+
+        // The output should contain the default path which includes a timestamp:
+        // .ucc/reports/YYYY-MM-DD_HH-MM-SS/index.html
+        let re =
+            regex::Regex::new(r"\.ucc/reports/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}/index\.html")
+                .unwrap();
+        assert!(re.is_match(&output), "Output '{}' did not match expected pattern", output);
     }
 
     fn sample_ucc() -> &'static str {

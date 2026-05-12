@@ -159,7 +159,7 @@ Transform your YAML files into a stunning, interactive HTML dashboard that visua
 ucc report
 ```
 
-By default, reports are neatly organized in `.ucc/reports/<REPORT_CREATION_DATE>`. 
+By default, reports are neatly organized in `.ucc/reports/<REPORT_CREATION_TIMESTAMP>`. 
 
 ---
 

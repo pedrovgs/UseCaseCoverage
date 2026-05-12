@@ -19,6 +19,7 @@ use_case_coverage_reporter = { path = "../UseCaseCoverageReporter" }
 
 [dev-dependencies]
 tempfile = "3.13"
+regex = "1.10"
 
 [[bin]]
 name = "ucc"
