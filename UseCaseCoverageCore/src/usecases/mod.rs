@@ -155,27 +155,69 @@ where
                 }
                 let lines = self.repository.read_lines(file_path)?;
                 let mut matches = Vec::new();
+                let mut pending_matches: Vec<(String, usize)> = Vec::new();
                 let mut previous_was_test_attribute = false;
 
                 for (line_idx, line) in lines.iter().enumerate() {
-                    let has_test_context =
-                        looks_like_test_declaration(line) || previous_was_test_attribute;
-                    previous_was_test_attribute = line.to_ascii_lowercase().contains("#[test]")
-                        || line.to_ascii_lowercase().contains("@test");
+                    let current_line_num = line_idx + 1;
+                    let trimmed = line.trim();
 
-                    if !has_test_context {
+                    if trimmed.is_empty() {
+                        pending_matches.clear();
+                        previous_was_test_attribute = false;
                         continue;
                     }
 
-                    for artifact_id in artifact_matcher.find_artifact_ids(line) {
-                        matches.push((
-                            artifact_id,
-                            ArtifactTestLocation {
-                                file_path: file_path.clone(),
-                                line: line_idx + 1,
-                            },
-                        ));
+                    let is_comment = is_comment_line(line);
+                    let looks_like_test = looks_like_test_declaration(line);
+                    let is_test_context = looks_like_test || previous_was_test_attribute;
+
+                    if is_comment {
+                        for artifact_id in artifact_matcher.find_artifact_ids(line) {
+                            pending_matches.push((artifact_id, current_line_num));
+                        }
                     }
+
+                    if is_test_context {
+                        // Match IDs on the current line
+                        for artifact_id in artifact_matcher.find_artifact_ids(line) {
+                            matches.push((
+                                artifact_id,
+                                ArtifactTestLocation {
+                                    file_path: file_path.clone(),
+                                    line: current_line_num,
+                                },
+                            ));
+                        }
+
+                        // Match IDs from recent comments (within 3 lines)
+                        pending_matches.retain(|(artifact_id, line_num)| {
+                            if current_line_num - *line_num <= 3 {
+                                matches.push((
+                                    artifact_id.clone(),
+                                    ArtifactTestLocation {
+                                        file_path: file_path.clone(),
+                                        line: *line_num,
+                                    },
+                                ));
+                                false // Associated with a test, remove from pending
+                            } else {
+                                true
+                            }
+                        });
+                    }
+
+                    // Clean up old pending matches that are out of window
+                    pending_matches.retain(|(_, line_num)| current_line_num - *line_num < 3);
+
+                    let current_is_test_attribute = line.to_ascii_lowercase().contains("#[test]")
+                        || line.to_ascii_lowercase().contains("@test");
+
+                    if !is_comment && !is_test_context && !current_is_test_attribute {
+                        pending_matches.clear();
+                    }
+
+                    previous_was_test_attribute = current_is_test_attribute;
                 }
 
                 Ok(matches)
@@ -279,6 +321,14 @@ fn looks_like_test_declaration(line: &str) -> bool {
         || lower.contains("func test")
         || lower.contains("fun test")
         || lower.contains("fun `")
+}
+
+fn is_comment_line(line: &str) -> bool {
+    let trimmed = line.trim_start();
+    trimmed.starts_with("//")
+        || trimmed.starts_with('#')
+        || trimmed.starts_with("/*")
+        || trimmed.starts_with('*')
 }
 
 fn extract_line_and_column(reason: &str) -> (Option<usize>, Option<usize>) {
@@ -445,6 +495,54 @@ mod tests {
         let mut lines: Vec<usize> = matches.iter().map(|location| location.line).collect();
         lines.sort_unstable();
         assert_eq!(lines, vec![1, 1, 2, 2, 2]);
+    }
+
+    #[test]
+    fn find_artifact_coverage_supports_comments_above_tests() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("test.rs"),
+                r#"
+// ucc-feat-1
+#[test]
+fn test_one() {}
+
+/* ucc-feat-1 */
+@Test
+fun test_two() {}
+
+# ucc-feat-1
+func test_three() {}
+
+// ucc-feat-1
+// some other comment
+// another comment
+#[test]
+fn test_four() {}
+
+// ucc-feat-1
+
+#[test]
+fn test_five_fails() {}
+"#
+                .to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(root).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index = finder.execute(root, &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        // Matches should be found for test_one, test_two, test_three, test_four.
+        // test_five_fails should NOT match because of the blank line.
+        assert_eq!(matches.len(), 4);
+        let mut lines: Vec<usize> = matches.iter().map(|location| location.line).collect();
+        lines.sort_unstable();
+        assert_eq!(lines, vec![2, 6, 10, 13]);
     }
 
     #[test]
