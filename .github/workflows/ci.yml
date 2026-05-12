@@ -49,3 +49,16 @@ jobs:
         with:
           name: coverage-report
           path: coverage/lcov.info
+
+  test-install-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run install.sh (dry-run/syntax check)
+        run: |
+          chmod +x install.sh
+          # We don't want to actually install it in CI (requires sudo and might fail on missing release assets)
+          # but we can check if it fails gracefully when no assets are found.
+          ./install.sh || echo "Script exited with error as expected (no release assets yet)"

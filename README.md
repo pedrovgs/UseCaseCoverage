@@ -30,6 +30,12 @@
 
 ## 📦 Installation
 
+**One-liner (Linux & macOS):**
+```bash
+curl -fsSL https://raw.githubusercontent.com/pedrovgs/UseCaseCoverage/main/install.sh | bash
+```
+
+**Homebrew (macOS):**
 Assuming you have [Homebrew](https://brew.sh/) installed:
 
 ```bash

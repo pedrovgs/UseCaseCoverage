@@ -9,6 +9,8 @@ cargo-dist-version = "0.31.0"
 ci = "github"
 # The installers to generate for each app
 installers = ["homebrew"]
+# The package formats to generate
+packages = ["tar.gz", "deb"]
 # A GitHub repo to push Homebrew formulas to
 tap = "pedrovgs/homebrew-tap"
 # Target platforms to build apps for (Rust target-triple syntax)
