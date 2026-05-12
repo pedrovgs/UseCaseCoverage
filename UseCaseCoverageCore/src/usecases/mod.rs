@@ -52,11 +52,15 @@ where
     /// # Errors
     ///
     /// Returns an error when file discovery, file reading, or YAML parsing fails.
-    pub fn execute(&self, roots: &[PathBuf]) -> Result<Vec<FeatureDocument>, CoreError> {
+    pub fn execute(
+        &self,
+        roots: &[PathBuf],
+        recursive: bool,
+    ) -> Result<Vec<FeatureDocument>, CoreError> {
         let roots = deduplicate_roots(roots);
         let mut all_paths = HashSet::new();
         for root in &roots {
-            let paths = self.repository.find_ucc_files(root)?;
+            let paths = self.repository.find_ucc_files(root, recursive)?;
             for path in paths {
                 all_paths.insert(path);
             }
@@ -108,11 +112,15 @@ where
     /// # Errors
     ///
     /// Returns an error when file discovery or file reading fails.
-    pub fn execute(&self, roots: &[PathBuf]) -> Result<Vec<UccLintResult>, CoreError> {
+    pub fn execute(
+        &self,
+        roots: &[PathBuf],
+        recursive: bool,
+    ) -> Result<Vec<UccLintResult>, CoreError> {
         let roots = deduplicate_roots(roots);
         let mut all_paths = HashSet::new();
         for root in &roots {
-            let paths = self.repository.find_ucc_files(root)?;
+            let paths = self.repository.find_ucc_files(root, recursive)?;
             for path in paths {
                 all_paths.insert(path);
             }
@@ -411,12 +419,17 @@ mod tests {
     }
 
     impl UccFileRepository for InMemoryUccRepository {
-        fn find_ucc_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
+        fn find_ucc_files(&self, root: &Path, recursive: bool) -> Result<Vec<PathBuf>, CoreError> {
             let mut paths: Vec<PathBuf> = self
                 .files
                 .keys()
                 .filter(|path| {
-                    path.starts_with(root)
+                    let is_under_root = if recursive {
+                        path.starts_with(root)
+                    } else {
+                        path.parent() == Some(root)
+                    };
+                    is_under_root
                         && path.extension().and_then(std::ffi::OsStr::to_str) == Some("ucc")
                 })
                 .cloned()
@@ -470,7 +483,7 @@ mod tests {
             .with_file(root.join("feature_broken.ucc"), "schema_version: [".to_string());
         let use_case = CollectFeaturesUseCase::new(repository, YamlUccParser);
 
-        let result = use_case.execute(&[root.to_path_buf()]);
+        let result = use_case.execute(&[root.to_path_buf()], true);
 
         assert!(result.is_err());
         let message = result.expect_err("must fail").to_string();
@@ -500,7 +513,7 @@ mod tests {
             );
 
         let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
-        let features = collect.execute(&[root.to_path_buf()]).expect("features should parse");
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
 
         let finder = FindArtifactCoverageUseCase::new(collect.repository);
         let index =
@@ -521,7 +534,7 @@ mod tests {
             .with_file(root.join("broken.ucc"), "schema_version: [".to_string());
 
         let use_case = LintUccFormatsUseCase::new(repository, YamlUccParser);
-        let results = use_case.execute(&[root.to_path_buf()]).expect("lint should run");
+        let results = use_case.execute(&[root.to_path_buf()], true).expect("lint should run");
 
         assert_eq!(results.len(), 2);
         let valid = results
@@ -592,7 +605,7 @@ mod tests {
             };
 
             let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
-            let mut features = collect.execute(&[root.to_path_buf()]).expect("features should parse");
+            let mut features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
             features[0].artifacts[0].id = artifact_id.clone();
 
             let finder = FindArtifactCoverageUseCase::new(collect.repository);
@@ -639,7 +652,7 @@ mod tests {
                 });
 
             let use_case = CollectFeaturesUseCase::new(repository, YamlUccParser);
-            let result: Vec<FeatureDocument> = use_case.execute(&[root.to_path_buf()]).expect("documents should parse");
+            let result: Vec<FeatureDocument> = use_case.execute(&[root.to_path_buf()], true).expect("documents should parse");
 
             prop_assert_eq!(result.len(), total);
             for document in &result {

@@ -24,7 +24,8 @@ fn help_message() -> String {
             "  \x1b[38;5;120m-h, --help\x1b[0m           Show this help message\n",
             "  \x1b[38;5;120m-i, --input <path>\x1b[0m    Root directory to scan for .ucc files (default: current directory)\n",
             "  \x1b[38;5;120m-o, --output <path>\x1b[0m   Output file (lint) or directory (report) (default: stdout for lint, <current-dir>/.ucc/ for report)\n",
-            "  \x1b[38;5;120m--as, --additional-sources <path>\x1b[0m  Additional directories to scan for .ucc and test files (repeatable)\n\n",
+            "  \x1b[38;5;120m--as, --additional-sources <path>\x1b[0m  Additional directories to scan for .ucc and test files (repeatable)\n",
+            "  \x1b[38;5;120m-s, --single\x1b[0m          Disable recursive .ucc file discovery (only scan top-level directory)\n\n",
             "\x1b[1;38;5;208mCommands:\x1b[0m\n",
             "  \x1b[38;5;117mreport\x1b[0m        Generate an HTML report with features, use cases, and bugs analysis\n",
             "  \x1b[38;5;117mlint\x1b[0m          Explore and validate .ucc files, ensuring the format is correct and nothing is missing\n\n",
@@ -34,10 +35,14 @@ fn help_message() -> String {
     )
 }
 
-fn run_lint(roots: &[std::path::PathBuf], output: Option<&Path>) -> Result<String, String> {
+fn run_lint(
+    roots: &[std::path::PathBuf],
+    output: Option<&Path>,
+    recursive: bool,
+) -> Result<String, String> {
     let start = std::time::Instant::now();
     println!("🔍 Scanning and linting .ucc files...");
-    let lint_results = lint_ucc_formats(roots).map_err(|error| error.to_string())?;
+    let lint_results = lint_ucc_formats(roots, recursive).map_err(|error| error.to_string())?;
     let duration = start.elapsed();
     let result = format_lint_results(lint_results);
 
@@ -112,10 +117,14 @@ fn format_lint_results(lint_results: Vec<UccLintResult>) -> Result<String, Strin
     Ok(output)
 }
 
-fn run_report(roots: &[std::path::PathBuf], output: Option<&Path>) -> Result<String, String> {
+fn run_report(
+    roots: &[std::path::PathBuf],
+    output: Option<&Path>,
+    recursive: bool,
+) -> Result<String, String> {
     let start = std::time::Instant::now();
     println!("🔍 Linting .ucc files...");
-    let lint_results = lint_ucc_formats(roots).map_err(|error| error.to_string())?;
+    let lint_results = lint_ucc_formats(roots, recursive).map_err(|error| error.to_string())?;
 
     let invalid_count = lint_results.iter().filter(|result| !result.is_valid).count();
     if invalid_count > 0 {
@@ -124,7 +133,7 @@ fn run_report(roots: &[std::path::PathBuf], output: Option<&Path>) -> Result<Str
     }
 
     println!("📊 Collecting features and artifacts...");
-    let features = collect_features_from(roots).map_err(|error| error.to_string())?;
+    let features = collect_features_from(roots, recursive).map_err(|error| error.to_string())?;
     println!("🧪 Finding artifact coverage in codebase...");
     let coverage_index =
         find_artifact_coverage(roots, &features).map_err(|error| error.to_string())?;
@@ -146,11 +155,14 @@ fn run_report(roots: &[std::path::PathBuf], output: Option<&Path>) -> Result<Str
     ))
 }
 
-fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String>, Vec<String>) {
+fn parse_args(
+    args: &[String],
+) -> (Option<String>, Option<String>, Option<String>, Vec<String>, bool) {
     let mut input = None;
     let mut output = None;
     let mut command = None;
     let mut additional_sources = Vec::new();
+    let mut recursive = true;
     let mut i = 1;
 
     while i < args.len() {
@@ -175,30 +187,34 @@ fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String
                     additional_sources.push(path.clone());
                 }
             }
+            "-s" | "--single" => {
+                recursive = false;
+            }
             _ => {}
         }
         i += 1;
     }
 
-    (input, output, command, additional_sources)
+    (input, output, command, additional_sources, recursive)
 }
 
 fn dispatch(
     roots: &[std::path::PathBuf],
     output: Option<&Path>,
     command: Option<&str>,
+    recursive: bool,
 ) -> Result<String, String> {
     match command {
         None | Some("-h" | "--help") => Ok(help_message()),
-        Some("lint") => run_lint(roots, output),
-        Some("report") => run_report(roots, output),
+        Some("lint") => run_lint(roots, output, recursive),
+        Some("report") => run_report(roots, output, recursive),
         Some(unknown) => Err(format!("Unknown command or option: {unknown}\n\n{}", help_message())),
     }
 }
 
 #[allow(dead_code)]
 fn run_with_root(args: &[String], root: &Path) -> Result<String, String> {
-    let (_, output, command, additional_sources) = parse_args(args);
+    let (_, output, command, additional_sources, recursive) = parse_args(args);
     let mut roots = vec![root.to_path_buf()];
     for source in additional_sources {
         let source_path = root.join(source);
@@ -211,11 +227,11 @@ fn run_with_root(args: &[String], root: &Path) -> Result<String, String> {
         }
         roots.push(source_path);
     }
-    dispatch(&roots, output.as_deref().map(Path::new), command.as_deref())
+    dispatch(&roots, output.as_deref().map(Path::new), command.as_deref(), recursive)
 }
 
 fn run(args: &[String]) -> Result<String, String> {
-    let (input, output, command, additional_sources) = parse_args(args);
+    let (input, output, command, additional_sources, recursive) = parse_args(args);
     let cwd = std::env::current_dir().map_err(|error| error.to_string())?;
     let mut roots = Vec::new();
 
@@ -237,7 +253,7 @@ fn run(args: &[String]) -> Result<String, String> {
         roots.push(source_path);
     }
 
-    dispatch(&roots, output.as_deref().map(Path::new), command.as_deref())
+    dispatch(&roots, output.as_deref().map(Path::new), command.as_deref(), recursive)
 }
 
 fn print_result(result: Result<String, String>) -> ExitCode {
@@ -380,6 +396,27 @@ mod tests {
         ];
         let output = run_with_root(&args, &root_a).expect("lint should succeed");
         assert!(output.contains("Linted 2 .ucc file(s)"));
+    }
+
+    #[test]
+    fn single_flag_excludes_nested_ucc_files() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root = temp.path();
+
+        fs::write(root.join("root.ucc"), sample_ucc()).expect("root ucc should be written");
+        fs::create_dir(root.join("nested")).expect("nested dir should be created");
+        fs::write(root.join("nested/nested.ucc"), sample_ucc())
+            .expect("nested ucc should be written");
+
+        // Without -s, both are found
+        let args_recursive = vec!["ucc".to_string(), "lint".to_string()];
+        let output_recursive = run_with_root(&args_recursive, root).expect("lint should succeed");
+        assert!(output_recursive.contains("Linted 2 .ucc file(s)"));
+
+        // With -s, only one is found
+        let args_single = vec!["ucc".to_string(), "lint".to_string(), "-s".to_string()];
+        let output_single = run_with_root(&args_single, root).expect("lint should succeed");
+        assert!(output_single.contains("Linted 1 .ucc file(s)"));
     }
 
     fn sample_ucc() -> &'static str {

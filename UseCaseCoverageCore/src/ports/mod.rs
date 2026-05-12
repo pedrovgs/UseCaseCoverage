@@ -36,7 +36,7 @@ pub trait UccFileRepository {
     /// # Errors
     ///
     /// Returns an error when the file system cannot be read.
-    fn find_ucc_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError>;
+    fn find_ucc_files(&self, root: &Path, recursive: bool) -> Result<Vec<PathBuf>, CoreError>;
     /// Reads a file and returns its raw contents.
     ///
     /// # Errors
