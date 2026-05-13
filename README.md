@@ -48,6 +48,13 @@ Alternatively, you can install it in a single command:
 brew install pedrovgs/tap/use_case_coverage_cli
 ```
 
+**Linux (.deb):**
+Download the latest `.deb` package from the [releases page](https://github.com/pedrovgs/UseCaseCoverage/releases) and install it using:
+
+```bash
+sudo dpkg -i use-case-coverage-cli_*.deb
+```
+
 ---
 
 ## 🛠 Usage
@@ -56,7 +63,20 @@ Tracking your coverage with UCC follows a simple three-step workflow:
 
 1. 📝 **Define your Specs**: Write your features, use cases, bugs, and regressions in the simple `.ucc` YAML format anywhere in your project.
 2. 🏷️ **Annotate your Tests**: Include the unique ID of your artifacts in your test code (as a comment or within a string). UCC scans your codebase to find these matches automatically. **You can annotate any type of test even in monorepos using different proramming languages and frameworks.**
-3. 🚀 **Generate & Analyze**: Run `ucc report` to compute coverage metrics and generate a beautiful, interactive dashboard. You can exeucte ``ucc`` locally or integrate it in your CI/CD pipeline.
+3. 🚀 **Generate & Analyze**: Run `ucc report` to compute coverage metrics and generate a beautiful, interactive dashboard. You can execute `ucc` locally or integrate it in your CI/CD pipeline.
+
+---
+
+### ⌨️ CLI Options
+
+UCC provides several flags to customize its behavior:
+
+| Option | Description |
+| :--- | :--- |
+| `-i, --input <path>` | Root directory to scan for `.ucc` files (default: current directory). |
+| `-o, --output <path>` | Output directory for reports or file for linting. |
+| `--as, --additional-sources <path>` | Additional directories to scan for `.ucc` and test files (repeatable). |
+| `-s, --single` | Disable recursive `.ucc` file discovery (only scan top-level directory). |
 
 ---
 
@@ -142,11 +162,31 @@ artifacts:
     tags: [auth, secure]
     platforms: [web, android, ios]
     coverage_gap_reason: "Impossible to test on Android automatically"
+
+### 🧬 Tags & Platforms Inheritance
+
+To avoid repetition, you can define `tags` and `platforms` at the **feature level**. All artifacts within that `.ucc` file will automatically inherit them unless they provide their own overrides.
+
+```yaml
+feature:
+  id: user-authentication
+  tags: [auth]
+  platforms: [web, ios]
+...
+artifacts:
+  - id: ucc-feat-1 # Inherits tags: [auth] and platforms: [web, ios]
+    ...
+  - id: ucc-feat-2
+    platforms: [android] # Overrides platforms to [android], still inherits tags: [auth]
+```
 ```
 
 ### ✅ Linting `.ucc` files
 
-Ensure your specifications are perfect before generating reports. The `lint` command validates your `.ucc` files recursively.
+Ensure your specifications are perfect before generating reports. The `lint` command validates your `.ucc` files recursively, checking for:
+- Correct YAML schema.
+- **Unique IDs**: Ensures no two features or artifacts share the same ID across the entire project.
+- **Unique File Names**: Ensures `.ucc` file names are unique to prevent reporting conflicts.
 
 ```bash
 ucc lint
@@ -159,13 +199,16 @@ ucc lint
 
 ### 📊 Generating Visual Reports
 
-Transform your YAML files into a stunning, interactive HTML dashboard that visualizes your project's health.
+Transform your YAML files into a stunning, interactive HTML dashboard that visualizes your project's health. The report includes:
+- **Coverage Metrics**: Global and feature-level coverage percentage.
+- **Artifact Inventory**: A searchable list of all your use cases, bugs, and regressions.
+- **Coverage Gaps**: A dedicated section with a **word cloud** visualization of common reasons for missing coverage.
 
 ```bash
 ucc report
 ```
 
-By default, reports are neatly organized in `.ucc/reports/<REPORT_CREATION_TIMESTAMP>`. 
+By default, reports are neatly organized in `.ucc/reports/YYYY-MM-DD_HH-MM-SS`. 
 
 ---
 
