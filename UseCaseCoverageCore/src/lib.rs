@@ -27,9 +27,12 @@ pub fn coverage_percentage(covered: u32, total: u32) -> f64 {
 /// # Errors
 ///
 /// Returns an error when file discovery, file reading, or parsing fails.
-pub fn collect_features_from(roots: &[PathBuf]) -> Result<Vec<FeatureDocument>, CoreError> {
+pub fn collect_features_from(
+    roots: &[PathBuf],
+    recursive: bool,
+) -> Result<Vec<FeatureDocument>, CoreError> {
     let use_case = CollectFeaturesUseCase::new(LocalFileSystemRepository, YamlUccParser);
-    use_case.execute(roots)
+    use_case.execute(roots, recursive)
 }
 
 /// Facade for finding test coverage mapped by artifact id.
@@ -50,9 +53,12 @@ pub fn find_artifact_coverage(
 /// # Errors
 ///
 /// Returns an error when file discovery or reads fail.
-pub fn lint_ucc_formats(roots: &[PathBuf]) -> Result<Vec<UccLintResult>, CoreError> {
+pub fn lint_ucc_formats(
+    roots: &[PathBuf],
+    recursive: bool,
+) -> Result<Vec<UccLintResult>, CoreError> {
     let use_case = LintUccFormatsUseCase::new(LocalFileSystemRepository, YamlUccParser);
-    use_case.execute(roots)
+    use_case.execute(roots, recursive)
 }
 
 #[cfg(test)]
@@ -96,7 +102,7 @@ mod tests {
         )
         .expect("second ucc file should be written");
 
-        let result = collect_features_from(&[root.to_path_buf()])
+        let result = collect_features_from(&[root.to_path_buf()], true)
             .expect("use case should parse all ucc files");
 
         assert_eq!(result.len(), 2);
@@ -124,7 +130,7 @@ mod tests {
         fs::write(root.join("broken.ucc"), "feature: [this is not valid")
             .expect("broken ucc file should be written");
 
-        let result = collect_features_from(&[root.to_path_buf()]);
+        let result = collect_features_from(&[root.to_path_buf()], true);
 
         assert!(result.is_err());
         let error_message = result.expect_err("invalid yaml should fail").to_string();
@@ -152,7 +158,7 @@ feature:
         .expect("minimal ucc file should be written");
 
         let result =
-            collect_features_from(&[root.to_path_buf()]).expect("minimal ucc should parse");
+            collect_features_from(&[root.to_path_buf()], true).expect("minimal ucc should parse");
         let feature = &result[0];
 
         assert_eq!(feature.feature.updated_at, None);

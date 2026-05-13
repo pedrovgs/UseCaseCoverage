@@ -12,8 +12,8 @@ pub struct LocalFileSystemRepository;
 pub struct LocalTestFileRepository;
 
 impl UccFileRepository for LocalFileSystemRepository {
-    fn find_ucc_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
-        collect_files_matching(root, is_ucc_file)
+    fn find_ucc_files(&self, root: &Path, recursive: bool) -> Result<Vec<PathBuf>, CoreError> {
+        collect_files_matching(root, is_ucc_file, recursive)
     }
 
     fn read_file(&self, path: &Path) -> Result<String, CoreError> {
@@ -24,7 +24,7 @@ impl UccFileRepository for LocalFileSystemRepository {
 
 impl TestFileRepository for LocalTestFileRepository {
     fn find_test_files(&self, root: &Path) -> Result<Vec<PathBuf>, CoreError> {
-        collect_files_matching(root, is_supported_test_extension)
+        collect_files_matching(root, is_supported_test_extension, true)
     }
 
     fn read_lines(&self, path: &Path) -> Result<Vec<String>, CoreError> {
@@ -160,9 +160,23 @@ fn is_ucc_file(path: &Path) -> bool {
 fn collect_files_matching(
     root: &Path,
     predicate: impl Fn(&Path) -> bool + Copy,
+    recursive: bool,
 ) -> Result<Vec<PathBuf>, CoreError> {
     let mut files = Vec::new();
-    collect_files_matching_from_dir(root, predicate, &mut files)?;
+    if recursive {
+        collect_files_matching_from_dir(root, predicate, &mut files)?;
+    } else {
+        for entry in fs::read_dir(root)
+            .map_err(|source| CoreError::Io { path: root.to_path_buf(), source })?
+        {
+            let entry =
+                entry.map_err(|source| CoreError::Io { path: root.to_path_buf(), source })?;
+            let path = entry.path();
+            if !path.is_dir() && predicate(&path) {
+                files.push(path);
+            }
+        }
+    }
     Ok(files)
 }
 
