@@ -1,6 +1,6 @@
 [package]
 name = "use_case_coverage_cli"
-version = "0.1.0"
+version = "0.2.0"
 repository = "https://github.com/pedrovgs/UseCaseCoverage"
 description = "Command line interface for Use Case Coverage tool https://github.com/pedrovgs/UseCaseCoverage"
 homepage = "https://github.com/pedrovgs/UseCaseCoverage"
