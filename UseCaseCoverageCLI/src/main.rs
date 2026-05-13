@@ -420,6 +420,93 @@ mod tests {
         assert!(output_single.contains("Linted 1 .ucc file(s)"));
     }
 
+    #[test]
+    fn lint_command_writes_to_output_file() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root = temp.path();
+        let output_file = root.join("lint_results.txt");
+
+        fs::write(root.join("valid.ucc"), sample_ucc()).expect("valid ucc should be written");
+
+        let args = vec![
+            "ucc".to_string(),
+            "lint".to_string(),
+            "-o".to_string(),
+            output_file.to_string_lossy().to_string(),
+        ];
+        let output = run_with_root(&args, root).expect("lint should succeed");
+
+        assert!(output.contains("written to"));
+        assert!(output_file.exists());
+        let content = fs::read_to_string(output_file).expect("output file should be readable");
+        assert!(content.contains("Linted 1 .ucc file(s)"));
+    }
+
+    #[test]
+    fn format_lint_results_handles_empty_list() {
+        use super::format_lint_results;
+        let result = format_lint_results(vec![]);
+        assert!(result.is_ok());
+        assert!(result.unwrap().contains("No .ucc files were found"));
+    }
+
+    #[test]
+    fn run_with_non_existing_additional_source_skips_it() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root = temp.path();
+
+        let args = vec![
+            "ucc".to_string(),
+            "lint".to_string(),
+            "--as".to_string(),
+            "non_existing_dir".to_string(),
+        ];
+        let output = run_with_root(&args, root).expect("lint should succeed");
+        assert!(output.contains("No .ucc files were found"));
+    }
+
+    #[test]
+    fn dispatch_handles_unknown_command() {
+        use super::dispatch;
+        let result = dispatch(&[], None, Some("unknown"), true);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().contains("Unknown command or option"));
+    }
+
+    #[test]
+    fn run_returns_error_for_unknown_command() {
+        use super::run;
+        let result = run(&["ucc".to_string(), "unknown".to_string()]);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn print_result_handles_ok_and_err() {
+        use super::print_result;
+        // This will print to stdout/stderr, which is fine in tests
+        print_result(Ok("ok".to_string()));
+        print_result(Err("err".to_string()));
+    }
+
+    #[test]
+    fn format_lint_results_handles_unknown_location() {
+        use super::format_lint_results;
+        use use_case_coverage_core::domain::{UccLintIssue, UccLintResult};
+        let results = vec![UccLintResult {
+            file_path: std::path::PathBuf::from("feat.ucc"),
+            is_valid: false,
+            issue: Some(UccLintIssue {
+                message: "error".to_string(),
+                line: None,
+                column: None,
+                suggestion: None,
+            }),
+        }];
+        let result = format_lint_results(results);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().contains("unknown location"));
+    }
+
     fn sample_ucc_with_id(feat_id: &str, artifact_id: &str) -> String {
         format!(
             r#"schema_version: "1.0"

@@ -3,6 +3,7 @@
 use std::fs;
 use std::path::Path;
 
+use chrono::{Datelike, Local, NaiveDate};
 use serde_json::{json, Value};
 use use_case_coverage_core::coverage_percentage;
 use use_case_coverage_core::domain::{ArtifactCoverageIndex, FeatureDocument, UccLintResult};
@@ -40,6 +41,52 @@ pub fn generate_html_report(
     fs::write(output_dir.join("data.json"), &report_json)?;
 
     Ok(())
+}
+
+fn is_bug(artifact_type: Option<&str>) -> bool {
+    artifact_type.is_some_and(|value| {
+        let lower = value.to_ascii_lowercase();
+        lower.contains("bug") || lower.contains("regression")
+    })
+}
+
+fn current_year_month() -> (i32, u32) {
+    let now = Local::now();
+    (now.year(), now.month())
+}
+
+fn parse_year_month(date_str: &str) -> Option<(i32, u32)> {
+    // Try full date first (YYYY-MM-DD)
+    if let Ok(date) = NaiveDate::parse_from_str(date_str, "%Y-%m-%d") {
+        return Some((date.year(), date.month()));
+    }
+    // Fallback to YYYY-MM if only that is provided
+    let parts: Vec<&str> = date_str.split('-').collect();
+    let year = parts.first()?.parse::<i32>().ok()?;
+    let month = parts.get(1)?.parse::<u32>().ok()?;
+    if (1..=12).contains(&month) {
+        Some((year, month))
+    } else {
+        None
+    }
+}
+
+const fn month_short_name(month: u32) -> &'static str {
+    match month {
+        1 => "Jan",
+        2 => "Feb",
+        3 => "Mar",
+        4 => "Apr",
+        5 => "May",
+        6 => "Jun",
+        7 => "Jul",
+        8 => "Aug",
+        9 => "Sep",
+        10 => "Oct",
+        11 => "Nov",
+        12 => "Dec",
+        _ => "??",
+    }
 }
 
 fn build_report_data(
@@ -158,72 +205,6 @@ fn build_growth_data(
     features: &[FeatureDocument],
     coverage_index: &ArtifactCoverageIndex,
 ) -> Value {
-    const fn is_leap(y: i32) -> bool {
-        y % 4 == 0 && (y % 100 != 0 || y % 400 == 0)
-    }
-
-    fn current_year_month() -> (i32, u32) {
-        use std::time::{SystemTime, UNIX_EPOCH};
-        let secs = SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_secs();
-        let mut days = secs / 86400;
-
-        let mut y = 1970i32;
-        loop {
-            let days_in_year = if is_leap(y) { 366 } else { 365 };
-            if days < days_in_year {
-                break;
-            }
-            days -= days_in_year;
-            y += 1;
-        }
-
-        let month_days = if is_leap(y) {
-            [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        } else {
-            [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        };
-
-        let mut m = 1u32;
-        for &md in &month_days {
-            if days < md {
-                break;
-            }
-            days -= md;
-            m += 1;
-        }
-
-        (y, m)
-    }
-
-    fn parse_year_month(date_str: &str) -> Option<(i32, u32)> {
-        let parts: Vec<&str> = date_str.split('-').collect();
-        let year = parts.first()?.parse::<i32>().ok()?;
-        let month = parts.get(1)?.parse::<u32>().ok()?;
-        if (1..=12).contains(&month) {
-            Some((year, month))
-        } else {
-            None
-        }
-    }
-
-    const fn month_short_name(month: u32) -> &'static str {
-        match month {
-            1 => "Jan",
-            2 => "Feb",
-            3 => "Mar",
-            4 => "Apr",
-            5 => "May",
-            6 => "Jun",
-            7 => "Jul",
-            8 => "Aug",
-            9 => "Sep",
-            10 => "Oct",
-            11 => "Nov",
-            12 => "Dec",
-            _ => "??",
-        }
-    }
-
     let (now_year, now_month) = current_year_month();
 
     let mut start_year = now_year;
@@ -293,13 +274,6 @@ fn build_growth_data(
         "artifacts": artifacts_count,
         "coveredUseCases": covered_use_cases_count,
         "coveredBugs": covered_bugs_count,
-    })
-}
-
-fn is_bug(artifact_type: Option<&str>) -> bool {
-    artifact_type.is_some_and(|value| {
-        let lower = value.to_ascii_lowercase();
-        lower.contains("bug") || lower.contains("regression")
     })
 }
 
@@ -2860,5 +2834,112 @@ mod tests {
             fs::read_to_string(output_dir.join("data.json")).expect("json should be readable");
         assert!(json.contains("broken.ucc"));
         assert!(json.contains("Fix schema type"));
+    }
+
+    #[test]
+    fn build_report_returns_formatted_string() {
+        use super::build_report;
+        let report = build_report(5, 10);
+        assert_eq!(report, "Use case coverage: 5/10 (50.00%)");
+    }
+
+    #[test]
+    fn is_bug_identifies_bugs_and_regressions() {
+        use super::is_bug;
+        assert!(is_bug(Some("bug")));
+        assert!(is_bug(Some("BUG")));
+        assert!(is_bug(Some("regression")));
+        assert!(is_bug(Some("Regression")));
+        assert!(!is_bug(Some("usecase")));
+        assert!(!is_bug(None));
+    }
+
+    #[test]
+    fn build_growth_data_handles_multiple_months() {
+        use super::{build_growth_data, current_year_month};
+        use std::path::PathBuf;
+        use use_case_coverage_core::domain::{
+            Artifact, ArtifactCoverageIndex, FeatureDocument, FeatureMetadata, Priority,
+        };
+
+        let (now_y, now_m) = current_year_month();
+        let date_str = format!("{now_y}-{now_m:02}-10");
+
+        let features = vec![FeatureDocument {
+            source_path: PathBuf::from("feat1.ucc"),
+            schema_version: "1.0".to_string(),
+            feature: FeatureMetadata {
+                id: "feat-1".to_string(),
+                title: "Feat 1".to_string(),
+                created_at: date_str.clone(),
+                updated_at: None,
+                last_modified_at: None,
+                description: "desc".to_string(),
+            },
+            tags: vec![],
+            platforms: vec![],
+            related_features: vec![],
+            artifacts: vec![
+                Artifact {
+                    id: "ucc-1".to_string(),
+                    artifact_type: None,
+                    created_at: date_str.clone(),
+                    updated_at: None,
+                    last_modified_at: None,
+                    title: "UC 1".to_string(),
+                    priority: Priority::High,
+                    related: vec![],
+                    platforms: vec![],
+                    steps: vec![],
+                    expected: vec![],
+                    tags: vec![],
+                    coverage_gap_reason: None,
+                },
+                Artifact {
+                    id: "bug-1".to_string(),
+                    artifact_type: Some("bug".to_string()),
+                    created_at: date_str.clone(),
+                    updated_at: None,
+                    last_modified_at: None,
+                    title: "Bug 1".to_string(),
+                    priority: Priority::High,
+                    related: vec![],
+                    platforms: vec![],
+                    steps: vec![],
+                    expected: vec![],
+                    tags: vec![],
+                    coverage_gap_reason: None,
+                },
+            ],
+        }];
+
+        let mut index = ArtifactCoverageIndex::default();
+        index.by_artifact_id.insert("ucc-1".to_string(), vec![]);
+        index.by_artifact_id.insert("bug-1".to_string(), vec![]);
+
+        let growth = build_growth_data(&features, &index);
+
+        assert_eq!(growth["months"].as_array().unwrap().len(), 12);
+        assert_eq!(growth["useCases"].as_array().unwrap()[11].as_u64().unwrap(), 1);
+        assert_eq!(growth["bugs"].as_array().unwrap()[11].as_u64().unwrap(), 1);
+        assert_eq!(growth["coveredUseCases"].as_array().unwrap()[11].as_u64().unwrap(), 1);
+        assert_eq!(growth["coveredBugs"].as_array().unwrap()[11].as_u64().unwrap(), 1);
+    }
+
+    #[test]
+    fn parse_year_month_handles_valid_and_invalid_dates() {
+        use super::parse_year_month;
+        assert_eq!(parse_year_month("2026-05-10"), Some((2026, 5)));
+        assert_eq!(parse_year_month("2026-13-10"), None);
+        assert_eq!(parse_year_month("invalid"), None);
+        assert_eq!(parse_year_month("2026-05"), Some((2026, 5)));
+    }
+
+    #[test]
+    fn month_short_name_returns_correct_names() {
+        use super::month_short_name;
+        assert_eq!(month_short_name(1), "Jan");
+        assert_eq!(month_short_name(12), "Dec");
+        assert_eq!(month_short_name(13), "??");
     }
 }

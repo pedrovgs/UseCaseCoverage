@@ -740,6 +740,64 @@ fn test_five_fails() {}
     }
 
     #[test]
+    fn find_artifact_coverage_clears_pending_on_non_comment_non_test_line() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("test.rs"),
+                r"
+// ucc-feat-1
+Some random code that is not a test
+#[test]
+fn test_one() {}
+"
+                .to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        // Should be 0 because 'Some random code' cleared the pending match
+        assert_eq!(matches.len(), 0);
+    }
+
+    #[test]
+    fn find_artifact_coverage_respects_three_line_window() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("test.rs"),
+                r"
+// ucc-feat-1
+// line 2
+// line 3
+// line 4
+#[test]
+fn test_one() {}
+"
+                .to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        // Should be 0 because the comment is more than 3 lines away from the test
+        assert_eq!(matches.len(), 0);
+    }
+
+    #[test]
     fn lint_ucc_formats_reports_valid_and_invalid_files_with_hints() {
         let root = Path::new("/lint");
         let repository = InMemoryUccRepository::default()
@@ -799,6 +857,79 @@ fn test_five_fails() {}
             let issue = result.issue.as_ref().expect("should have issue");
             assert!(issue.message.contains("Duplicate .ucc file name found: feat.ucc"));
         }
+    }
+
+    #[test]
+    fn artifact_id_matcher_returns_empty_when_no_artifacts() {
+        let features = vec![FeatureDocument {
+            source_path: PathBuf::from("feat.ucc"),
+            schema_version: "1.0".to_string(),
+            feature: crate::domain::FeatureMetadata {
+                id: "feat-1".to_string(),
+                title: "Feat 1".to_string(),
+                created_at: "2026-05-10".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                description: "desc".to_string(),
+            },
+            tags: vec![],
+            platforms: vec![],
+            related_features: vec![],
+            artifacts: vec![], // No artifacts
+        }];
+
+        let matcher = super::ArtifactIdMatcher::from_features(&features);
+        assert!(matcher.matcher.is_none());
+        assert!(matcher.find_artifact_ids("ucc-feat-1").is_empty());
+    }
+
+    #[test]
+    fn artifact_id_patterns_returns_single_if_already_normalized() {
+        let patterns = super::artifact_id_patterns("ucc_feat_1");
+        assert_eq!(patterns.len(), 1);
+        assert_eq!(patterns[0], "ucc_feat_1");
+    }
+
+    #[test]
+    fn infer_suggestion_returns_correct_hints() {
+        use super::infer_suggestion;
+        assert!(infer_suggestion("cannot start any token").is_some());
+        assert!(infer_suggestion("did not find expected key").is_some());
+        assert!(infer_suggestion("invalid type").is_some());
+        assert!(infer_suggestion("unknown error").is_none());
+    }
+
+    #[test]
+    fn extract_line_and_column_parses_yaml_errors() {
+        use super::extract_line_and_column;
+        let reason = "at line 10, column 5";
+        let (line, column) = extract_line_and_column(reason);
+        assert_eq!(line, Some(10));
+        assert_eq!(column, Some(5));
+    }
+
+    #[test]
+    fn lint_ucc_formats_returns_error_on_io_failure() {
+        struct FailingRepository;
+        impl UccFileRepository for FailingRepository {
+            fn find_ucc_files(
+                &self,
+                _root: &Path,
+                _recursive: bool,
+            ) -> Result<Vec<PathBuf>, CoreError> {
+                Ok(vec![PathBuf::from("fail.ucc")])
+            }
+            fn read_file(&self, path: &Path) -> Result<String, CoreError> {
+                Err(CoreError::Io {
+                    path: path.to_path_buf(),
+                    source: std::io::Error::new(std::io::ErrorKind::Other, "fail"),
+                })
+            }
+        }
+
+        let use_case = LintUccFormatsUseCase::new(FailingRepository, YamlUccParser);
+        let result = use_case.execute(&[PathBuf::from("/")], true);
+        assert!(result.is_err());
     }
 
     proptest! {
