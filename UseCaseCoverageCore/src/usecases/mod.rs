@@ -465,6 +465,80 @@ fn infer_suggestion(reason: &str) -> Option<String> {
     None
 }
 
+fn check_for_duplicates(
+    path: &Path,
+    doc: &FeatureDocument,
+    artifact_id_to_files: &HashMap<String, Vec<PathBuf>>,
+    feature_id_to_files: &HashMap<String, Vec<PathBuf>>,
+    file_name_to_files: &HashMap<String, Vec<PathBuf>>,
+) -> Option<UccLintIssue> {
+    let mut duplicate_artifact_ids = Vec::new();
+    for artifact in &doc.artifacts {
+        if let Some(files) = artifact_id_to_files.get(&artifact.id) {
+            if files.len() > 1 {
+                duplicate_artifact_ids.push(artifact.id.clone());
+            }
+        }
+    }
+
+    let mut duplicate_feature_ids = Vec::new();
+    if let Some(files) = feature_id_to_files.get(&doc.feature.id) {
+        if files.len() > 1 {
+            duplicate_feature_ids.push(doc.feature.id.clone());
+        }
+    }
+
+    let mut duplicate_file_names = Vec::new();
+    if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+        if let Some(files) = file_name_to_files.get(name) {
+            if files.len() > 1 {
+                duplicate_file_names.push(name.to_string());
+            }
+        }
+    }
+
+    if !duplicate_artifact_ids.is_empty()
+        || !duplicate_feature_ids.is_empty()
+        || !duplicate_file_names.is_empty()
+    {
+        let mut errors = Vec::new();
+
+        if !duplicate_artifact_ids.is_empty() {
+            duplicate_artifact_ids.sort();
+            duplicate_artifact_ids.dedup();
+            errors.push(format!(
+                "Duplicate artifact ID(s) found: {}. All artifact IDs must be unique across the project.",
+                duplicate_artifact_ids.join(", ")
+            ));
+        }
+
+        if !duplicate_feature_ids.is_empty() {
+            errors.push(format!(
+                "Duplicate feature ID found: {}. All feature IDs must be unique across the project.",
+                doc.feature.id
+            ));
+        }
+
+        if !duplicate_file_names.is_empty() {
+            errors.push(format!(
+                "Duplicate .ucc file name found: {}. All .ucc file names must be unique across the project.",
+                duplicate_file_names[0]
+            ));
+        }
+
+        return Some(UccLintIssue {
+            message: errors.join("\n"),
+            line: None,
+            column: None,
+            suggestion: Some(
+                "Check other .ucc files for the same IDs or names and ensure they are unique."
+                    .to_string(),
+            ),
+        });
+    }
+    None
+}
+
 #[cfg(test)]
 mod tests {
     use std::collections::{BTreeMap, HashMap};
@@ -879,78 +953,4 @@ artifacts:
 "#
         )
     }
-}
-
-fn check_for_duplicates(
-    path: &Path,
-    doc: &FeatureDocument,
-    artifact_id_to_files: &HashMap<String, Vec<PathBuf>>,
-    feature_id_to_files: &HashMap<String, Vec<PathBuf>>,
-    file_name_to_files: &HashMap<String, Vec<PathBuf>>,
-) -> Option<UccLintIssue> {
-    let mut duplicate_artifact_ids = Vec::new();
-    for artifact in &doc.artifacts {
-        if let Some(files) = artifact_id_to_files.get(&artifact.id) {
-            if files.len() > 1 {
-                duplicate_artifact_ids.push(artifact.id.clone());
-            }
-        }
-    }
-
-    let mut duplicate_feature_ids = Vec::new();
-    if let Some(files) = feature_id_to_files.get(&doc.feature.id) {
-        if files.len() > 1 {
-            duplicate_feature_ids.push(doc.feature.id.clone());
-        }
-    }
-
-    let mut duplicate_file_names = Vec::new();
-    if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
-        if let Some(files) = file_name_to_files.get(name) {
-            if files.len() > 1 {
-                duplicate_file_names.push(name.to_string());
-            }
-        }
-    }
-
-    if !duplicate_artifact_ids.is_empty()
-        || !duplicate_feature_ids.is_empty()
-        || !duplicate_file_names.is_empty()
-    {
-        let mut errors = Vec::new();
-
-        if !duplicate_artifact_ids.is_empty() {
-            duplicate_artifact_ids.sort();
-            duplicate_artifact_ids.dedup();
-            errors.push(format!(
-                "Duplicate artifact ID(s) found: {}. All artifact IDs must be unique across the project.",
-                duplicate_artifact_ids.join(", ")
-            ));
-        }
-
-        if !duplicate_feature_ids.is_empty() {
-            errors.push(format!(
-                "Duplicate feature ID found: {}. All feature IDs must be unique across the project.",
-                doc.feature.id
-            ));
-        }
-
-        if !duplicate_file_names.is_empty() {
-            errors.push(format!(
-                "Duplicate .ucc file name found: {}. All .ucc file names must be unique across the project.",
-                duplicate_file_names[0]
-            ));
-        }
-
-        return Some(UccLintIssue {
-            message: errors.join("\n"),
-            line: None,
-            column: None,
-            suggestion: Some(
-                "Check other .ucc files for the same IDs or names and ensure they are unique."
-                    .to_string(),
-            ),
-        });
-    }
-    None
 }
