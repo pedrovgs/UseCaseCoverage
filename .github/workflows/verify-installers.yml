@@ -1,0 +1,32 @@
+name: Verify Installers
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install ucc via script
+        run: curl -fsSL https://raw.githubusercontent.com/pedrovgs/UseCaseCoverage/main/install.sh | bash
+      
+      - name: Verify installation
+        run: ucc --help
+
+  verify-brew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Homebrew
+        run: |
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+          echo "/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+      
+      - name: Install ucc via brew
+        run: |
+          brew tap pedrovgs/tap
+          brew install use_case_coverage_cli
+      
+      - name: Verify installation
+        run: ucc --help
