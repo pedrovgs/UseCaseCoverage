@@ -16,3 +16,6 @@ mutants.out/
 # Environment and local overrides
 .env
 .env.*
+
+# UCC Reports
+.ucc/reports/
