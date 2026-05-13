@@ -6,7 +6,12 @@ REPO="pedrovgs/UseCaseCoverage"
 GITHUB_API="https://api.github.com/repos/$REPO/releases/latest"
 
 echo "🔍 Detecting latest release..."
-RELEASE_DATA=$(curl -fsSL "$GITHUB_API")
+CURL_ARGS=("-fsSL")
+if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+    CURL_ARGS+=("-H" "Authorization: token $GITHUB_TOKEN")
+fi
+
+RELEASE_DATA=$(curl "${CURL_ARGS[@]}" "$GITHUB_API")
 LATEST_TAG=$(echo "$RELEASE_DATA" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 
 echo "📦 Latest version is $LATEST_TAG"

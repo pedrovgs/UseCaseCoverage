@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Install ucc via script
         run: curl -fsSL https://raw.githubusercontent.com/pedrovgs/UseCaseCoverage/main/install.sh | bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Verify installation
         run: ucc --help
