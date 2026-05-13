@@ -1,7 +1,7 @@
 #![forbid(unsafe_code)]
 
 use std::fmt::Write;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 use use_case_coverage_core::domain::UccLintResult;
@@ -23,7 +23,8 @@ fn help_message() -> String {
             "\x1b[1;38;5;208mOptions:\x1b[0m\n",
             "  \x1b[38;5;120m-h, --help\x1b[0m           Show this help message\n",
             "  \x1b[38;5;120m-i, --input <path>\x1b[0m    Root directory to scan for .ucc files (default: current directory)\n",
-            "  \x1b[38;5;120m-o, --output <path>\x1b[0m   Output file (lint) or directory (report) (default: stdout for lint, <current-dir>/.ucc/ for report)\n\n",
+            "  \x1b[38;5;120m-o, --output <path>\x1b[0m   Output file (lint) or directory (report) (default: stdout for lint, <current-dir>/.ucc/ for report)\n",
+            "  \x1b[38;5;120m--as, --additional-sources <path>\x1b[0m  Additional directories to scan for .ucc and test files (repeatable)\n\n",
             "\x1b[1;38;5;208mCommands:\x1b[0m\n",
             "  \x1b[38;5;117mreport\x1b[0m        Generate an HTML report with features, use cases, and bugs analysis\n",
             "  \x1b[38;5;117mlint\x1b[0m          Explore and validate .ucc files, ensuring the format is correct and nothing is missing\n\n",
@@ -33,10 +34,10 @@ fn help_message() -> String {
     )
 }
 
-fn run_lint(root: &Path, output: Option<&Path>) -> Result<String, String> {
+fn run_lint(roots: &[std::path::PathBuf], output: Option<&Path>) -> Result<String, String> {
     let start = std::time::Instant::now();
-    println!("🔍 Scanning and linting .ucc files in {}...", root.display());
-    let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
+    println!("🔍 Scanning and linting .ucc files...");
+    let lint_results = lint_ucc_formats(roots).map_err(|error| error.to_string())?;
     let duration = start.elapsed();
     let result = format_lint_results(lint_results);
 
@@ -111,10 +112,10 @@ fn format_lint_results(lint_results: Vec<UccLintResult>) -> Result<String, Strin
     Ok(output)
 }
 
-fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
+fn run_report(roots: &[std::path::PathBuf], output: Option<&Path>) -> Result<String, String> {
     let start = std::time::Instant::now();
     println!("🔍 Linting .ucc files...");
-    let lint_results = lint_ucc_formats(root).map_err(|error| error.to_string())?;
+    let lint_results = lint_ucc_formats(roots).map_err(|error| error.to_string())?;
 
     let invalid_count = lint_results.iter().filter(|result| !result.is_valid).count();
     if invalid_count > 0 {
@@ -123,10 +124,10 @@ fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
     }
 
     println!("📊 Collecting features and artifacts...");
-    let features = collect_features_from(root).map_err(|error| error.to_string())?;
+    let features = collect_features_from(roots).map_err(|error| error.to_string())?;
     println!("🧪 Finding artifact coverage in codebase...");
     let coverage_index =
-        find_artifact_coverage(root, &features).map_err(|error| error.to_string())?;
+        find_artifact_coverage(roots, &features).map_err(|error| error.to_string())?;
 
     let cwd = std::env::current_dir().map_err(|error| error.to_string())?;
     let repo_name = cwd.file_name().and_then(|name| name.to_str()).unwrap_or("Unknown");
@@ -145,10 +146,11 @@ fn run_report(root: &Path, output: Option<&Path>) -> Result<String, String> {
     ))
 }
 
-fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String>) {
+fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String>, Vec<String>) {
     let mut input = None;
     let mut output = None;
     let mut command = None;
+    let mut additional_sources = Vec::new();
     let mut i = 1;
 
     while i < args.len() {
@@ -167,41 +169,75 @@ fn parse_args(args: &[String]) -> (Option<String>, Option<String>, Option<String
             s if !s.starts_with('-') && command.is_none() => {
                 command = Some(s.to_string());
             }
+            "--as" | "--additional-sources" => {
+                i += 1;
+                if let Some(path) = args.get(i) {
+                    additional_sources.push(path.clone());
+                }
+            }
             _ => {}
         }
         i += 1;
     }
 
-    (input, output, command)
+    (input, output, command, additional_sources)
 }
 
-fn dispatch(root: &Path, output: Option<&Path>, command: Option<&str>) -> Result<String, String> {
+fn dispatch(
+    roots: &[std::path::PathBuf],
+    output: Option<&Path>,
+    command: Option<&str>,
+) -> Result<String, String> {
     match command {
         None | Some("-h" | "--help") => Ok(help_message()),
-        Some("lint") => run_lint(root, output),
-        Some("report") => run_report(root, output),
+        Some("lint") => run_lint(roots, output),
+        Some("report") => run_report(roots, output),
         Some(unknown) => Err(format!("Unknown command or option: {unknown}\n\n{}", help_message())),
     }
 }
 
 #[allow(dead_code)]
 fn run_with_root(args: &[String], root: &Path) -> Result<String, String> {
-    let (_, output, command) = parse_args(args);
-    dispatch(root, output.as_deref().map(Path::new), command.as_deref())
+    let (_, output, command, additional_sources) = parse_args(args);
+    let mut roots = vec![root.to_path_buf()];
+    for source in additional_sources {
+        let source_path = root.join(source);
+        if !source_path.exists() {
+            eprintln!(
+                "Warning: additional source path '{}' does not exist. Skipping.",
+                source_path.display()
+            );
+            continue;
+        }
+        roots.push(source_path);
+    }
+    dispatch(&roots, output.as_deref().map(Path::new), command.as_deref())
 }
 
 fn run(args: &[String]) -> Result<String, String> {
-    let (input, output, command) = parse_args(args);
-    let root = match input {
-        Some(path) => std::path::PathBuf::from(path),
-        None => std::env::current_dir().map_err(|error| error.to_string())?,
-    };
-    let root = if root.is_absolute() {
-        root
-    } else {
-        std::env::current_dir().map_err(|e| e.to_string())?.join(root)
-    };
-    dispatch(&root, output.as_deref().map(Path::new), command.as_deref())
+    let (input, output, command, additional_sources) = parse_args(args);
+    let cwd = std::env::current_dir().map_err(|error| error.to_string())?;
+    let mut roots = Vec::new();
+
+    let root = input.map_or_else(|| cwd.clone(), PathBuf::from);
+    let root = if root.is_absolute() { root } else { cwd.join(root) };
+    roots.push(root);
+
+    for source in additional_sources {
+        let source_path = PathBuf::from(source);
+        let source_path =
+            if source_path.is_absolute() { source_path } else { cwd.join(source_path) };
+        if !source_path.exists() {
+            eprintln!(
+                "Warning: additional source path '{}' does not exist. Skipping.",
+                source_path.display()
+            );
+            continue;
+        }
+        roots.push(source_path);
+    }
+
+    dispatch(&roots, output.as_deref().map(Path::new), command.as_deref())
 }
 
 fn print_result(result: Result<String, String>) -> ExitCode {
@@ -323,6 +359,27 @@ mod tests {
             regex::Regex::new(r"\.ucc/reports/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}/index\.html")
                 .unwrap();
         assert!(re.is_match(&output), "Output '{output}' did not match expected pattern");
+    }
+
+    #[test]
+    fn additional_sources_combines_files_from_multiple_dirs() {
+        let temp = tempdir().expect("tempdir should be created");
+        let root_a = temp.path().join("a");
+        let root_b = temp.path().join("b");
+        fs::create_dir_all(&root_a).unwrap();
+        fs::create_dir_all(&root_b).unwrap();
+
+        fs::write(root_a.join("a.ucc"), sample_ucc()).unwrap();
+        fs::write(root_b.join("b.ucc"), sample_ucc()).unwrap();
+
+        let args = vec![
+            "ucc".to_string(),
+            "lint".to_string(),
+            "--as".to_string(),
+            root_b.to_string_lossy().to_string(),
+        ];
+        let output = run_with_root(&args, &root_a).expect("lint should succeed");
+        assert!(output.contains("Linted 2 .ucc file(s)"));
     }
 
     fn sample_ucc() -> &'static str {
