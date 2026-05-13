@@ -12,7 +12,7 @@ if [[ -n "${GITHUB_TOKEN:-}" ]]; then
 fi
 
 RELEASE_DATA=$(curl "${CURL_ARGS[@]}" "$GITHUB_API")
-LATEST_TAG=$(echo "$RELEASE_DATA" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+LATEST_TAG=$(echo "$RELEASE_DATA" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | head -n 1)
 
 echo "📦 Latest version is $LATEST_TAG"
 
@@ -28,7 +28,7 @@ esac
 if [[ "$OS" == "linux" ]]; then
     if command -v dpkg > /dev/null; then
         echo "🐧 Debian-based system detected. Searching for .deb package..."
-        DEB_URL=$(echo "$RELEASE_DATA" | grep "browser_download_url" | grep ".deb" | grep "$ARCH_PATTERN" | head -n 1 | cut -d '"' -f 4 || true)
+        DEB_URL=$(echo "$RELEASE_DATA" | grep "browser_download_url" | grep ".deb" | grep -i "$ARCH_PATTERN" | head -n 1 | cut -d '"' -f 4 || true)
         
         if [[ -n "$DEB_URL" ]]; then
             TEMP_DEB=$(mktemp).deb
@@ -52,10 +52,12 @@ fi
 # Fallback to binary install (.tar.gz or .tar.xz)
 echo "🔧 Falling back to binary installation..."
 # Search for both .tar.gz and .tar.xz
-BINARY_URL=$(echo "$RELEASE_DATA" | grep "browser_download_url" | grep -E "\.tar\.(gz|xz)" | grep "$OS" | grep "$ARCH_PATTERN" | head -n 1 | cut -d '"' -f 4 || true)
+BINARY_URL=$(echo "$RELEASE_DATA" | grep "browser_download_url" | grep -E "\.tar\.(gz|xz)" | grep -i "$OS" | grep -i "$ARCH_PATTERN" | head -n 1 | cut -d '"' -f 4 || true)
 
 if [[ -z "$BINARY_URL" ]]; then
     echo "❌ Error: Could not find a suitable binary for $OS/$ARCH"
+    echo "Available assets for $LATEST_TAG:"
+    echo "$RELEASE_DATA" | grep "name" | grep "use_case_coverage" || echo "No assets found."
     exit 1
 fi
 
