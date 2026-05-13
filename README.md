@@ -223,7 +223,7 @@ By default, reports are neatly organized in `.ucc/reports/YYYY-MM-DD_HH-MM-SS`.
 
 ## 🤖 GitHub Actions Integration
 
-Automate your coverage tracking with a simple workflow. Ensure every PR maintains high documentation standards!
+Automate your coverage tracking with a simple workflow. UseCaseCoverage can be installed on GitHub Actions runners (Ubuntu or macOS) using our universal installation script.
 
 ```yaml
 name: Use Case Coverage
@@ -231,12 +231,14 @@ on: [push]
 
 jobs:
   coverage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # or macos-latest
     steps:
       - uses: actions/checkout@v4
       
       - name: Install ucc
         run: curl -fsSL https://raw.githubusercontent.com/pedrovgs/UseCaseCoverage/main/install.sh | bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Optional but recommended to avoid rate limits
         
       - name: Lint UCC files
         run: ucc lint
@@ -250,6 +252,9 @@ jobs:
           name: ucc-report
           path: .ucc/reports/
 ```
+
+> [!TIP]
+> For a working example of installation via **Homebrew** or **Debian packages** in CI, check out our [verification workflow](.github/workflows/verify-installers.yml).
 
 ---
 
