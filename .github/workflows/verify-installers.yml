@@ -1,4 +1,4 @@
-# Verify installation methods
+# Verify installation methods - Trigger run
 name: Verify Installers
 
 on:

@@ -63,8 +63,13 @@ fi
 
 TEMP_DIR=$(mktemp -d)
 echo "📥 Downloading $BINARY_URL..."
-# Use tar -xf which handles gzip and xz automatically
-curl -fsSL "$BINARY_URL" | tar -xf - -C "$TEMP_DIR"
+
+# Handle compression detection from the URL extension
+if [[ "$BINARY_URL" == *.xz ]]; then
+    curl -fsSL "$BINARY_URL" | tar -xJ -C "$TEMP_DIR"
+else
+    curl -fsSL "$BINARY_URL" | tar -xz -C "$TEMP_DIR"
+fi
 
 # Find the binary in the extracted files (it might be in a subdirectory)
 UCC_BIN=$(find "$TEMP_DIR" -type f -name "ucc" | head -n 1)
