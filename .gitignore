@@ -18,4 +18,4 @@ mutants.out/
 .env.*
 
 # UCC Reports
-.ucc/reports/
+**/.ucc/
