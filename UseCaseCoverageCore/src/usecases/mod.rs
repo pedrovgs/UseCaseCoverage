@@ -390,7 +390,7 @@ mod tests {
         let sub = root.join("sub");
         std::fs::create_dir(&sub).unwrap();
 
-        let roots = vec![root.clone(), root.clone(), sub.clone()];
+        let roots = vec![root.clone(), root.clone(), sub];
         let result = deduplicate_roots(&roots);
 
         // Should only contain the root, as sub is redundant and root is duplicated
