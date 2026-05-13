@@ -403,7 +403,7 @@ impl ArtifactIdMatcher {
     }
 }
 
-fn is_id_char(c: char) -> bool {
+const fn is_id_char(c: char) -> bool {
     c.is_ascii_alphanumeric() || c == '-'
 }
 
@@ -957,7 +957,7 @@ fn test_one() {}
             fn read_file(&self, path: &Path) -> Result<String, CoreError> {
                 Err(CoreError::Io {
                     path: path.to_path_buf(),
-                    source: std::io::Error::new(std::io::ErrorKind::Other, "fail"),
+                    source: std::io::Error::other("fail"),
                 })
             }
         }

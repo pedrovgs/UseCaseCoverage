@@ -87,7 +87,7 @@ fn test_multiple_artifacts_scenario() {
 
     // Verify coverage discovery
     let raw_features =
-        use_case_coverage_core::collect_features_from(&[root.clone()], true).unwrap();
+        use_case_coverage_core::collect_features_from(std::slice::from_ref(&root), true).unwrap();
     let index = use_case_coverage_core::find_artifact_coverage(&[root], &raw_features).unwrap();
 
     assert!(index.is_covered("ucc-1"));

@@ -2898,7 +2898,7 @@ mod tests {
                 Artifact {
                     id: "bug-1".to_string(),
                     artifact_type: Some("bug".to_string()),
-                    created_at: date_str.clone(),
+                    created_at: date_str,
                     updated_at: None,
                     last_modified_at: None,
                     title: "Bug 1".to_string(),
