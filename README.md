@@ -82,21 +82,22 @@ UCC provides several flags to customize its behavior:
 
 ### 🏷️ Annotation Examples
 
-UCC is language-agnostic. You can annotate your tests by simply including the artifact ID anywhere in your test file (e.g., in a comment, test name, or metadata):
+UCC is language-agnostic. You can annotate your tests by simply including the artifact ID anywhere in your test file (e.g., in a comment, test name, or metadata). **A single test can reference multiple artifacts** using comma or space separators:
 
 #### 🍎 Swift (XCTest / Swift Testing)
 ```swift
+// You can mention multiple IDs in a comment
+// ucc-feat-1, ucc-feat-2
+@Test("Successful login flow for ucc-feat-3")
 func testLoginFlow() {
-    // ucc-feat-1
-    let login = LoginView()
     ...
 }
 ```
 
 #### 🔷 TypeScript (Jest / Mocha / Vitest)
 ```typescript
-test('should authenticate user (ucc-feat-1)', () => {
-    const auth = new AuthService();
+// IDs can be part of the test description separated by commas or spaces
+test('should authenticate user (ucc-feat-1, ucc-feat-2)', () => {
     ...
 });
 ```
@@ -104,9 +105,8 @@ test('should authenticate user (ucc-feat-1)', () => {
 #### 🦀 Rust (Cargo Test)
 ```rust
 #[test]
-fn test_artifact_parsing() {
-    // ucc-feat-1
-    let parser = YamlUccParser;
+fn test_artifact_parsing_ucc_feat_1() {
+    // Artifact IDs in test names are automatically discovered
     ...
 }
 ```
@@ -115,11 +115,12 @@ fn test_artifact_parsing() {
 ```kotlin
 @Test
 fun testSecureLogin() {
-    /* ucc-feat-1 */
-    val security = SecurityManager()
+    /* Multiple IDs in a block comment: ucc-feat-1 ucc-feat-2 */
     ...
 }
 ```
+
+> **Note on IDs:** Artifact and Feature IDs **cannot contain commas**, as commas are reserved as separators for multi-artifact annotations in test files.
 
 ---
 

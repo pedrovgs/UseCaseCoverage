@@ -432,6 +432,7 @@ fn looks_like_test_declaration(line: &str) -> bool {
         || lower.contains("@test")
         || lower.contains("func test")
         || lower.contains("fun test")
+        || lower.contains("fn test")
         || lower.contains("fun `")
 }
 
@@ -1242,11 +1243,6 @@ artifacts:
         let results = use_case.execute(&[root.to_path_buf()], true).unwrap();
 
         assert!(!results[0].is_valid);
-        assert!(results[0]
-            .issue
-            .as_ref()
-            .unwrap()
-            .message
-            .contains("contains a comma"));
+        assert!(results[0].issue.as_ref().unwrap().message.contains("contains a comma"));
     }
 }
