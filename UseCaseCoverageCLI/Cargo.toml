@@ -25,7 +25,7 @@ name = "ucc"
 path = "src/main.rs"
 [package.metadata.deb]
 maintainer = "pedrovgs"
-copyright = "2024, pedrovgs"
+copyright = "2026, pedrovgs"
 license-file = ["../LICENSE", "0"]
 extended-description = """
 Command line interface for Use Case Coverage tool.
