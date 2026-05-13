@@ -236,7 +236,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Install ucc
-        run: brew install pedrovgs/tap/use_case_coverage_cli
+        run: curl -fsSL https://raw.githubusercontent.com/pedrovgs/UseCaseCoverage/main/install.sh | bash
         
       - name: Lint UCC files
         run: ucc lint
