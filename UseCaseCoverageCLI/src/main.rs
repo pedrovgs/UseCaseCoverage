@@ -322,7 +322,7 @@ mod tests {
         let re =
             regex::Regex::new(r"\.ucc/reports/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}/index\.html")
                 .unwrap();
-        assert!(re.is_match(&output), "Output '{}' did not match expected pattern", output);
+        assert!(re.is_match(&output), "Output '{output}' did not match expected pattern");
     }
 
     fn sample_ucc() -> &'static str {
