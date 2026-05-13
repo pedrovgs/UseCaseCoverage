@@ -504,7 +504,7 @@ mod tests {
             .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
             .with_file(
                 root.join("test.rs"),
-                r#"
+                r"
 // ucc-feat-1
 #[test]
 fn test_one() {}
@@ -526,7 +526,7 @@ fn test_four() {}
 
 #[test]
 fn test_five_fails() {}
-"#
+"
                 .to_string(),
             );
 
