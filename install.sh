@@ -49,9 +49,10 @@ if [[ "$OS" == "linux" ]]; then
     fi
 fi
 
-# Fallback to binary install (tar.gz)
+# Fallback to binary install (.tar.gz or .tar.xz)
 echo "🔧 Falling back to binary installation..."
-BINARY_URL=$(echo "$RELEASE_DATA" | grep "browser_download_url" | grep ".tar.gz" | grep "$OS" | grep "$ARCH_PATTERN" | head -n 1 | cut -d '"' -f 4 || true)
+# Search for both .tar.gz and .tar.xz
+BINARY_URL=$(echo "$RELEASE_DATA" | grep "browser_download_url" | grep -E "\.tar\.(gz|xz)" | grep "$OS" | grep "$ARCH_PATTERN" | head -n 1 | cut -d '"' -f 4 || true)
 
 if [[ -z "$BINARY_URL" ]]; then
     echo "❌ Error: Could not find a suitable binary for $OS/$ARCH"
@@ -60,7 +61,8 @@ fi
 
 TEMP_DIR=$(mktemp -d)
 echo "📥 Downloading $BINARY_URL..."
-curl -fsSL "$BINARY_URL" | tar -xz -C "$TEMP_DIR"
+# Use tar -xf which handles gzip and xz automatically
+curl -fsSL "$BINARY_URL" | tar -xf - -C "$TEMP_DIR"
 
 # Find the binary in the extracted files (it might be in a subdirectory)
 UCC_BIN=$(find "$TEMP_DIR" -type f -name "ucc" | head -n 1)
