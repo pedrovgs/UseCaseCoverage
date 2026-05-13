@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 
-use aho_corasick::AhoCorasick;
+use aho_corasick::{AhoCorasick, MatchKind};
 use rayon::prelude::*;
 
 use crate::domain::{
@@ -364,6 +364,7 @@ impl ArtifactIdMatcher {
             Some(
                 AhoCorasick::builder()
                     .ascii_case_insensitive(true)
+                    .match_kind(MatchKind::LeftmostLongest)
                     .build(patterns)
                     .expect("artifact id patterns are valid"),
             )
@@ -379,15 +380,31 @@ impl ArtifactIdMatcher {
 
         let mut artifact_ids = HashSet::new();
         for matched in matcher.find_iter(line) {
-            if let Some(artifact_id) =
-                self.artifact_ids_by_pattern_index.get(matched.pattern().as_usize())
-            {
-                artifact_ids.insert(artifact_id.clone());
+            let start = matched.start();
+            let end = matched.end();
+
+            // Check if the match is surrounded by boundaries (non-id characters)
+            let char_before = line[..start].chars().last();
+            let char_after = line[end..].chars().next();
+
+            let is_boundary_before = char_before.map_or(true, |c| !is_id_char(c));
+            let is_boundary_after = char_after.map_or(true, |c| !is_id_char(c));
+
+            if is_boundary_before && is_boundary_after {
+                if let Some(artifact_id) =
+                    self.artifact_ids_by_pattern_index.get(matched.pattern().as_usize())
+                {
+                    artifact_ids.insert(artifact_id.clone());
+                }
             }
         }
 
         artifact_ids.into_iter().collect()
     }
+}
+
+const fn is_id_char(c: char) -> bool {
+    c.is_ascii_alphanumeric() || c == '-'
 }
 
 fn artifact_id_patterns(artifact_id: &str) -> Vec<String> {
@@ -415,6 +432,7 @@ fn looks_like_test_declaration(line: &str) -> bool {
         || lower.contains("@test")
         || lower.contains("func test")
         || lower.contains("fun test")
+        || lower.contains("fn test")
         || lower.contains("fun `")
 }
 
@@ -472,6 +490,24 @@ fn check_for_duplicates(
     feature_id_to_files: &HashMap<String, Vec<PathBuf>>,
     file_name_to_files: &HashMap<String, Vec<PathBuf>>,
 ) -> Option<UccLintIssue> {
+    let mut errors = Vec::new();
+
+    // Check for commas in IDs
+    if doc.feature.id.contains(',') {
+        errors.push(format!(
+            "Feature ID '{}' contains a comma. Commas are restricted in IDs.",
+            doc.feature.id
+        ));
+    }
+    for artifact in &doc.artifacts {
+        if artifact.id.contains(',') {
+            errors.push(format!(
+                "Artifact ID '{}' contains a comma. Commas are restricted in IDs.",
+                artifact.id
+            ));
+        }
+    }
+
     let mut duplicate_artifact_ids = Vec::new();
     for artifact in &doc.artifacts {
         if let Some(files) = artifact_id_to_files.get(&artifact.id) {
@@ -500,9 +536,8 @@ fn check_for_duplicates(
     if !duplicate_artifact_ids.is_empty()
         || !duplicate_feature_ids.is_empty()
         || !duplicate_file_names.is_empty()
+        || !errors.is_empty()
     {
-        let mut errors = Vec::new();
-
         if !duplicate_artifact_ids.is_empty() {
             duplicate_artifact_ids.sort();
             duplicate_artifact_ids.dedup();
@@ -548,7 +583,7 @@ mod tests {
     use proptest::prelude::*;
 
     use super::{
-        deduplicate_roots, CollectFeaturesUseCase, FindArtifactCoverageUseCase,
+        deduplicate_roots, ArtifactIdMatcher, CollectFeaturesUseCase, FindArtifactCoverageUseCase,
         LintUccFormatsUseCase,
     };
     use crate::domain::{FeatureDocument, Priority};
@@ -740,6 +775,64 @@ fn test_five_fails() {}
     }
 
     #[test]
+    fn find_artifact_coverage_clears_pending_on_non_comment_non_test_line() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("test.rs"),
+                r"
+// ucc-feat-1
+Some random code that is not a test
+#[test]
+fn test_one() {}
+"
+                .to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        // Should be 0 because 'Some random code' cleared the pending match
+        assert_eq!(matches.len(), 0);
+    }
+
+    #[test]
+    fn find_artifact_coverage_respects_three_line_window() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("test.rs"),
+                r"
+// ucc-feat-1
+// line 2
+// line 3
+// line 4
+#[test]
+fn test_one() {}
+"
+                .to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        // Should be 0 because the comment is more than 3 lines away from the test
+        assert_eq!(matches.len(), 0);
+    }
+
+    #[test]
     fn lint_ucc_formats_reports_valid_and_invalid_files_with_hints() {
         let root = Path::new("/lint");
         let repository = InMemoryUccRepository::default()
@@ -799,6 +892,79 @@ fn test_five_fails() {}
             let issue = result.issue.as_ref().expect("should have issue");
             assert!(issue.message.contains("Duplicate .ucc file name found: feat.ucc"));
         }
+    }
+
+    #[test]
+    fn artifact_id_matcher_returns_empty_when_no_artifacts() {
+        let features = vec![FeatureDocument {
+            source_path: PathBuf::from("feat.ucc"),
+            schema_version: "1.0".to_string(),
+            feature: crate::domain::FeatureMetadata {
+                id: "feat-1".to_string(),
+                title: "Feat 1".to_string(),
+                created_at: "2026-05-10".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                description: "desc".to_string(),
+            },
+            tags: vec![],
+            platforms: vec![],
+            related_features: vec![],
+            artifacts: vec![], // No artifacts
+        }];
+
+        let matcher = super::ArtifactIdMatcher::from_features(&features);
+        assert!(matcher.matcher.is_none());
+        assert!(matcher.find_artifact_ids("ucc-feat-1").is_empty());
+    }
+
+    #[test]
+    fn artifact_id_patterns_returns_single_if_already_normalized() {
+        let patterns = super::artifact_id_patterns("ucc_feat_1");
+        assert_eq!(patterns.len(), 1);
+        assert_eq!(patterns[0], "ucc_feat_1");
+    }
+
+    #[test]
+    fn infer_suggestion_returns_correct_hints() {
+        use super::infer_suggestion;
+        assert!(infer_suggestion("cannot start any token").is_some());
+        assert!(infer_suggestion("did not find expected key").is_some());
+        assert!(infer_suggestion("invalid type").is_some());
+        assert!(infer_suggestion("unknown error").is_none());
+    }
+
+    #[test]
+    fn extract_line_and_column_parses_yaml_errors() {
+        use super::extract_line_and_column;
+        let reason = "at line 10, column 5";
+        let (line, column) = extract_line_and_column(reason);
+        assert_eq!(line, Some(10));
+        assert_eq!(column, Some(5));
+    }
+
+    #[test]
+    fn lint_ucc_formats_returns_error_on_io_failure() {
+        struct FailingRepository;
+        impl UccFileRepository for FailingRepository {
+            fn find_ucc_files(
+                &self,
+                _root: &Path,
+                _recursive: bool,
+            ) -> Result<Vec<PathBuf>, CoreError> {
+                Ok(vec![PathBuf::from("fail.ucc")])
+            }
+            fn read_file(&self, path: &Path) -> Result<String, CoreError> {
+                Err(CoreError::Io {
+                    path: path.to_path_buf(),
+                    source: std::io::Error::other("fail"),
+                })
+            }
+        }
+
+        let use_case = LintUccFormatsUseCase::new(FailingRepository, YamlUccParser);
+        let result = use_case.execute(&[PathBuf::from("/")], true);
+        assert!(result.is_err());
     }
 
     proptest! {
@@ -952,5 +1118,131 @@ artifacts:
       - Should pass
 "#
         )
+    }
+
+    #[test]
+    fn find_artifact_coverage_supports_multiple_ids_per_line() {
+        let root = Path::new("/workspace");
+        let repo = InMemoryUccRepository::default().with_file(
+            root.join("test.rs"),
+            "// ucc-1, ucc-2\n#[test]\nfn test_both() {}\n".to_string(),
+        );
+
+        let features = vec![FeatureDocument {
+            source_path: PathBuf::from("feat.ucc"),
+            schema_version: "1.0".to_string(),
+            feature: crate::domain::FeatureMetadata {
+                id: "feat-1".to_string(),
+                title: "Feat 1".to_string(),
+                created_at: "2026-05-13".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                description: "desc".to_string(),
+            },
+            tags: vec![],
+            platforms: vec![],
+            related_features: vec![],
+            artifacts: vec![
+                crate::domain::Artifact {
+                    id: "ucc-1".to_string(),
+                    artifact_type: None,
+                    created_at: "2026-05-13".to_string(),
+                    updated_at: None,
+                    last_modified_at: None,
+                    title: "UC 1".to_string(),
+                    priority: Priority::High,
+                    related: vec![],
+                    platforms: vec![],
+                    steps: vec![],
+                    expected: vec![],
+                    tags: vec![],
+                    coverage_gap_reason: None,
+                },
+                crate::domain::Artifact {
+                    id: "ucc-2".to_string(),
+                    artifact_type: None,
+                    created_at: "2026-05-13".to_string(),
+                    updated_at: None,
+                    last_modified_at: None,
+                    title: "UC 2".to_string(),
+                    priority: Priority::High,
+                    related: vec![],
+                    platforms: vec![],
+                    steps: vec![],
+                    expected: vec![],
+                    tags: vec![],
+                    coverage_gap_reason: None,
+                },
+            ],
+        }];
+
+        let use_case = FindArtifactCoverageUseCase::new(repo);
+        let index = use_case.execute(&[root.to_path_buf()], &features).unwrap();
+
+        assert!(index.is_covered("ucc-1"));
+        assert!(index.is_covered("ucc-2"));
+        assert_eq!(index.for_artifact("ucc-1").len(), 1);
+        assert_eq!(index.for_artifact("ucc-2").len(), 1);
+    }
+
+    #[test]
+    fn artifact_id_matcher_respects_boundaries() {
+        let features = vec![FeatureDocument {
+            source_path: PathBuf::from("feat.ucc"),
+            schema_version: "1.0".to_string(),
+            feature: crate::domain::FeatureMetadata {
+                id: "feat-1".to_string(),
+                title: "Feat 1".to_string(),
+                created_at: "2026-05-13".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                description: "desc".to_string(),
+            },
+            tags: vec![],
+            platforms: vec![],
+            related_features: vec![],
+            artifacts: vec![crate::domain::Artifact {
+                id: "ucc-1".to_string(),
+                artifact_type: None,
+                created_at: "2026-05-13".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                title: "UC 1".to_string(),
+                priority: Priority::High,
+                related: vec![],
+                platforms: vec![],
+                steps: vec![],
+                expected: vec![],
+                tags: vec![],
+                coverage_gap_reason: None,
+            }],
+        }];
+
+        let matcher = ArtifactIdMatcher::from_features(&features);
+
+        // Positive cases
+        assert_eq!(matcher.find_artifact_ids("// ucc-1").len(), 1);
+        assert_eq!(matcher.find_artifact_ids("// ucc-1,ucc-2").len(), 1);
+        assert_eq!(matcher.find_artifact_ids("// [ucc-1]").len(), 1);
+        assert_eq!(matcher.find_artifact_ids("fn test_ucc_1()").len(), 1);
+
+        // Negative cases (no boundaries)
+        assert_eq!(matcher.find_artifact_ids("// mucc-1").len(), 0);
+        assert_eq!(matcher.find_artifact_ids("// ucc-11").len(), 0);
+        assert_eq!(matcher.find_artifact_ids("// ucc-1-extra").len(), 0);
+    }
+
+    #[test]
+    fn lint_ucc_formats_rejects_comma_in_ids() {
+        let root = Path::new("/workspace");
+        let repo = InMemoryUccRepository::default().with_file(
+            root.join("invalid.ucc"),
+            "schema_version: \"1.0\"\nfeature:\n  id: feat,1\n  title: Title\n  created_at: \"2026-05-13\"\n  description: Desc\n".to_string(),
+        );
+        let use_case = LintUccFormatsUseCase::new(repo, YamlUccParser);
+        let results = use_case.execute(&[root.to_path_buf()], true).unwrap();
+
+        assert!(!results[0].is_valid);
+        assert!(results[0].issue.as_ref().unwrap().message.contains("contains a comma"));
     }
 }

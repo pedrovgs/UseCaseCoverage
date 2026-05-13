@@ -75,3 +75,29 @@ fn test_multiple_nested_features_scenario() {
     let features = parse_scenario("multiple_nested_features");
     insta::assert_yaml_snapshot!(features);
 }
+
+#[test]
+fn test_multiple_artifacts_scenario() {
+    let manifest_dir =
+        std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR should be set");
+    let root = Path::new(&manifest_dir).parent().unwrap().join("e2e").join("multiple_artifacts");
+
+    let features = parse_scenario("multiple_artifacts");
+    insta::assert_yaml_snapshot!(features);
+
+    // Verify coverage discovery
+    let raw_features =
+        use_case_coverage_core::collect_features_from(std::slice::from_ref(&root), true).unwrap();
+    let index = use_case_coverage_core::find_artifact_coverage(&[root], &raw_features).unwrap();
+
+    assert!(index.is_covered("ucc-1"));
+    assert!(index.is_covered("ucc-2"));
+
+    // We expect 12 locations for both artifacts:
+    // - 3 in test.rs
+    // - 4 in test.ts (comment, comma name, space name, "covers" name)
+    // - 1 in test.kt
+    // - 4 in test.swift (comment, @Test comma, @Test space, @Test "covers")
+    assert_eq!(index.for_artifact("ucc-1").len(), 12);
+    assert_eq!(index.for_artifact("ucc-2").len(), 12);
+}
