@@ -9,6 +9,28 @@ use crate::domain::{
 };
 use crate::ports::{CoreError, TestFileRepository, UccFileRepository, UccParser};
 
+fn deduplicate_roots(roots: &[PathBuf]) -> Vec<PathBuf> {
+    let mut unique_roots = HashSet::new();
+    for root in roots {
+        if let Ok(canonical) = root.canonicalize() {
+            unique_roots.insert(canonical);
+        } else {
+            unique_roots.insert(root.clone());
+        }
+    }
+
+    let mut sorted_roots: Vec<PathBuf> = unique_roots.into_iter().collect();
+    sorted_roots.sort_by_key(|p| p.as_os_str().len());
+
+    let mut final_roots = Vec::new();
+    for root in sorted_roots {
+        if !final_roots.iter().any(|r| root.starts_with(r)) {
+            final_roots.push(root);
+        }
+    }
+    final_roots
+}
+
 /// Use case that discovers and parses all `.ucc` files from a root folder recursively.
 pub struct CollectFeaturesUseCase<R, P> {
     repository: R,
@@ -31,8 +53,9 @@ where
     ///
     /// Returns an error when file discovery, file reading, or YAML parsing fails.
     pub fn execute(&self, roots: &[PathBuf]) -> Result<Vec<FeatureDocument>, CoreError> {
+        let roots = deduplicate_roots(roots);
         let mut all_paths = HashSet::new();
-        for root in roots {
+        for root in &roots {
             let paths = self.repository.find_ucc_files(root)?;
             for path in paths {
                 all_paths.insert(path);
@@ -86,8 +109,9 @@ where
     ///
     /// Returns an error when file discovery or file reading fails.
     pub fn execute(&self, roots: &[PathBuf]) -> Result<Vec<UccLintResult>, CoreError> {
+        let roots = deduplicate_roots(roots);
         let mut all_paths = HashSet::new();
-        for root in roots {
+        for root in &roots {
             let paths = self.repository.find_ucc_files(root)?;
             for path in paths {
                 all_paths.insert(path);
@@ -151,10 +175,11 @@ where
         roots: &[PathBuf],
         features: &[FeatureDocument],
     ) -> Result<ArtifactCoverageIndex, CoreError> {
+        let roots = deduplicate_roots(roots);
         let artifact_matcher = ArtifactIdMatcher::from_features(features);
 
         let mut all_test_files = HashSet::new();
-        for root in roots {
+        for root in &roots {
             let paths = self.repository.find_test_files(root)?;
             for path in paths {
                 all_test_files.insert(path);
@@ -350,10 +375,28 @@ mod tests {
 
     use proptest::prelude::*;
 
-    use super::{CollectFeaturesUseCase, FindArtifactCoverageUseCase, LintUccFormatsUseCase};
+    use super::{
+        deduplicate_roots, CollectFeaturesUseCase, FindArtifactCoverageUseCase,
+        LintUccFormatsUseCase,
+    };
     use crate::domain::{FeatureDocument, Priority};
     use crate::infrastructure::YamlUccParser;
     use crate::ports::{CoreError, TestFileRepository, UccFileRepository};
+
+    #[test]
+    fn deduplicate_roots_removes_exact_duplicates_and_redundant_subpaths() {
+        let temp = tempfile::tempdir().unwrap();
+        let root = temp.path().to_path_buf();
+        let sub = root.join("sub");
+        std::fs::create_dir(&sub).unwrap();
+
+        let roots = vec![root.clone(), root.clone(), sub.clone()];
+        let result = deduplicate_roots(&roots);
+
+        // Should only contain the root, as sub is redundant and root is duplicated
+        assert_eq!(result.len(), 1);
+        assert!(result.contains(&root.canonicalize().unwrap()));
+    }
 
     #[derive(Default)]
     struct InMemoryUccRepository {
