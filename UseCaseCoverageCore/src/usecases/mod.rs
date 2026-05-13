@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 
-use aho_corasick::AhoCorasick;
+use aho_corasick::{AhoCorasick, MatchKind};
 use rayon::prelude::*;
 
 use crate::domain::{
@@ -364,6 +364,7 @@ impl ArtifactIdMatcher {
             Some(
                 AhoCorasick::builder()
                     .ascii_case_insensitive(true)
+                    .match_kind(MatchKind::LeftmostLongest)
                     .build(patterns)
                     .expect("artifact id patterns are valid"),
             )
@@ -379,15 +380,31 @@ impl ArtifactIdMatcher {
 
         let mut artifact_ids = HashSet::new();
         for matched in matcher.find_iter(line) {
-            if let Some(artifact_id) =
-                self.artifact_ids_by_pattern_index.get(matched.pattern().as_usize())
-            {
-                artifact_ids.insert(artifact_id.clone());
+            let start = matched.start();
+            let end = matched.end();
+
+            // Check if the match is surrounded by boundaries (non-id characters)
+            let char_before = line[..start].chars().last();
+            let char_after = line[end..].chars().next();
+
+            let is_boundary_before = char_before.map_or(true, |c| !is_id_char(c));
+            let is_boundary_after = char_after.map_or(true, |c| !is_id_char(c));
+
+            if is_boundary_before && is_boundary_after {
+                if let Some(artifact_id) =
+                    self.artifact_ids_by_pattern_index.get(matched.pattern().as_usize())
+                {
+                    artifact_ids.insert(artifact_id.clone());
+                }
             }
         }
 
         artifact_ids.into_iter().collect()
     }
+}
+
+fn is_id_char(c: char) -> bool {
+    c.is_ascii_alphanumeric() || c == '-'
 }
 
 fn artifact_id_patterns(artifact_id: &str) -> Vec<String> {
@@ -472,6 +489,24 @@ fn check_for_duplicates(
     feature_id_to_files: &HashMap<String, Vec<PathBuf>>,
     file_name_to_files: &HashMap<String, Vec<PathBuf>>,
 ) -> Option<UccLintIssue> {
+    let mut errors = Vec::new();
+
+    // Check for commas in IDs
+    if doc.feature.id.contains(',') {
+        errors.push(format!(
+            "Feature ID '{}' contains a comma. Commas are restricted in IDs.",
+            doc.feature.id
+        ));
+    }
+    for artifact in &doc.artifacts {
+        if artifact.id.contains(',') {
+            errors.push(format!(
+                "Artifact ID '{}' contains a comma. Commas are restricted in IDs.",
+                artifact.id
+            ));
+        }
+    }
+
     let mut duplicate_artifact_ids = Vec::new();
     for artifact in &doc.artifacts {
         if let Some(files) = artifact_id_to_files.get(&artifact.id) {
@@ -500,9 +535,8 @@ fn check_for_duplicates(
     if !duplicate_artifact_ids.is_empty()
         || !duplicate_feature_ids.is_empty()
         || !duplicate_file_names.is_empty()
+        || !errors.is_empty()
     {
-        let mut errors = Vec::new();
-
         if !duplicate_artifact_ids.is_empty() {
             duplicate_artifact_ids.sort();
             duplicate_artifact_ids.dedup();
@@ -548,7 +582,7 @@ mod tests {
     use proptest::prelude::*;
 
     use super::{
-        deduplicate_roots, CollectFeaturesUseCase, FindArtifactCoverageUseCase,
+        deduplicate_roots, ArtifactIdMatcher, CollectFeaturesUseCase, FindArtifactCoverageUseCase,
         LintUccFormatsUseCase,
     };
     use crate::domain::{FeatureDocument, Priority};
@@ -1083,5 +1117,136 @@ artifacts:
       - Should pass
 "#
         )
+    }
+
+    #[test]
+    fn find_artifact_coverage_supports_multiple_ids_per_line() {
+        let root = Path::new("/workspace");
+        let repo = InMemoryUccRepository::default().with_file(
+            root.join("test.rs"),
+            "// ucc-1, ucc-2\n#[test]\nfn test_both() {}\n".to_string(),
+        );
+
+        let features = vec![FeatureDocument {
+            source_path: PathBuf::from("feat.ucc"),
+            schema_version: "1.0".to_string(),
+            feature: crate::domain::FeatureMetadata {
+                id: "feat-1".to_string(),
+                title: "Feat 1".to_string(),
+                created_at: "2026-05-13".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                description: "desc".to_string(),
+            },
+            tags: vec![],
+            platforms: vec![],
+            related_features: vec![],
+            artifacts: vec![
+                crate::domain::Artifact {
+                    id: "ucc-1".to_string(),
+                    artifact_type: None,
+                    created_at: "2026-05-13".to_string(),
+                    updated_at: None,
+                    last_modified_at: None,
+                    title: "UC 1".to_string(),
+                    priority: Priority::High,
+                    related: vec![],
+                    platforms: vec![],
+                    steps: vec![],
+                    expected: vec![],
+                    tags: vec![],
+                    coverage_gap_reason: None,
+                },
+                crate::domain::Artifact {
+                    id: "ucc-2".to_string(),
+                    artifact_type: None,
+                    created_at: "2026-05-13".to_string(),
+                    updated_at: None,
+                    last_modified_at: None,
+                    title: "UC 2".to_string(),
+                    priority: Priority::High,
+                    related: vec![],
+                    platforms: vec![],
+                    steps: vec![],
+                    expected: vec![],
+                    tags: vec![],
+                    coverage_gap_reason: None,
+                },
+            ],
+        }];
+
+        let use_case = FindArtifactCoverageUseCase::new(repo);
+        let index = use_case.execute(&[root.to_path_buf()], &features).unwrap();
+
+        assert!(index.is_covered("ucc-1"));
+        assert!(index.is_covered("ucc-2"));
+        assert_eq!(index.for_artifact("ucc-1").len(), 1);
+        assert_eq!(index.for_artifact("ucc-2").len(), 1);
+    }
+
+    #[test]
+    fn artifact_id_matcher_respects_boundaries() {
+        let features = vec![FeatureDocument {
+            source_path: PathBuf::from("feat.ucc"),
+            schema_version: "1.0".to_string(),
+            feature: crate::domain::FeatureMetadata {
+                id: "feat-1".to_string(),
+                title: "Feat 1".to_string(),
+                created_at: "2026-05-13".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                description: "desc".to_string(),
+            },
+            tags: vec![],
+            platforms: vec![],
+            related_features: vec![],
+            artifacts: vec![crate::domain::Artifact {
+                id: "ucc-1".to_string(),
+                artifact_type: None,
+                created_at: "2026-05-13".to_string(),
+                updated_at: None,
+                last_modified_at: None,
+                title: "UC 1".to_string(),
+                priority: Priority::High,
+                related: vec![],
+                platforms: vec![],
+                steps: vec![],
+                expected: vec![],
+                tags: vec![],
+                coverage_gap_reason: None,
+            }],
+        }];
+
+        let matcher = ArtifactIdMatcher::from_features(&features);
+
+        // Positive cases
+        assert_eq!(matcher.find_artifact_ids("// ucc-1").len(), 1);
+        assert_eq!(matcher.find_artifact_ids("// ucc-1,ucc-2").len(), 1);
+        assert_eq!(matcher.find_artifact_ids("// [ucc-1]").len(), 1);
+        assert_eq!(matcher.find_artifact_ids("fn test_ucc_1()").len(), 1);
+
+        // Negative cases (no boundaries)
+        assert_eq!(matcher.find_artifact_ids("// mucc-1").len(), 0);
+        assert_eq!(matcher.find_artifact_ids("// ucc-11").len(), 0);
+        assert_eq!(matcher.find_artifact_ids("// ucc-1-extra").len(), 0);
+    }
+
+    #[test]
+    fn lint_ucc_formats_rejects_comma_in_ids() {
+        let root = Path::new("/workspace");
+        let repo = InMemoryUccRepository::default().with_file(
+            root.join("invalid.ucc"),
+            "schema_version: \"1.0\"\nfeature:\n  id: feat,1\n  title: Title\n  created_at: \"2026-05-13\"\n  description: Desc\n".to_string(),
+        );
+        let use_case = LintUccFormatsUseCase::new(repo, YamlUccParser);
+        let results = use_case.execute(&[root.to_path_buf()], true).unwrap();
+
+        assert!(!results[0].is_valid);
+        assert!(results[0]
+            .issue
+            .as_ref()
+            .unwrap()
+            .message
+            .contains("contains a comma"));
     }
 }

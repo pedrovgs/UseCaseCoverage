@@ -1,0 +1,43 @@
+---
+source: UseCaseCoverageCore/tests/e2e_test.rs
+expression: features
+---
+- sourcePath: feature.ucc
+  schemaVersion: "1.0"
+  feature:
+    id: feat-1
+    title: Multiple Artifacts Feature
+    createdAt: 2026-05-13
+    updatedAt: ~
+    lastModifiedAt: ~
+    description: A feature with multiple artifacts
+  tags: []
+  platforms: []
+  relatedFeatures: []
+  artifacts:
+    - id: ucc-1
+      artifactType: ~
+      createdAt: 2026-05-13
+      updatedAt: ~
+      lastModifiedAt: ~
+      title: Use Case 1
+      priority: high
+      related: []
+      platforms: []
+      steps: []
+      expected: []
+      tags: []
+      coverageGapReason: ~
+    - id: ucc-2
+      artifactType: ~
+      createdAt: 2026-05-13
+      updatedAt: ~
+      lastModifiedAt: ~
+      title: Use Case 2
+      priority: medium
+      related: []
+      platforms: []
+      steps: []
+      expected: []
+      tags: []
+      coverageGapReason: ~
