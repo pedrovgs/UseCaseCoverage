@@ -8,6 +8,11 @@ use serde_json::{json, Value};
 use use_case_coverage_core::coverage_percentage;
 use use_case_coverage_core::domain::{ArtifactCoverageIndex, FeatureDocument, UccLintResult};
 
+const D3_JS: &str = include_str!("../assets/vendor/d3.v7.min.js");
+const D3_CLOUD_JS: &str = include_str!("../assets/vendor/d3.layout.cloud.js");
+const CHART_JS: &str = include_str!("../assets/vendor/chart.js");
+const FLEXSEARCH_JS: &str = include_str!("../assets/vendor/flexsearch.bundle.js");
+
 /// Builds a tiny human-readable coverage report.
 #[must_use]
 pub fn build_report(covered: u32, total: u32) -> String {
@@ -28,6 +33,8 @@ pub fn generate_html_report(
     coverage_index: &ArtifactCoverageIndex,
 ) -> Result<(), std::io::Error> {
     fs::create_dir_all(output_dir)?;
+    let vendor_dir = output_dir.join("vendor");
+    fs::create_dir_all(&vendor_dir)?;
 
     let report_data = build_report_data(features, lint_results, coverage_index);
     let report_json = serde_json::to_string_pretty(&report_data)
@@ -39,6 +46,11 @@ pub fn generate_html_report(
     fs::write(output_dir.join("app.ts"), ts_template())?;
     fs::write(output_dir.join("app.js"), js_template())?;
     fs::write(output_dir.join("data.json"), &report_json)?;
+
+    fs::write(vendor_dir.join("d3.v7.min.js"), D3_JS)?;
+    fs::write(vendor_dir.join("d3.layout.cloud.js"), D3_CLOUD_JS)?;
+    fs::write(vendor_dir.join("chart.js"), CHART_JS)?;
+    fs::write(vendor_dir.join("flexsearch.bundle.js"), FLEXSEARCH_JS)?;
 
     Ok(())
 }
@@ -286,13 +298,10 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UCC Report - {report_date}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='4' y='4' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='36' y='4' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='4' y='36' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='36' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='36' y='68' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='68' width='28' height='28' rx='6' fill='%231e3656'/%3E%3Crect x='68' y='4' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3Crect x='36' y='36' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3Crect x='4' y='68' width='28' height='28' rx='8' fill='%23fcb714'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.7.31/dist/flexsearch.bundle.js"></script>
+    <script src="./vendor/chart.js"></script>
+    <script src="./vendor/flexsearch.bundle.js"></script>
   </head>
   <body>
     <script id="report-data" type="application/json">{data_json}</script>
@@ -521,14 +530,24 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
               </button>
             </div>
 
-            <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
               <section class="card">
                 <div class="card-header">
-                   <h2>Gap Reason Cloud</h2>
-                   <span class="subtitle">Visualizing common missing coverage justifications</span>
+                   <h2>Coverage gaps</h2>
+                    <span class="subtitle">Full descriptions of coverage gap reasons</span>
                 </div>
-                <div id="gapCloud" style="height: 400px; display:flex; justify-content:center; align-items:center;"></div>
+                <div id="gapSentenceCloud" style="height: 400px; display:flex; justify-content:center; align-items:center;"></div>
               </section>
+              <section class="card">
+                <div class="card-header">
+                   <h2>Common Gap Themes</h2>
+                    <span class="subtitle">Tokenized words from coverage gap reasons</span>
+                </div>
+                <div id="gapWordCloud" style="height: 400px; display:flex; justify-content:center; align-items:center;"></div>
+              </section>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
               <section class="card">
                 <div class="card-header"><h2>Top Coverage Needs</h2></div>
                 <div class="table-wrap">
@@ -544,9 +563,6 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
                   </table>
                 </div>
               </section>
-            </div>
-
-            <div style="display:grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem;">
                <section class="card">
                 <div class="card-header"><h2>Most Gaps Declared</h2></div>
                 <div class="table-wrap">
@@ -561,6 +577,9 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
                   </table>
                 </div>
               </section>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr; gap: 1.5rem;">
               <section class="card">
                 <div class="card-header"><h2>Coverage Gaps Inventory</h2></div>
                 <div class="table-wrap">
@@ -580,8 +599,8 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
           </div>
         </div>
     </div>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+    <script src="./vendor/d3.v7.min.js"></script>
+    <script src="./vendor/d3.layout.cloud.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>"##
@@ -603,7 +622,7 @@ const fn css_template() -> &'static str {
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
   background: var(--bg-main);
   color: var(--text-main);
 }
@@ -1882,6 +1901,7 @@ function renderGapsView(data) {
   ].map(w => w.toLowerCase()));
 
   const cloudWordCounts = {};
+  const cloudSentenceCounts = {};
   const processText = (text) => {
     if (!text) return;
     text.toLowerCase().split(/\W+/).forEach(word => {
@@ -1889,6 +1909,13 @@ function renderGapsView(data) {
         cloudWordCounts[word] = (cloudWordCounts[word] || 0) + 1;
       }
     });
+  };
+  const processSentence = (text) => {
+    if (!text) return;
+    const lower = text.toLowerCase().trim();
+    if (lower.length > 0) {
+      cloudSentenceCounts[lower] = (cloudSentenceCounts[lower] || 0) + 1;
+    }
   };
 
   data.features.forEach(f => {
@@ -1898,9 +1925,9 @@ function renderGapsView(data) {
 
     f.artifacts.forEach(a => {
       if (!a.isCovered) {
-        processText(a.title);
         if (a.coverageGapReason) {
           processText(a.coverageGapReason);
+          processSentence(a.coverageGapReason);
           gapsInFeature++;
           const reason = a.coverageGapReason;
           gapReasons[reason] = gapReasons[reason] || { count: 0, features: new Set() };
@@ -1953,13 +1980,15 @@ function renderGapsView(data) {
   `).join('') || '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No gap reasons found</td></tr>';
 
   if (typeof d3 !== 'undefined') {
-    const cloudWords = Object.entries(cloudWordCounts).map(([text, count]) => ({ text, count }));
-    renderGapCloud(cloudWords);
+    const wordWords = Object.entries(cloudWordCounts).map(([text, count]) => ({ text, count }));
+    const sentenceWords = Object.entries(cloudSentenceCounts).map(([text, count]) => ({ text, count }));
+    if (sentenceWords.length > 0) renderGapCloud('gapSentenceCloud', sentenceWords);
+    if (wordWords.length > 0) renderGapCloud('gapWordCloud', wordWords);
   }
 }
 
-function renderGapCloud(words) {
-  const container = document.getElementById('gapCloud');
+function renderGapCloud(containerId, words) {
+  const container = document.getElementById(containerId);
   if (!container) return;
   container.innerHTML = '';
 
@@ -1976,7 +2005,7 @@ function renderGapCloud(words) {
     .font("Impact")
     .fontSize(d => d.size)
     .on("end", (words) => {
-      const svg = d3.select("#gapCloud").append("svg")
+      const svg = d3.select("#" + containerId).append("svg")
         .attr("width", layout.size()[0])
         .attr("height", layout.size()[1])
         .append("g")
@@ -2794,10 +2823,16 @@ mod tests {
         assert!(output_dir.join("app.ts").exists());
         assert!(output_dir.join("app.js").exists());
         assert!(output_dir.join("data.json").exists());
+        assert!(output_dir.join("vendor/d3.v7.min.js").exists());
+        assert!(output_dir.join("vendor/d3.layout.cloud.js").exists());
+        assert!(output_dir.join("vendor/chart.js").exists());
+        assert!(output_dir.join("vendor/flexsearch.bundle.js").exists());
 
         let html =
             fs::read_to_string(output_dir.join("index.html")).expect("html should be readable");
         assert!(html.contains("UCC Report"));
+        assert!(html.contains("./vendor/d3.v7.min.js"));
+        assert!(html.contains("./vendor/chart.js"));
 
         let json =
             fs::read_to_string(output_dir.join("data.json")).expect("json should be readable");
