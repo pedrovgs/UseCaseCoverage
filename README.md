@@ -7,6 +7,9 @@
 
 🤖 **AI-Ready Quality Assurance**: In the age of AI-driven development, tracking the coverage of your AI agents is vital for maintaining software excellence. **UseCaseCoverage (UCC)** empowers you to measure that impact with precision and ease. ✨
 
+🧞 **Privacy First & Zero Infrastructure**: UseCaseCoverage is designed to run entirely on your local machine or within your CI pipeline. There is **no backend**, no data is ever uploaded to any server, and your specifications remain completely private and secure. Since it is a standalone CLI tool, there is no infrastructure to host or maintain.
+
+🤔 **Why is code coverage not enough?**: You may think your coverage is above 80% of the lines of code, and you still don't know how many different real use case scenarios are covered by your tests or even which tests cover specific use cases. Code coverage is designed for software engineers; use case coverage is designed for people
 ---
 
 ### 🖼️ Screenshots
@@ -25,7 +28,6 @@
 
 ---
 
-🧞 **Privacy First & Zero Infrastructure**: UseCaseCoverage is designed to run entirely on your local machine or within your CI pipeline. There is **no backend**, no data is ever uploaded to any server, and your specifications remain completely private and secure. Since it is a standalone CLI tool, there is no infrastructure to host or maintain.
 
 
 ## 📦 Installation
