@@ -9,7 +9,7 @@
 
 🧞 **Privacy First & Zero Infrastructure**: UseCaseCoverage is designed to run entirely on your local machine or within your CI pipeline. There is **no backend**, no data is ever uploaded to any server, and your specifications remain completely private and secure. Since it is a standalone CLI tool, there is no infrastructure to host or maintain.
 
-🤔 **Why is code coverage not enough?** You may think your coverage is above 80% of the lines of code, yet you still don't know how many distinct real-world use cases your tests cover, or even which tests cover specific use cases. Code coverage is designed for software engineers; use case coverage is designed for people
+🤔 **Why is code coverage not enough?** You may think your coverage is above 80% of the lines of code, yet you still don't know how many distinct real-world use cases your tests cover, or even which tests cover specific use cases. You probably know the code you don't cover with automated tests but you probably don't know how many real world use cases are impacted because of this. Code coverage is designed for software engineers; use case coverage is designed for people.
 
 ---
 
