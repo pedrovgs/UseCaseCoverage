@@ -257,11 +257,9 @@ fn run(args: &[String]) -> Result<String, String> {
 }
 
 fn author_message() -> String {
-    format!(
-        "\n\x1b[1;38;5;208m💌 All the feedback is welcome!\x1b[0m\n\
-        I want to maintain the tool free from any type of tracking so it's completely anonymous and your data only belongs to you.\n\
-        If you are using the app or if you have any feedback for me, please let me know at \x1b[1;38;5;159mpedrovicente.gomez@gmail.com\x1b[0m. Thanks! ✨\n"
-    )
+    "\n\x1b[1;38;5;208m💌 All the feedback is welcome!\x1b[0m\n\
+    I want to maintain the tool free from any type of tracking so it's completely anonymous and your data only belongs to you.\n\
+    If you are using the app or if you have any feedback for me, please let me know at \x1b[1;38;5;159mpedrovicente.gomez@gmail.com\x1b[0m. Thanks! ✨\n".to_string()
 }
 
 fn print_result(result: Result<String, String>) -> ExitCode {
