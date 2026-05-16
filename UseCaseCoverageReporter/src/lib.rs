@@ -1192,6 +1192,7 @@ function renderFeatureDetail(data, featureId) {
             </div>
             <div class="artifact-body">
               <div style="display:flex; gap:1.5rem; margin-bottom: 0.5rem; font-size:0.8rem; color:var(--text-muted); align-items:center;">
+                <div style="display:flex; align-items:center;">ID: <strong style="color:#fff; margin-left:0.4rem; margin-right:1rem;">${a.id}</strong></div>
                 <div style="display:flex; align-items:center;">Priority: ${renderPriorityIcon(a.priority)} <strong style="color:#fff">${a.priority}</strong></div>
                 ${a.platforms && a.platforms.length > 0 ? `
                   <div style="display:flex; align-items:center; gap:0.4rem;">
@@ -2277,6 +2278,7 @@ function renderFeatureDetail(data, featureId) {
             </div>
             <div class="artifact-body">
               <div style="display:flex; gap:1.5rem; margin-bottom: 0.5rem; font-size:0.8rem; color:var(--text-muted); align-items:center;">
+                <div style="display:flex; align-items:center;">ID: <strong style="color:#fff; margin-left:0.4rem; margin-right:1rem;">${a.id}</strong></div>
                 <div style="display:flex; align-items:center;">Priority: ${renderPriorityIcon(a.priority)} <strong style="color:#fff">${a.priority}</strong></div>
                 ${a.platforms && a.platforms.length > 0 ? `
                   <div style="display:flex; align-items:center; gap:0.4rem;">
