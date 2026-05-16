@@ -599,7 +599,7 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
           </div>
         </div>
         <footer class="report-footer">
-          💌 All the feedback is welcome! I want to maintain the tool free from any type of tracking so it's completely anonymous. If you are using the app or if you have any feedback for me, please let me know at <a href="mailto:pedrovicente.gomez@gmail.com">pedrovicente.gomez@gmail.com</a>. Thanks! ✨
+          💌 All the feedback is welcome! I want to maintain the tool free from any type of tracking so it's completely anonymous and your data only belongs to you. If you are using the app or if you have any feedback for me, please let me know at <a href="mailto:pedrovicente.gomez@gmail.com">pedrovicente.gomez@gmail.com</a>. Thanks! ✨
         </footer>
       </main>
     </div>
