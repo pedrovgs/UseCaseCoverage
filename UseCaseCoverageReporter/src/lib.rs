@@ -598,6 +598,10 @@ fn html_template(repo_name: &str, report_date: &str, data_json: &str) -> String 
             </div>
           </div>
         </div>
+        <footer class="report-footer">
+          💌 All the feedback is welcome! I want to maintain the tool free from any type of tracking so it's completely anonymous. If you are using the app or if you have any feedback for me, please let me know at <a href="mailto:pedrovicente.gomez@gmail.com">pedrovicente.gomez@gmail.com</a>. Thanks! ✨
+        </footer>
+      </main>
     </div>
     <script src="./vendor/d3.v7.min.js"></script>
     <script src="./vendor/d3.layout.cloud.js"></script>
@@ -883,7 +887,23 @@ tbody tr:hover { background: rgba(255,255,255,0.02); }
 .steps-list { margin: 0.5rem 0 0 1.25rem; padding: 0; }
 .steps-list li { margin-bottom: 0.25rem; }
 .expected-section { margin-top: 0.75rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
-.expected-title { font-weight: 600; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.25rem; text-transform: uppercase; }
+.report-footer {
+  margin-top: auto;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.6;
+}
+.report-footer a {
+  color: var(--text-blue);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.report-footer a:hover {
+  color: var(--accent);
+}
 "
 }
 
