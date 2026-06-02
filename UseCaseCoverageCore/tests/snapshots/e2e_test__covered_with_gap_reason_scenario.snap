@@ -1,0 +1,33 @@
+---
+source: UseCaseCoverageCore/tests/e2e_test.rs
+assertion_line: 113
+expression: features
+---
+- sourcePath: feature.ucc
+  schemaVersion: "1.0"
+  feature:
+    id: feature-covered-with-gap-reason
+    title: Feature with covered artifact and coverage gap reason
+    createdAt: 2026-06-02
+    updatedAt: ~
+    lastModifiedAt: ~
+    description: "Single artifact that has test coverage but also declares a coverage_gap_reason.\n"
+  tags: []
+  platforms: []
+  relatedFeatures: []
+  artifacts:
+    - id: ucc-001
+      artifactType: ~
+      createdAt: 2026-06-02
+      updatedAt: ~
+      lastModifiedAt: ~
+      title: Use case with partial coverage
+      priority: high
+      related: []
+      platforms: []
+      steps:
+        - Step 1
+      expected:
+        - Expected 1
+      tags: []
+      coverageGapReason: Hardware-specific behavior cannot be fully automated.

@@ -101,3 +101,25 @@ fn test_multiple_artifacts_scenario() {
     assert_eq!(index.for_artifact("ucc-1").len(), 12);
     assert_eq!(index.for_artifact("ucc-2").len(), 12);
 }
+
+#[test]
+fn test_covered_with_gap_reason_scenario() {
+    let manifest_dir =
+        std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR should be set");
+    let root =
+        Path::new(&manifest_dir).parent().unwrap().join("e2e").join("covered_with_gap_reason");
+
+    let features = parse_scenario("covered_with_gap_reason");
+    insta::assert_yaml_snapshot!(features);
+
+    let raw_features =
+        use_case_coverage_core::collect_features_from(std::slice::from_ref(&root), true).unwrap();
+    let index = use_case_coverage_core::find_artifact_coverage(&[root], &raw_features).unwrap();
+
+    assert!(index.is_covered("ucc-001"));
+    assert_eq!(index.for_artifact("ucc-001").len(), 1);
+    assert_eq!(
+        raw_features[0].artifacts[0].coverage_gap_reason.as_deref(),
+        Some("Hardware-specific behavior cannot be fully automated.")
+    );
+}

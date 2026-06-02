@@ -120,7 +120,7 @@ fn build_report_data(
             let mut feature_bugs_covered = 0_u32;
 
             for artifact in &feature.artifacts {
-                let covered = coverage_index.is_covered(&artifact.id);
+                let covered = artifact.is_covered(coverage_index);
                 if is_bug(artifact.artifact_type.as_deref()) {
                     feature_bugs += 1;
                     if covered {
@@ -158,7 +158,7 @@ fn build_report_data(
                         "updatedAt": a.updated_at,
                         "type": a.artifact_type.clone().unwrap_or_else(|| "usecase".to_string()),
                         "priority": format!("{:?}", a.priority),
-                        "isCovered": coverage_index.is_covered(&a.id),
+                        "isCovered": a.is_covered(coverage_index),
                         "coverageLocations": coverage_index.for_artifact(&a.id).iter().map(|loc| {
                             json!({
                                 "path": loc.file_path.to_string_lossy(),
@@ -253,7 +253,7 @@ fn build_growth_data(
                 if let Some((ay, am)) = parse_year_month(&artifact.created_at) {
                     if ay == y && am == m {
                         artifacts_count[idx] += 1;
-                        let covered = coverage_index.is_covered(&artifact.id);
+                        let covered = artifact.is_covered(coverage_index);
                         if is_bug(artifact.artifact_type.as_deref()) {
                             bugs_count[idx] += 1;
                             if covered {

@@ -1,0 +1,19 @@
+schema_version: "1.0"
+
+feature:
+  id: feature-covered-with-gap-reason
+  title: Feature with covered artifact and coverage gap reason
+  created_at: "2026-06-02"
+  description: >
+    Single artifact that has test coverage but also declares a coverage_gap_reason.
+
+artifacts:
+  - id: ucc-001
+    created_at: "2026-06-02"
+    title: Use case with partial coverage
+    priority: high
+    steps:
+      - Step 1
+    expected:
+      - Expected 1
+    coverage_gap_reason: "Hardware-specific behavior cannot be fully automated."

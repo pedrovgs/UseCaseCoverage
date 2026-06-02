@@ -45,6 +45,13 @@ pub struct Artifact {
     pub coverage_gap_reason: Option<String>,
 }
 
+impl Artifact {
+    #[must_use]
+    pub fn is_covered(&self, index: &ArtifactCoverageIndex) -> bool {
+        index.is_covered(&self.id) && self.coverage_gap_reason.is_none()
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ArtifactTestLocation {
     pub file_path: PathBuf,
