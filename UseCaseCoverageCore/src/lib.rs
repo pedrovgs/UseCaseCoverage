@@ -114,7 +114,7 @@ mod tests {
         assert_eq!(beta.tags, vec!["tag-one", "tag-two"]);
         assert_eq!(beta.artifacts.len(), 2);
         assert_eq!(beta.artifacts[0].priority, Priority::Medium);
-        assert!(beta.artifacts[0].related.is_empty());
+        assert_eq!(beta.artifacts[0].related, Vec::<String>::new());
 
         let bug = &beta.artifacts[1];
         assert_eq!(bug.id, "bug-001");
@@ -162,10 +162,10 @@ feature:
         let feature = &result[0];
 
         assert_eq!(feature.feature.updated_at, None);
-        assert!(feature.tags.is_empty());
-        assert!(feature.platforms.is_empty());
-        assert!(feature.related_features.is_empty());
-        assert!(feature.artifacts.is_empty());
+        assert_eq!(feature.tags, Vec::<String>::new());
+        assert_eq!(feature.platforms, Vec::<String>::new());
+        assert_eq!(feature.related_features, Vec::<String>::new());
+        assert_eq!(feature.artifacts.len(), 0);
     }
 
     fn sample_ucc(feature_id: &str, feature_title: &str) -> String {

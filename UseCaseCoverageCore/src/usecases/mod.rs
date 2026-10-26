@@ -249,73 +249,7 @@ where
                     println!("⏳ Scanned {current}/{total} files...");
                 }
                 let lines = self.repository.read_lines(file_path)?;
-                let mut matches = Vec::new();
-                let mut pending_matches: Vec<(String, usize)> = Vec::new();
-                let mut previous_was_test_attribute = false;
-
-                for (line_idx, line) in lines.iter().enumerate() {
-                    let current_line_num = line_idx + 1;
-                    let trimmed = line.trim();
-
-                    if trimmed.is_empty() {
-                        pending_matches.clear();
-                        previous_was_test_attribute = false;
-                        continue;
-                    }
-
-                    let is_comment = is_comment_line(line);
-                    let looks_like_test = looks_like_test_declaration(line);
-                    let is_test_context = looks_like_test || previous_was_test_attribute;
-
-                    if is_comment {
-                        for artifact_id in artifact_matcher.find_artifact_ids(line) {
-                            pending_matches.push((artifact_id, current_line_num));
-                        }
-                    }
-
-                    if is_test_context {
-                        // Match IDs on the current line
-                        for artifact_id in artifact_matcher.find_artifact_ids(line) {
-                            matches.push((
-                                artifact_id,
-                                ArtifactTestLocation {
-                                    file_path: file_path.clone(),
-                                    line: current_line_num,
-                                },
-                            ));
-                        }
-
-                        // Match IDs from recent comments (within 3 lines)
-                        pending_matches.retain(|(artifact_id, line_num)| {
-                            if current_line_num - *line_num <= 3 {
-                                matches.push((
-                                    artifact_id.clone(),
-                                    ArtifactTestLocation {
-                                        file_path: file_path.clone(),
-                                        line: *line_num,
-                                    },
-                                ));
-                                false // Associated with a test, remove from pending
-                            } else {
-                                true
-                            }
-                        });
-                    }
-
-                    // Clean up old pending matches that are out of window
-                    pending_matches.retain(|(_, line_num)| current_line_num - *line_num < 3);
-
-                    let current_is_test_attribute = line.to_ascii_lowercase().contains("#[test]")
-                        || line.to_ascii_lowercase().contains("@test");
-
-                    if !is_comment && !is_test_context && !current_is_test_attribute {
-                        pending_matches.clear();
-                    }
-
-                    previous_was_test_attribute = current_is_test_attribute;
-                }
-
-                Ok(matches)
+                Ok(scan_file_for_artifact_matches(file_path, &lines, &artifact_matcher))
             })
             .collect::<Result<Vec<_>, CoreError>>()?;
 
@@ -334,6 +268,107 @@ where
 
         Ok(ArtifactCoverageIndex { by_artifact_id })
     }
+}
+
+/// Scans a single test file's lines for artifact id references, associating them with the
+/// nearest test declaration (including Rust attributes such as `#[tokio::test]`,
+/// `#[wasm_bindgen_test]` or multi-line `#[cfg_attr(..., some_test_attr)]` blocks) or a comment
+/// within a 3-line window above it.
+fn scan_file_for_artifact_matches(
+    file_path: &Path,
+    lines: &[String],
+    artifact_matcher: &ArtifactIdMatcher,
+) -> Vec<(String, ArtifactTestLocation)> {
+    let mut matches = Vec::new();
+    let mut pending_matches: Vec<(String, usize)> = Vec::new();
+    let mut carried_test_attribute = false;
+    let mut open_attribute_depth: i32 = 0;
+    let mut open_attribute_is_test = false;
+
+    for (line_idx, line) in lines.iter().enumerate() {
+        let current_line_num = line_idx + 1;
+        let trimmed = line.trim();
+
+        if trimmed.is_empty() {
+            pending_matches.clear();
+            carried_test_attribute = false;
+            continue;
+        }
+
+        let is_comment = is_comment_line(line);
+        let looks_like_test = looks_like_test_declaration(line);
+        let is_test_context = looks_like_test || carried_test_attribute;
+
+        if is_comment {
+            for artifact_id in artifact_matcher.find_artifact_ids(line) {
+                pending_matches.push((artifact_id, current_line_num));
+            }
+        }
+
+        if is_test_context {
+            // Match IDs on the current line
+            for artifact_id in artifact_matcher.find_artifact_ids(line) {
+                matches.push((
+                    artifact_id,
+                    ArtifactTestLocation {
+                        file_path: file_path.to_path_buf(),
+                        line: current_line_num,
+                    },
+                ));
+            }
+
+            // Match IDs from recent comments (within 3 lines)
+            pending_matches.retain(|(artifact_id, line_num)| {
+                if current_line_num - *line_num <= 3 {
+                    matches.push((
+                        artifact_id.clone(),
+                        ArtifactTestLocation {
+                            file_path: file_path.to_path_buf(),
+                            line: *line_num,
+                        },
+                    ));
+                    false // Associated with a test, remove from pending
+                } else {
+                    true
+                }
+            });
+        }
+
+        // Clean up old pending matches that are out of window
+        pending_matches.retain(|(_, line_num)| current_line_num - *line_num < 3);
+
+        // Track Rust attributes, including multi-line `cfg_attr(...)` blocks, so that
+        // test-only macros/attributes (`#[tokio::test]`, `#[wasm_bindgen_test]`,
+        // `#[cfg_attr(..., some_test_attr)]`, stacked attributes, ...) mark the item they
+        // decorate as a test regardless of the function's own name.
+        let continues_attribute = open_attribute_depth > 0;
+        let starts_attribute = !continues_attribute && is_rust_attribute_start(trimmed);
+        let is_attribute_line = continues_attribute || starts_attribute;
+
+        if is_attribute_line {
+            if starts_attribute {
+                open_attribute_is_test = false;
+            }
+            if line_mentions_test_marker(line) {
+                open_attribute_is_test = true;
+            }
+            open_attribute_depth = (open_attribute_depth + bracket_delta(line)).max(0);
+            if open_attribute_depth == 0 {
+                carried_test_attribute = carried_test_attribute || open_attribute_is_test;
+                open_attribute_is_test = false;
+            }
+        }
+
+        if !is_comment && !is_test_context && !is_attribute_line {
+            pending_matches.clear();
+        }
+
+        if !is_attribute_line {
+            carried_test_attribute = line.to_ascii_lowercase().contains("@test");
+        }
+    }
+
+    matches
 }
 
 struct ArtifactIdMatcher {
@@ -421,6 +456,22 @@ fn normalize_artifact_id_for_test_name(artifact_id: &str) -> String {
         .chars()
         .map(|character| if character.is_ascii_alphanumeric() { character } else { '_' })
         .collect()
+}
+
+fn is_rust_attribute_start(trimmed: &str) -> bool {
+    trimmed.starts_with("#[") || trimmed.starts_with("#![")
+}
+
+fn line_mentions_test_marker(line: &str) -> bool {
+    line.to_ascii_lowercase().contains("test")
+}
+
+fn bracket_delta(line: &str) -> i32 {
+    line.chars().fold(0, |delta, character| match character {
+        '(' | '[' => delta + 1,
+        ')' | ']' => delta - 1,
+        _ => delta,
+    })
 }
 
 fn looks_like_test_declaration(line: &str) -> bool {
@@ -726,6 +777,58 @@ mod tests {
     }
 
     #[test]
+    fn find_artifact_coverage_detects_async_test_without_test_prefixed_name() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("core/tests.rs"),
+                "#[tokio::test]\nasync fn async_probe_ucc_feat_1() {}\n".to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        assert_eq!(matches.len(), 1);
+        assert_eq!(matches[0].line, 2);
+    }
+
+    #[test]
+    fn find_artifact_coverage_detects_cfg_attr_wrapped_test_without_test_prefixed_name() {
+        let root = Path::new("/workspace");
+        let repository = InMemoryUccRepository::default()
+            .with_file(root.join("feature.ucc"), sample_document("feat-1", Priority::High))
+            .with_file(
+                root.join("core/tests.rs"),
+                r#"
+#[cfg_attr(
+    all(target_arch = "wasm32", target_os = "unknown"),
+    wasm_bindgen_test::wasm_bindgen_test
+)]
+#[cfg_attr(not(all(target_arch = "wasm32", target_os = "unknown")), tokio::test)]
+async fn async_probe_ucc_feat_1() {}
+"#
+                .to_string(),
+            );
+
+        let collect = CollectFeaturesUseCase::new(repository, YamlUccParser);
+        let features = collect.execute(&[root.to_path_buf()], true).expect("features should parse");
+
+        let finder = FindArtifactCoverageUseCase::new(collect.repository);
+        let index =
+            finder.execute(&[root.to_path_buf()], &features).expect("coverage search should work");
+
+        let matches = index.for_artifact("ucc-feat-1");
+        assert_eq!(matches.len(), 1);
+        assert_eq!(matches[0].line, 7);
+    }
+
+    #[test]
     fn find_artifact_coverage_supports_comments_above_tests() {
         let root = Path::new("/workspace");
         let repository = InMemoryUccRepository::default()
@@ -856,7 +959,7 @@ fn test_one() {}
             .expect("invalid result should be present");
         assert!(!invalid.is_valid);
         let issue = invalid.issue.as_ref().expect("invalid file should include issue");
-        assert!(!issue.message.trim().is_empty());
+        assert_ne!(issue.message.trim(), "");
         assert!(issue.line.is_some() || issue.column.is_some());
     }
 
@@ -915,7 +1018,7 @@ fn test_one() {}
 
         let matcher = super::ArtifactIdMatcher::from_features(&features);
         assert!(matcher.matcher.is_none());
-        assert!(matcher.find_artifact_ids("ucc-feat-1").is_empty());
+        assert_eq!(matcher.find_artifact_ids("ucc-feat-1"), Vec::<String>::new());
     }
 
     #[test]
